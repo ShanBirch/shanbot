@@ -1,0 +1,297 @@
+import requests
+import logging
+import tempfile
+import subprocess
+import os
+import io
+import re
+from typing import Optional, Tuple
+
+# External library imports (need to be available in main script's env)
+try:
+    from google.cloud import speech_v1
+    GOOGLE_SPEECH_AVAILABLE = True
+except ImportError:
+    GOOGLE_SPEECH_AVAILABLE = False
+
+try:
+    import PIL
+    from PIL import Image
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+
+# Assuming logger and AI handler (call_gemini_with_retry) are loaded globally in main
+logger = logging.getLogger(__name__) 
+
+# --- Media Processing Functions ---
+
+def transcribe_audio_with_google(audio_bytes: bytes, ffmpeg_path: str) -> Optional[str]:
+    """
+    Transcribe audio using Google Cloud Speech-to-Text with FFmpeg conversion.
+    Requires FFMPEG_PATH to be correctly set in config.
+    """
+    if not GOOGLE_SPEECH_AVAILABLE:
+        logger.warning("Google Cloud Speech library not found, cannot transcribe.")
+        return "Audio message received (transcription unavailable: missing library)"
+    if not os.path.exists(ffmpeg_path):
+        logger.error(f"FFmpeg not found at specified path: {ffmpeg_path}. Cannot process audio.")
+        return "Audio message received (transcription unavailable: FFmpeg config error)"
+
+    temp_mp4 = None
+    temp_wav = None
+    try:
+        # Create temporary files
+        with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_mp4_f, \
+                tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as temp_wav_f:
+            temp_mp4 = temp_mp4_f.name
+            temp_wav = temp_wav_f.name
+
+            # Write the MP4 data to temp file
+            temp_mp4_f.write(audio_bytes)
+            temp_mp4_f.flush()
+
+            # Convert audio to WAV format using ffmpeg
+            ffmpeg_cmd = [
+                ffmpeg_path, # Use path from config
+                "-i", temp_mp4,
+                "-acodec", "pcm_s16le",
+                "-ar", "16000",
+                "-ac", "1",
+                "-y", # Overwrite output file if it exists
+                temp_wav
+            ]
+            logger.info(f"Running FFmpeg command: {' '.join(ffmpeg_cmd)}")
+            try:
+                # Increased timeout for potentially long conversions
+                result = subprocess.run(ffmpeg_cmd, check=True, capture_output=True, text=True, timeout=60)
+                logger.info(f"FFmpeg conversion successful: {result.stdout[:200]}...") # Log partial stdout
+            except subprocess.TimeoutExpired:
+                 logger.error(f"FFmpeg conversion timed out for {temp_mp4}")
+                 return None
+            except subprocess.CalledProcessError as e:
+                logger.error(f"FFmpeg conversion failed: {e.stderr}")
+                return None # Indicate failure
+            except Exception as ff_e:
+                 logger.error(f"Unexpected error during FFmpeg execution: {ff_e}", exc_info=True)
+                 return None
+
+            # Initialize Speech client
+            try:
+                 client = speech_v1.SpeechClient() # Assumes credentials set via GOOGLE_APPLICATION_CREDENTIALS env var
+            except Exception as client_e:
+                 logger.error(f"Failed to initialize Google Speech client: {client_e}")
+                 return "Audio message received (transcription unavailable: auth error)"
+
+            # Read the WAV audio file
+            try:
+                with open(temp_wav, "rb") as audio_file:
+                    content = audio_file.read()
+            except IOError as io_e:
+                logger.error(f"Failed to read temporary WAV file {temp_wav}: {io_e}")
+                return None
+
+            audio = speech_v1.RecognitionAudio(content=content)
+            # Consider making language_code, model etc. configurable
+            config = speech_v1.RecognitionConfig(
+                encoding=speech_v1.RecognitionConfig.AudioEncoding.LINEAR16,
+                sample_rate_hertz=16000,
+                language_code="en-AU",
+                enable_automatic_punctuation=True,
+                model="telephony_short", # Changed model - check available options
+                use_enhanced=True, 
+                # Removed audio_channel_count, enable_word_confidence, speech_contexts for simplicity unless needed
+            )
+            logger.info("Sending audio to Google Speech-to-Text API...")
+            try:
+                response = client.recognize(config=config, audio=audio)
+                logger.info("Received response from Google Speech-to-Text API.")
+            except Exception as api_e:
+                logger.error(f"Google Speech API call failed: {api_e}", exc_info=True)
+                return "Audio message received (transcription unavailable: API error)"
+
+            if response and response.results:
+                transcription = response.results[0].alternatives[0].transcript
+                logger.info(f"Successfully transcribed audio: {transcription}")
+                return transcription
+            else:
+                logger.warning(f"No transcription results received from Google Speech API. Response: {response}")
+                return None # Indicate no transcription
+
+    except Exception as e:
+        logger.error(f"Error in audio transcription process: {e}", exc_info=True)
+        return None # General failure
+    finally:
+        # Ensure temporary files are deleted
+        for temp_file in [temp_mp4, temp_wav]:
+            if temp_file and os.path.exists(temp_file):
+                try:
+                    os.unlink(temp_file)
+                    logger.debug(f"Deleted temporary file: {temp_file}")
+                except Exception as cleanup_e:
+                    logger.warning(f"Error cleaning up temp file {temp_file}: {cleanup_e}")
+
+def analyze_media_url(media_url: str, 
+                      call_gemini_func, # Pass the gemini calling function
+                      gemini_api_key: str, 
+                      gemini_pro_model: str, 
+                      gemini_flash_model: str,
+                      gemini_flash_standard: str,
+                      max_retries: int,
+                      retry_delay: int,
+                      ffmpeg_path: str # Pass ffmpeg path for audio
+                     ) -> tuple[Optional[str], Optional[str]]:
+    """
+    Downloads and processes media content, prioritizing video analysis for video files.
+    Uses passed-in function for Gemini calls.
+    """
+    if not media_url:
+        return None, None
+
+    try:
+        logger.info(f"Attempting to download media: {media_url[:100]}...")
+        # Increased timeout for potentially large media files
+        response = requests.get(media_url, stream=True, timeout=30) 
+        response.raise_for_status()
+        content_type = response.headers.get('Content-Type', '').lower()
+        # Read content carefully for large files if memory becomes an issue
+        media_bytes = response.content 
+        logger.info(f"Successfully downloaded media ({len(media_bytes)} bytes) type: {content_type}")
+
+        media_type = None
+        prompt_text = None
+        analysis_result = None # Store the result of Gemini/Transcription
+
+        # --- Image Handling ---
+        if content_type.startswith('image/'):
+            media_type = 'image'
+            logger.info("Processing as image content")
+            if PIL_AVAILABLE:
+                try:
+                    img = Image.open(io.BytesIO(media_bytes))
+                    img.verify()
+                    logger.info("PIL verification successful for image.")
+                except Exception as pil_e:
+                    logger.error(f"PIL verification failed for image data: {pil_e}")
+                    # Decide if you want to proceed without verification or fail
+                    # return None, None # Option to fail early
+            prompt_text = "Describe this image briefly, focusing on the main subject and action."
+        
+        # --- Video Handling ---
+        elif content_type.startswith('video/'): # More general video check
+            media_type = 'video'
+            logger.info("Processing as video content")
+            transcription = transcribe_audio_with_google(media_bytes, ffmpeg_path)
+            if transcription:
+                logger.info(f"Successfully transcribed audio from video: {transcription}")
+            else:
+                logger.info("Could not transcribe audio from video or transcription disabled.")
+
+            # Use a simpler, combined prompt for video - let Gemini figure out exercise/general
+            prompt_text = f"""Analyze this video clip. 
+            - If it shows an exercise, identify it and briefly comment on the form/technique. 
+            - Otherwise, describe the main visual elements and actions.
+            - If audio was transcribed as: '{transcription if transcription else '[No transcription available]'}', incorporate relevant info from the audio into your description.
+            """
+            # Removed the complex multi-stage video prompting for simplification
+
+        # --- Audio Handling ---
+        elif content_type.startswith('audio/'):
+            media_type = 'audio'
+            logger.info("Processing as audio content")
+            transcription = transcribe_audio_with_google(media_bytes, ffmpeg_path)
+            if transcription:
+                 # For pure audio, the transcription IS the result
+                 analysis_result = transcription 
+                 prompt_text = None # Skip Gemini call if transcription succeeded
+            else:
+                 logger.warning("Transcription failed for audio, falling back to Gemini audio description attempt...")
+                 prompt_text = "This is an audio file. Please describe any indicators of audio content you can detect, like speech, music, or noise."
+
+        else:
+            logger.warning(f"Unrecognized or unsupported content type: {content_type}")
+            return None, None # Explicitly return None for unsupported types
+
+        # --- Gemini Analysis (if prompt_text was set) ---
+        if prompt_text:
+            logger.info(f"Sending {media_type} to Gemini for analysis...")
+            media_part = {"mime_type": content_type, "data": media_bytes}
+            gemini_contents = [{"parts": [{"text": prompt_text}, {"inline_data": media_part}]}]
+
+            # Call Gemini using the passed-in function and retry logic
+            gemini_description = call_gemini_func(
+                gemini_pro_model, # Use Pro model for media analysis
+                str(gemini_contents), # Pass contents directly if API supports it, else format prompt
+                gemini_api_key,
+                gemini_flash_model, # Fallback model
+                gemini_flash_standard,
+                max_retries,
+                retry_delay
+            )
+            
+            if gemini_description:
+                 logger.info(f"Successfully processed {media_type} with Gemini.")
+                 analysis_result = gemini_description
+                 # Special handling for video to combine Gemini description + transcription
+                 if media_type == 'video':
+                     combined_desc = f"Video Analysis: {gemini_description}"
+                     if transcription:
+                         combined_desc += f" (Audio Transcription: {transcription})"
+                     analysis_result = combined_desc
+            else:
+                 logger.error(f"Gemini analysis failed for {media_type}.")
+                 analysis_result = f"({media_type} analysis failed)" if media_type else "(Analysis failed)"
+
+        # Return the determined media type and the final analysis result
+        return media_type, analysis_result
+
+    except requests.exceptions.RequestException as req_e:
+        logger.error(f"Failed to download media from {media_url[:100]}: {req_e}")
+        return None, None
+    except Exception as e:
+        logger.error(f"Unexpected error during media analysis for {media_url[:100]}: {e}", exc_info=True)
+        return None, None
+
+def process_conversation_for_media(conversation_text: str, analyze_media_func) -> str:
+    """
+    Detects media URLs in conversation text, analyzes them using analyze_media_func, 
+    and replaces URLs with descriptions.
+    """
+    if not conversation_text:
+        return ""
+
+    # Regex to find lookaside URLs (adjust if needed)
+    url_pattern = r"(https?://lookaside\.fbsbx\.com/ig_messaging_cdn/\?asset_id=[\w-]+&signature=[\w\-_.~]+)"
+    processed_text = conversation_text
+    urls_found = list(re.finditer(url_pattern, conversation_text))
+
+    if not urls_found:
+        # logger.debug("No media URLs found in conversation text.") # Debug level maybe
+        return conversation_text
+
+    logger.info(f"Found {len(urls_found)} potential media URLs in conversation.")
+    for match in urls_found:
+        url = match.group(1)
+        logger.info(f"Processing URL found: {url[:100]}...")
+        
+        # Call the passed-in analysis function
+        # This function now needs all the args analyze_media_url expects
+        # This implies analyze_media_func needs to be a partial or lambda in the caller
+        # OR we modify analyze_media_url signature further.
+        # Simpler for now: Assume analyze_media_func handles getting its own args.
+        media_type, result_text = analyze_media_func(url) 
+
+        replacement_text = "(Media analysis failed)" # Default placeholder
+        if media_type and result_text:
+            replacement_text = f"(Sent {media_type}: {result_text[:200]}...)" # Truncate long results
+            logger.info(f"Replacing URL with {media_type} description: {replacement_text[:100]}...")
+        else:
+            logger.warning(f"Media analysis failed or returned None for {url[:100]}")
+            # Use a more informative placeholder if type known but analysis failed
+            replacement_text = f"(Sent {media_type}, but analysis failed)" if media_type else "(Sent media, analysis failed)"
+            
+        # Replace only the first occurrence in case of duplicates in one message
+        processed_text = processed_text.replace(url, replacement_text, 1) 
+
+    logger.info("Finished processing conversation text for media.")
+    return processed_text 

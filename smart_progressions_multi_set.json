@@ -1,0 +1,4819 @@
+{
+  "Alice Forster": {
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "9",
+        "previous_weight": "0.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "9",
+        "previous_weight": "0.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "9",
+        "previous_weight": "0.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 4,
+        "weight": "2.5",
+        "reps": "9",
+        "previous_weight": "0.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 1,
+        "weight": "55",
+        "reps": "7",
+        "previous_weight": "50.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 2,
+        "weight": "55",
+        "reps": "7",
+        "previous_weight": "50.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 3,
+        "weight": "55",
+        "reps": "7",
+        "previous_weight": "50.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 4,
+        "weight": "55",
+        "reps": "7",
+        "previous_weight": "50.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 1,
+        "weight": "55",
+        "reps": "9",
+        "previous_weight": "50.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 2,
+        "weight": "55",
+        "reps": "9",
+        "previous_weight": "50.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 3,
+        "weight": "55",
+        "reps": "9",
+        "previous_weight": "50.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 1,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 2,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 3,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 1,
+        "weight": "35.0",
+        "reps": "11",
+        "previous_weight": "32.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 2,
+        "weight": "35.0",
+        "reps": "11",
+        "previous_weight": "32.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 3,
+        "weight": "35.0",
+        "reps": "11",
+        "previous_weight": "32.0",
+        "previous_reps": "10"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 1,
+        "weight": "55.0",
+        "reps": "11",
+        "previous_weight": "50.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 2,
+        "weight": "75.0",
+        "reps": "7",
+        "previous_weight": "70.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 3,
+        "weight": "80.0",
+        "reps": "7",
+        "previous_weight": "75.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 1,
+        "weight": "25.0",
+        "reps": "11",
+        "previous_weight": "22.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 2,
+        "weight": "25.0",
+        "reps": "11",
+        "previous_weight": "22.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 3,
+        "weight": "25.0",
+        "reps": "11",
+        "previous_weight": "22.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "9",
+        "previous_weight": "15.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "9",
+        "previous_weight": "15.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "7",
+        "previous_weight": "15.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 1,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 2,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 3,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 1,
+        "weight": "22.5",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 2,
+        "weight": "22.5",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 3,
+        "weight": "22.5",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "set_number": 1,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "set_number": 2,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "set_number": 3,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "set_number": 4,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "11",
+        "previous_weight": "5.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "11",
+        "previous_weight": "5.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 3,
+        "weight": "5.0",
+        "reps": "11",
+        "previous_weight": "5.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 1,
+        "weight": "50",
+        "reps": "11",
+        "previous_weight": "45.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 2,
+        "weight": "50",
+        "reps": "11",
+        "previous_weight": "45.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 3,
+        "weight": "50",
+        "reps": "11",
+        "previous_weight": "45.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 1,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "30.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 2,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "30.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 3,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "30.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 1,
+        "weight": "15.0",
+        "reps": "15",
+        "previous_weight": "12.5",
+        "previous_reps": "16"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 2,
+        "weight": "15.0",
+        "reps": "15",
+        "previous_weight": "12.5",
+        "previous_reps": "16"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 3,
+        "weight": "15.0",
+        "reps": "15",
+        "previous_weight": "12.5",
+        "previous_reps": "16"
+      }
+    ],
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 1,
+        "weight": "45.0",
+        "reps": "9",
+        "previous_weight": "40.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 2,
+        "weight": "50.0",
+        "reps": "5",
+        "previous_weight": "45.0",
+        "previous_reps": "4"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 3,
+        "weight": "50.0",
+        "reps": "5",
+        "previous_weight": "45.0",
+        "previous_reps": "4"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 4,
+        "weight": "50.0",
+        "reps": "5",
+        "previous_weight": "45.0",
+        "previous_reps": "4"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 1,
+        "weight": "20.0",
+        "reps": "9",
+        "previous_weight": "17.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 2,
+        "weight": "20.0",
+        "reps": "9",
+        "previous_weight": "17.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 3,
+        "weight": "20.0",
+        "reps": "9",
+        "previous_weight": "17.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 4,
+        "weight": "20.0",
+        "reps": "9",
+        "previous_weight": "17.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest fly",
+        "set_number": 1,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "24.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest fly",
+        "set_number": 2,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "24.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest fly",
+        "set_number": 3,
+        "weight": "27.5",
+        "reps": "9",
+        "previous_weight": "24.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 1,
+        "weight": "30",
+        "reps": "15",
+        "previous_weight": "30.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 2,
+        "weight": "30",
+        "reps": "15",
+        "previous_weight": "30.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 3,
+        "weight": "30",
+        "reps": "14",
+        "previous_weight": "30.0",
+        "previous_reps": "13"
+      }
+    ],
+    "Core Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Plank",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "45"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Plank",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "45"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Plank",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "45"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Plank",
+        "set_number": 4,
+        "weight": "2.5",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "45"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch",
+        "set_number": 1,
+        "weight": "65",
+        "reps": "15",
+        "previous_weight": "60.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch",
+        "set_number": 2,
+        "weight": "65",
+        "reps": "15",
+        "previous_weight": "60.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch",
+        "set_number": 3,
+        "weight": "65",
+        "reps": "15",
+        "previous_weight": "60.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch",
+        "set_number": 4,
+        "weight": "65",
+        "reps": "15",
+        "previous_weight": "60.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "set_number": 4,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Skull Crusher",
+        "set_number": 1,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Skull Crusher",
+        "set_number": 2,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Skull Crusher",
+        "set_number": 3,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Skull Crusher",
+        "set_number": 4,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Concentrated Bicep Curls",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Concentrated Bicep Curls",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Concentrated Bicep Curls",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      }
+    ]
+  },
+  "Elena Green": {
+    "Day 3: Upper Body Pull + Chin-up & Core": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Band pull apart",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Band pull apart",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Band pull apart",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "8",
+        "previous_weight": "0.0",
+        "previous_reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "8",
+        "previous_weight": "0.0",
+        "previous_reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "8",
+        "previous_weight": "0.0",
+        "previous_reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Bicep Curl",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "9.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Bicep Curl",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "9.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Bicep Curl",
+        "set_number": 3,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "9.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hollow Body Rocks",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hollow Body Rocks",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hollow Body Rocks",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      }
+    ],
+    "Day 1: Upper Body Push + Handstand & Core": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Press Handstand Split",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Press Handstand Split",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Press Handstand Split",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "16"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Single Arm Floor Press",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "14",
+        "previous_weight": "10.0",
+        "previous_reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Single Arm Floor Press",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "14",
+        "previous_weight": "10.0",
+        "previous_reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Single Arm Floor Press",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "14",
+        "previous_weight": "10.0",
+        "previous_reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "12",
+        "previous_weight": "4.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "12",
+        "previous_weight": "4.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 3,
+        "weight": "5.0",
+        "reps": "12",
+        "previous_weight": "5.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "14",
+        "previous_weight": "0.0",
+        "previous_reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "14",
+        "previous_weight": "0.0",
+        "previous_reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "14",
+        "previous_weight": "0.0",
+        "previous_reps": "13"
+      }
+    ],
+    "Day 2: Lower Body Strength + Kettlebell Focus": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Goblet Squat",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Goblet Squat",
+        "set_number": 2,
+        "weight": "15.0",
+        "reps": "15",
+        "previous_weight": "12.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Goblet Squat",
+        "set_number": 3,
+        "weight": "15.0",
+        "reps": "15",
+        "previous_weight": "12.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Rdls",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Rdls",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Rdls",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Swing",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "8.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Swing",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "8.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Swing",
+        "set_number": 3,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "8.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Swing",
+        "set_number": 4,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "8.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Walking Lunges",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Walking Lunges",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Walking Lunges",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "25"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "25"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "25"
+      }
+    ],
+    "Hiit + Core": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Burpees",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Burpees",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Burpees",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hollow Body Rock",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hollow Body Rock",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hollow Body Rock",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Agility: In/Out Steps",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "40"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Agility: In/Out Steps",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "40"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Agility: In/Out Steps",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "40"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Thruster",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Thruster",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Thruster",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      }
+    ]
+  },
+  "Kylie Pinder": {
+    "Push + Core Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Floor chest fly",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "15",
+        "previous_weight": "4.0",
+        "previous_reps": "30"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Floor chest fly",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "15",
+        "previous_weight": "4.0",
+        "previous_reps": "30"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Floor chest fly",
+        "set_number": 3,
+        "weight": "5.0",
+        "reps": "15",
+        "previous_weight": "4.0",
+        "previous_reps": "30"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Front Raise",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "3.5",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Front Raise",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "3.5",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Front Raise",
+        "set_number": 3,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "3.5",
+        "previous_reps": "12"
+      }
+    ],
+    "Leg Day 2": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Sumo Squat",
+        "set_number": 1,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "7.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Sumo Squat",
+        "set_number": 2,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "7.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Sumo Squat",
+        "set_number": 3,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "7.0",
+        "previous_reps": "12"
+      }
+    ],
+    "Leg Day 1": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Banded Squat",
+        "set_number": 1,
+        "weight": "7.5",
+        "reps": "15",
+        "previous_weight": "5.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Banded Squat",
+        "set_number": 2,
+        "weight": "7.5",
+        "reps": "15",
+        "previous_weight": "5.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Banded Squat",
+        "set_number": 3,
+        "weight": "7.5",
+        "reps": "15",
+        "previous_weight": "5.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Rdls",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "11",
+        "previous_weight": "5.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Rdls",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "11",
+        "previous_weight": "5.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Rdls",
+        "set_number": 3,
+        "weight": "5.0",
+        "reps": "11",
+        "previous_weight": "5.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Calf Raises",
+        "set_number": 1,
+        "weight": "10",
+        "reps": "15",
+        "previous_weight": "5.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Calf Raises",
+        "set_number": 2,
+        "weight": "10",
+        "reps": "15",
+        "previous_weight": "5.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Calf Raises",
+        "set_number": 3,
+        "weight": "10",
+        "reps": "15",
+        "previous_weight": "5.0",
+        "previous_reps": "20"
+      }
+    ],
+    "Pull + Core Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Upright Row",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Upright Row",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Upright Row",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Upright Row",
+        "set_number": 4,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "15"
+      }
+    ]
+  },
+  "Anna Somogyi": {
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "9",
+        "previous_weight": "0.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "9",
+        "previous_weight": "0.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "9",
+        "previous_weight": "0.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 4,
+        "weight": "2.5",
+        "reps": "9",
+        "previous_weight": "0.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 1,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "25.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 2,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "25.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 3,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "30.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 4,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "30.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 1,
+        "weight": "20",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 2,
+        "weight": "20",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 3,
+        "weight": "25",
+        "reps": "15",
+        "previous_weight": "20.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 4,
+        "weight": "25",
+        "reps": "15",
+        "previous_weight": "20.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 1,
+        "weight": "15.0",
+        "reps": "9",
+        "previous_weight": "12.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 2,
+        "weight": "15.0",
+        "reps": "9",
+        "previous_weight": "12.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 3,
+        "weight": "15.0",
+        "reps": "9",
+        "previous_weight": "12.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 4,
+        "weight": "15.0",
+        "reps": "9",
+        "previous_weight": "12.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 4,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 1,
+        "weight": "22.5",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 2,
+        "weight": "32.5",
+        "reps": "14",
+        "previous_weight": "30.0",
+        "previous_reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 3,
+        "weight": "35.0",
+        "reps": "14",
+        "previous_weight": "32.5",
+        "previous_reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 4,
+        "weight": "35.0",
+        "reps": "14",
+        "previous_weight": "32.5",
+        "previous_reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "12",
+        "previous_weight": "10.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "12",
+        "previous_weight": "10.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "12",
+        "previous_weight": "10.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 4,
+        "weight": "12.5",
+        "reps": "12",
+        "previous_weight": "10.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "12",
+        "previous_weight": "5.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "12",
+        "previous_weight": "5.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 3,
+        "weight": "5.0",
+        "reps": "12",
+        "previous_weight": "5.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 4,
+        "weight": "5.0",
+        "reps": "12",
+        "previous_weight": "5.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 1,
+        "weight": "15",
+        "reps": "12",
+        "previous_weight": "10.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 2,
+        "weight": "25",
+        "reps": "12",
+        "previous_weight": "20.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 3,
+        "weight": "25",
+        "reps": "12",
+        "previous_weight": "20.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 4,
+        "weight": "25",
+        "reps": "12",
+        "previous_weight": "20.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 4,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      }
+    ],
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 1,
+        "weight": "22.5",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 2,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 3,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 4,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "11",
+        "previous_weight": "8.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "11",
+        "previous_weight": "8.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 3,
+        "weight": "10.0",
+        "reps": "11",
+        "previous_weight": "8.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 4,
+        "weight": "10.0",
+        "reps": "11",
+        "previous_weight": "8.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 5,
+        "weight": "10.0",
+        "reps": "11",
+        "previous_weight": "8.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Press",
+        "set_number": 1,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "4.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Press",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Press",
+        "set_number": 3,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Press",
+        "set_number": 4,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "3.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Press",
+        "set_number": 5,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Fly",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Fly",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Fly",
+        "set_number": 3,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Fly",
+        "set_number": 4,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Fly",
+        "set_number": 5,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "13",
+        "previous_weight": "8.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 2,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "4.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 3,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "4.0",
+        "previous_reps": "12"
+      }
+    ]
+  },
+  "Kristy Cooper": {
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Press",
+        "set_number": 1,
+        "weight": "37.5",
+        "reps": "7",
+        "previous_weight": "35.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Press",
+        "set_number": 2,
+        "weight": "37.5",
+        "reps": "7",
+        "previous_weight": "35.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Press",
+        "set_number": 3,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Press",
+        "set_number": 4,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Press",
+        "set_number": 5,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "7",
+        "previous_weight": "15.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "7",
+        "previous_weight": "15.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "7",
+        "previous_weight": "15.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "7",
+        "previous_weight": "15.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 2,
+        "weight": "20.0",
+        "reps": "7",
+        "previous_weight": "17.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 3,
+        "weight": "20.0",
+        "reps": "7",
+        "previous_weight": "17.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 4,
+        "weight": "20.0",
+        "reps": "7",
+        "previous_weight": "17.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 5,
+        "weight": "20.0",
+        "reps": "7",
+        "previous_weight": "17.5",
+        "previous_reps": "6"
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Standing Lateral Raise",
+        "set_number": 1,
+        "weight": "7.5",
+        "reps": "7",
+        "previous_weight": "5.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Standing Lateral Raise",
+        "set_number": 2,
+        "weight": "7.5",
+        "reps": "7",
+        "previous_weight": "5.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Standing Lateral Raise",
+        "set_number": 3,
+        "weight": "7.5",
+        "reps": "7",
+        "previous_weight": "5.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Shoulder Press",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "7",
+        "previous_weight": "9.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Shoulder Press",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "7",
+        "previous_weight": "9.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Shoulder Press",
+        "set_number": 3,
+        "weight": "10.0",
+        "reps": "7",
+        "previous_weight": "9.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Shoulder Press",
+        "set_number": 4,
+        "weight": "10.0",
+        "reps": "7",
+        "previous_weight": "9.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Woodchop",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "7",
+        "previous_weight": "10.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Woodchop",
+        "set_number": 2,
+        "weight": "15.0",
+        "reps": "7",
+        "previous_weight": "12.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Woodchop",
+        "set_number": 3,
+        "weight": "15.0",
+        "reps": "7",
+        "previous_weight": "12.5",
+        "previous_reps": "6"
+      }
+    ],
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "7",
+        "previous_weight": "10.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "7",
+        "previous_weight": "10.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "7",
+        "previous_weight": "10.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row",
+        "set_number": 1,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row",
+        "set_number": 2,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row",
+        "set_number": 3,
+        "weight": "40.0",
+        "reps": "7",
+        "previous_weight": "37.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bent Over Row",
+        "set_number": 1,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bent Over Row",
+        "set_number": 2,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bent Over Row",
+        "set_number": 3,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "7",
+        "previous_weight": "15.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 2,
+        "weight": "20.0",
+        "reps": "7",
+        "previous_weight": "17.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 3,
+        "weight": "20.0",
+        "reps": "7",
+        "previous_weight": "17.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 1,
+        "weight": "15.0",
+        "reps": "13",
+        "previous_weight": "12.5",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Angled Machine Leg Press",
+        "set_number": 1,
+        "weight": "160",
+        "reps": "7",
+        "previous_weight": "153.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Angled Machine Leg Press",
+        "set_number": 2,
+        "weight": "170",
+        "reps": "7",
+        "previous_weight": "163.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Angled Machine Leg Press",
+        "set_number": 3,
+        "weight": "170",
+        "reps": "7",
+        "previous_weight": "163.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Angled Machine Leg Press",
+        "set_number": 4,
+        "weight": "170",
+        "reps": "7",
+        "previous_weight": "163.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Goblet Squat Pause",
+        "set_number": 1,
+        "weight": "22.5",
+        "reps": "7",
+        "previous_weight": "20.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Goblet Squat Pause",
+        "set_number": 2,
+        "weight": "25.0",
+        "reps": "7",
+        "previous_weight": "22.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Goblet Squat Pause",
+        "set_number": 3,
+        "weight": "25.0",
+        "reps": "7",
+        "previous_weight": "22.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Hip Adduction",
+        "set_number": 1,
+        "weight": "40",
+        "reps": "7",
+        "previous_weight": "35.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Hip Adduction",
+        "set_number": 2,
+        "weight": "40",
+        "reps": "7",
+        "previous_weight": "35.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Hip Adduction",
+        "set_number": 3,
+        "weight": "40",
+        "reps": "7",
+        "previous_weight": "35.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Leg Quad Extension",
+        "set_number": 1,
+        "weight": "22.5",
+        "reps": "7",
+        "previous_weight": "19.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Leg Quad Extension",
+        "set_number": 2,
+        "weight": "25.0",
+        "reps": "7",
+        "previous_weight": "21.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Leg Quad Extension",
+        "set_number": 3,
+        "weight": "25.0",
+        "reps": "7",
+        "previous_weight": "21.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lying Leg Curl",
+        "set_number": 1,
+        "weight": "30",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lying Leg Curl",
+        "set_number": 2,
+        "weight": "30",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lying Leg Curl",
+        "set_number": 3,
+        "weight": "30",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      }
+    ]
+  },
+  "Nicole Lynch": {
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 4,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 1,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 2,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 3,
+        "weight": "40",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 4,
+        "weight": "40",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 1,
+        "weight": "35",
+        "reps": "9",
+        "previous_weight": "30.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 2,
+        "weight": "40",
+        "reps": "9",
+        "previous_weight": "35.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 3,
+        "weight": "40",
+        "reps": "9",
+        "previous_weight": "35.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 1,
+        "weight": "20.0",
+        "reps": "9",
+        "previous_weight": "17.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 2,
+        "weight": "20.0",
+        "reps": "9",
+        "previous_weight": "17.5",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 3,
+        "weight": "22.5",
+        "reps": "7",
+        "previous_weight": "20.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 1,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 2,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 3,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 1,
+        "weight": "35.0",
+        "reps": "11",
+        "previous_weight": "32.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 2,
+        "weight": "45.0",
+        "reps": "11",
+        "previous_weight": "40.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 3,
+        "weight": "50.0",
+        "reps": "12",
+        "previous_weight": "45.0",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 1,
+        "weight": "15.0",
+        "reps": "13",
+        "previous_weight": "12.5",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 4,
+        "weight": "20.0",
+        "reps": "11",
+        "previous_weight": "17.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 3,
+        "weight": "15.0",
+        "reps": "12",
+        "previous_weight": "12.5",
+        "previous_reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 1,
+        "weight": "37.5",
+        "reps": "13",
+        "previous_weight": "35.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 2,
+        "weight": "37.5",
+        "reps": "13",
+        "previous_weight": "35.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 3,
+        "weight": "42.5",
+        "reps": "13",
+        "previous_weight": "40.0",
+        "previous_reps": "12"
+      }
+    ],
+    "Chest + Arms": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "set_number": 1,
+        "weight": "22.5",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "set_number": 2,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "set_number": 3,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "set_number": 4,
+        "weight": "32.5",
+        "reps": "5",
+        "previous_weight": "30.0",
+        "previous_reps": "4"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "set_number": 5,
+        "weight": "32.5",
+        "reps": "7",
+        "previous_weight": "30.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 2,
+        "weight": "15.0",
+        "reps": "13",
+        "previous_weight": "12.5",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 3,
+        "weight": "15.0",
+        "reps": "13",
+        "previous_weight": "12.5",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 4,
+        "weight": "17.5",
+        "reps": "7",
+        "previous_weight": "15.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 5,
+        "weight": "17.5",
+        "reps": "7",
+        "previous_weight": "15.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Dip",
+        "set_number": 1,
+        "weight": "20",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Dip",
+        "set_number": 2,
+        "weight": "30",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Dip",
+        "set_number": 3,
+        "weight": "30",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Dip",
+        "set_number": 4,
+        "weight": "30",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Dip",
+        "set_number": 5,
+        "weight": "30",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 2,
+        "weight": "20",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 3,
+        "weight": "20",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 4,
+        "weight": "20",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 5,
+        "weight": "30",
+        "reps": "7",
+        "previous_weight": "25.0",
+        "previous_reps": "6"
+      }
+    ]
+  },
+  "Raechel Muller": {
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 1,
+        "weight": "20",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 2,
+        "weight": "30",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 3,
+        "weight": "30",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 1,
+        "weight": "25",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 2,
+        "weight": "25",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 3,
+        "weight": "25",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 1,
+        "weight": "22.5",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 2,
+        "weight": "22.5",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 3,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "set_number": 4,
+        "weight": "27.5",
+        "reps": "11",
+        "previous_weight": "25.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 1,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 2,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "9",
+        "previous_weight": "16.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "set_number": 4,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.0",
+        "previous_reps": "10"
+      }
+    ],
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "16.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "16.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 3,
+        "weight": "22.5",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "set_number": 4,
+        "weight": "22.5",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest fly",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "16.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest fly",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "16.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest fly",
+        "set_number": 3,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "24.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 2,
+        "weight": "20",
+        "reps": "6",
+        "previous_weight": "20.0",
+        "previous_reps": "5"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 4,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "set_number": 4,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "set_number": 4,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 3,
+        "weight": "22.5",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 4,
+        "weight": "27.5",
+        "reps": "13",
+        "previous_weight": "25.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "13",
+        "previous_weight": "0.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 2,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "6.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 3,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "6.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 1,
+        "weight": "20",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 2,
+        "weight": "20",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 3,
+        "weight": "25",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 4,
+        "weight": "25",
+        "reps": "13",
+        "previous_weight": "20.0",
+        "previous_reps": "12"
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "set_number": 4,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "set_number": 4,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "set_number": 4,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "15.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "13",
+        "previous_weight": "10.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 3,
+        "weight": "15.0",
+        "reps": "13",
+        "previous_weight": "12.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "set_number": 4,
+        "weight": "15.0",
+        "reps": "13",
+        "previous_weight": "12.0",
+        "previous_reps": "12"
+      }
+    ]
+  },
+  "Shane Minahan": {
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "B.B Back Squat",
+        "set_number": 1,
+        "weight": "22.5",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "B.B Back Squat",
+        "set_number": 2,
+        "weight": "22.5",
+        "reps": "7",
+        "previous_weight": "20.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "B.B Back Squat",
+        "set_number": 3,
+        "weight": "32.5",
+        "reps": "7",
+        "previous_weight": "30.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "B.B Back Squat",
+        "set_number": 4,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "B.B Back Squat",
+        "set_number": 5,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Leg Press",
+        "set_number": 1,
+        "weight": "35",
+        "reps": "11",
+        "previous_weight": "30.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Leg Press",
+        "set_number": 2,
+        "weight": "55",
+        "reps": "11",
+        "previous_weight": "50.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Leg Press",
+        "set_number": 3,
+        "weight": "55",
+        "reps": "11",
+        "previous_weight": "50.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Leg Press",
+        "set_number": 4,
+        "weight": "65",
+        "reps": "11",
+        "previous_weight": "60.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Box Pistol Squat",
+        "set_number": 1,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Box Pistol Squat",
+        "set_number": 2,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Box Pistol Squat",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Seated Shoulder Press",
+        "set_number": 1,
+        "weight": "25.0",
+        "reps": "11",
+        "previous_weight": "22.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Seated Shoulder Press",
+        "set_number": 2,
+        "weight": "25.0",
+        "reps": "7",
+        "previous_weight": "22.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Seated Shoulder Press",
+        "set_number": 3,
+        "weight": "25.0",
+        "reps": "7",
+        "previous_weight": "22.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Seated Shoulder Press",
+        "set_number": 4,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "24.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Seated Shoulder Press",
+        "set_number": 5,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "26.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Reverse Fly",
+        "set_number": 1,
+        "weight": "15",
+        "reps": "11",
+        "previous_weight": "8.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Reverse Fly",
+        "set_number": 2,
+        "weight": "15",
+        "reps": "11",
+        "previous_weight": "8.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Reverse Fly",
+        "set_number": 3,
+        "weight": "15",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Reverse Fly",
+        "set_number": 4,
+        "weight": "15",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Rear Delt Fly",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "14.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Rear Delt Fly",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "14.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Rear Delt Fly",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "14.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Upright Row",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Upright Row",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "11",
+        "previous_weight": "15.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Upright Row",
+        "set_number": 3,
+        "weight": "22.5",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Upright Row",
+        "set_number": 4,
+        "weight": "22.5",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell 21",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "8.0",
+        "previous_reps": "21"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell 21",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "8.0",
+        "previous_reps": "21"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell 21",
+        "set_number": 3,
+        "weight": "10.0",
+        "reps": "15",
+        "previous_weight": "8.0",
+        "previous_reps": "21"
+      }
+    ],
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "set_number": 1,
+        "weight": "55.0",
+        "reps": "11",
+        "previous_weight": "50.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "set_number": 2,
+        "weight": "65.0",
+        "reps": "7",
+        "previous_weight": "60.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "set_number": 3,
+        "weight": "75.0",
+        "reps": "7",
+        "previous_weight": "70.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 1,
+        "weight": "25.0",
+        "reps": "11",
+        "previous_weight": "22.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 2,
+        "weight": "25.0",
+        "reps": "7",
+        "previous_weight": "22.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 3,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "24.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 4,
+        "weight": "27.5",
+        "reps": "7",
+        "previous_weight": "26.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Chest Fly",
+        "set_number": 1,
+        "weight": "82.5",
+        "reps": "11",
+        "previous_weight": "81.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Chest Fly",
+        "set_number": 2,
+        "weight": "82.5",
+        "reps": "11",
+        "previous_weight": "81.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Chest Fly",
+        "set_number": 3,
+        "weight": "82.5",
+        "reps": "9",
+        "previous_weight": "81.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Chest Fly",
+        "set_number": 4,
+        "weight": "82.5",
+        "reps": "9",
+        "previous_weight": "81.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rope Standing Overhead Tricep Extension",
+        "set_number": 1,
+        "weight": "25",
+        "reps": "13",
+        "previous_weight": "23.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rope Standing Overhead Tricep Extension",
+        "set_number": 2,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "30.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rope Standing Overhead Tricep Extension",
+        "set_number": 3,
+        "weight": "30",
+        "reps": "13",
+        "previous_weight": "30.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rope Standing Overhead Tricep Extension",
+        "set_number": 4,
+        "weight": "35",
+        "reps": "13",
+        "previous_weight": "32.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "14.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "14.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "set_number": 3,
+        "weight": "17.5",
+        "reps": "13",
+        "previous_weight": "14.0",
+        "previous_reps": "12"
+      }
+    ]
+  },
+  "Jen Frayne": {
+    "Full Body": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Squat",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Squat",
+        "set_number": 2,
+        "weight": "22.5",
+        "reps": "11",
+        "previous_weight": "20.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Squat",
+        "set_number": 3,
+        "weight": "32.5",
+        "reps": "11",
+        "previous_weight": "30.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Squat",
+        "set_number": 4,
+        "weight": "45.0",
+        "reps": "11",
+        "previous_weight": "40.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Squat",
+        "set_number": 5,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Squat",
+        "set_number": 6,
+        "weight": "55.0",
+        "reps": "7",
+        "previous_weight": "50.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "11",
+        "previous_weight": "7.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 4,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "set_number": 5,
+        "weight": "15.0",
+        "reps": "11",
+        "previous_weight": "12.5",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row Wide Grip",
+        "set_number": 1,
+        "weight": "37.5",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row Wide Grip",
+        "set_number": 2,
+        "weight": "45.0",
+        "reps": "11",
+        "previous_weight": "40.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row Wide Grip",
+        "set_number": 3,
+        "weight": "50.0",
+        "reps": "7",
+        "previous_weight": "45.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row Wide Grip",
+        "set_number": 4,
+        "weight": "50.0",
+        "reps": "7",
+        "previous_weight": "45.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Lat Pull Down",
+        "set_number": 1,
+        "weight": "30",
+        "reps": "11",
+        "previous_weight": "30.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Lat Pull Down",
+        "set_number": 2,
+        "weight": "40",
+        "reps": "11",
+        "previous_weight": "35.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Lat Pull Down",
+        "set_number": 3,
+        "weight": "40",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Lat Pull Down",
+        "set_number": 4,
+        "weight": "40",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch Oblique Twist",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "11",
+        "previous_weight": "8.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch Oblique Twist",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "9.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch Oblique Twist",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch Oblique Twist",
+        "set_number": 4,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "11.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch Oblique Twist",
+        "set_number": 5,
+        "weight": "15.0",
+        "reps": "7",
+        "previous_weight": "12.0",
+        "previous_reps": "6"
+      }
+    ]
+  },
+  "Jo Schiavetta": {
+    "Leg Day Rehab": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Banded Clam",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Banded Clam",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Banded Clam",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 1,
+        "weight": "15",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 2,
+        "weight": "20",
+        "reps": "15",
+        "previous_weight": "15.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 3,
+        "weight": "20",
+        "reps": "15",
+        "previous_weight": "15.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "set_number": 4,
+        "weight": "20",
+        "reps": "15",
+        "previous_weight": "15.0",
+        "previous_reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Single Leg Kickback",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "2.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Single Leg Kickback",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "3.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Single Leg Kickback",
+        "set_number": 3,
+        "weight": "7.5",
+        "reps": "13",
+        "previous_weight": "4.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Single Leg Adduction",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "2.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Single Leg Adduction",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "2.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Single Leg Adduction",
+        "set_number": 3,
+        "weight": "5.0",
+        "reps": "13",
+        "previous_weight": "2.0",
+        "previous_reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 1,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 2,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 4,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 5,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "20"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 1,
+        "weight": "17.5",
+        "reps": "15",
+        "previous_weight": "15.0",
+        "previous_reps": "200"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 2,
+        "weight": "17.5",
+        "reps": "15",
+        "previous_weight": "15.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 3,
+        "weight": "20.0",
+        "reps": "15",
+        "previous_weight": "17.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "set_number": 4,
+        "weight": "20.0",
+        "reps": "15",
+        "previous_weight": "17.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "set_number": 3,
+        "weight": "0.0",
+        "reps": "11",
+        "previous_weight": "0.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 1,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 2,
+        "weight": "0.0",
+        "reps": "15",
+        "previous_weight": "0.0",
+        "previous_reps": "20"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "15",
+        "previous_weight": "10.0",
+        "previous_reps": "23"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "set_number": 4,
+        "weight": "22.5",
+        "reps": "15",
+        "previous_weight": "20.0",
+        "previous_reps": "20"
+      }
+    ]
+  },
+  "Noushi Puddy": {
+    "Lower": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deadlift",
+        "set_number": 1,
+        "weight": "45.0",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deadlift",
+        "set_number": 2,
+        "weight": "55.0",
+        "reps": "7",
+        "previous_weight": "50.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deadlift",
+        "set_number": 3,
+        "weight": "65.0",
+        "reps": "7",
+        "previous_weight": "60.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deadlift",
+        "set_number": 4,
+        "weight": "75.0",
+        "reps": "7",
+        "previous_weight": "70.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deadlift",
+        "set_number": 5,
+        "weight": "82.5",
+        "reps": "5",
+        "previous_weight": "80.0",
+        "previous_reps": "4"
+      }
+    ],
+    "Back and Biceps": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rear Delt Row",
+        "set_number": 1,
+        "weight": "5.0",
+        "reps": "7",
+        "previous_weight": "3.4",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rear Delt Row",
+        "set_number": 2,
+        "weight": "5.0",
+        "reps": "7",
+        "previous_weight": "3.4",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rear Delt Row",
+        "set_number": 3,
+        "weight": "2.5",
+        "reps": "11",
+        "previous_weight": "1.1",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 1,
+        "weight": "15",
+        "reps": "7",
+        "previous_weight": "10.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 2,
+        "weight": "15",
+        "reps": "7",
+        "previous_weight": "10.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 3,
+        "weight": "15",
+        "reps": "7",
+        "previous_weight": "10.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 4,
+        "weight": "20",
+        "reps": "7",
+        "previous_weight": "12.5",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "set_number": 5,
+        "weight": "15",
+        "reps": "11",
+        "previous_weight": "10.0",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kneeling Single Arm rows",
+        "set_number": 1,
+        "weight": "7.5",
+        "reps": "11",
+        "previous_weight": "5.7",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kneeling Single Arm rows",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "11",
+        "previous_weight": "7.9",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kneeling Single Arm rows",
+        "set_number": 3,
+        "weight": "12.5",
+        "reps": "11",
+        "previous_weight": "10.2",
+        "previous_reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Overhead Push",
+        "set_number": 1,
+        "weight": "10.0",
+        "reps": "7",
+        "previous_weight": "8.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Overhead Push",
+        "set_number": 2,
+        "weight": "10.0",
+        "reps": "7",
+        "previous_weight": "8.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Overhead Push",
+        "set_number": 3,
+        "weight": "7.5",
+        "reps": "7",
+        "previous_weight": "6.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Overhead Push",
+        "set_number": 4,
+        "weight": "7.5",
+        "reps": "7",
+        "previous_weight": "6.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Overhead Push",
+        "set_number": 5,
+        "weight": "7.5",
+        "reps": "7",
+        "previous_weight": "7.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 1,
+        "weight": "40",
+        "reps": "7",
+        "previous_weight": "40.0",
+        "previous_reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 2,
+        "weight": "40",
+        "reps": "9",
+        "previous_weight": "35.0",
+        "previous_reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "set_number": 3,
+        "weight": "30",
+        "reps": "11",
+        "previous_weight": "30.0",
+        "previous_reps": "10"
+      }
+    ]
+  }
+}

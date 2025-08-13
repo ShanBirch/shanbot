@@ -1,0 +1,65 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-15 09:05:55
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9th-15th, 2025.  This is determined by the number of completed checkmarks and recent nutrition and weight tracking entries.
+
+
+**DETAILED WORKOUT ANALYSIS (June 9-15, 2025):**
+
+* **Completed Workouts:**
+    * Chest Day - June 9th
+    * Shoulder Day - June 10th
+    * Walking - June 9th
+    * Walking - June 10th
+    * Core Day - June 11th
+    * Walking - June 11th
+    * Back Day - June 12th
+    * Walking - June 12th
+    * Workout of the day - June 6th (This is technically the previous week, but it's close and includes weight data, so including it for completeness)
+
+* **Incomplete Workouts:**
+    * Resistance Training - June 9th
+    * Resistance Training - June 10th
+    * Resistance Training - June 11th
+    * Resistance Training - June 12th
+    * Leg Day - June 10th (This is technically from the previous week but is part of this week's visible data)
+
+
+**DETAILED NUTRITION TRACKING (June 9-15, 2025):**
+
+* June 9th: 1442.78 Cals / 3 Meals
+* June 10th: 1380.44 Cals / 4 Meals
+* June 11th: 1353.15 Cals / 4 Meals
+* June 12th: 690.62 Cals / 3 Meals
+* June 6th: 1455.78 Cals / 4 Meals (Technically previous week)
+* June 13th: NO NUTRITION TRACKED
+* June 14th: NO NUTRITION TRACKED
+* June 15th: NO NUTRITION TRACKED
+
+**DETAILED WALKING/CARDIO TRACKING (June 9-15, 2025):**
+
+* June 9th: Walking ✓
+* June 10th: Walking ✓
+* June 11th: Walking ✓
+* June 12th: Walking ✓
+
+**WEIGHT/BODY METRICS (June 9-15, 2025):**
+
+* June 6th: 79.1 kg
+* June 13th: 78.9 kg
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed Items:** 11 (includes walking and workout entries)
+* **Incomplete Items:** 5 (includes walking and workout entries)
+* **Adherence Percentage:**  68.75% (11/16)
+
+**Patterns and Concerns:**
+
+* There are multiple incomplete workout entries. Reasons for this need to be addressed.
+* Nutrition tracking is inconsistent; a few days are missing data, suggesting the client needs to focus on daily logging.  
+* The adherence is less than ideal ( below 70%) and requires attention to maintain consistency and achieve the training goals.

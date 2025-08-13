@@ -1,0 +1,68 @@
+{
+    "name": "Alice Forster",
+    "business_name": "Coco's",
+    "date_range": "16 June - 22 June",
+    "start_weight": "Not Recorded",
+    "current_weight": "Not Recorded",
+    "weight_loss": 0,
+    "weight_change": 0,
+    "total_weight_change": 0,
+    "weight_trend": "Not Recorded",
+    "weight_start_date": "Not Recorded",
+    "weight_current_date": "Not Recorded",
+    "weight_goal": false,
+    "current_weight_message": "Let's focus on consistent weight tracking this week to see your progress!",
+    "workouts_this_week": 0,
+    "workout_types": [],
+    "total_reps": 0,
+    "total_sets": 0,
+    "total_weight_lifted": 0,
+    "workload_increase": -100.0,
+    "calories_consumed": "Not Recorded",
+    "protein_consumed": "Not Recorded",
+    "fats_consumed": "Not Recorded",
+    "carbs_consumed": "Not Recorded",
+    "nutrition_tracking_consistent": true,
+    "nutrition_tracking_days": 0,
+    "nutrition_consistency_message": "",
+    "step_count": "Not Recorded",
+    "highest_steps": "Not Recorded",
+    "steps_trend": "Not Recorded",
+    "sleep_hours": "Not Recorded",
+    "most_improved_exercise": {
+        "name": "N/A",
+        "improvement_type": "none",
+        "current_performance_desc": "No workouts logged this week",
+        "improvement_highlight": ""
+    },
+    "personalized_message": "Hey Alice! Keep pushing towards your fitness goals this week! You've got this.",
+    "top_exercises": [
+        {
+            "name": "Barbell Bench Chest Press",
+            "improvement": -100.0
+        },
+        {
+            "name": "B.B Back Squat",
+            "improvement": 0
+        },
+        {
+            "name": "Lat Pull Down Wide Grip",
+            "improvement": -100.0
+        }
+    ],
+    "has_weight_data": false,
+    "has_steps_data": false,
+    "has_sleep_data": false,
+    "has_nutrition_data": false,
+    "has_up_to_date_photos": false,
+    "has_workout_data": false,
+    "has_workload_data": false,
+    "has_exercise_data": true,
+    "has_reliable_weight_data": false,
+    "bodyweight_analysis_for_prompt": "No bodyweight data recorded for the current week.",
+    "nutrition_analysis_for_prompt": "Calories & Protein: Parsing failed.\nFats & Carbs: Could not parse Fats/Carbs analysis text.",
+    "sleep_analysis_for_prompt": "Analysis could not be parsed.",
+    "steps_analysis_for_prompt": "```data\nMEETS_10K_GOAL: sometimes\nAVERAGE_STEPS: ~10.6k\nHIGHEST_STEPS: ~16.5k\nLOWEST_STEPS: ~3.5k\nTREND: inconsistent\n```\nGreat job hitting some incredible step counts this past week, reaching up to ~16.5k steps on your best days! You've proven you can go above and beyond the 10k goal. Let's focus on bringing those lower step days up consistently to 10k. Keeping your steps elevated every day will help maintain a higher metabolism and significantly accelerate your progress towards your fitness goals!",
+    "workout_breakdown": [],
+    "most_improved_lifts_details": []
+}

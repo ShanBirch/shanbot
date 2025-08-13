@@ -1,0 +1,182 @@
+[
+  {
+    "timestamp": "2025-07-04T14:40:48.987973",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 71,
+    "max_users_limit": null,
+    "stats": {
+      "total_processed": 75,
+      "already_in_db": 55,
+      "newly_added": 0,
+      "already_messaged": 68,
+      "bio_analyzed": 35,
+      "dms_sent": 0,
+      "errors": 7
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T17:38:04.788278",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 70,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 1,
+      "newly_added": 0,
+      "already_messaged": 0,
+      "bio_analyzed": 1,
+      "dms_sent": 1,
+      "errors": 0
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T17:34:18.264343",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 50,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 0,
+      "newly_added": 0,
+      "already_messaged": 0,
+      "bio_analyzed": 1,
+      "dms_sent": 1,
+      "errors": 0
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T17:15:26.915720",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 45,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 1,
+      "newly_added": 0,
+      "already_messaged": 0,
+      "bio_analyzed": 1,
+      "dms_sent": 0,
+      "errors": 1
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T16:59:04.962019",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 35,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 1,
+      "newly_added": 0,
+      "already_messaged": 0,
+      "bio_analyzed": 1,
+      "dms_sent": 0,
+      "errors": 1
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T16:59:04.409502",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 40,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 1,
+      "newly_added": 0,
+      "already_messaged": 0,
+      "bio_analyzed": 1,
+      "dms_sent": 0,
+      "errors": 1
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T16:40:43.165752",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 30,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 1,
+      "newly_added": 0,
+      "already_messaged": 0,
+      "bio_analyzed": 0,
+      "dms_sent": 0,
+      "errors": 1
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T16:32:04.007965",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 25,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 1,
+      "newly_added": 0,
+      "already_messaged": 0,
+      "bio_analyzed": 1,
+      "dms_sent": 0,
+      "errors": 1
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T16:18:16.221866",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 12,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 1,
+      "newly_added": 0,
+      "already_messaged": 0,
+      "bio_analyzed": 1,
+      "dms_sent": 0,
+      "errors": 1
+    },
+    "status": "completed"
+  },
+  {
+    "timestamp": "2025-07-02T16:17:41.227877",
+    "account_username": "cocos_connected",
+    "account_mode": "online",
+    "total_followers_provided": 146,
+    "start_index": 15,
+    "max_users_limit": 1,
+    "stats": {
+      "total_processed": 1,
+      "already_in_db": 1,
+      "newly_added": 0,
+      "already_messaged": 1,
+      "bio_analyzed": 1,
+      "dms_sent": 0,
+      "errors": 0
+    },
+    "status": "completed"
+  }
+]

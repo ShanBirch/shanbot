@@ -1,0 +1,43 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-13 12:57:07
+============================================================
+
+**WORKOUT COMPLETION ANALYSIS:**
+
+* **Total Scheduled Workouts:**  The screenshot shows at least three scheduled resistance training sessions.  The exact number for the entire period is not visible.
+* **Completed Workouts:** At least one "Back Day" and one "Core Day" are shown as completed, with details regarding their RPE (Rate of Perceived Exertion) and personal bests achieved.  The screenshot also shows past completion of leg day and shoulder day.
+* **Workout Types:** Back Day, Core Day, Leg Day, Shoulder Day, Resistance Training.
+* **Completion Percentage:**  The visible weeks show a high completion rate for the completed workouts, but the total number of scheduled workouts is not fully visible. Further analysis requires the full calendar view.
+
+
+**CARDIO/ACTIVITY TRACKING:**
+
+* **Completed Walking/Cardio Sessions:** Three walking sessions are recorded (2.58 km, 2.29 km, and 1.6 km).
+* **Scheduled Walking/Cardio Sessions:** The number of scheduled sessions isn't visible.
+* **Cardio Consistency:** The data shows a consistent pattern of walking completed on consecutive days.
+
+
+**NUTRITION TRACKING:**
+
+* **Days with Calorie/Meal Tracking:** One day shows 691 calories, 52g protein, 85g carbs, and 21g fat consumed across 3 meals.  A "daily nutrition goal" is also mentioned in the "Recent Activities".
+* **Nutrition Tracking Consistency Percentage:** This cannot be determined from the visible portion of the calendar.
+* **Average Calories:** Based solely on the one entry, the average is 691 calories.
+
+
+**WEIGHT/BODY METRICS:**
+
+* **Weight Measurements:** No weight measurements are visible in the provided screenshot.
+* **Dates of Weight Entries:** None visible.
+
+
+**WEEKLY PATTERNS & INSIGHTS:**
+
+* **Strongest Days for Adherence:** The visible data suggests that recent days show high adherence to both workouts and nutrition goals.
+* **Weakest Days for Adherence:** No specific weak days are evident.
+* **Concerning Gaps/Excellent Streaks:**  The recent activities display an excellent streak of adherence to workouts and nutrition goals.
+* **Overall Weekly Consistency Assessment:** Based on the limited view, adherence appears very good in the short period shown, though a longer-term perspective is needed for a comprehensive assessment.
+
+
+**SUMMARY:**
+
+Alice Forster demonstrates high engagement and adherence to her fitness plan based on the limited view of the Trainerize calendar.  She consistently completes scheduled workouts and achieves daily nutrition goals.  However, a complete assessment requires viewing the full calendar to determine the long-term consistency and adherence trends.  The provided data only shows the recent few days.  Adding weight tracking would provide a more comprehensive picture of her progress.

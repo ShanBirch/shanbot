@@ -1,0 +1,382 @@
+import json
+import logging
+from typing import Dict, Any, List, Optional, Tuple, Union
+from datetime import datetime, timezone
+import os
+
+# Google Sheets Imports (needed for get_checkin_data)
+import google.oauth2.service_account
+import googleapiclient.discovery
+
+# Assuming logger is configured in the main script
+logger = logging.getLogger(__name__) 
+
+# Assuming utility functions like load_json_data are loaded globally in main script
+# If not, they would need to be passed or loaded here as well.
+
+# --- Data Management Functions ---
+
+def get_user_data(ig_username: str, analytics_file_path: str, load_json_func) -> tuple[Optional[str], Optional[Dict], list, Optional[str], float, Optional[str], Optional[str], Optional[bool], Optional[str], Optional[str]]:
+    """
+    Load user data from analytics_data_good.json with detailed logging.
+    Uses a provided function to load JSON to avoid direct file dependency here.
+    Returns: (current_stage, user_data_metrics, conversation_topics,
+              trial_status, last_bot_timestamp_float, last_bot_timestamp_str, 
+              interests_json, is_in_checkin_flow, full_name, checkin_type)
+    """
+    logger.info(f"\n=== GET USER DATA START ===")
+    logger.info(f"Searching for user: '{ig_username}' in {analytics_file_path}")
+
+    analytics_data = load_json_func(analytics_file_path)
+    if not analytics_data:
+        logger.error(f"Failed to load or parse analytics file via provided function: {analytics_file_path}")
+        return None, None, [], None, 0.0, None, None, None, False, None, None # Adjusted return tuple size
+    
+    logger.info("Successfully loaded analytics file content via provided function")
+    logger.info(f"Available keys in analytics data: {list(analytics_data.keys())}")
+
+    conversations = analytics_data.get('conversations', {})
+    user_data_full = None
+    user_data_metrics = None
+    target_user_id = None
+    search_ig_username_lower = ig_username.strip().lower()
+
+    for conv_id, conv_data in conversations.items():
+        if isinstance(conv_data, dict) and 'metrics' in conv_data:
+            metrics = conv_data['metrics']
+            if isinstance(metrics, dict):
+                json_ig_username = metrics.get("ig_username", None)
+                if isinstance(json_ig_username, str) and json_ig_username.strip().lower() == search_ig_username_lower:
+                    user_data_full = conv_data
+                    user_data_metrics = metrics
+                    # Use conv_id from the loop directly
+                    target_user_id = conv_id 
+                    logger.info(f"Found user data under conversation ID: {target_user_id}")
+                    break 
+
+    if not user_data_metrics:
+        logger.warning(f"User {ig_username} not found in conversations")
+        return None, None, [], None, 0.0, None, None, None, False, None, None # Adjusted return tuple size
+
+    logger.info(f"\n=== USER FOUND: {ig_username} (ID: {target_user_id}) ===")
+    logger.info(f"Available keys in user_data[metrics]: {list(user_data_metrics.keys())}")
+
+    # Extract data using .get() with defaults
+    current_stage = user_data_metrics.get('journey_stage', {}).get('current_stage', 'Topic 1')
+    bio = user_data_metrics.get('bio') or user_data_metrics.get('client_analysis', {}).get('profile_bio')
+    conversation_topics = user_data_metrics.get('client_analysis', {}).get('conversation_topics', [])
+    interests = user_data_metrics.get('client_analysis', {}).get('interests', [])
+    trial_status = "Trial Week 1" if user_data_metrics.get("trial_week_1") else None
+    conversation_history = user_data_metrics.get("conversation_history", [])
+    is_in_checkin_flow = user_data_metrics.get("is_in_checkin_flow", False)
+    checkin_type = user_data_metrics.get("checkin_type")
+
+    # Log extracted info (optional)
+    logger.info(f"FOUND current_stage = {current_stage}")
+    if bio: logger.info(f"FOUND bio = {bio[:100]}...") 
+    # ... add logging for other fields if desired ...
+    logger.info(f"FOUND is_in_checkin_flow = {is_in_checkin_flow}")
+    logger.info(f"FOUND checkin_type = {checkin_type}")
+
+    interests_json = json.dumps(interests) if interests else None
+
+    last_bot_response_timestamp_str = None
+    if conversation_history:
+        for msg in reversed(conversation_history):
+            if isinstance(msg, dict) and msg.get("type") == "ai":
+                last_bot_response_timestamp_str = msg.get("timestamp")
+                logger.info(f"FOUND last bot response timestamp = {last_bot_response_timestamp_str}")
+                break
+
+    # Derive full name (simplified logic from original)
+    first_name = user_data_metrics.get('first_name') or user_data_metrics.get('client_details', {}).get('first_name', '')
+    last_name = user_data_metrics.get('last_name') or user_data_metrics.get('client_details', {}).get('last_name', '')
+    full_name = f"{first_name} {last_name}".strip() or ig_username # Fallback to ig_username
+    logger.info(f"Derived full name = {full_name}")
+
+    logger.info("\n=== DATA RETRIEVAL COMPLETE ===")
+
+    # Placeholder for float conversion if needed later
+    last_bot_timestamp_float = 0.0 
+
+    return (
+        current_stage,
+        user_data_metrics,
+        conversation_topics,
+        trial_status,
+        last_bot_timestamp_float, 
+        last_bot_response_timestamp_str, 
+        interests_json,
+        is_in_checkin_flow,
+        full_name,
+        checkin_type
+    )
+
+def update_analytics_data(
+    ig_username: str,
+    user_message: str,
+    ai_response: str,
+    subscriber_id: str,
+    first_name: str,
+    last_name: str,
+    analytics_file_path: str,
+    load_json_func, # Pass the loading function
+    set_checkin_flow_false: Optional[bool] = None
+):
+    """
+    Reads analytics data using load_json_func, updates conversation history,
+    and creates a new user entry if the user doesn't exist. Optionally resets check-in flag.
+    Writes back the changes directly to the file.
+    """
+    logger.info(
+        f"---> [update_analytics_data] Attempting to update/create history for '{ig_username}' (ID: {subscriber_id}) in {analytics_file_path}")
+
+    try:
+        # 1. Read existing data using the provided function
+        analytics_data = load_json_func(analytics_file_path)
+        if not analytics_data:
+             logger.warning(f"---> [update_analytics_data] {analytics_file_path} not found or invalid via load_json_func. Creating new structure.")
+             analytics_data = {"global_metrics": {}, "conversations": {}} # Initialize structure
+        else:
+             logger.info(f"---> [update_analytics_data] Read existing data from {analytics_file_path}")
+
+        # 2. Find or Create the user within 'conversations'
+        conversations_data = analytics_data.setdefault('conversations', {})
+        if not isinstance(conversations_data, dict):
+            logger.error("---> [update_analytics_data] 'conversations' key is not a dictionary. Resetting.")
+            conversations_data = {}
+            analytics_data['conversations'] = conversations_data
+
+        target_user_id = None
+        target_user_data = None
+        search_ig_username_lower = ig_username.strip().lower()
+
+        # Search logic (same as before)
+        for user_id, user_data_loop in conversations_data.items():
+             if isinstance(user_data_loop, dict):
+                 metrics_data_loop = user_data_loop.get("metrics", {})
+                 if isinstance(metrics_data_loop, dict):
+                     json_ig_username = metrics_data_loop.get("ig_username", None)
+                     if isinstance(json_ig_username, str) and json_ig_username.strip().lower() == search_ig_username_lower:
+                         target_user_id = user_id
+                         target_user_data = user_data_loop 
+                         logger.info(f"---> [update_analytics_data] Found user '{ig_username}' with ID '{target_user_id}'")
+                         break
+
+        current_timestamp_iso = datetime.now(timezone.utc).isoformat()
+
+        # Create new user if not found
+        if not target_user_id:
+            logger.info(f"---> [update_analytics_data] User '{ig_username}' not found. Creating new profile.")
+            new_user_key = subscriber_id # Use ManyChat ID as key
+            new_user_data = {
+                "metrics": {
+                    "ig_username": ig_username,
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "conversation_history": [],
+                    "journey_stage": {"current_stage": "Topic 1"},
+                    "client_analysis": {"profile_bio": "", "interests": [], "conversation_topics": []},
+                    "client_details": {"first_name": first_name, "last_name": last_name, "sex": "", "fitness_goals": "", "dietary_requirements": "", "training_frequency": ""},
+                    "trial_week_1": False,
+                    "is_in_checkin_flow": False,
+                    "checkin_type": None, # Initialize checkin_type
+                    "is_onboarding": False, # Initialize onboarding flag
+                    "expected_onboarding_input": None,
+                    "onboarding_info": {}, # Initialize onboarding data dict
+                    "first_message_timestamp": current_timestamp_iso,
+                    "last_message_timestamp": current_timestamp_iso
+                }
+            }
+            conversations_data[new_user_key] = new_user_data
+            target_user_id = new_user_key
+            target_user_data = new_user_data
+            logger.info(f"---> [update_analytics_data] Created new user profile for '{ig_username}' with ID '{target_user_id}'")
+
+        # Ensure structure exists for the target user
+        if "metrics" not in target_user_data or not isinstance(target_user_data.get("metrics"), dict):
+             target_user_data["metrics"] = {}
+             logger.warning(f"---> [update_analytics_data] Created missing 'metrics' dict for user {target_user_id}")
+        metrics_dict = target_user_data["metrics"]
+        
+        # Ensure IG username is present in metrics
+        metrics_dict["ig_username"] = ig_username 
+        
+        history_list = metrics_dict.setdefault("conversation_history", [])
+        if not isinstance(history_list, list):
+            logger.warning(f"---> [update_analytics_data] Corrected non-list 'conversation_history' for user {target_user_id}")
+            history_list = []
+            metrics_dict["conversation_history"] = history_list
+
+        # Append messages
+        if user_message:
+            history_list.append({"timestamp": current_timestamp_iso, "type": "user", "text": user_message})
+            logger.info(f"---> [update_analytics_data] Appended user message to history for {target_user_id}.")
+        if ai_response:
+            history_list.append({"timestamp": current_timestamp_iso, "type": "ai", "text": ai_response})
+            logger.info(f"---> [update_analytics_data] Appended AI response to history for {target_user_id}.")
+
+        # Timestamps
+        metrics_dict.setdefault("first_message_timestamp", current_timestamp_iso)
+        metrics_dict["last_message_timestamp"] = current_timestamp_iso
+        logger.info(f"---> [update_analytics_data] Updated last_message_timestamp for {target_user_id}.")
+
+        # Reset check-in flow if requested
+        if set_checkin_flow_false is True:
+            metrics_dict['is_in_checkin_flow'] = False
+            metrics_dict['checkin_type'] = None # Clear type when ending flow
+            logger.info(f"---> [update_analytics_data] Reset check-in flags for user {target_user_id}.")
+            
+        # Ensure onboarding flags exist (important for older records)
+        metrics_dict.setdefault('is_onboarding', False)
+        metrics_dict.setdefault('expected_onboarding_input', None)
+        metrics_dict.setdefault('onboarding_info', {})
+
+        # Update the data in the main structure
+        analytics_data['conversations'][target_user_id] = target_user_data
+
+        # 4. Write the entire updated structure back to the file
+        try:
+            with open(analytics_file_path, "w") as f:
+                json.dump(analytics_data, f, indent=2)
+            logger.info(f"---> [update_analytics_data] Successfully wrote updated data to {analytics_file_path}")
+        except IOError as e:
+            logger.error(f"---> [update_analytics_data] Error writing to {analytics_file_path}: {e}")
+
+    except Exception as e:
+        logger.error(f"---> [update_analytics_data] Unexpected error during update: {e}", exc_info=True)
+
+
+def get_checkin_data(instagram_name: str, 
+                     credentials_path: str, 
+                     spreadsheet_id: str, 
+                     range_name: str, 
+                     scopes: List[str]
+                    ) -> Dict[str, str]:
+    """
+    Retrieve client data for check-in from the Coaching Onboarding Form Google Sheet.
+
+    Args:
+        instagram_name: Instagram username to search for
+        credentials_path: Path to Google service account credentials JSON
+        spreadsheet_id: The ID of the Google Sheet
+        range_name: The sheet range (e.g., "Sheet1!A:AAF")
+        scopes: List of Google API scopes required
+
+    Returns:
+        Dictionary with client data fields or empty dict if not found/error.
+    """
+    logger.info(f"Retrieving check-in data for: {instagram_name} from Sheet ID: {spreadsheet_id}")
+
+    try:
+        creds = google.oauth2.service_account.Credentials.from_service_account_file(
+            credentials_path, scopes=scopes)
+        service = googleapiclient.discovery.build(
+            'sheets', 'v4', credentials=creds)
+        sheet = service.spreadsheets()
+
+        result = sheet.values().get(
+            spreadsheetId=spreadsheet_id,
+            range=range_name
+        ).execute()
+
+        values = result.get('values', [])
+        if not values:
+            logger.error(f"No data found in onboarding sheet: {spreadsheet_id}")
+            return {}
+
+        headers = values[0]
+        logger.debug(f"Sheet Headers: {headers}") # Log headers for debugging
+
+        # Find column indices dynamically based on expected header names
+        # Using .lower() and checking substring for flexibility
+        header_map = {h.lower().strip(): i for i, h in enumerate(headers)}
+        
+        def find_col(keywords: List[str], exact: bool = False):
+            for keyword in keywords:
+                if exact:
+                    if keyword.lower() in header_map:
+                        return header_map[keyword.lower()]
+                else:
+                    for header_lower, index in header_map.items():
+                        if keyword.lower() in header_lower:
+                            return index
+            return None
+
+        instagram_col = find_col(["instagram name", "instagram"])
+        first_name_col = find_col(["first name"], exact=True)
+        last_name_col = find_col(["last name"], exact=True)
+        gender_col = find_col(["gender"], exact=True)
+        weight_col = find_col(["weight", "current weight"])
+        goals_col = find_col(["long term fitness goals", "long term goal"])
+        diet_col = find_col(["dietary requirements", "dietary"])
+        dob_col = find_col(["date of birth", "dob"])
+        height_col = find_col(["height"])
+        gym_col = find_col(["gym access"])
+        freq_col = find_col(["training frequency", "frequency"])
+        exercises_col = find_col(["exercises they enjoy", "enjoy exercise"])
+        calories_col = find_col(["daily calories", "calories"])
+        # Add others as needed...
+        # conversation_col = find_col(["total conversation"])
+        # legit_col = find_col(["legit checkin"])
+
+        if instagram_col is None:
+             logger.error(f"Could not find 'Instagram' column in sheet headers: {headers}")
+             return {}
+
+        client_data = {}
+        search_name_lower = instagram_name.lower()
+        for row_idx, row in enumerate(values[1:], start=2): # Skip header, start row index from 2 for logging
+            try:
+                row_instagram = str(row[instagram_col]).strip().lower() if len(row) > instagram_col and row[instagram_col] else ""
+                # Use 'in' for partial matches if needed, or == for exact
+                if search_name_lower in row_instagram: 
+                    logger.info(f"Found potential match in onboarding sheet row {row_idx}: {row_instagram}")
+
+                    def get_col_val(col_index):
+                        return row[col_index].strip() if col_index is not None and len(row) > col_index and row[col_index] else ""
+
+                    client_data = {
+                        # Use .get() with default for safety when accessing dict
+                        "First Name": get_col_val(first_name_col),
+                        "Last Name": get_col_val(last_name_col),
+                        "Gender": get_col_val(gender_col),
+                        "Weight": get_col_val(weight_col),
+                        "Long Term Goals": get_col_val(goals_col),
+                        "Dietary Requirements": get_col_val(diet_col),
+                        "Date of Birth": get_col_val(dob_col),
+                        "Height": get_col_val(height_col),
+                        "Gym Access": get_col_val(gym_col),
+                        "Training Frequency": get_col_val(freq_col),
+                        "Instagram Name": get_col_val(instagram_col), # Get the actual value from sheet
+                        "Exercises Enjoyed": get_col_val(exercises_col),
+                        "Daily Calories": get_col_val(calories_col),
+                        # "Total Conversation": get_col_val(conversation_col),
+                        # "Legit Checkin": get_col_val(legit_col)
+                    }
+                    logger.info(f"Extracted data: {client_data}")
+                    break # Stop after finding the first match
+            except IndexError:
+                 logger.warning(f"Row {row_idx} in sheet {spreadsheet_id} has fewer columns than expected (needed: {instagram_col}). Row data: {row}")
+            except Exception as row_e:
+                 logger.error(f"Error processing row {row_idx} for {instagram_name}: {row_e}")
+                 continue # Skip to next row on error
+
+        if not client_data:
+            logger.warning(
+                f"Client with Instagram name containing '{instagram_name}' not found in onboarding sheet {spreadsheet_id}")
+
+        return client_data
+
+    except google.auth.exceptions.RefreshError as re:
+         logger.error(f"Google API Refresh Error (check credentials/permissions for {credentials_path}): {re}")
+         return {}
+    except googleapiclient.errors.HttpError as he:
+         logger.error(f"Google Sheets API HTTP Error (check Sheet ID {spreadsheet_id}, Range {range_name}, API enabled): {he}")
+         return {}
+    except FileNotFoundError:
+         logger.error(f"Google credentials file not found at: {credentials_path}")
+         return {}
+    except Exception as e:
+        logger.error(f"Unexpected error retrieving checkin data: {str(e)}", exc_info=True)
+        return {} 

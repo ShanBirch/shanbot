@@ -1,0 +1,6 @@
+@echo off
+echo Running ShanBot folder organization...
+python organize_folder.py
+echo.
+echo Press any key to exit...
+pause > nul 

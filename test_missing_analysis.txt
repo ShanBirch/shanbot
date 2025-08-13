@@ -1,0 +1,8 @@
+# Test Instagram usernames for analysis
+# Just a few users to test
+
+alice_forster
+alyshasharpp
+amandallong
+amyprice50
+angellisa86 

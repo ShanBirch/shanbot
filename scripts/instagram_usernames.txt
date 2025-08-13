@@ -1,0 +1,3 @@
+ kristyleecoop
+# Add more usernames below, one per line
+# Lines starting with # are comments and will be ignored

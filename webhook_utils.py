@@ -1,0 +1,430 @@
+import json
+import logging
+import re
+from datetime import datetime, timezone, timedelta
+import pytz
+import os
+from pathlib import Path
+from typing import Dict, Any, List, Optional, Tuple, Union
+
+# Import config variables - Assuming config is read elsewhere and passed or imported
+# For standalone testing, you might need to define these here or read from webhook_config.txt
+# Example: from config import DAILY_TRACKER_FILE_PATH, ANALYTICS_FILE_PATH, CHECKIN_REVIEWS_DIR
+# Since this is a .txt file, we'll assume the constants are available in the calling scope
+
+logger = logging.getLogger(__name__)
+
+
+def split_response_into_messages(text: str) -> List[str]:
+    """Split response text into up to 3 messages of roughly equal length."""
+    logger.info(f"Splitting response of length {len(text)}")
+
+    # If text is short enough, return as single message
+    if len(text) <= 150:
+        return [text]
+
+    # Split into sentences while preserving punctuation
+    sentences = re.split(r'(?<=[.!?])\s+', text)
+
+    # If only 1-2 sentences, return as is
+    if len(sentences) <= 2:
+        return sentences
+
+    # For 3+ sentences, combine into up to 3 messages
+    result = []
+    current_message = ""
+    target_length = len(text) / 3  # Aim for roughly equal thirds
+
+    for sentence in sentences:
+        if len(current_message) + len(sentence) <= target_length or not current_message:
+            if current_message:
+                current_message += " "
+            current_message += sentence
+        else:
+            result.append(current_message)
+            current_message = sentence
+
+        # Don't exceed 3 messages
+        if len(result) == 2:
+            result.append(current_message + " " +
+                          " ".join(sentences[sentences.index(sentence)+1:]))
+            break
+
+    # Handle case where we haven't hit 3 messages yet
+    if current_message and len(result) < 3:
+        result.append(current_message)
+
+    logger.info(f"Split into {len(result)} messages")
+    for i, msg in enumerate(result):
+        logger.info(f"Message {i+1} length: {len(msg)}")
+
+    return result
+
+
+def format_conversation_history(history_list: List[Dict[str, str]]) -> str:
+    """Formats the conversation history list into a readable string."""
+    formatted_lines = []
+    for entry in history_list:
+        timestamp = entry.get("timestamp", "")
+        msg_type = entry.get("type", "unknown").capitalize()
+        text = entry.get("text", "")
+        # Format timestamp nicely if possible (optional)
+        try:
+            # Attempt to parse and format timestamp
+            dt_object = datetime.fromisoformat(
+                timestamp.replace("Z", "+00:00"))
+            formatted_ts = dt_object.strftime("%Y-%m-%d %H:%M:%S")
+        except ValueError:
+            formatted_ts = timestamp  # Fallback to original string
+
+        formatted_lines.append(f"{formatted_ts} [{msg_type}]: {text}")
+    return "\n".join(formatted_lines)
+
+
+def get_melbourne_time_str():
+    """Get current Melbourne time with error handling."""
+    try:
+        melbourne_tz = pytz.timezone('Australia/Melbourne')
+        current_time = datetime.now(melbourne_tz)
+        return current_time.strftime("%Y-%m-%d %I:%M %p AEST")
+    except Exception as e:
+        logger.error(f"Error getting Melbourne time: {e}")
+        # Fallback to UTC or local time if pytz fails
+        return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+
+
+def load_json_data(file_path: str) -> Optional[Dict]:
+    """Safely load JSON data from a file."""
+    if not file_path or not os.path.exists(file_path):
+        logger.error(
+            f"[load_json_data] File not found or path is invalid: {file_path}")
+        return None
+    try:
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+            logger.info(
+                f"[load_json_data] Successfully loaded JSON data from: {file_path}")
+            return data
+    except json.JSONDecodeError as e:
+        logger.error(
+            f"[load_json_data] Failed to decode JSON from {file_path}: {e}")
+        return None
+    except FileNotFoundError:  # Should be caught by os.path.exists, but good practice
+        logger.error(f"[load_json_data] File not found error for: {file_path}")
+        return None
+    except Exception as e:
+        logger.error(
+            f"[load_json_data] Unexpected error loading JSON from {file_path}: {e}", exc_info=True)
+        return None
+
+
+def find_latest_checkin_file(full_name: str, checkin_reviews_dir: str) -> Optional[str]:
+    """Find the latest check-in JSON file for a given full name."""
+    try:
+        # Use full_name to construct pattern
+        if not full_name or not isinstance(full_name, str):
+            logger.error(
+                "[find_latest_checkin_file] Invalid full_name provided.")
+            return None
+
+        checkin_dir_path = Path(checkin_reviews_dir)
+        if not checkin_dir_path.is_dir():
+            logger.error(
+                f"[find_latest_checkin_file] Check-in directory not found: {checkin_reviews_dir}")
+            return None
+
+        # Try standard name order
+        safe_name = full_name.replace(' ', '_').lower()
+        filename_pattern = f"{safe_name}_*_fitness_wrapped_data.json"
+        logger.info(
+            f"[find_latest_checkin_file] Searching pattern for '{full_name}': {checkin_dir_path / filename_pattern}")
+        files = list(checkin_dir_path.glob(filename_pattern))
+
+        # Try swapped name order if no files found with standard order
+        if not files:
+            name_parts = full_name.split()
+            if len(name_parts) >= 2:
+                # Simple swap
+                swapped_name = f"{name_parts[-1]} {name_parts[0]}"
+                safe_name_swapped = swapped_name.replace(' ', '_').lower()
+                filename_pattern_swapped = f"{safe_name_swapped}_*_fitness_wrapped_data.json"
+                logger.info(
+                    f"[find_latest_checkin_file] Trying swapped pattern for '{full_name}': {checkin_dir_path / filename_pattern_swapped}")
+                files = list(checkin_dir_path.glob(filename_pattern_swapped))
+
+        if not files:
+            logger.warning(
+                f"[find_latest_checkin_file] No check-in files found for '{full_name}' matching patterns.")
+            return None
+
+        # Extract dates and sort
+        dated_files = []
+        for f_path in files:
+            try:
+                filename = os.path.basename(f_path)
+                date_str_match = re.search(
+                    r'_(\d{4}-\d{2}-\d{2})_', filename)
+                if date_str_match:
+                    date_str = date_str_match.group(1)
+                    file_date = datetime.strptime(
+                        date_str, "%Y-%m-%d").date()
+                    dated_files.append((file_date, f_path))
+                else:
+                    logger.warning(
+                        f"[find_latest_checkin_file] Could not parse YYYY-MM-DD date from filename: {filename}")
+            except (ValueError, IndexError, AttributeError) as e:
+                logger.warning(
+                    f"[find_latest_checkin_file] Error parsing date from file {f_path}: {e}")
+
+        if not dated_files:
+            logger.error(
+                f"[find_latest_checkin_file] No files with parseable dates found for '{full_name}'")
+            return None
+
+        # Sort by date, newest first
+        dated_files.sort(key=lambda x: x[0], reverse=True)
+        latest_file_path = dated_files[0][1]
+        latest_file_str = str(latest_file_path)
+        logger.info(
+            f"[find_latest_checkin_file] Found latest check-in file for '{full_name}': {latest_file_str}")
+        return latest_file_str
+
+    except Exception as e:
+        logger.error(
+            f"[find_latest_checkin_file] Error finding latest check-in file for '{full_name}': {e}", exc_info=True)
+        return None
+
+
+def add_todo_item(ig_username: str, client_name: str, task_description: str, analytics_file_path: str, status: str = "pending"):
+    """Adds a 'to do' or completed action item to the analytics data file."""
+    log_prefix = "[add_todo_item]" if status == "pending" else "[log_completed_action]"
+    logger.info(
+        f"---> {log_prefix} Logging item for {ig_username}: {task_description} (Status: {status})")
+    try:
+        # 1. Read existing data
+        try:
+            with open(analytics_file_path, "r") as f:
+                analytics_data = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            logger.error(
+                f"Could not load analytics data from {analytics_file_path} to add todo item. Initializing.")
+            analytics_data = {"global_metrics": {}, "conversations": {
+            }, "action_items": []}  # Initialize structure
+
+        # 2. Ensure 'action_items' list exists
+        if "action_items" not in analytics_data or not isinstance(analytics_data["action_items"], list):
+            analytics_data["action_items"] = []
+            logger.warning(
+                "---> [add_todo_item] Initialized 'action_items' list.")
+
+        # 3. Create and append new task
+        new_task = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "ig_username": ig_username,
+            "client_name": client_name or ig_username,  # Use username as fallback
+            "task_description": task_description,
+            "status": status  # Use the provided status
+        }
+        analytics_data["action_items"].append(new_task)
+        logger.info(f"---> {log_prefix} Appended new item.")
+
+        # 4. Write back to file
+        try:
+            with open(analytics_file_path, "w") as f:
+                json.dump(analytics_data, f, indent=2)
+            logger.info(
+                f"---> {log_prefix} Successfully saved updated analytics data.")
+        except IOError as e:
+            logger.error(
+                f"---> {log_prefix} Error writing updated analytics data: {e}")
+
+    except Exception as e:
+        logger.error(f"---> {log_prefix} Unexpected error: {e}", exc_info=True)
+
+
+def calculate_age(dob_str: str) -> Optional[int]:
+    """Calculate age from date of birth string (DD/MM/YYYY)."""
+    try:
+        birth_date = datetime.strptime(dob_str, '%d/%m/%Y')
+        today = datetime.today()
+        age = today.year - birth_date.year - \
+            ((today.month, today.day) < (birth_date.month, birth_date.day))
+        return age
+    except (ValueError, TypeError):
+        logger.warning(f"Could not parse DOB string: {dob_str}")
+        return None
+
+
+def calculate_targets(onboarding_info: Dict[str, Any]) -> Optional[Dict[str, float]]:
+    """
+    Calculates BMR, TDEE, and target macros based on onboarding information.
+    Uses Mifflin-St Jeor averaged for gender if not provided or inferred.
+    """
+    try:
+        weight_kg = float(onboarding_info.get('weight_kg', 0))
+        height_cm = float(onboarding_info.get('height_cm', 0))
+        dob_str = onboarding_info.get('dob')
+        activity_level_str = onboarding_info.get('activity_level', '').lower()
+        main_goal_str = onboarding_info.get('main_goal', '').lower()
+
+        if not all([weight_kg > 0, height_cm > 0, dob_str]):
+            logger.error(
+                "Missing essential info for target calculation: weight, height, or DOB.")
+            return None
+
+        age = calculate_age(dob_str)
+        if age is None:
+            logger.error("Could not calculate age for target calculation.")
+            return None
+
+        # --- BMR Calculation (Mifflin-St Jeor Averaged) ---
+        # Average of male and female formulas as fallback
+        bmr_male = (10 * weight_kg) + (6.25 * height_cm) - (5 * age) + 5
+        bmr_female = (10 * weight_kg) + (6.25 * height_cm) - (5 * age) - 161
+        bmr = (bmr_male + bmr_female) / 2
+        logger.info(f"Calculated averaged BMR: {bmr:.2f}")
+        # TODO: Add gender inference logic later if possible
+
+        # --- TDEE Calculation ---
+        activity_multipliers = {
+            'sedentary': 1.2,
+            'lightly': 1.375,  # Lightly active
+            'moderately': 1.55,  # Moderately active
+            'very': 1.725,  # Very active
+            'extra': 1.9  # Extra active (placeholder)
+        }
+        # Find the multiplier key
+        activity_multiplier = 1.2  # Default to sedentary
+        for key, value in activity_multipliers.items():
+            if key in activity_level_str:
+                activity_multiplier = value
+                break
+        tdee = bmr * activity_multiplier
+        logger.info(
+            f"Calculated TDEE: {tdee:.2f} (Multiplier: {activity_multiplier})")
+
+        # --- Calorie Target Adjustment based on Goal ---
+        target_calories = tdee
+        if 'loss' in main_goal_str:
+            target_calories -= 500  # Deficit for fat loss
+        elif 'muscle' in main_goal_str:
+            target_calories += 300  # Surplus for muscle gain
+        elif 'recomp' in main_goal_str:
+            target_calories = tdee  # Maintenance for recomp
+        # No adjustment for 'cardio' or 'fitter' goals by default
+        logger.info(f"Calculated Target Calories: {target_calories:.2f}")
+
+        # --- Macro Calculation (Example: 40% C / 30% P / 30% F) ---
+        # Adjust ratios based on your coaching philosophy
+        protein_g = (target_calories * 0.30) / 4
+        carbs_g = (target_calories * 0.40) / 4
+        fats_g = (target_calories * 0.30) / 9
+
+        logger.info(
+            f"Calculated Macros: P={protein_g:.1f}g, C={carbs_g:.1f}g, F={fats_g:.1f}g")
+
+        return {
+            "target_calories": round(target_calories),
+            "target_protein": round(protein_g),
+            "target_carbs": round(carbs_g),
+            "target_fats": round(fats_g)
+        }
+
+    except (ValueError, TypeError, KeyError) as e:
+        logger.error(f"Error calculating targets: {e}", exc_info=True)
+        return None
+    except Exception as e:
+        logger.error(
+            f"Unexpected error in calculate_targets: {e}", exc_info=True)
+        return None
+
+
+def load_tracker_data(daily_tracker_file_path: str) -> Dict:
+    """Loads daily tracker data, returning default on error or not found."""
+    default_data = {"last_reset_date": "1970-01-01", "users": {}}
+    try:
+        tracker_dir = os.path.dirname(daily_tracker_file_path)
+        if not os.path.exists(tracker_dir):
+            try:
+                os.makedirs(tracker_dir)
+                logger.info(
+                    f"Created directory for tracker file: {tracker_dir}")
+                return default_data.copy()  # If dir created, file doesn't exist
+            except OSError as ose:
+                logger.error(f"Error creating directory {tracker_dir}: {ose}")
+                return default_data.copy()
+
+        with open(daily_tracker_file_path, 'r') as f:
+            data = json.load(f)
+            if not isinstance(data, dict) or 'last_reset_date' not in data or 'users' not in data or not isinstance(data['users'], dict):
+                logger.warning(
+                    f"Invalid structure in {daily_tracker_file_path}. Returning default.")
+                return default_data.copy()
+            logger.info(
+                f"Loaded daily tracker data. Last reset: {data.get('last_reset_date')}")
+            return data
+    except FileNotFoundError:
+        logger.info(
+            f"{daily_tracker_file_path} not found. Returning default structure.")
+        return default_data.copy()
+    except json.JSONDecodeError:
+        logger.error(
+            f"Error decoding JSON from {daily_tracker_file_path}. Returning default.")
+        return default_data.copy()
+    except Exception as e:
+        logger.error(
+            f"Unexpected error loading tracker data: {e}", exc_info=True)
+        return default_data.copy()
+
+
+def save_tracker_data(data: Dict, daily_tracker_file_path: str):
+    """Saves the tracker data dictionary to the JSON file."""
+    try:
+        tracker_dir = os.path.dirname(daily_tracker_file_path)
+        if not os.path.exists(tracker_dir):
+            try:
+                os.makedirs(tracker_dir)
+                logger.info(
+                    f"Created directory for tracker file: {tracker_dir}")
+            except OSError as ose:
+                logger.error(
+                    f"Error creating directory {tracker_dir} before saving: {ose}")
+                return
+
+        with open(daily_tracker_file_path, 'w') as f:
+            json.dump(data, f, indent=2)
+        # logger.info(f"Successfully saved data to {daily_tracker_file_path}") # Can be verbose
+    except IOError as e:
+        logger.error(
+            f"Error writing tracker data to {daily_tracker_file_path}: {e}")
+    except Exception as e:
+        logger.error(
+            f"Unexpected error saving tracker data: {e}", exc_info=True)
+
+
+def get_response_time_bucket(time_diff_seconds: float) -> str:
+    """
+    Convert time difference to ManyChat response time bucket.
+    Args:
+        time_diff_seconds: Time difference in seconds
+    Returns:
+        String matching ManyChat's response time conditions
+    """
+    if time_diff_seconds <= 120:  # 0-2 minutes
+        return "response time is 0-2minutes"
+    elif time_diff_seconds <= 300:  # 2-5 minutes
+        return "response time is 2-5 minutes"
+    elif time_diff_seconds <= 600:  # 5-10 minutes
+        return "response time is 5-10 minutes"
+    elif time_diff_seconds <= 1200:  # 10-20 minutes
+        return "response time is 10-20 minutes"
+    elif time_diff_seconds <= 1800:  # 20-30 minutes
+        return "response time is 20-30 minutes"
+    elif time_diff_seconds <= 3600:  # 30-60 minutes
+        return "response time is 30-60 minutes"
+    elif time_diff_seconds <= 7200:  # 1-2 Hours
+        return "response time is 1-2 Hours"
+    elif time_diff_seconds <= 18000:  # 2-5 hours
+        return "response time is 2-5 hours"
+    else:  # Above 5 Hours
+        return "response time is Above 5 Hours"

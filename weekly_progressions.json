@@ -1,0 +1,1028 @@
+{
+  "alice_forster": {
+    "Back": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "weight": "49",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "weight": "42",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pull",
+        "weight": "52",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Adductions",
+        "weight": "34",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Bicep Curl",
+        "weight": "14",
+        "reps": "7"
+      }
+    ],
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "weight": "bodyweight",
+        "reps": "9"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "weight": "50",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "weight": "48",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "weight": "25",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "weight": "34",
+        "reps": "6"
+      }
+    ],
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "weight": "47",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "weight": "18",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "weight": "15",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Fly",
+        "weight": "15",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "weight": "27",
+        "reps": "13"
+      }
+    ],
+    "Core Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Plank",
+        "weight": "bodyweight",
+        "reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch",
+        "weight": "62",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "weight": "bodyweight",
+        "reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Skull Crusher",
+        "weight": "37",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Concentrated Bicep Curls",
+        "weight": "12",
+        "reps": "8"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "weight": "67",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "weight": "25",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "weight": "15",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hyperextension",
+        "weight": "22",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "weight": "62",
+        "reps": "10"
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "weight": "15",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "weight": "6",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "weight": "45",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "weight": "27",
+        "reps": "9"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "weight": "15",
+        "reps": "14"
+      }
+    ],
+    "Shoulders": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Reverse Fly",
+        "weight": "10",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Pull Apart",
+        "weight": "22",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Upright Row",
+        "weight": "12",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Seated Shoulder Press",
+        "weight": "15",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell 21",
+        "weight": "8",
+        "reps": "19"
+      }
+    ]
+  },
+  "anna_somogyi": {
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "weight": "30",
+        "reps": "9"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "weight": "10",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "weight": "7",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "weight": "bodyweight",
+        "reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "weight": "bodyweight",
+        "reps": "15"
+      }
+    ]
+  },
+  "elena_green": {
+    "Day 1: Upper Body Push + Handstand & Core": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Press Handstand Split",
+        "weight": "bodyweight",
+        "reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "weight": "12",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Press",
+        "weight": "11",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "weight": "6",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hanging knee tucks",
+        "weight": "bodyweight",
+        "reps": "13"
+      }
+    ],
+    "Day 2: Lower Body Strength + Kettlebell Focus": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Goblet Squat",
+        "weight": "14",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Rdls",
+        "weight": "12",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Kettlebell Swing",
+        "weight": "14",
+        "reps": "18"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Walking Lunges",
+        "weight": "bodyweight",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "weight": "bodyweight",
+        "reps": "15"
+      }
+    ],
+    "Day 3: Upper Body Pull + Chin-up & Core": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Band pull apart",
+        "weight": "bodyweight",
+        "reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "weight": "bodyweight",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Bicep Curl",
+        "weight": "11",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hollow Body Rocks",
+        "weight": "bodyweight",
+        "reps": "15"
+      }
+    ]
+  },
+  "jen_frayne": {
+    "Full Body": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Squat",
+        "weight": "27",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "weight": "11",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row Wide Grip",
+        "weight": "43",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Lat Pull Down",
+        "weight": "36",
+        "reps": "8"
+      }
+    ]
+  },
+  "jo_schiavetta": {
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "weight": "18",
+        "reps": "63"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "weight": "bodyweight",
+        "reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "weight": "10",
+        "reps": "18"
+      }
+    ]
+  },
+  "kelly_smith": {
+    "Core + Arms": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Oblique Knee Tucks",
+        "weight": "bodyweight",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Oblique Lean",
+        "weight": "14",
+        "reps": "18"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Woodchop",
+        "weight": "11",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "weight": "23",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "DB Bicep Curl Concentric",
+        "weight": "10",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Standing Overhead Tricep Extension",
+        "weight": "16",
+        "reps": "13"
+      }
+    ],
+    "Leg Day 2": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Press Machine Single Leg",
+        "weight": "32",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hip Abduction",
+        "weight": "27",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Rdls",
+        "weight": "37",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Weighted Hyper Extension Pause",
+        "weight": "bodyweight",
+        "reps": "15"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Leg Extension",
+        "weight": "12",
+        "reps": "18"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lying Leg Curl",
+        "weight": "15",
+        "reps": "18"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "weight": "39",
+        "reps": "13"
+      }
+    ],
+    "Pull": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat pull down Pause",
+        "weight": "40",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row",
+        "weight": "42",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "weight": "17",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Trx rows",
+        "weight": "bodyweight",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "weight": "8",
+        "reps": "9"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Reverse Fly",
+        "weight": "6",
+        "reps": "12"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Eccentrically Load Seated Bicep Curls",
+        "weight": "9",
+        "reps": "9"
+      }
+    ],
+    "Push": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Band pull apart",
+        "weight": "6",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Chest Press",
+        "weight": "33",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "weight": "15",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Arnold Press",
+        "weight": "6",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "weight": "5",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "weight": "9",
+        "reps": "9"
+      }
+    ]
+  },
+  "kristy_cooper": {
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "weight": "10",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Row",
+        "weight": "29",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bent Over Row",
+        "weight": "40",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "weight": "16",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "weight": "16",
+        "reps": "10"
+      }
+    ],
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Press",
+        "weight": "37",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "weight": "11",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest fly",
+        "weight": "13",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "weight": "16",
+        "reps": "10"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Angled Machine Leg Press",
+        "weight": "160",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Goblet Squat Pause",
+        "weight": "21",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Hip Adduction",
+        "weight": "35",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Leg Quad Extension",
+        "weight": "20",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lying Leg Curl",
+        "weight": "25",
+        "reps": "7"
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Standing Lateral Raise",
+        "weight": "5",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Shoulder Press",
+        "weight": "9",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Woodchop",
+        "weight": "11",
+        "reps": "7"
+      }
+    ]
+  },
+  "kylie_pinder": {
+    "Leg Day 1": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Box Pistol Squat",
+        "weight": "4",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "weight": "4",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Calf Raises",
+        "weight": "4",
+        "reps": "18"
+      }
+    ],
+    "Leg Day 2": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Goblet Squat",
+        "weight": "3",
+        "reps": "13"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Calf Raises",
+        "weight": "4",
+        "reps": "18"
+      }
+    ],
+    "Pull + Core Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Upright Row",
+        "weight": "bodyweight",
+        "reps": "15"
+      }
+    ]
+  },
+  "nicole_lynch": {
+    "Back": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "weight": "40",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "weight": "27",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rope Seated High Row",
+        "weight": "24",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Adductions",
+        "weight": "24",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Bicep Curl",
+        "weight": "9",
+        "reps": "8"
+      }
+    ],
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "weight": "bodyweight",
+        "reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "weight": "40",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "weight": "32",
+        "reps": "6"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "weight": "18",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "weight": "27",
+        "reps": "8"
+      }
+    ],
+    "Chest + Arms": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "weight": "26",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "weight": "15",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Dip",
+        "weight": "26",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "weight": "22",
+        "reps": "7"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "weight": "35",
+        "reps": "9"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "weight": "15",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "weight": "11",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "weight": "34",
+        "reps": "9"
+      }
+    ]
+  },
+  "raechel_muller": {
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "weight": "15",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "weight": "21",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "weight": "6",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "weight": "20",
+        "reps": "10"
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "weight": "17",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "weight": "15",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "weight": "15",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "weight": "17",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "weight": "13",
+        "reps": "10"
+      }
+    ]
+  },
+  "shane_minahan": {
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "weight": "59",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "weight": "51",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rope Seated High Row",
+        "weight": "35",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Wide Pulldown",
+        "weight": "45",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Bicep Curl",
+        "weight": "15",
+        "reps": "8"
+      }
+    ],
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench",
+        "weight": "60",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Press",
+        "weight": "23",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Seated Chest Fly",
+        "weight": "83",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Rope Standing Overhead Tricep Extension",
+        "weight": "31",
+        "reps": "10"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "weight": "16",
+        "reps": "10"
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "B.B Back Squat",
+        "weight": "30",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "weight": "bodyweight",
+        "reps": "11"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Machine Leg Press",
+        "weight": "50",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Box Pistol Squat",
+        "weight": "bodyweight",
+        "reps": "11"
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Seated Shoulder Press",
+        "weight": "23",
+        "reps": "7"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Reverse Fly",
+        "weight": "11",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Rear Delt Fly",
+        "weight": "16",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Smith Machine Upright Row",
+        "weight": "20",
+        "reps": "8"
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell 21",
+        "weight": "10",
+        "reps": "19"
+      }
+    ]
+  }
+}

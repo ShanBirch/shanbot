@@ -1,0 +1,816 @@
+{
+  "Alice Forster": {
+    "Back Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "weight": "50.0",
+        "reps": "GOALS: S1: 50.0kg*8 | S2: 50.0kg*8 | S3: 50.0kg*8",
+        "set_progressions": [
+          {
+            "weight": 50.0,
+            "reps": 8,
+            "reason": "S1: Achieved 6 reps (target: 6). Progressing to 8 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 8,
+            "reason": "S2: Achieved 6 reps (target: 6). Progressing to 8 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 8,
+            "reason": "S3: Achieved 6 reps (target: 6). Progressing to 8 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "weight": "45.0",
+        "reps": "GOALS: S1: 45.0kg*12 | S2: 50.0kg*10 | S3: 50.0kg*10",
+        "set_progressions": [
+          {
+            "weight": 45.0,
+            "reps": 12,
+            "reason": "S1: Achieved 9 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 10,
+            "reason": "S2: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 10,
+            "reason": "S3: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "D.B bent over row",
+        "weight": "22.5",
+        "reps": "GOALS: S1: 22.5kg*10 | S2: 30.0kg*10 | S3: 30.0kg*10",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 10,
+            "reason": "S1: Achieved 7 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 30.0,
+            "reps": 10,
+            "reason": "S2: Achieved 7 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 30.0,
+            "reps": 10,
+            "reason": "S3: Achieved 7 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Hammer Curls",
+        "weight": "25.0",
+        "reps": "GOALS: S1: 25.0kg*15 | S2: 36.0kg*15 | S3: 36.0kg*15",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "S1: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 36.0,
+            "reps": 15,
+            "reason": "S2: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 36.0,
+            "reps": 15,
+            "reason": "S3: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      }
+    ],
+    "Core Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Crunch",
+        "weight": "52.5",
+        "reps": "GOALS: S1: 52.5kg*6 | S2: 72.5kg*6 | S3: 72.5kg*6",
+        "set_progressions": [
+          {
+            "weight": 52.5,
+            "reps": 6,
+            "reason": "S1: Achieved 15 reps at 15 target. Increasing weight to 52.5kg and resetting to 6 reps.",
+            "action": "increase_weight"
+          },
+          {
+            "weight": 72.5,
+            "reps": 6,
+            "reason": "S2: Achieved 15 reps at 15 target. Increasing weight to 72.5kg and resetting to 6 reps.",
+            "action": "increase_weight"
+          },
+          {
+            "weight": 72.5,
+            "reps": 6,
+            "reason": "S3: Achieved 15 reps at 15 target. Increasing weight to 72.5kg and resetting to 6 reps.",
+            "action": "increase_weight"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Skull Crusher",
+        "weight": "30.0",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 40.0kg*15 | S3: 40.0kg*15",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "S1: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 40.0,
+            "reps": 15,
+            "reason": "S2: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 40.0,
+            "reps": 15,
+            "reason": "S3: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Concentrated Bicep Curls",
+        "weight": "10.0",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "S1: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "S2: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "S3: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      }
+    ],
+    "Leg Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Back Squat Pause",
+        "weight": "40.0",
+        "reps": "GOALS: S1: 40.0kg*15 | S2: 75.0kg*10 | S3: 80.0kg*8",
+        "set_progressions": [
+          {
+            "weight": 40.0,
+            "reps": 15,
+            "reason": "S1: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 75.0,
+            "reps": 10,
+            "reason": "S2: Achieved 7 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 80.0,
+            "reps": 8,
+            "reason": "S3: Achieved 5 reps (target: 6). Progressing to 8 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "weight": "22.5",
+        "reps": "GOALS: S1: 22.5kg*15 | S2: 22.5kg*15 | S3: 22.5kg*15",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "S1: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "S2: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "S3: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Bulgarian Lunge",
+        "weight": "15.0",
+        "reps": "GOALS: S1: 15.0kg*12 | S2: 15.0kg*12",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "S1: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "S2: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Leg Extensions",
+        "weight": "30.0",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 45.0kg*15 | S3: 45.0kg*15",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "S1: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 45.0,
+            "reps": 15,
+            "reason": "S2: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 45.0,
+            "reps": 15,
+            "reason": "S3: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Calf Raise",
+        "weight": "20.0",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 25.0kg*15 | S3: 25.0kg*15",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "S1: Achieved 13 reps (target: 15). Need to be within 1 rep to progress.",
+            "action": "maintain"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "S2: Achieved 13 reps (target: 15). Need to be within 1 rep to progress.",
+            "action": "maintain"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "S3: Achieved 13 reps (target: 15). Need to be within 1 rep to progress.",
+            "action": "maintain"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Hyperextension",
+        "weight": "20.0",
+        "reps": "GOALS: S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "S1: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "S2: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "S3: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      }
+    ],
+    "Shoulder Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Standing Shoulder Press",
+        "weight": "10.0",
+        "reps": "GOALS: S1: 10.0kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "S1: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "S2: Achieved 12 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "S3: Achieved 12 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "weight": "5.0",
+        "reps": "GOALS: S1: 5.0kg*15 | S2: 5.0kg*15 | S3: 5.0kg*15",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "S1: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "S2: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "S3: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pulls",
+        "weight": "35.0",
+        "reps": "GOALS: S1: 35.0kg*15 | S2: 50.0kg*15 | S3: 50.0kg*15",
+        "set_progressions": [
+          {
+            "weight": 35.0,
+            "reps": 15,
+            "reason": "S1: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 15,
+            "reason": "S2: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 15,
+            "reason": "S3: Achieved 11 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Rope Tricep Pushdown",
+        "weight": "20.0",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "S1: Achieved 13 reps (target: 15). Need to be within 1 rep to progress.",
+            "action": "maintain"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "S2: Achieved 13 reps (target: 15). Need to be within 1 rep to progress.",
+            "action": "maintain"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "S3: Achieved 13 reps (target: 15). Need to be within 1 rep to progress.",
+            "action": "maintain"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Alternating Hammer Curls",
+        "weight": "15",
+        "reps": "GOALS: S1: 15kg*6 | S2: 15.0kg*12 | S3: 15.0kg*12",
+        "set_progressions": [
+          {
+            "weight": 15,
+            "reps": 6,
+            "reason": "S1: Achieved 18 reps at 15 target. Increasing weight to 15kg and resetting to 6 reps.",
+            "action": "increase_weight"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "S2: Achieved 9 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "S3: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Barbell Bench Chest Press",
+        "weight": "40.0",
+        "reps": "GOALS: S1: 40.0kg*10 | S2: 40.0kg*10 | S3: 40.0kg*10",
+        "set_progressions": [
+          {
+            "weight": 40.0,
+            "reps": 10,
+            "reason": "S1: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 40.0,
+            "reps": 10,
+            "reason": "S2: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 40.0,
+            "reps": 10,
+            "reason": "S3: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Incline Dumbbell Bench press",
+        "weight": "17.5",
+        "reps": "GOALS: S1: 17.5kg*10 | S2: 17.5kg*10 | S3: 17.5kg*10",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 10,
+            "reason": "S1: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 17.5,
+            "reps": 10,
+            "reason": "S2: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 17.5,
+            "reps": 10,
+            "reason": "S3: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest Press",
+        "weight": "25.0",
+        "reps": "GOALS: S1: 25.0kg*10 | S2: 25.0kg*10 | S3: 25.0kg*10",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 10,
+            "reason": "S1: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 25.0,
+            "reps": 10,
+            "reason": "S2: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 25.0,
+            "reps": 10,
+            "reason": "S3: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Dumbbell Chest Fly",
+        "weight": "12.5",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "S1: Achieved 12 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "S2: Achieved 12 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "S3: Achieved 12 reps (target: 12). Progressing to 15 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "weight": "37.5",
+        "reps": "GOALS: S1: 37.5kg*6 | S2: 37.5kg*6 | S3: 37.5kg*6",
+        "set_progressions": [
+          {
+            "weight": 37.5,
+            "reps": 6,
+            "reason": "S1: Achieved 15 reps at 15 target. Increasing weight to 37.5kg and resetting to 6 reps.",
+            "action": "increase_weight"
+          },
+          {
+            "weight": 37.5,
+            "reps": 6,
+            "reason": "S2: Achieved 15 reps at 15 target. Increasing weight to 37.5kg and resetting to 6 reps.",
+            "action": "increase_weight"
+          },
+          {
+            "weight": 37.5,
+            "reps": 6,
+            "reason": "S3: Achieved 15 reps at 15 target. Increasing weight to 37.5kg and resetting to 6 reps.",
+            "action": "increase_weight"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "weight": "10.0",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "S1: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "S2: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "S3: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Chest fly",
+        "weight": "24.0",
+        "reps": "GOALS: S1: 24.0kg*12 | S2: 24.0kg*12 | S3: 24.0kg*10",
+        "set_progressions": [
+          {
+            "weight": 24.0,
+            "reps": 12,
+            "reason": "S1: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 24.0,
+            "reps": 12,
+            "reason": "S2: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 24.0,
+            "reps": 10,
+            "reason": "S3: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Deltoid Lateral Raise",
+        "weight": "12.5",
+        "reps": "GOALS: S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "S1: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "S2: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "S3: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      }
+    ],
+    "Back": [
+      {
+        "action": "modify_goals",
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "weight": "45.0",
+        "reps": "GOALS: S1: 45.0kg*10 | S2: 50.0kg*8 | S3: 50.0kg*8",
+        "set_progressions": [
+          {
+            "weight": 45.0,
+            "reps": 10,
+            "reason": "S1: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 8,
+            "reason": "S2: Achieved 6 reps (target: 6). Progressing to 8 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 8,
+            "reason": "S3: Achieved 6 reps (target: 6). Progressing to 8 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "weight": "40.0",
+        "reps": "GOALS: S1: 40.0kg*12 | S2: 40.0kg*12 | S3: 40.0kg*12",
+        "set_progressions": [
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "S1: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "S2: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "S3: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Face Pull",
+        "weight": "50.0",
+        "reps": "GOALS: S1: 50.0kg*12 | S2: 50.0kg*12 | S3: 50.0kg*12",
+        "set_progressions": [
+          {
+            "weight": 50.0,
+            "reps": 12,
+            "reason": "S1: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 12,
+            "reason": "S2: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 50.0,
+            "reps": 12,
+            "reason": "S3: Achieved 10 reps (target: 10). Progressing to 12 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Cable Adductions",
+        "weight": "32.0",
+        "reps": "GOALS: S1: 32.0kg*10 | S2: 32.0kg*10 | S3: 32.0kg*10",
+        "set_progressions": [
+          {
+            "weight": 32.0,
+            "reps": 10,
+            "reason": "S1: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 32.0,
+            "reps": 10,
+            "reason": "S2: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 32.0,
+            "reps": 10,
+            "reason": "S3: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      },
+      {
+        "action": "modify_goals",
+        "exercise_name": "Seated Bicep Curl",
+        "weight": "12.5",
+        "reps": "GOALS: S1: 12.5kg*6 | S2: 12.5kg*10 | S3: 12.5kg*10",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "S1: Achieved 15 reps at 15 target. Increasing weight to 12.5kg and resetting to 6 reps.",
+            "action": "increase_weight"
+          },
+          {
+            "weight": 12.5,
+            "reps": 10,
+            "reason": "S2: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 10,
+            "reason": "S3: Achieved 8 reps (target: 8). Progressing to 10 reps.",
+            "action": "increase_reps"
+          }
+        ]
+      }
+    ]
+  }
+}

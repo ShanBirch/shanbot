@@ -1,0 +1,140 @@
+{
+  "campaign_stats": {
+    "total_users_targeted": 11,
+    "stories_analyzed": 11,
+    "messages_sent": 1,
+    "successful_interactions": 0,
+    "campaign_start_date": "2025-06-07T10:31:03.428559"
+  },
+  "user_interactions": {
+    "theplantpowercoach": {
+      "first_contact": "2025-06-07T10:32:39.677843",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:32:39.677843",
+          "story_description": "No story available",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "kynd.to.all.kinds": {
+      "first_contact": "2025-06-07T10:34:06.750666",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:34:06.750666",
+          "story_description": "No story available",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "_one.happy.flexitarian_": {
+      "first_contact": "2025-06-07T10:35:41.857196",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:35:41.857196",
+          "story_description": "No story available",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "soyhapppy": {
+      "first_contact": "2025-06-07T10:37:28.041073",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:37:28.041073",
+          "story_description": "No story available",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "vanessa_4.0": {
+      "first_contact": "2025-06-07T10:43:23.360215",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:43:23.360215",
+          "story_description": "Story analysis failed",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "greeniegenie42": {
+      "first_contact": "2025-06-07T10:45:22.753696",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:45:22.753696",
+          "story_description": "No story available",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "karliekilpatrick": {
+      "first_contact": "2025-06-07T10:46:06.687825",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:46:06.687825",
+          "story_description": "Profile not accessible",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "kayla.ackroyd": {
+      "first_contact": "2025-06-07T10:46:46.455192",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:46:46.455192",
+          "story_description": "Profile not accessible",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "challengingmovement": {
+      "first_contact": "2025-06-07T10:50:19.094687",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:50:19.094687",
+          "story_description": "The Instagram story shows a comment thread where someone is expressing a negative experience, seemingly related to a fitness goal or challenge.  There's no direct visual content related to fitness, but the context suggests a fitness-related setback or disappointment.",
+          "message_sent": "Hey @challengingmovement! Saw your story \u2013 bummer about the setback!  That's rough.  I get it, things don't always go to plan, but your resilience is what counts.  If you're ever looking for a fresh perspective on reaching your goals, especially with plant-based nutrition and strength training, feel free to shoot me a message.  I'm a fellow Melbournian, too, and run online coaching with Coco's Connected if you're interested!",
+          "success": false
+        }
+      ]
+    },
+    "ona.taste_buddies": {
+      "first_contact": "2025-06-07T10:56:56.915082",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:56:56.915082",
+          "story_description": "No story available",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    },
+    "silverbacktarzan": {
+      "first_contact": "2025-06-07T10:57:48.714974",
+      "interactions": [
+        {
+          "date": "2025-06-07T10:57:48.714974",
+          "story_description": "No story available",
+          "message_sent": "",
+          "success": false
+        }
+      ]
+    }
+  },
+  "daily_stats": {
+    "2025-06-07": {
+      "users_targeted": 11,
+      "stories_analyzed": 11,
+      "messages_sent": 1,
+      "successful_interactions": 0
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+    "Shannon Birch": {
+        "Back Day": [
+            {
+                "action": "modify_goals",
+                "exercise_name": "Barbell Bent Over Row",
+                "weight": "35",
+                "reps": "8"
+            },
+            {
+                "action": "modify_goals",
+                "exercise_name": "Lat Pulldown",
+                "weight": "40",
+                "reps": "10"
+            },
+            {
+                "action": "add",
+                "exercise_name": "Seated Bicep Curl",
+                "sets": "3",
+                "reps": "12"
+            }
+        ],
+        "Chest Day": [
+            {
+                "action": "modify_goals",
+                "exercise_name": "Bench Press",
+                "weight": "60",
+                "reps": "8"
+            },
+            {
+                "action": "add",
+                "exercise_name": "Incline Dumbbell Press",
+                "sets": "3",
+                "reps": "10"
+            }
+        ],
+        "Leg Day": [
+            {
+                "action": "modify_goals",
+                "exercise_name": "Squat",
+                "weight": "50",
+                "reps": "8"
+            },
+            {
+                "action": "remove",
+                "exercise_name": "Old Leg Exercise"
+            }
+        ]
+    },
+    "Client Name 2": {
+        "Back Day": [
+            {
+                "action": "modify_goals",
+                "exercise_name": "Pull Ups",
+                "weight": "bodyweight",
+                "reps": "6"
+            }
+        ]
+    }
+}

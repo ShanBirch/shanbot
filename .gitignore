@@ -1,0 +1,92 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environments & secrets
+.env
+.venv/
+env/
+venv/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Large local data/artifacts not needed for deploy
+22.04/
+canva/
+check-in video/
+Content Videos/
+backups/
+clients/
+
+# Chrome profiles & binaries
+chrome_profile*/
+chrome_profile_*/
+chrome-profile*/
+chrome-win64/
+chromedriver-*/
+
+# Logs
+*.log
+*.sqlite-journal
+
+# Databases (keep out of repo; use cloud DB or uploaded seed separately)
+*.sqlite
+*.db
+*.db-journal
+
+# Heavy/binary files to exclude from repo
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.flv
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.exe
+*.msi
+*.dll
+*.iso
+*.pdf
+*.png
+*.jpg
+*.jpeg
+
+# Large vendored sources
+langchain-main/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dev-debug.log
+
+# Dependency directories
+node_modules/
+
+# Environment variables
+.env
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS specific
+.DS_Store
+
+# Task files
+tasks.json
+tasks/ 

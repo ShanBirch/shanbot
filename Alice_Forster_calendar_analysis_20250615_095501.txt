@@ -1,0 +1,46 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-15 09:55:01
+============================================================
+
+Based on the provided Trainerize calendar screenshot, here's an analysis of the most active week, which appears to be the week of June 9-15, 2025:
+
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week shown is the week containing June 12th - June 13th, 2025.  This is determined by the presence of completed workouts and tracked activities on those days in the "Recent Activities" section, as well as the recency of these activities within the calendar view.
+
+
+**DETAILED WORKOUT ANALYSIS (June 12-13, 2025):**
+
+* **Completed:**
+    * Back Day: June 13, 2025
+    * Core Day: June 12, 2025
+
+* **Incomplete:**  None visible for this week.
+
+* "+More": No "+More" text is visible, indicating that these may be all the workouts for the week visible on this screen.
+
+
+
+**DETAILED NUTRITION TRACKING (June 12-13, 2025):**
+
+Nutrition data is not directly displayed in the calendar's weekly view; however, the "Recent Activities" section shows that Alice Forster hit their daily nutrition goal on June 13th, 2025.  There is no further breakdown of calorie/meal data available within the provided screenshot.
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 12-13, 2025):**
+
+* **June 12, 2025:** Walking completed ✓, 2.58 km
+* **June 13, 2025:** Walking completed ✓, 2.16 km
+
+
+**WEIGHT/BODY METRICS (June 12-13, 2025):**
+
+* June 13, 2025: Weight recorded at 78.9 kg
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed Items:** 4 (2 workouts, 2 walks, 1 nutrition goal)
+* **Incomplete Items:** 0
+* **Adherence Percentage:** 100% (all visible scheduled activities are completed)
+
+**Patterns/Concerns:** The client appears to be highly adherent to their training and walking schedule during this week. The lack of visible nutrition data in the calendar view makes it impossible to assess dietary adherence from this screenshot alone. Further information would be required to make additional observations.

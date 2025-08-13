@@ -1,0 +1,1798 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+import time
+import logging
+import tempfile
+import shutil
+import os
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException, InvalidSessionIdException
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+
+
+class TrainerizeAutomation:
+    def __init__(self):
+        logging.basicConfig(level=logging.INFO,
+                            format='%(asctime)s - %(levelname)s - %(message)s')
+        logging.info("Initializing Chrome...")
+
+        self.chromedriver_path = r"C:\SeleniumDrivers\chromedriver-win64\chromedriver.exe"
+        self.chrome_executable_path = r"C:\SeleniumDrivers\chrome-win64\chrome.exe"
+
+        chrome_options = Options()
+        chrome_options.add_argument("--start-maximized")
+        self.temp_user_data_dir = tempfile.mkdtemp()
+        chrome_options.add_argument(
+            f"--user-data-dir={self.temp_user_data_dir}")
+        chrome_options.add_argument('--ignore-certificate-errors')
+        chrome_options.add_argument('--ignore-ssl-errors')
+        chrome_options.add_argument('--disable-extensions')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_experimental_option(
+            'excludeSwitches', ['enable-logging'])
+        chrome_options.binary_location = self.chrome_executable_path
+
+        try:
+            service = Service(executable_path=self.chromedriver_path)
+            self.driver = webdriver.Chrome(
+                service=service, options=chrome_options)
+            self.wait = WebDriverWait(self.driver, 20)
+            logging.info("Chrome initialized successfully!")
+
+        except Exception as e:
+            logging.exception(f"Failed to initialize Chrome: {e}")
+            if hasattr(self, 'temp_user_data_dir') and os.path.exists(self.temp_user_data_dir):
+                shutil.rmtree(self.temp_user_data_dir)
+            raise
+
+    def handle_cookie_dialog(self):
+        logging.info(
+            "Cookie dialog handling (placeholder - not clicking Accept).")
+        time.sleep(2)
+
+    def handle_notification_popup(self):
+        try:
+            logging.info(
+                "Checking for and handling 'Get notifications?' popup...")
+            block_button_locator = (
+                By.XPATH, "//button[contains(text(), 'Block')]")
+            block_button = self.wait.until(
+                EC.element_to_be_clickable(block_button_locator))
+            block_button.click()
+            logging.info("Clicked 'Block' on the notification popup.")
+            time.sleep(1)
+            return True
+        except Exception as e:
+            logging.warning(
+                f"Notification popup not found or failed to handle: {e}")
+            return False
+
+    def login(self, username, password):
+        try:
+            logging.info("Navigating directly to Trainerize login page...")
+            self.driver.get("https://www.trainerize.com/login.aspx")
+            self.handle_cookie_dialog()
+            logging.info("Scrolling down slightly...")
+            self.driver.execute_script("window.scrollBy(0, 200);")
+            time.sleep(1)
+            logging.info("Waiting for page to load...")
+            self.wait.until(EC.presence_of_element_located((By.ID, "t_email")))
+            logging.info("Entering initial email...")
+            email_field = self.driver.find_element(By.ID, "t_email")
+            email_field.send_keys(username)
+            logging.info("Clicking 'Find me' button...")
+            find_me_button = self.driver.find_element(
+                By.CLASS_NAME, "tz-button--secondary")
+            find_me_button.click()
+            time.sleep(2)
+            logging.info("Waiting for the second email field (emailInput)...")
+            self.wait.until(EC.presence_of_element_located(
+                (By.ID, "emailInput")))
+            logging.info("Entering full email on second page...")
+            email_field_second = self.driver.find_element(By.ID, "emailInput")
+            email_field_second.send_keys(username)
+            logging.info("Entering password...")
+            password_field = self.driver.find_element(By.ID, "passInput")
+            password_field.send_keys(password)
+            logging.info("Clicking 'Sign In' button...")
+            sign_in_button = self.wait.until(EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "[data-testid='signIn-button']")))
+            self.driver.execute_script("arguments[0].click();", sign_in_button)
+            logging.info("Successfully logged in!")
+            return True
+        except Exception as e:
+            logging.exception(f"Error during login: {e}")
+            return False
+
+    def click_messages(self):
+        """Clicks on the Messages link in the left navigation menu."""
+        try:
+            logging.info("Attempting to click on the Messages link...")
+            messages_link_locator = (By.ID, "nav_messages")
+            messages_link = self.wait.until(
+                EC.element_to_be_clickable(messages_link_locator))
+            messages_link.click()
+            logging.info("Successfully clicked on Messages link.")
+            time.sleep(2)  # Wait for messages page to load
+            return True
+        except Exception as e:
+            logging.exception(f"Error clicking on Messages link: {e}")
+            return False
+
+    def click_member_in_messages(self, member_name):
+        """Finds and clicks on a member in the messages list."""
+        try:
+            logging.info(
+                f"Looking for member: {member_name} in messages list...")
+            # Using XPath to find the paragraph element with the exact text and class
+            member_locator = (
+                By.XPATH, f"//p[contains(@class, 'tz-sp') and contains(@class, 'color--black') and contains(@class, 'm2b') and text()='{member_name}']")
+
+            # Wait for the element to be clickable
+            try:
+                member_element = self.wait.until(
+                    EC.element_to_be_clickable(member_locator))
+
+                # Click on the member
+                member_element.click()
+                logging.info(f"Successfully clicked on member: {member_name}")
+                time.sleep(2)  # Wait for the conversation to load
+                return True
+            except TimeoutException:
+                logging.info(
+                    f"Could not find member: {member_name} in the messages list. Will try to start a new conversation.")
+                return self.start_new_conversation(member_name)
+        except Exception as e:
+            logging.exception(f"Error clicking on member {member_name}: {e}")
+            return False
+
+    def start_new_conversation(self, client_name):
+        """Start a new conversation with a client when they are not found in the inbox."""
+        try:
+            logging.info(f"Starting a new conversation with {client_name}...")
+            # Find and click the NEW button
+            new_button = self.wait.until(
+                EC.element_to_be_clickable(
+                    (By.CSS_SELECTOR, '[data-testid="add_new_message_button"]'))
+            )
+            new_button.click()
+            logging.info("Clicked on NEW button")
+            time.sleep(2)  # Wait for popup to appear
+
+            # First look for the placeholder div that contains "Enter one or more people"
+            found_input = False
+            try:
+                # Find the placeholder div first
+                placeholder_div = self.wait.until(
+                    EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, ".ant-select-selection__placeholder"))
+                )
+                if "Enter one or more people" in placeholder_div.text:
+                    logging.info(
+                        f"Found the placeholder div: {placeholder_div.text}")
+
+                    # Click on the parent selection component rather than the placeholder itself
+                    parent_selector = self.driver.find_element(
+                        By.CSS_SELECTOR, ".ant-select-selection")
+                    self.driver.execute_script(
+                        "arguments[0].click();", parent_selector)
+                    logging.info("Clicked on the selection component")
+                    time.sleep(1)
+
+                    # Now look for the actual input that appears
+                    input_field = self.wait.until(
+                        EC.presence_of_element_located(
+                            (By.CSS_SELECTOR, "input.ant-select-search__field"))
+                    )
+
+                    # Type the client name
+                    input_field.clear()
+                    input_field.send_keys(client_name)
+                    logging.info(f"Typed client name: {client_name}")
+                    time.sleep(2)  # Wait for autocomplete
+
+                    # Press Enter to select the name
+                    input_field.send_keys(Keys.ENTER)
+                    logging.info("Pressed ENTER to select the client name")
+                    found_input = True
+
+                    # Wait for the conversation to load
+                    # Increased wait time to ensure conversation loads
+                    time.sleep(8)
+
+                    # Verify that we're in the conversation view by checking for message composer or conversation container
+                    try:
+                        # Check for message composer or conversation container
+                        self.driver.find_element(
+                            By.CSS_SELECTOR, '.message-composer, .conversation-container, .messageComposer__wrapper, [role="combobox"][contenteditable="true"]')
+                        logging.info(
+                            "Conversation view has loaded successfully")
+                        return True
+                    except:
+                        logging.warning(
+                            "Could not verify that conversation has loaded after selecting client")
+                        return False
+            except Exception as e:
+                logging.info(f"Could not find ant-select placeholder: {e}")
+
+            # If the above method failed, try the alternative approach with input fields
+            if not found_input:
+                # Try with more generic selectors as fallback
+                selectors = [
+                    '[placeholder="Enter name"]',
+                    '[data-testid="client-search"]',
+                    'input.conversation-selector',
+                    'input[type="text"]',
+                    '.ant-select-selection input'
+                ]
+
+                name_input = None
+                for selector in selectors:
+                    try:
+                        elements = self.driver.find_elements(
+                            By.CSS_SELECTOR, selector)
+                        for element in elements:
+                            if element.is_displayed():
+                                name_input = element
+                                logging.info(
+                                    f"Found name input field with selector: {selector}")
+                                break
+                        if name_input:
+                            break
+                    except:
+                        continue
+
+                if not name_input:
+                    logging.error(
+                        "Could not find the name input field in the new message dialog")
+                    return False
+
+                # Click the input field to focus it
+                name_input.click()
+                time.sleep(1)
+
+                # Clear any existing text and type the client name
+                name_input.clear()
+                name_input.send_keys(client_name)
+                logging.info(f"Entered client name: {client_name}")
+                time.sleep(2)  # Wait for autocomplete
+
+                # Press ENTER to select the name
+                name_input.send_keys(Keys.ENTER)
+                logging.info("Pressed ENTER to select the client name")
+
+                # Wait for the conversation to load
+                # Increased wait time to ensure conversation loads
+                time.sleep(8)
+
+                # Verify that we're in the conversation view
+                try:
+                    # Check for message composer or conversation container
+                    self.driver.find_element(
+                        By.CSS_SELECTOR, '.message-composer, .conversation-container, .messageComposer__wrapper, [role="combobox"][contenteditable="true"]')
+                    logging.info("Conversation view has loaded successfully")
+                    return True
+                except:
+                    logging.warning(
+                        "Could not verify that conversation has loaded after selecting client")
+                    return False
+
+        except Exception as e:
+            logging.exception(
+                f"Error starting new conversation with {client_name}: {e}")
+            return False
+
+    def click_attachment_icon(self):
+        """Clicks on the attachment (paper clip) icon in the conversation."""
+        try:
+            logging.info(
+                "Attempting to click on any visible attachment/upload button...")
+
+            # Wait a moment for any pop-up windows to fully render
+            time.sleep(3)
+
+            # Try several approaches to find any attachment/upload button
+            possible_selectors = [
+                # First try the specific SVG use element in the popup
+                "//use[@href='#outline/attach']",
+                "//svg[.//use[@href='#outline/attach']]",
+                "//button[.//use[@href='#outline/attach']]",
+                # Then try photos/photos selectors
+                "//use[@href='#outline/photos/photos']",
+                "//svg[.//use[@href='#outline/photos/photos']]",
+                "//button[.//use[@href='#outline/photos/photos']]",
+                # Then try finding attachment buttons by broader SVG names
+                "//svg[@name='outline/attach']",
+                "//svg[@name='outline/photos/photos']",
+                # Then fall back to broader selectors
+                "//button[contains(@class, 'upload')]",
+                "//span[contains(text(), 'Upload')]",
+                "//span[contains(text(), 'Attach')]",
+                "//div[contains(@class, 'attachment')]",
+                "//div[contains(@class, 'upload')]"
+            ]
+
+            for selector in possible_selectors:
+                try:
+                    logging.info(f"Trying selector: {selector}")
+                    elements = self.driver.find_elements(By.XPATH, selector)
+                    if elements:
+                        logging.info(
+                            f"Found {len(elements)} elements with selector {selector}")
+                        for element in elements:
+                            if element.is_displayed():
+                                logging.info(
+                                    f"Clicking on visible element with selector {selector}")
+                                # Try JavaScript click which is more reliable
+                                self.driver.execute_script(
+                                    "arguments[0].click();", element)
+                                time.sleep(2)
+                                return True
+                except Exception as e:
+                    logging.info(f"Error with selector {selector}: {e}")
+                    continue
+
+            # If we still haven't found it, try using CSS selectors
+            css_selectors = [
+                # Direct CSS selectors for the attachment icons
+                "[href='#outline/attach']",
+                "[href='#outline/photos/photos']",
+                "svg[name='outline/attach']",
+                "svg[name='outline/photos/photos']",
+                # Button containing paperclip or attachment icons
+                "button.ant-btn svg",
+                ".ant-upload-button",
+                "[class*='attachment']",
+                # Any visible button in the popup with icon
+                ".ant-modal button",
+                ".ant-modal-content button",
+                # Direct parent of the icon
+                "span[role='button'] svg"
+            ]
+
+            for selector in css_selectors:
+                try:
+                    elements = self.driver.find_elements(
+                        By.CSS_SELECTOR, selector)
+                    if elements:
+                        logging.info(
+                            f"Found {len(elements)} elements with CSS selector {selector}")
+                        for element in elements:
+                            if element.is_displayed():
+                                logging.info(
+                                    f"Clicking on visible element with CSS selector {selector}")
+                                self.driver.execute_script(
+                                    "arguments[0].click();", element)
+                                time.sleep(2)
+                                return True
+                except Exception as e:
+                    logging.info(f"Error with CSS selector {selector}: {e}")
+                    continue
+
+            # Try to find ANY button in the dialog
+            try:
+                logging.info("Looking for any buttons in the dialog/popup...")
+                popup_buttons = self.driver.find_elements(
+                    By.CSS_SELECTOR, ".ant-modal-content button, .ant-modal button")
+                for button in popup_buttons:
+                    try:
+                        if button.is_displayed():
+                            logging.info(
+                                "Found a button in the popup, inspecting...")
+                            # Check if it has a child svg element
+                            svg_elements = button.find_elements(
+                                By.TAG_NAME, "svg")
+                            if svg_elements:
+                                logging.info(
+                                    "Button has SVG, likely attachment. Clicking...")
+                                self.driver.execute_script(
+                                    "arguments[0].click();", button)
+                                time.sleep(2)
+                                return True
+                    except Exception as e:
+                        continue
+            except Exception as e:
+                logging.info(f"Error finding buttons in popup: {e}")
+
+            # Last resort - check for any buttons with no text (icon buttons)
+            try:
+                logging.info("Looking for any icon buttons...")
+                buttons = self.driver.find_elements(By.TAG_NAME, "button")
+                for button in buttons:
+                    try:
+                        if button.is_displayed() and button.text.strip() == "":
+                            # If it has children, it might be an icon button
+                            if button.find_elements(By.XPATH, "./*"):
+                                logging.info("Found a potential icon button")
+                                self.driver.execute_script(
+                                    "arguments[0].click();", button)
+                                time.sleep(2)
+                                return True
+                    except:
+                        continue
+            except Exception as e:
+                logging.info(f"Error with icon button fallback: {e}")
+
+            # If we couldn't find any attachment icon, try directly injecting a file input
+            logging.info(
+                "No attachment icon found, but returning True to continue with file upload attempts")
+            return True
+
+        except Exception as e:
+            logging.exception(f"Error clicking on attachment icon: {e}")
+            return False
+
+    def get_video_path(self, client_name):
+        """Generate the correct video path for a given client.
+
+        Args:
+            client_name: Name of the client
+
+        Returns:
+            Full path to the client's video file
+        """
+        # Convert spaces to underscores in client name
+        client_name_formatted = client_name.replace(" ", "_")
+
+        # Construct the full path
+        base_path = r"C:\Users\Shannon\OneDrive\Desktop\shanbot\output"
+        video_filename = f"{client_name_formatted}_weekly_checkin.mp4"
+        full_path = os.path.join(base_path, video_filename)
+
+        return full_path
+
+    def get_pdf_path(self, client_name):
+        """Generate the correct PDF path for a given client.
+
+        Args:
+            client_name: Name of the client
+
+        Returns:
+            Full path to the client's PDF file
+        """
+        # Convert spaces to underscores in client name
+        client_name_formatted = client_name.replace(" ", "_")
+
+        # Construct the full path for the most recent PDF
+        base_path = r"C:\Users\Shannon"
+
+        # Check for any PDF files matching the pattern for this client
+        # Format: Client_Name_YYYY-MM-DD_check_in_review.pdf
+        pdf_pattern = f"{client_name_formatted}_*_check_in_review.pdf"
+        matching_pdfs = []
+
+        for file in os.listdir(base_path):
+            if file.startswith(client_name_formatted) and file.endswith("_check_in_review.pdf"):
+                matching_pdfs.append(file)
+
+        if not matching_pdfs:
+            logging.warning(f"No PDF found for client: {client_name}")
+            return None
+
+        # Sort files by date (newest first) to get the most recent check-in review
+        matching_pdfs.sort(reverse=True)
+        pdf_filename = matching_pdfs[0]
+
+        full_path = os.path.join(base_path, pdf_filename)
+        return full_path
+
+    def get_json_path(self, client_name):
+        """Generate the correct JSON path for a given client.
+
+        Args:
+            client_name: Name of the client
+
+        Returns:
+            Full path to the client's JSON file
+        """
+        # Convert spaces to underscores in client name
+        client_name_formatted = client_name.replace(" ", "_")
+
+        # Construct the path to look for JSON files
+        checkin_reviews_dir = r"C:\Users\Shannon\OneDrive\Desktop\shanbot\output\checkin_reviews"
+
+        # Look for the most recent JSON file for this client (format: Client_Name_YYYY-MM-DD_fitness_wrapped_data.json)
+        json_pattern = f"{client_name_formatted}_*_fitness_wrapped_data.json"
+        matching_jsons = []
+
+        # Check if directory exists
+        if not os.path.exists(checkin_reviews_dir):
+            logging.warning(
+                f"Checkin reviews directory not found: {checkin_reviews_dir}")
+            return None
+
+        for file in os.listdir(checkin_reviews_dir):
+            if file.startswith(client_name_formatted) and file.endswith("_fitness_wrapped_data.json"):
+                matching_jsons.append(file)
+
+        if not matching_jsons:
+            logging.warning(f"No JSON data found for client: {client_name}")
+            return None
+
+        # Sort files by date (newest first) to get the most recent data
+        matching_jsons.sort(reverse=True)
+        json_filename = matching_jsons[0]
+
+        full_path = os.path.join(checkin_reviews_dir, json_filename)
+        logging.info(f"Found JSON data for {client_name}: {json_filename}")
+        return full_path
+
+    def get_first_name(self, full_name):
+        """Extract the first name from a full name.
+
+        Args:
+            full_name: Full name of the client
+
+        Returns:
+            First name of the client
+        """
+        return full_name.split()[0]
+
+    def type_message(self, client_name):
+        """Types and sends a personalized message before attaching files.
+
+        Args:
+            client_name: Name of the client
+        """
+        try:
+            # Get client's first name
+            first_name = self.get_first_name(client_name)
+            logging.info(f"Got first name: {first_name}")
+
+            # Wait for the conversation to fully load
+            time.sleep(3)
+
+            logging.info("Trying to find textarea...")
+
+            # Try multiple approaches to find the textarea
+            textarea = None
+
+            # Approach 1: Try multiple selectors
+            textarea_selectors = [
+                "textarea.ant-input[placeholder='Type your message']",
+                "textarea[placeholder='Type your message']",
+                "textarea.ant-input",
+                "textarea"
+            ]
+
+            for selector in textarea_selectors:
+                try:
+                    logging.info(f"Trying textarea selector: {selector}")
+                    elements = self.driver.find_elements(
+                        By.CSS_SELECTOR, selector)
+                    logging.info(
+                        f"Found {len(elements)} elements with selector {selector}")
+                    for element in elements:
+                        if element.is_displayed():
+                            textarea = element
+                            logging.info(
+                                f"Found visible textarea with selector: {selector}")
+                            break
+                    if textarea:
+                        break
+                except Exception as e:
+                    logging.info(
+                        f"Error with textarea selector {selector}: {e}")
+                    continue
+
+            # Approach 2: If still not found, try to wait explicitly for the textarea
+            if not textarea:
+                try:
+                    logging.info("Trying wait approach for textarea...")
+                    textarea = self.wait.until(EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, "textarea")))
+                    logging.info("Found textarea with wait approach")
+                except Exception as e:
+                    logging.info(f"Wait approach failed: {e}")
+
+            # Approach 3: Last resort - look for any input element
+            if not textarea:
+                try:
+                    logging.info("Looking for any input element...")
+                    inputs = self.driver.find_elements(By.TAG_NAME, "input")
+                    for input_elem in inputs:
+                        try:
+                            if input_elem.is_displayed() and input_elem.get_attribute("type") != "file":
+                                textarea = input_elem
+                                logging.info("Found an input element to use")
+                                break
+                        except:
+                            continue
+                except Exception as e:
+                    logging.info(f"Error finding input elements: {e}")
+
+            if not textarea:
+                logging.error("Could not find any message input field")
+                return False
+
+            # Type the initial greeting message
+            message = f"Hey {first_name}, here's your weekly check-in!"
+
+            # Clear the textarea
+            try:
+                textarea.clear()
+                logging.info("Cleared textarea")
+            except Exception as e:
+                logging.info(f"Error clearing textarea: {e}")
+
+            # Type the message using multiple methods
+            try:
+                # Method 1: Standard send_keys
+                textarea.send_keys(message)
+                logging.info(f"Typed message using send_keys: {message}")
+            except Exception as e:
+                logging.info(f"Error with send_keys: {e}")
+                try:
+                    # Method 2: JavaScript
+                    self.driver.execute_script(
+                        f"arguments[0].value = '{message}';", textarea)
+                    logging.info("Typed message using JavaScript")
+                except Exception as e:
+                    logging.info(f"Error with JavaScript typing: {e}")
+                    return False
+
+            # Wait a brief moment to ensure the message is entered fully
+            time.sleep(2)
+
+            # Try to find Enter key and press it first (in some UIs this sends the message)
+            try:
+                textarea.send_keys(Keys.RETURN)
+                logging.info("Pressed Enter key")
+                time.sleep(2)
+
+                # Check if message was sent by Enter key
+                try:
+                    message_elements = self.driver.find_elements(
+                        By.XPATH, f"//div[contains(text(), '{message}')]")
+                    if message_elements:
+                        logging.info(
+                            "Message appears to have been sent by Enter key")
+                        return True
+                except:
+                    pass
+            except Exception as e:
+                logging.info(f"Error pressing Enter key: {e}")
+
+            # If Enter key didn't work, try to find and click the Send button
+            logging.info("Looking for Send button...")
+            send_button = None
+            send_selectors = [
+                "//button[contains(@class, 'send')]",
+                "//button[contains(text(), 'Send')]",
+                "//div[contains(@class, 'send')]",
+                "//span[contains(text(), 'Send')]",
+                "//button[contains(@class, 'ant-btn')][.//span[text()='Send']]",
+                "//button[@type='submit']"
+            ]
+
+            for selector in send_selectors:
+                try:
+                    logging.info(f"Trying send button selector: {selector}")
+                    elements = self.driver.find_elements(By.XPATH, selector)
+                    logging.info(
+                        f"Found {len(elements)} send button candidates with selector {selector}")
+                    for element in elements:
+                        if element.is_displayed():
+                            send_button = element
+                            logging.info(
+                                f"Found visible send button with selector: {selector}")
+                            break
+                    if send_button:
+                        break
+                except Exception as e:
+                    logging.info(
+                        f"Error with send button selector {selector}: {e}")
+                    continue
+
+            if not send_button:
+                # Try to find any button that might be a send button
+                try:
+                    logging.info(
+                        "Looking for any button that might be a send button...")
+                    buttons = self.driver.find_elements(By.TAG_NAME, "button")
+                    for button in buttons:
+                        try:
+                            if button.is_displayed():
+                                button_text = button.text.lower()
+                                if "send" in button_text or button_text == "":
+                                    send_button = button
+                                    logging.info(
+                                        "Found a potential send button")
+                                    break
+                        except:
+                            continue
+                except Exception as e:
+                    logging.info(f"Error finding general buttons: {e}")
+
+            if not send_button:
+                logging.error("Could not find send button")
+                # Even if we can't find the send button, let's return True
+                # since we at least typed the message
+                return True
+
+            # Try multiple ways to click the button
+            try:
+                # Method 1: Standard click
+                send_button.click()
+                logging.info("Clicked send button using standard click")
+            except Exception as e:
+                logging.info(f"Error with standard click: {e}")
+                try:
+                    # Method 2: JavaScript click
+                    self.driver.execute_script(
+                        "arguments[0].click();", send_button)
+                    logging.info("Clicked send button using JavaScript")
+                except Exception as e:
+                    logging.info(f"Error with JavaScript click: {e}")
+                    return False
+
+            # Wait for the message to be sent
+            time.sleep(3)
+
+            return True
+        except Exception as e:
+            logging.exception(f"Error typing initial message: {e}")
+            # Even if we failed, let's try to continue with file uploads
+            return True
+
+    def type_message_after_attachment(self, client_name):
+        """Types a personalized message after attaching files.
+
+        Args:
+            client_name: Name of the client
+        """
+        try:
+            # Get client's first name
+            first_name = self.get_first_name(client_name)
+
+            # Find the textarea to type a message
+            # Try multiple selectors since the exact one might vary
+            textarea_selectors = [
+                "textarea.ant-input[placeholder='Type your message']",
+                "textarea[placeholder='Type your message']",
+                "textarea.ant-input",
+                "textarea"
+            ]
+
+            textarea = None
+            for selector in textarea_selectors:
+                try:
+                    elements = self.driver.find_elements(
+                        By.CSS_SELECTOR, selector)
+                    for element in elements:
+                        if element.is_displayed():
+                            textarea = element
+                            break
+                    if textarea:
+                        break
+                except:
+                    continue
+
+            if not textarea:
+                logging.error("Could not find message textarea")
+                return False
+
+            # Type the follow-up message
+            message = f"I've attached your personalized video and review document - enjoy!"
+            textarea.clear()
+            textarea.send_keys(message)
+            logging.info(f"Typed follow-up message: {message}")
+
+            # Wait a brief moment to ensure the message is entered fully
+            time.sleep(1)
+
+            # Find and click the Send button - try multiple approaches
+            send_button = None
+            send_selectors = [
+                "//button[contains(@class, 'send')]",
+                "//button[contains(text(), 'Send')]",
+                "//div[contains(@class, 'send')]",
+                "//span[contains(text(), 'Send')]",
+                "//button[contains(@class, 'ant-btn')][.//span[text()='Send']]"
+            ]
+
+            for selector in send_selectors:
+                try:
+                    elements = self.driver.find_elements(By.XPATH, selector)
+                    for element in elements:
+                        if element.is_displayed():
+                            send_button = element
+                            break
+                    if send_button:
+                        break
+                except:
+                    continue
+
+            if not send_button:
+                logging.error("Could not find send button")
+                return False
+
+            # Use JavaScript to click the button to avoid any potential issues
+            self.driver.execute_script("arguments[0].click();", send_button)
+            logging.info(
+                "Clicked 'Send' button using JavaScript for follow-up message")
+
+            # Wait for the message to be sent
+            time.sleep(3)
+
+            return True
+        except Exception as e:
+            logging.exception(f"Error typing follow-up message: {e}")
+            return False
+
+    def navigate_back_to_messages(self):
+        """Returns to the main messages screen after sending a message to a client."""
+        try:
+            logging.info("Navigating back to main messages screen...")
+
+            # First check if any modal dialogs are open and close them
+            try:
+                modal_elements = self.driver.find_elements(
+                    By.CSS_SELECTOR, ".ant-modal, .modal, [role='dialog']")
+                if modal_elements:
+                    for modal in modal_elements:
+                        if modal.is_displayed():
+                            logging.info(
+                                "Found open dialog that might block navigation. Attempting to close it.")
+                            self.close_dialog_after_posting()
+                            time.sleep(1)
+            except Exception as e:
+                logging.info(f"Error checking for open dialogs: {e}")
+
+            # Try clicking back button
+            try:
+                back_button_locator = (
+                    By.XPATH, "//button[contains(@class, 'back') or contains(@aria-label, 'back')]")
+                back_button = self.wait.until(
+                    EC.element_to_be_clickable(back_button_locator))
+                logging.info("Found back button, clicking...")
+
+                # Use JavaScript to click which bypasses overlay issues
+                self.driver.execute_script(
+                    "arguments[0].click();", back_button)
+                logging.info("Clicked back button using JavaScript")
+                time.sleep(2)
+                return True
+            except Exception as e:
+                logging.info(f"Back button not found or not clickable: {e}")
+
+            # If back button failed, try messages link with JavaScript click
+            try:
+                logging.info("Trying to click messages link with JavaScript")
+                messages_link = self.driver.find_element(By.ID, "nav_messages")
+                self.driver.execute_script(
+                    "arguments[0].click();", messages_link)
+                logging.info("Clicked messages link using JavaScript")
+                time.sleep(2)
+                return True
+            except Exception as e:
+                logging.info(
+                    f"Failed to click messages link with JavaScript: {e}")
+
+            # Last resort: try to navigate directly to messages URL
+            try:
+                logging.info("Attempting direct navigation to messages URL")
+                self.driver.get("https://www.trainerize.com/app/messages")
+                time.sleep(3)
+                return True
+            except Exception as e:
+                logging.exception(f"Failed direct navigation to messages: {e}")
+                return False
+
+        except Exception as e:
+            logging.exception(f"Error navigating back to messages: {e}")
+            return False
+
+    def attach_video(self, video_path):
+        """Attaches a video file to the message using various methods.
+
+        Args:
+            video_path: Full path to the video file to attach
+        """
+        try:
+            logging.info(f"Attempting to attach video: {video_path}")
+
+            # Try to use existing file inputs first
+            found_input = False
+            file_input = None
+
+            # Method 1: Try to find any file input elements
+            try:
+                file_inputs = self.driver.find_elements(
+                    By.CSS_SELECTOR, "input[type='file']")
+                logging.info(f"Found {len(file_inputs)} file input elements")
+
+                if file_inputs:
+                    for input_elem in file_inputs:
+                        try:
+                            # Make each input visible and accept videos
+                            self.driver.execute_script("""
+                                arguments[0].style.display = 'block';
+                                arguments[0].style.visibility = 'visible';
+                                arguments[0].style.opacity = '1';
+                                arguments[0].setAttribute(
+                                    'accept', '.mp4,video/mp4,video/*,*/*');
+                            """, input_elem)
+
+                            # Try to send keys to this input
+                            input_elem.clear()
+                            input_elem.send_keys(video_path)
+                            logging.info(
+                                f"Successfully sent file path to input element")
+                            found_input = True
+                            time.sleep(5)  # Wait for file to be processed
+                            break
+                        except Exception as e:
+                            logging.info(f"Failed to use file input: {e}")
+                            continue
+            except Exception as e:
+                logging.info(f"Error finding file inputs: {e}")
+
+            # Method 2: If no existing inputs worked, try to create one
+            if not found_input:
+                logging.info("Creating a new file input element")
+                try:
+                    # Create a new file input element
+                    self.driver.execute_script("""
+                        var input = document.createElement('input');
+                        input.type = 'file';
+                        input.style.display = 'block';
+                        input.style.position = 'fixed';
+                        input.style.top = '0';
+                        input.style.left = '0';
+                        input.style.zIndex = '9999';
+                        input.setAttribute(
+                            'accept', '.mp4,video/mp4,video/*,*/*');
+                        document.body.appendChild(input);
+                    """)
+
+                    # Find the newly created input
+                    new_input = self.driver.find_element(
+                        By.CSS_SELECTOR, "input[type='file'][style*='position: fixed']")
+                    new_input.send_keys(video_path)
+                    logging.info("Sent file path to new input element")
+                    time.sleep(5)  # Wait for file to be processed
+                    found_input = True
+                except Exception as e:
+                    logging.exception(f"Error creating new file input: {e}")
+
+            # Wait for the file to appear in the dialog
+            time.sleep(5)
+
+            return found_input
+        except Exception as e:
+            logging.exception(f"Error attaching video: {e}")
+            return False
+
+    def attach_pdf(self, pdf_path):
+        """Attaches a PDF file to the message using various methods.
+
+        Args:
+            pdf_path: Full path to the PDF file to attach
+        """
+        try:
+            logging.info(f"Attempting to attach PDF: {pdf_path}")
+
+            # Try to use existing file inputs first
+            found_input = False
+            file_input = None
+
+            # Method 1: Try to find any file input elements
+            try:
+                file_inputs = self.driver.find_elements(
+                    By.CSS_SELECTOR, "input[type='file']")
+                logging.info(f"Found {len(file_inputs)} file input elements")
+
+                if file_inputs:
+                    for input_elem in file_inputs:
+                        try:
+                            # Make each input visible and accept PDFs
+                            self.driver.execute_script("""
+                                arguments[0].style.display = 'block';
+                                arguments[0].style.visibility = 'visible';
+                                arguments[0].style.opacity = '1';
+                                arguments[0].setAttribute(
+                                    'accept', '.pdf,application/pdf,*/*');
+                            """, input_elem)
+
+                            # Try to send keys to this input
+                            input_elem.clear()
+                            input_elem.send_keys(pdf_path)
+                            logging.info(
+                                f"Successfully sent PDF path to input element")
+                            found_input = True
+                            time.sleep(5)  # Wait for file to be processed
+                            break
+                        except Exception as e:
+                            logging.info(
+                                f"Failed to use file input for PDF: {e}")
+                            continue
+            except Exception as e:
+                logging.info(f"Error finding file inputs for PDF: {e}")
+
+            # Wait for the file to appear in the dialog
+            time.sleep(5)
+
+            return found_input
+        except Exception as e:
+            logging.exception(f"Error attaching PDF: {e}")
+            return False
+
+    def click_post_button(self):
+        """Clicks the POST button in the file attachment dialog."""
+        try:
+            logging.info("Attempting to click the POST button...")
+
+            # Try several selectors for the POST button
+            post_button_selectors = [
+                "//button[@data-testid='dialog-defaultFooter-confirm-button']",
+                "//button[contains(@class, 'btn--blue') and .//span[text()='POST']]",
+                "//button[.//span[text()='POST']]",
+                "//button[contains(@class, 'ant-btn')]//span[text()='POST']/parent::button",
+                "//button[contains(text(), 'Post')]"
+            ]
+
+            for selector in post_button_selectors:
+                try:
+                    elements = self.driver.find_elements(By.XPATH, selector)
+                    if elements:
+                        for element in elements:
+                            if element.is_displayed():
+                                logging.info(
+                                    f"Clicking POST button found with selector: {selector}")
+                                   # Use JavaScript to click the button
+                                   self.driver.execute_script(
+                                        "arguments[0].click();", element)
+                                    time.sleep(3)  # Wait for post to complete
+                                    return True
+                except Exception as e:
+                    logging.info(
+                        f"Error with POST button selector {selector}: {e}")
+                    continue
+
+            # If direct selectors didn't work, try a more general approach
+            try:
+                logging.info("Trying more general button approach...")
+                buttons = self.driver.find_elements(By.TAG_NAME, "button")
+                for button in buttons:
+                    try:
+                        if button.is_displayed() and ("POST" in button.text or "Post" in button.text):
+                            logging.info("Found button with POST text")
+                            self.driver.execute_script(
+                                "arguments[0].click();", button)
+                            time.sleep(3)
+                            return True
+                    except:
+                        continue
+            except Exception as e:
+                logging.info(f"Error with general button approach: {e}")
+
+            logging.error("Could not find the POST button")
+            return False
+
+        except Exception as e:
+            logging.exception(f"Error clicking POST button: {e}")
+            return False
+
+    def close_dialog_after_posting(self):
+        """Closes the dialog by clicking the X button after posting a file."""
+        try:
+            logging.info("Attempting to close the dialog after posting...")
+
+            # Wait a moment for any animations to complete
+            time.sleep(2)
+
+            # Try several approaches to find and click the close (X) button
+            close_button_selectors = [
+                # First try the most specific locators
+                "button.ant-modal-close",
+                ".ant-modal-close",
+                ".ant-modal-close-x",
+                # Then try more general close buttons
+                "button[class*='close']",
+                "span[class*='close']",
+                "div[class*='close']",
+                "button[aria-label='Close']"
+            ]
+
+            for selector in close_button_selectors:
+                try:
+                    elements = self.driver.find_elements(
+                        By.CSS_SELECTOR, selector)
+                    if elements:
+                        for element in elements:
+                            if element.is_displayed():
+                                logging.info(
+                                    f"Found close button with selector: {selector}")
+                                   # Try JavaScript click which is more reliable
+                                   self.driver.execute_script(
+                                        "arguments[0].click();", element)
+                                    time.sleep(2)  # Wait for dialog to close
+
+                                    # Verify dialog is closed by checking if we can see message elements
+                                    try:
+                                        self.driver.find_element(
+                                            By.CSS_SELECTOR, ".messageContainer")
+                                        logging.info(
+                                            "Dialog appears to be closed as we can see message container")
+                                        return True
+                                    except:
+                                        logging.info(
+                                            "Dialog might not be fully closed yet, continuing with other selectors")
+                except Exception as e:
+                    logging.info(
+                        f"Error with close button selector {selector}: {e}")
+                    continue
+
+            # If CSS selectors didn't work, try XPath for buttons with X text
+            try:
+                close_xpath = "//button[contains(text(), 'X') or contains(text(), '×') or @aria-label='Close']"
+                elements = self.driver.find_elements(By.XPATH, close_xpath)
+                for element in elements:
+                    if element.is_displayed():
+                        logging.info("Found close button with X text")
+                        self.driver.execute_script(
+                            "arguments[0].click();", element)
+                        time.sleep(2)
+                        return True
+            except Exception as e:
+                logging.info(f"Error with X text button approach: {e}")
+
+            # Attempt to press ESC key as a last resort
+            try:
+                logging.info("Trying ESC key to close dialog")
+                actions = ActionChains(self.driver)
+                actions.send_keys(Keys.ESCAPE).perform()
+                time.sleep(2)
+                return True
+            except Exception as e:
+                logging.info(f"Error pressing ESC key: {e}")
+
+            # If we reach here, we couldn't close the dialog, but let's not block the flow
+            logging.warning(
+                "Could not find or click the close button. Will try to continue anyway.")
+            return True  # Return True anyway to allow the script to continue
+
+        except Exception as e:
+            logging.exception(f"Error closing dialog: {e}")
+            # Return True to allow the script to continue even if there was an error
+            return True
+
+    def type_in_attachment_dialog(self, client_name, file_type):
+        """Types a message in the attachment dialog before posting.
+
+        Args:
+            client_name: Name of the client
+            file_type: Type of file being attached ("PDF" or "video")
+        """
+        try:
+            # Get client's first name
+            first_name = self.get_first_name(client_name)
+
+            # Wait for the dialog to fully appear
+            time.sleep(2)
+
+            logging.info("Looking for textarea in the attachment dialog...")
+
+            # Try to find the textarea in the dialog
+            textarea = None
+
+            # Very specific selector for the popup dialog textarea
+            dialog_textarea_selectors = [
+                ".ant-input.m16b[placeholder='Type your message']",
+                "textarea.ant-input.m16b",
+                "textarea[placeholder='Type your message']",
+                "textarea.ant-input",
+                "textarea"
+            ]
+
+            for selector in dialog_textarea_selectors:
+                try:
+                    elements = self.driver.find_elements(
+                        By.CSS_SELECTOR, selector)
+                    logging.info(
+                        f"Found {len(elements)} elements with selector {selector}")
+                    for element in elements:
+                        try:
+                            if element.is_displayed():
+                                textarea = element
+                                logging.info(
+                                    f"Found visible dialog textarea with selector: {selector}")
+                                break
+                        except:
+                            continue
+                    if textarea:
+                        break
+                except Exception as e:
+                    logging.info(
+                        f"Error with dialog textarea selector {selector}: {e}")
+                    continue
+
+            if not textarea:
+                logging.error("Could not find dialog textarea")
+                return False
+
+            # Use a single standardized message regardless of file type
+            message = f"Hey {first_name} heres your check in video and review for the week! Awesome work!"
+
+            # Try both methods of typing
+            try:
+                textarea.clear()
+                textarea.send_keys(message)
+                logging.info(f"Typed in attachment dialog: {message}")
+            except Exception as e:
+                logging.info(f"Error typing in dialog with send_keys: {e}")
+                try:
+                    self.driver.execute_script(
+                        f"arguments[0].value = '{message}';", textarea)
+                    logging.info("Typed in dialog using JavaScript")
+                except Exception as e:
+                    logging.info(
+                        f"Error typing in dialog with JavaScript: {e}")
+                    return False
+
+            time.sleep(1)  # Wait a moment after typing
+            return True
+
+        except Exception as e:
+            logging.exception(f"Error typing in attachment dialog: {e}")
+            return False
+
+    def send_initial_message(self, client_name):
+        """Sends a simple initial message to a client to establish the conversation.
+
+        Args:
+            client_name: Name of the client
+
+        Returns:
+            True if message was sent successfully, False otherwise
+        """
+        try:
+            logging.info(f"Sending initial message to {client_name}...")
+
+            # Wait for the conversation to fully load
+            time.sleep(5)  # Increased wait time
+
+            # Look for the message input area using multiple approaches
+            # First try to find contenteditable divs which are common for modern chat interfaces
+            contenteditable_selectors = [
+                "[role='textbox']",
+                "[contenteditable='true']",
+                ".public-DraftEditor-content",
+                "[aria-label*='message']",
+                "[aria-label*='Type']",
+                ".ql-editor"
+            ]
+
+            # Regular input selectors as fallback
+            input_selectors = [
+                ".messageComposer__wrapper",
+                ".DraftEditor-root",
+                ".public-DraftEditor-content[contenteditable='true']",
+                "[aria-describedby='placeholder-fg30t']",
+                "[role='combobox'][contenteditable='true']",
+                "textarea",
+                "input[type='text']"
+            ]
+
+            # Try contenteditable elements first
+            message_input = None
+            logging.info("Looking for contenteditable message input...")
+            for selector in contenteditable_selectors:
+                try:
+                    elements = self.driver.find_elements(
+                        By.CSS_SELECTOR, selector)
+                    for element in elements:
+                        if element.is_displayed():
+                            message_input = element
+                            logging.info(
+                                f"Found contenteditable message input with selector: {selector}")
+                            break
+                    if message_input:
+                        break
+                except Exception as e:
+                    continue
+
+            # If no contenteditable found, try regular inputs
+            if not message_input:
+                logging.info("Looking for regular message input elements...")
+                for selector in input_selectors:
+                    try:
+                        elements = self.driver.find_elements(
+                            By.CSS_SELECTOR, selector)
+                        for element in elements:
+                            if element.is_displayed():
+                                message_input = element
+                                logging.info(
+                                    f"Found message input with selector: {selector}")
+                                break
+                        if message_input:
+                            break
+                    except Exception as e:
+                        continue
+
+            if not message_input:
+                logging.error("Could not find any message input field")
+                # Take a screenshot to help diagnose the problem
+                try:
+                    screenshot_path = f"conversation_screen_{client_name.replace(' ', '_')}.png"
+                    self.driver.save_screenshot(screenshot_path)
+                    logging.info(f"Saved screenshot to {screenshot_path}")
+                except:
+                    pass
+                return False
+
+            # First click to focus the element
+            try:
+                # Use actions for more reliable clicking
+                actions = ActionChains(self.driver)
+                actions.move_to_element(message_input).click().perform()
+                logging.info("Clicked on message input to focus it")
+                time.sleep(1)
+            except Exception as e:
+                logging.info(f"Error focusing with ActionChains: {e}")
+                try:
+                    # Fallback to JavaScript click
+                    self.driver.execute_script(
+                        "arguments[0].click();", message_input)
+                    logging.info("Clicked message input using JavaScript")
+                    time.sleep(1)
+                except Exception as e:
+                    logging.info(f"Error focusing with JavaScript: {e}")
+
+            # Now try multiple methods to type the simple smiley message
+            smiley_sent = False
+            message = ":)"
+
+            # Method 1: ActionChains to simulate typing
+            try:
+                actions = ActionChains(self.driver)
+                actions.send_keys(message).perform()
+                logging.info("Typed smiley using ActionChains")
+                time.sleep(1)
+                smiley_sent = True
+            except Exception as e:
+                logging.info(f"ActionChains typing failed: {e}")
+
+            # Method 2: JavaScript to set content (if method 1 failed)
+            if not smiley_sent:
+                try:
+                    # For contenteditable divs
+                    if message_input.get_attribute("contenteditable") == "true":
+                        self.driver.execute_script(
+                            "arguments[0].textContent = arguments[1];", message_input, message)
+                    # For inputs/textareas
+                    else:
+                        self.driver.execute_script(
+                            "arguments[0].value = arguments[1];", message_input, message)
+                    logging.info("Set message content using JavaScript")
+                    time.sleep(1)
+                    smiley_sent = True
+                except Exception as e:
+                    logging.info(f"JavaScript content setting failed: {e}")
+
+            # Method 3: send_keys directly (if other methods failed)
+            if not smiley_sent:
+                try:
+                    message_input.clear()
+                    message_input.send_keys(message)
+                    logging.info("Typed message using direct send_keys")
+                    time.sleep(1)
+                    smiley_sent = True
+                except Exception as e:
+                    logging.info(f"Direct send_keys failed: {e}")
+
+            if not smiley_sent:
+                logging.error("Failed to type message using all methods")
+                return False
+
+            # Now try multiple send methods
+
+            # Method 1: Press Enter key with ActionChains
+            try:
+                actions = ActionChains(self.driver)
+                actions.send_keys(Keys.RETURN).perform()
+                logging.info("Pressed Enter using ActionChains")
+                time.sleep(2)
+            except Exception as e:
+                logging.info(f"Enter key with ActionChains failed: {e}")
+
+                # Method 2: Press Enter key directly on the element
+                try:
+                    message_input.send_keys(Keys.RETURN)
+                    logging.info("Pressed Enter directly on element")
+                    time.sleep(2)
+                except Exception as e:
+                    logging.info(f"Direct Enter key failed: {e}")
+
+                    # Method 3: Look for send button
+                    try:
+                        send_button = self.find_send_button()
+                        if send_button:
+                            self.driver.execute_script(
+                                "arguments[0].click();", send_button)
+                            logging.info("Clicked send button")
+                            time.sleep(2)
+                        else:
+                            logging.error("Could not find send button")
+                            return False
+                    except Exception as e:
+                        logging.info(f"Send button click failed: {e}")
+                        return False
+
+            # Wait for the message to be sent
+            time.sleep(3)
+
+            # Check if message appears in the conversation
+            try:
+                message_elements = self.driver.find_elements(
+                    By.XPATH, f"//*[contains(text(), '{message}')]")
+                if message_elements:
+                    for element in message_elements:
+                        if element.is_displayed():
+                            logging.info(
+                                "Verified message appears in the conversation")
+                            break
+            except:
+                logging.warning(
+                    "Could not verify if message appears in conversation")
+
+            # Return to the inbox by clicking the back button
+            try:
+                back_button_locator = (
+                    By.XPATH, "//button[contains(@class, 'back') or contains(@aria-label, 'back')]")
+                back_button = self.wait.until(
+                    EC.element_to_be_clickable(back_button_locator))
+                self.driver.execute_script(
+                    "arguments[0].click();", back_button)
+                logging.info("Clicked back button to return to inbox")
+                time.sleep(2)
+
+                # After returning to inbox, refresh the page to ensure messages are updated
+                logging.info("Refreshing inbox page to update message list")
+                self.driver.refresh()
+                time.sleep(5)  # Wait for the refresh to complete
+                return True
+
+            except Exception as e:
+                logging.error(f"Error clicking back button: {e}")
+                # Try clicking the X button if back button fails
+                try:
+                    x_buttons = self.driver.find_elements(
+                        By.XPATH, "//button[contains(@class, 'close') or @aria-label='Close' or contains(text(), 'X') or contains(text(), '×')]")
+                    for button in x_buttons:
+                        if button.is_displayed():
+                            self.driver.execute_script(
+                                "arguments[0].click();", button)
+                            logging.info("Clicked X button to return to inbox")
+                            time.sleep(2)
+
+                            # After returning to inbox, refresh the page to ensure messages are updated
+                            logging.info(
+                                "Refreshing inbox page to update message list")
+                            self.driver.refresh()
+                            time.sleep(5)  # Wait for the refresh to complete
+                            return True
+                except Exception as e2:
+                    logging.error(f"Error clicking X button: {e2}")
+
+                # Try clicking messages in the navigation as a last resort
+                try:
+                    self.click_messages()
+                    logging.info(
+                        "Clicked messages in navigation to return to inbox")
+                    time.sleep(2)
+
+                    # After returning to inbox, refresh the page to ensure messages are updated
+                    logging.info(
+                        "Refreshing inbox page to update message list")
+                    self.driver.refresh()
+                    time.sleep(5)  # Wait for the refresh to complete
+                    return True
+                except:
+                    # Final resort: direct navigation to messages URL with refresh
+                    try:
+                        logging.info(
+                            "Attempting direct navigation to messages URL")
+                        self.driver.get(
+                            "https://www.trainerize.com/app/messages")
+                        time.sleep(5)  # Wait longer for full page load
+                        return True
+                    except Exception as e:
+                        logging.error(
+                            f"Failed all methods to return to inbox: {e}")
+                        return False
+
+        except Exception as e:
+            logging.exception(
+                f"Error sending initial message to {client_name}: {e}")
+            return False
+
+    def find_send_button(self):
+        """Find and return the send button in the conversation."""
+        try:
+            # Try various selectors for send buttons
+            send_selectors = [
+                "button[type='submit']",
+                "button.send-button",
+                "button[aria-label*='Send']",
+                "button.ant-btn-primary",
+                "//button[contains(@class, 'send')]",
+                "//button[contains(text(), 'Send')]",
+                "//span[contains(text(), 'Send')]/parent::button",
+                "//button[contains(@class, 'ant-btn')][.//span[text()='Send']]"
+            ]
+
+            for selector in send_selectors:
+                try:
+                    if selector.startswith("//"):
+                        elements = self.driver.find_elements(
+                            By.XPATH, selector)
+                    else:
+                        elements = self.driver.find_elements(
+                            By.CSS_SELECTOR, selector)
+
+                    for element in elements:
+                        if element.is_displayed():
+                            logging.info(
+                                f"Found send button with selector: {selector}")
+                               # Use JavaScript to click the button
+                               self.driver.execute_script(
+                                    "arguments[0].click();", element)
+                                time.sleep(3)  # Wait for post to complete
+                                return element
+                except:
+                    continue
+
+            return None
+        except Exception as e:
+            logging.info(f"Error finding send button: {e}")
+            return None
+
+    def cleanup(self):
+        """Cleans up resources (removes temp dir and closes driver)."""
+        try:
+            logging.info("Cleaning up...")
+            if hasattr(self, 'driver'):
+                logging.info("Closing webdriver...")
+                try:
+                    self.driver.close()
+                except (WebDriverException, InvalidSessionIdException) as e:
+                    logging.warning(
+                        f"Error closing current window during cleanup: {e}")
+                try:
+                    self.driver.quit()
+                except (WebDriverException, InvalidSessionIdException) as e:
+                    logging.warning(
+                        f"Error quitting webdriver during cleanup: {e}")
+                logging.info("Webdriver closed.")
+            if hasattr(self, 'temp_user_data_dir') and os.path.exists(self.temp_user_data_dir):
+                logging.info(
+                    f"Removing temp user data directory: {self.temp_user_data_dir}")
+                shutil.rmtree(self.temp_user_data_dir)
+                logging.info("Temp directory removed.")
+            logging.info("Cleanup completed successfully.")
+        except Exception as e:
+            logging.exception(f"Error during cleanup: {e}")
+
+
+# Entry point
+if __name__ == "__main__":
+    # Full list of clients
+    client_names = [
+        # Shannon Birch - removed
+        # Ben Pryke - removed
+        # Alice Forster - removed
+        "Sarika Ramani",
+        "Helen Forster",
+        "Nicole Lynch",
+        "Conor Beveridge",
+        "Rebecca DAngelo",
+        "Rick Preston",
+        "Claire Ruberu",
+        "Kylie Pinder",
+        "Jo Foy",
+        "Manny Le-ray",
+        "Tony Strupl",
+        "Heath Kilgour",
+        "Anna Somogyi",
+        "Danny Birch",
+        "MJ Devine",
+        "Ben Norman",
+        "Adri Rivera",
+        "Amanda Buckingham",
+        "Naman Tiwari",
+        "Kelly Smith",
+        "Shane Minahan"
+    ]
+
+    # Login credentials
+    username = "Shannonbirch@cocospersonaltraining.com"
+    password = "cyywp7nyk"
+
+    # Create TrainerizeAutomation instance
+    automation = TrainerizeAutomation()
+
+    try:
+        # Login
+        if not automation.login(username, password):
+            print("Login failed! Exiting.")
+            automation.cleanup()
+            exit(1)
+
+        print("Login successful!")
+        automation.handle_notification_popup()
+
+        # Click on Messages
+        if not automation.click_messages():
+            print("Failed to navigate to Messages. Exiting.")
+            automation.cleanup()
+            exit(1)
+
+        print("Successfully navigated to Messages.")
+
+        # Process each client
+        for i, target_client in enumerate(client_names, 1):
+            print(f"\n{'-' * 50}")
+            print(
+                f"Processing client {i}/{len(client_names)}: {target_client}")
+            print(f"{'-' * 50}")
+
+            try:
+                # STEP 1: Find the client and send an initial message
+                print(
+                    f"Finding client {target_client} and sending initial message...")
+
+                # First try to find the client and establish conversation
+                if automation.click_member_in_messages(target_client):
+                    # Send the initial message and return to inbox
+                    if automation.send_initial_message(target_client):
+                        print(
+                            f"Successfully sent initial message to {target_client} and returned to inbox.")
+
+                        # STEP 2: Find the client again, now that they should be at the top of the inbox
+                        time.sleep(2)  # Wait a moment for the inbox to refresh
+                        if automation.click_member_in_messages(target_client):
+                            print(
+                                f"Successfully clicked on {target_client} again.")
+
+                            # STEP 3: Attach and send files
+                            # Wait a moment to ensure conversation is loaded
+                            time.sleep(2)
+
+                            # Attempt to attach video first
+                            video_path = automation.get_video_path(
+                                target_client)
+                            video_exists = os.path.exists(video_path)
+
+                            if video_exists:
+                                # Click on the attachment icon for video
+                                if automation.click_attachment_icon():
+                                    print(
+                                        "Successfully clicked on the attachment icon for video.")
+
+                                    # Attach the video
+                                    print(f"Attaching video: {video_path}")
+                                    video_attached = automation.attach_video(
+                                        video_path)
+
+                                    if video_attached:
+                                        print(
+                                            f"Successfully attached video: {video_path}")
+
+                                           # Type a message in the attachment dialog
+                                           print(
+                                                "Typing message in video attachment dialog...")
+                                            automation.type_in_attachment_dialog(
+                                                target_client, "video")
+
+                                            # Click the POST button for video
+                                            if automation.click_post_button():
+                                                print(
+                                                    "Successfully clicked the POST button for video.")
+
+                                                   # Close the dialog after posting
+                                                   if automation.close_dialog_after_posting():
+                                                        print(
+                                                            "Successfully closed the dialog after posting video.")
+                                                    else:
+                                                        print(
+                                                            "Failed to close the dialog after posting video, but continuing.")
+
+                                                    # Extra wait to ensure posting completes
+                                                    time.sleep(3)
+                                                else:
+                                                    print(
+                                                        "Failed to click the POST button for video.")
+                                    else:
+                                        print(
+                                            "Failed to attach the video.")
+                                else:
+                                    print(
+                                        "Failed to click on the attachment icon for video.")
+                            else:
+                                print(
+                                    f"No video file found for {target_client}.")
+
+                            # Attempt to attach PDF
+                            pdf_path = automation.get_pdf_path(target_client)
+                            pdf_exists = pdf_path and os.path.exists(pdf_path)
+
+                            if pdf_exists:
+                                # Click on the attachment icon for PDF
+                                if automation.click_attachment_icon():
+                                    print(
+                                        "Successfully clicked on the attachment icon for PDF.")
+
+                                    # Attach the PDF
+                                    print(f"Attaching PDF: {pdf_path}")
+                                    pdf_attached = automation.attach_pdf(
+                                        pdf_path)
+
+                                    if pdf_attached:
+                                        print(
+                                            f"Successfully attached PDF: {pdf_path}")
+
+                                           # Click the POST button for PDF
+                                           if automation.click_post_button():
+                                                print(
+                                                    "Successfully clicked the POST button for PDF.")
+
+                                                   # Close the dialog after posting
+                                                   if automation.close_dialog_after_posting():
+                                                        print(
+                                                            "Successfully closed the dialog after posting PDF.")
+                                                    else:
+                                                        print(
+                                                            "Failed to close the dialog after posting PDF, but continuing.")
+
+                                                    # Extra wait to ensure posting completes
+                                                    time.sleep(3)
+                                                else:
+                                                    print(
+                                                        "Failed to click the POST button for PDF.")
+                                    else:
+                                        print(
+                                            "Failed to attach the PDF.")
+                                else:
+                                    print(
+                                        "Failed to click on the attachment icon for PDF.")
+                            else:
+                                print(
+                                    f"No PDF file found for {target_client}.")
+                        else:
+                            print(
+                                f"Failed to find {target_client} again after sending initial message.")
+                    else:
+                        print(
+                            f"Failed to send initial message to {target_client}.")
+                else:
+                    print(
+                        f"Failed to find or click on {target_client} in the messages list.")
+
+                # Navigate back to the messages list for the next client
+                if not automation.navigate_back_to_messages():
+                    print(
+                        "Failed to navigate back to the messages list. Attempting to recover...")
+                    # Try to click Messages link again as recovery
+                    automation.click_messages()
+
+            except Exception as e:
+                print(f"Error processing client {target_client}: {e}")
+                print("Attempting to recover for next client...")
+                # Try to get back to messages as recovery
+                automation.click_messages()
+
+        print("\nAll clients processed. Cleaning up...")
+
+    except Exception as e:
+        print(f"Error during execution: {e}")
+
+    finally:
+        # Always clean up resources
+        automation.cleanup()
+        print("Script execution complete.")

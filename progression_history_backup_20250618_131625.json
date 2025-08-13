@@ -1,0 +1,846 @@
+{
+  "Alice Forster": [
+    {
+      "date": "2025-06-18T13:16:25.551061",
+      "progressions": {
+        "Lat Pull Down Wide Grip": {
+          "current_weight": 50.0,
+          "current_reps": "6",
+          "recommended_weight": 50.0,
+          "recommended_reps": "S1: 50.0kg*8 | S2: 50.0kg*8 | S3: 50.0kg*8",
+          "reason": "Progressive overload: 50.0kg x 6 \u2192 50.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Lat Machine Standing Straight Arm": {
+          "current_weight": 50.0,
+          "current_reps": "8",
+          "recommended_weight": 50.0,
+          "recommended_reps": "S1: 50.0kg*10 | S2: 50.0kg*10 | S3: 50.0kg*10",
+          "reason": "Progressive overload: 50.0kg x 8 \u2192 50.0kg x 10",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "D.B bent over row": {
+          "current_weight": 30.0,
+          "current_reps": "7",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*8 | S2: 30.0kg*8 | S3: 30.0kg*8",
+          "reason": "Progressive overload: 30.0kg x 7 \u2192 30.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Hammer Curls": {
+          "current_weight": 36.0,
+          "current_reps": "11",
+          "recommended_weight": 36.0,
+          "recommended_reps": "S1: 36.0kg*12 | S2: 36.0kg*12 | S3: 36.0kg*12",
+          "reason": "Progressive overload: 36.0kg x 11 \u2192 36.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Crunch": {
+          "current_weight": 70.0,
+          "current_reps": "15",
+          "recommended_weight": 72.5,
+          "recommended_reps": "S1: 72.5kg*6 | S2: 72.5kg*6 | S3: 72.5kg*6",
+          "reason": "Progressive overload: 70.0kg x 15 \u2192 72.5kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Skull Crusher": {
+          "current_weight": 40.0,
+          "current_reps": "11",
+          "recommended_weight": 40.0,
+          "recommended_reps": "S1: 40.0kg*12 | S2: 40.0kg*12 | S3: 40.0kg*12",
+          "reason": "Progressive overload: 40.0kg x 11 \u2192 40.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Concentrated Bicep Curls": {
+          "current_weight": 12.5,
+          "current_reps": "10",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+          "reason": "Progressive overload: 12.5kg x 10 \u2192 12.5kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Barbell Back Squat Pause": {
+          "current_weight": 80.0,
+          "current_reps": "5",
+          "recommended_weight": 80.0,
+          "recommended_reps": "S1: 80.0kg*6 | S2: 80.0kg*6 | S3: 80.0kg*6",
+          "reason": "Progressive overload: 80.0kg x 5 \u2192 80.0kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Romanian Deadlifts": {
+          "current_weight": 22.5,
+          "current_reps": "11",
+          "recommended_weight": 22.5,
+          "recommended_reps": "S1: 22.5kg*12 | S2: 22.5kg*12 | S3: 22.5kg*12",
+          "reason": "Progressive overload: 22.5kg x 11 \u2192 22.5kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Bulgarian Lunge": {
+          "current_weight": 15.0,
+          "current_reps": "10",
+          "recommended_weight": 15.0,
+          "recommended_reps": "S1: 15.0kg*12 | S2: 15.0kg*12 | S3: 15.0kg*12",
+          "reason": "Progressive overload: 15.0kg x 10 \u2192 15.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Leg Extensions": {
+          "current_weight": 45.0,
+          "current_reps": "11",
+          "recommended_weight": 45.0,
+          "recommended_reps": "S1: 45.0kg*12 | S2: 45.0kg*12 | S3: 45.0kg*12",
+          "reason": "Progressive overload: 45.0kg x 11 \u2192 45.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Standing Calf Raise": {
+          "current_weight": 25.0,
+          "current_reps": "13",
+          "recommended_weight": 25.0,
+          "recommended_reps": "S1: 25.0kg*15 | S2: 25.0kg*15 | S3: 25.0kg*15",
+          "reason": "Progressive overload: 25.0kg x 13 \u2192 25.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Standing Shoulder Press": {
+          "current_weight": 12.5,
+          "current_reps": "12",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+          "reason": "Progressive overload: 12.5kg x 12 \u2192 12.5kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Deltoid Lateral Raise": {
+          "current_weight": 5.0,
+          "current_reps": "11",
+          "recommended_weight": 5.0,
+          "recommended_reps": "S1: 5.0kg*12 | S2: 5.0kg*12 | S3: 5.0kg*12",
+          "reason": "Progressive overload: 5.0kg x 11 \u2192 5.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Face Pulls": {
+          "current_weight": 50.0,
+          "current_reps": "11",
+          "recommended_weight": 50.0,
+          "recommended_reps": "S1: 50.0kg*12 | S2: 50.0kg*12 | S3: 50.0kg*12",
+          "reason": "Progressive overload: 50.0kg x 11 \u2192 50.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Rope Tricep Pushdown": {
+          "current_weight": 30.0,
+          "current_reps": "13",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+          "reason": "Progressive overload: 30.0kg x 13 \u2192 30.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Alternating Hammer Curls": {
+          "current_weight": 15.0,
+          "current_reps": "10",
+          "recommended_weight": 15.0,
+          "recommended_reps": "S1: 15.0kg*12 | S2: 15.0kg*12 | S3: 15.0kg*12",
+          "reason": "Progressive overload: 15.0kg x 10 \u2192 15.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Barbell Bench Chest Press": {
+          "current_weight": 40.0,
+          "current_reps": "8",
+          "recommended_weight": 40.0,
+          "recommended_reps": "S1: 40.0kg*10 | S2: 40.0kg*10 | S3: 40.0kg*10",
+          "reason": "Progressive overload: 40.0kg x 8 \u2192 40.0kg x 10",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Incline Dumbbell Bench press": {
+          "current_weight": 17.5,
+          "current_reps": "8",
+          "recommended_weight": 17.5,
+          "recommended_reps": "S1: 17.5kg*10 | S2: 17.5kg*10 | S3: 17.5kg*10",
+          "reason": "Progressive overload: 17.5kg x 8 \u2192 17.5kg x 10",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Chest Press": {
+          "current_weight": 25.0,
+          "current_reps": "8",
+          "recommended_weight": 25.0,
+          "recommended_reps": "S1: 25.0kg*10 | S2: 25.0kg*10 | S3: 25.0kg*10",
+          "reason": "Progressive overload: 25.0kg x 8 \u2192 25.0kg x 10",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Chest Fly": {
+          "current_weight": 12.5,
+          "current_reps": "12",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+          "reason": "Progressive overload: 12.5kg x 12 \u2192 12.5kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Bench Triceps Push Down": {
+          "current_weight": 35.0,
+          "current_reps": "15",
+          "recommended_weight": 37.5,
+          "recommended_reps": "S1: 37.5kg*6 | S2: 37.5kg*6 | S3: 37.5kg*6",
+          "reason": "Progressive overload: 35.0kg x 15 \u2192 37.5kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Kylie Pinder": [
+    {
+      "date": "2025-06-18T13:16:25.557676",
+      "progressions": {
+        "Floor chest fly": {
+          "current_weight": 4.0,
+          "current_reps": "32",
+          "recommended_weight": 6.5,
+          "recommended_reps": "S1: 6.5kg*6 | S2: 6.5kg*6 | S3: 6.5kg*6",
+          "reason": "Progressive overload: 4.0kg x 32 \u2192 6.5kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Front Raise": {
+          "current_weight": 3.5,
+          "current_reps": "14",
+          "recommended_weight": 3.5,
+          "recommended_reps": "S1: 3.5kg*15 | S2: 3.5kg*15 | S3: 3.5kg*15",
+          "reason": "Progressive overload: 3.5kg x 14 \u2192 3.5kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Sumo Squat": {
+          "current_weight": 7.0,
+          "current_reps": "15",
+          "recommended_weight": 8,
+          "recommended_reps": "S1: 8kg*6 | S2: 8kg*6 | S3: 8kg*6",
+          "reason": "Progressive overload: 7.0kg x 15 \u2192 8kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "D.B bent over row": {
+          "current_weight": 7.0,
+          "current_reps": "15",
+          "recommended_weight": 8,
+          "recommended_reps": "S1: 8kg*6 | S2: 8kg*6 | S3: 8kg*6",
+          "reason": "Progressive overload: 7.0kg x 15 \u2192 8kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Rdls": {
+          "current_weight": 7.0,
+          "current_reps": "10",
+          "recommended_weight": 7.0,
+          "recommended_reps": "S1: 7.0kg*12 | S2: 7.0kg*12 | S3: 7.0kg*12",
+          "reason": "Progressive overload: 7.0kg x 10 \u2192 7.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Seated Calf Raises": {
+          "current_weight": 7.0,
+          "current_reps": "20",
+          "recommended_weight": 9.5,
+          "recommended_reps": "S1: 9.5kg*6 | S2: 9.5kg*6 | S3: 9.5kg*6",
+          "reason": "Progressive overload: 7.0kg x 20 \u2192 9.5kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Elena Green": [
+    {
+      "date": "2025-06-18T13:16:25.563955",
+      "progressions": {
+        "Dumbbell Bicep Curl": {
+          "current_weight": 9.0,
+          "current_reps": "15",
+          "recommended_weight": 10,
+          "recommended_reps": "S1: 10kg*6 | S2: 10kg*6 | S3: 10kg*6",
+          "reason": "Progressive overload: 9.0kg x 15 \u2192 10kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Chest Press": {
+          "current_weight": 10.0,
+          "current_reps": "17",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*6 | S2: 12.5kg*6 | S3: 12.5kg*6",
+          "reason": "Progressive overload: 10.0kg x 17 \u2192 12.5kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Deltoid Lateral Raise": {
+          "current_weight": 12.0,
+          "current_reps": "3",
+          "recommended_weight": 12.0,
+          "recommended_reps": "S1: 12.0kg*6 | S2: 12.0kg*6 | S3: 12.0kg*6",
+          "reason": "Progressive overload: 12.0kg x 3 \u2192 12.0kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Single Arm Press": {
+          "current_weight": 9.0,
+          "current_reps": "10",
+          "recommended_weight": 9.0,
+          "recommended_reps": "S1: 9.0kg*12 | S2: 9.0kg*12 | S3: 9.0kg*12",
+          "reason": "Progressive overload: 9.0kg x 10 \u2192 9.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Single Arm Floor Press": {
+          "current_weight": 10.0,
+          "current_reps": "13",
+          "recommended_weight": 10.0,
+          "recommended_reps": "S1: 10.0kg*15 | S2: 10.0kg*15 | S3: 10.0kg*15",
+          "reason": "Progressive overload: 10.0kg x 13 \u2192 10.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Kristy Cooper": [
+    {
+      "date": "2025-06-18T13:16:25.572959",
+      "progressions": {
+        "Angled Machine Leg Press": {
+          "current_weight": 175.0,
+          "current_reps": "7",
+          "recommended_weight": 175.0,
+          "recommended_reps": "S1: 175.0kg*8 | S2: 175.0kg*8 | S3: 175.0kg*8",
+          "reason": "Progressive overload: 175.0kg x 7 \u2192 175.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Machine Seated Hip Adduction": {
+          "current_weight": 37.5,
+          "current_reps": "7",
+          "recommended_weight": 37.5,
+          "recommended_reps": "S1: 37.5kg*8 | S2: 37.5kg*8 | S3: 37.5kg*8",
+          "reason": "Progressive overload: 37.5kg x 7 \u2192 37.5kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Single Leg Quad Extension": {
+          "current_weight": 24.0,
+          "current_reps": "7",
+          "recommended_weight": 24.0,
+          "recommended_reps": "S1: 24.0kg*8 | S2: 24.0kg*8 | S3: 24.0kg*8",
+          "reason": "Progressive overload: 24.0kg x 7 \u2192 24.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Lying Leg Curl": {
+          "current_weight": 30.0,
+          "current_reps": "7",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*8 | S2: 30.0kg*8 | S3: 30.0kg*8",
+          "reason": "Progressive overload: 30.0kg x 7 \u2192 30.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Barbell Bench Press": {
+          "current_weight": 42.5,
+          "current_reps": "6",
+          "recommended_weight": 42.5,
+          "recommended_reps": "S1: 42.5kg*8 | S2: 42.5kg*8 | S3: 42.5kg*8",
+          "reason": "Progressive overload: 42.5kg x 6 \u2192 42.5kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Incline Dumbbell Bench press": {
+          "current_weight": 15.0,
+          "current_reps": "7",
+          "recommended_weight": 15.0,
+          "recommended_reps": "S1: 15.0kg*8 | S2: 15.0kg*8 | S3: 15.0kg*8",
+          "reason": "Progressive overload: 15.0kg x 7 \u2192 15.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Bench Triceps Push Down": {
+          "current_weight": 19.5,
+          "current_reps": "7",
+          "recommended_weight": 19.5,
+          "recommended_reps": "S1: 19.5kg*8 | S2: 19.5kg*8 | S3: 19.5kg*8",
+          "reason": "Progressive overload: 19.5kg x 7 \u2192 19.5kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Nicole Lynch": [
+    {
+      "date": "2025-06-18T13:16:25.586989",
+      "progressions": {
+        "Lat Pull Down Wide Grip": {
+          "current_weight": 40.0,
+          "current_reps": "11",
+          "recommended_weight": 40.0,
+          "recommended_reps": "S1: 40.0kg*12 | S2: 40.0kg*12 | S3: 40.0kg*12",
+          "reason": "Progressive overload: 40.0kg x 11 \u2192 40.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Lat Machine Standing Straight Arm": {
+          "current_weight": 40.0,
+          "current_reps": "9",
+          "recommended_weight": 40.0,
+          "recommended_reps": "S1: 40.0kg*10 | S2: 40.0kg*10 | S3: 40.0kg*10",
+          "reason": "Progressive overload: 40.0kg x 9 \u2192 40.0kg x 10",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "D.B bent over row": {
+          "current_weight": 15.0,
+          "current_reps": "9",
+          "recommended_weight": 15.0,
+          "recommended_reps": "S1: 15.0kg*10 | S2: 15.0kg*10 | S3: 15.0kg*10",
+          "reason": "Progressive overload: 15.0kg x 9 \u2192 15.0kg x 10",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Barbell Back Squat Pause": {
+          "current_weight": 32.5,
+          "current_reps": "10",
+          "recommended_weight": 32.5,
+          "recommended_reps": "S1: 32.5kg*12 | S2: 32.5kg*12 | S3: 32.5kg*12",
+          "reason": "Progressive overload: 32.5kg x 10 \u2192 32.5kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Romanian Deadlifts": {
+          "current_weight": 17.5,
+          "current_reps": "10",
+          "recommended_weight": 17.5,
+          "recommended_reps": "S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+          "reason": "Progressive overload: 17.5kg x 10 \u2192 17.5kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Bulgarian Lunge": {
+          "current_weight": 12.5,
+          "current_reps": "10",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+          "reason": "Progressive overload: 12.5kg x 10 \u2192 12.5kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Standing Calf Raise": {
+          "current_weight": 45.0,
+          "current_reps": "10",
+          "recommended_weight": 45.0,
+          "recommended_reps": "S1: 45.0kg*12 | S2: 45.0kg*12 | S3: 45.0kg*12",
+          "reason": "Progressive overload: 45.0kg x 10 \u2192 45.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Hammer Curls": {
+          "current_weight": 25.0,
+          "current_reps": "10",
+          "recommended_weight": 25.0,
+          "recommended_reps": "S1: 25.0kg*12 | S2: 25.0kg*12 | S3: 25.0kg*12",
+          "reason": "Progressive overload: 25.0kg x 10 \u2192 25.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Anna Somogyi": [
+    {
+      "date": "2025-06-18T13:16:25.598119",
+      "progressions": {
+        "Lat Pull Down Wide Grip": {
+          "current_weight": 30.0,
+          "current_reps": "12",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+          "reason": "Progressive overload: 30.0kg x 12 \u2192 30.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Lat Machine Standing Straight Arm": {
+          "current_weight": 20.0,
+          "current_reps": "12",
+          "recommended_weight": 20.0,
+          "recommended_reps": "S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+          "reason": "Progressive overload: 20.0kg x 12 \u2192 20.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "D.B bent over row": {
+          "current_weight": 12.5,
+          "current_reps": "10",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+          "reason": "Progressive overload: 12.5kg x 10 \u2192 12.5kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Hammer Curls": {
+          "current_weight": 15.0,
+          "current_reps": "12",
+          "recommended_weight": 15.0,
+          "recommended_reps": "S1: 15.0kg*15 | S2: 15.0kg*15 | S3: 15.0kg*15",
+          "reason": "Progressive overload: 15.0kg x 12 \u2192 15.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Barbell Back Squat Pause": {
+          "current_weight": 32.5,
+          "current_reps": "12",
+          "recommended_weight": 32.5,
+          "recommended_reps": "S1: 32.5kg*15 | S2: 32.5kg*15 | S3: 32.5kg*15",
+          "reason": "Progressive overload: 32.5kg x 12 \u2192 32.5kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Romanian Deadlifts": {
+          "current_weight": 10.0,
+          "current_reps": "12",
+          "recommended_weight": 10.0,
+          "recommended_reps": "S1: 10.0kg*15 | S2: 10.0kg*15 | S3: 10.0kg*15",
+          "reason": "Progressive overload: 10.0kg x 12 \u2192 10.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Bulgarian Lunge": {
+          "current_weight": 5.0,
+          "current_reps": "12",
+          "recommended_weight": 5.0,
+          "recommended_reps": "S1: 5.0kg*15 | S2: 5.0kg*15 | S3: 5.0kg*15",
+          "reason": "Progressive overload: 5.0kg x 12 \u2192 5.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Leg Extensions": {
+          "current_weight": 20.0,
+          "current_reps": "12",
+          "recommended_weight": 20.0,
+          "recommended_reps": "S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+          "reason": "Progressive overload: 20.0kg x 12 \u2192 20.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Raechel Muller": [
+    {
+      "date": "2025-06-18T13:16:25.611810",
+      "progressions": {
+        "Lat Pull Down Wide Grip": {
+          "current_weight": 30.0,
+          "current_reps": "10",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*12 | S2: 30.0kg*12 | S3: 30.0kg*12",
+          "reason": "Progressive overload: 30.0kg x 10 \u2192 30.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Lat Machine Standing Straight Arm": {
+          "current_weight": 20.0,
+          "current_reps": "10",
+          "recommended_weight": 20.0,
+          "recommended_reps": "S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+          "reason": "Progressive overload: 20.0kg x 10 \u2192 20.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "D.B bent over row": {
+          "current_weight": 30.0,
+          "current_reps": "10",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*12 | S2: 30.0kg*12 | S3: 30.0kg*12",
+          "reason": "Progressive overload: 30.0kg x 10 \u2192 30.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Hammer Curls": {
+          "current_weight": 12.0,
+          "current_reps": "10",
+          "recommended_weight": 12.0,
+          "recommended_reps": "S1: 12.0kg*12 | S2: 12.0kg*12 | S3: 12.0kg*12",
+          "reason": "Progressive overload: 12.0kg x 10 \u2192 12.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Barbell Back Squat Pause": {
+          "current_weight": 60.0,
+          "current_reps": "3",
+          "recommended_weight": 60.0,
+          "recommended_reps": "S1: 60.0kg*6 | S2: 60.0kg*6 | S3: 60.0kg*6",
+          "reason": "Progressive overload: 60.0kg x 3 \u2192 60.0kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Romanian Deadlifts": {
+          "current_weight": 25.0,
+          "current_reps": "10",
+          "recommended_weight": 25.0,
+          "recommended_reps": "S1: 25.0kg*12 | S2: 25.0kg*12 | S3: 25.0kg*12",
+          "reason": "Progressive overload: 25.0kg x 10 \u2192 25.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Bulgarian Lunge": {
+          "current_weight": 12.0,
+          "current_reps": "20",
+          "recommended_weight": 14.5,
+          "recommended_reps": "S1: 14.5kg*6 | S2: 14.5kg*6 | S3: 14.5kg*6",
+          "reason": "Progressive overload: 12.0kg x 20 \u2192 14.5kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Leg Extensions": {
+          "current_weight": 30.0,
+          "current_reps": "10",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*12 | S2: 30.0kg*12 | S3: 30.0kg*12",
+          "reason": "Progressive overload: 30.0kg x 10 \u2192 30.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Barbell Bench Chest Press": {
+          "current_weight": 30.0,
+          "current_reps": "10",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*12 | S2: 30.0kg*12 | S3: 30.0kg*12",
+          "reason": "Progressive overload: 30.0kg x 10 \u2192 30.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Incline Dumbbell Bench press": {
+          "current_weight": 20.0,
+          "current_reps": "10",
+          "recommended_weight": 20.0,
+          "recommended_reps": "S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+          "reason": "Progressive overload: 20.0kg x 10 \u2192 20.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Chest Press": {
+          "current_weight": 30.0,
+          "current_reps": "8",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*10 | S2: 30.0kg*10 | S3: 30.0kg*10",
+          "reason": "Progressive overload: 30.0kg x 8 \u2192 30.0kg x 10",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Chest Fly": {
+          "current_weight": 129.0,
+          "current_reps": "10",
+          "recommended_weight": 129.0,
+          "recommended_reps": "S1: 129.0kg*12 | S2: 129.0kg*12 | S3: 129.0kg*12",
+          "reason": "Progressive overload: 129.0kg x 10 \u2192 129.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Bench Triceps Push Down": {
+          "current_weight": 20.0,
+          "current_reps": "10",
+          "recommended_weight": 20.0,
+          "recommended_reps": "S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+          "reason": "Progressive overload: 20.0kg x 10 \u2192 20.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Standing Calf Raise": {
+          "current_weight": 30.0,
+          "current_reps": "12",
+          "recommended_weight": 30.0,
+          "recommended_reps": "S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+          "reason": "Progressive overload: 30.0kg x 12 \u2192 30.0kg x 15",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Jen Frayne": [
+    {
+      "date": "2025-06-18T13:16:25.623048",
+      "progressions": {
+        "Smith Machine Squat": {
+          "current_weight": 50.0,
+          "current_reps": "6",
+          "recommended_weight": 50.0,
+          "recommended_reps": "S1: 50.0kg*8 | S2: 50.0kg*8 | S3: 50.0kg*8",
+          "reason": "Progressive overload: 50.0kg x 6 \u2192 50.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Chest Press": {
+          "current_weight": 12.5,
+          "current_reps": "10",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+          "reason": "Progressive overload: 12.5kg x 10 \u2192 12.5kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Seated Row Wide Grip": {
+          "current_weight": 45.0,
+          "current_reps": "6",
+          "recommended_weight": 45.0,
+          "recommended_reps": "S1: 45.0kg*8 | S2: 45.0kg*8 | S3: 45.0kg*8",
+          "reason": "Progressive overload: 45.0kg x 6 \u2192 45.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Seated Lat Pull Down": {
+          "current_weight": 40.0,
+          "current_reps": "6",
+          "recommended_weight": 40.0,
+          "recommended_reps": "S1: 40.0kg*8 | S2: 40.0kg*8 | S3: 40.0kg*8",
+          "reason": "Progressive overload: 40.0kg x 6 \u2192 40.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Crunch Oblique Twist": {
+          "current_weight": 12.0,
+          "current_reps": "6",
+          "recommended_weight": 12.0,
+          "recommended_reps": "S1: 12.0kg*8 | S2: 12.0kg*8 | S3: 12.0kg*8",
+          "reason": "Progressive overload: 12.0kg x 6 \u2192 12.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Jo Schiavetta": [
+    {
+      "date": "2025-06-18T13:16:25.630061",
+      "progressions": {
+        "Barbell Back Squat Pause": {
+          "current_weight": 12.5,
+          "current_reps": "10",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+          "reason": "Progressive overload: 12.5kg x 10 \u2192 12.5kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Romanian Deadlifts": {
+          "current_weight": 5.0,
+          "current_reps": "20",
+          "recommended_weight": 6,
+          "recommended_reps": "S1: 6kg*6 | S2: 6kg*6 | S3: 6kg*6",
+          "reason": "Progressive overload: 5.0kg x 20 \u2192 6kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Bulgarian Lunge": {
+          "current_weight": 5.0,
+          "current_reps": "10",
+          "recommended_weight": 5.0,
+          "recommended_reps": "S1: 5.0kg*12 | S2: 5.0kg*12 | S3: 5.0kg*12",
+          "reason": "Progressive overload: 5.0kg x 10 \u2192 5.0kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Leg Extensions": {
+          "current_weight": 30.0,
+          "current_reps": "15",
+          "recommended_weight": 32.5,
+          "recommended_reps": "S1: 32.5kg*6 | S2: 32.5kg*6 | S3: 32.5kg*6",
+          "reason": "Progressive overload: 30.0kg x 15 \u2192 32.5kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Standing Calf Raise": {
+          "current_weight": 10.0,
+          "current_reps": "20",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*6 | S2: 12.5kg*6 | S3: 12.5kg*6",
+          "reason": "Progressive overload: 10.0kg x 20 \u2192 12.5kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ],
+  "Noushi Puddy": [
+    {
+      "date": "2025-06-18T13:16:25.636061",
+      "progressions": {
+        "Deadlift": {
+          "current_weight": 80.0,
+          "current_reps": "4",
+          "recommended_weight": 80.0,
+          "recommended_reps": "S1: 80.0kg*6 | S2: 80.0kg*6 | S3: 80.0kg*6",
+          "reason": "Progressive overload: 80.0kg x 4 \u2192 80.0kg x 6",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Cable Rear Delt Row": {
+          "current_weight": 3.4,
+          "current_reps": "6",
+          "recommended_weight": 3.4,
+          "recommended_reps": "S1: 3.4kg*8 | S2: 3.4kg*8 | S3: 3.4kg*8",
+          "reason": "Progressive overload: 3.4kg x 6 \u2192 3.4kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Lat Machine Standing Straight Arm": {
+          "current_weight": 12.5,
+          "current_reps": "6",
+          "recommended_weight": 12.5,
+          "recommended_reps": "S1: 12.5kg*8 | S2: 12.5kg*8 | S3: 12.5kg*8",
+          "reason": "Progressive overload: 12.5kg x 6 \u2192 12.5kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Kneeling Single Arm rows": {
+          "current_weight": 10.2,
+          "current_reps": "10",
+          "recommended_weight": 10.2,
+          "recommended_reps": "S1: 10.2kg*12 | S2: 10.2kg*12 | S3: 10.2kg*12",
+          "reason": "Progressive overload: 10.2kg x 10 \u2192 10.2kg x 12",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Dumbbell Overhead Push": {
+          "current_weight": 8.0,
+          "current_reps": "6",
+          "recommended_weight": 8.0,
+          "recommended_reps": "S1: 8.0kg*8 | S2: 8.0kg*8 | S3: 8.0kg*8",
+          "reason": "Progressive overload: 8.0kg x 6 \u2192 8.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        },
+        "Lat Pull Down Wide Grip": {
+          "current_weight": 40.0,
+          "current_reps": "6",
+          "recommended_weight": 40.0,
+          "recommended_reps": "S1: 40.0kg*8 | S2: 40.0kg*8 | S3: 40.0kg*8",
+          "reason": "Progressive overload: 40.0kg x 6 \u2192 40.0kg x 8",
+          "confidence": 0.8,
+          "action_type": "progression"
+        }
+      }
+    }
+  ]
+}

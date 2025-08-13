@@ -1,0 +1,13 @@
+SHANBOT CONVERSATION ANALYSIS - LAST 7 DAYS
+==================================================
+
+Analysis generated: 2025-07-05 09:17:23
+
+SUMMARY STATISTICS:
+- Total messages: 0
+- Unique users: 0
+- AI responses: 0
+- User messages: 0
+- Time range: N/A to N/A
+
+CONVERSATIONS BY USER:

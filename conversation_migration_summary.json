@@ -1,0 +1,17 @@
+{
+  "migration_date": "2025-08-06T14:00:37.384605",
+  "backup_location": "C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\database_backup_before_unification.sqlite",
+  "changes_made": [
+    "Added message_text and message_type columns to messages table",
+    "Consolidated text/message columns into message_text",
+    "Consolidated type/sender columns into message_type",
+    "Migrated all conversation_history records into messages table",
+    "Verified data integrity after migration"
+  ],
+  "next_steps": [
+    "Update all code references to use unified messages table",
+    "Test all functionality with new schema",
+    "Drop conversation_history table after verification",
+    "Clean up redundant columns (text, message, type, sender)"
+  ]
+}

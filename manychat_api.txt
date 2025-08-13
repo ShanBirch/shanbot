@@ -1,0 +1,57 @@
+import requests
+import json
+import logging
+from typing import Dict
+
+# Assuming logger is configured in the main script
+logger = logging.getLogger(__name__) 
+
+def update_manychat_fields(subscriber_id: str, field_updates: Dict[str, str], manychat_api_key: str) -> bool:
+    """Update custom fields in ManyChat for a subscriber"""
+    # Filter out None and empty string values
+    filtered_updates = {
+        k: v for k, v in field_updates.items() if v is not None and v != ""
+    }
+    if not filtered_updates:
+        logger.info("No valid field updates to send to ManyChat.")
+        return True  # Nothing to update, consider it success
+
+    # Prepare the data using field_name
+    field_data = [
+        {"field_name": field_name, "field_value": value}
+        for field_name, value in filtered_updates.items()
+    ]
+    data = {
+        "subscriber_id": subscriber_id,
+        "fields": field_data
+    }
+
+    headers = {
+        "Authorization": f"Bearer {manychat_api_key}",
+        "Content-Type": "application/json"
+    }
+
+    logger.info(
+        f"Attempting to update ManyChat fields for subscriber {subscriber_id}: {list(filtered_updates.keys())}")
+    logger.info(f"ManyChat API Request Payload: {json.dumps(data, indent=2)}")
+
+    try:
+        response = requests.post(
+            "https://api.manychat.com/fb/subscriber/setCustomFields", headers=headers, json=data, timeout=10)
+        logger.info(
+            f"ManyChat API response: {response.status_code} - {response.text[:500]}")
+        response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
+        logger.info(
+            f"Successfully updated ManyChat fields for subscriber {subscriber_id}.")
+        return True
+    except requests.exceptions.RequestException as e:
+        logger.error(
+            f"Error updating ManyChat fields for subscriber {subscriber_id}: {e}", exc_info=True)
+        if hasattr(e, 'response') and e.response is not None:
+            logger.error(
+                f"ManyChat Error Response Body: {e.response.text[:500]}")
+        return False
+    except Exception as e:
+        logger.error(
+            f"Unexpected error during ManyChat field update for {subscriber_id}: {e}", exc_info=True)
+        return False 

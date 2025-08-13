@@ -1,0 +1,37 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-15 11:15:19
+============================================================
+
+Based on the provided Trainerize calendar screenshot, the most active week appears to be the week of **June 9th-15th, 2025**.  This is determined by the visual presence of completed checkmarks and data entries within that week, in contrast to other weeks.
+
+**DETAILED WORKOUT ANALYSIS (June 9th-15th, 2025):**
+
+No workout names, checkmarks, or circles are visible in the provided image for the specified week.  There is no "+More" text indicating hidden workouts.
+
+**DETAILED NUTRITION TRACKING (June 9th-15th, 2025):**
+
+* **June 9th:** NO NUTRITION TRACKED
+* **June 10th:** NO NUTRITION TRACKED
+* **June 11th:** NO NUTRITION TRACKED
+* **June 12th:** NO NUTRITION TRACKED
+* **June 13th:** NO NUTRITION TRACKED
+* **June 14th:** NO NUTRITION TRACKED
+* **June 15th:** NO NUTRITION TRACKED
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9th-15th, 2025):**
+
+No walking entries, checkmarks, or distances are visible in the image for this week.
+
+**WEIGHT/BODY METRICS (June 9th-15th, 2025):**
+
+No weight measurements or body metric data is visible in the image for this week.
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed Items:** 0
+* **Incomplete Items:** 0
+* **Adherence Percentage:** 0% (This is because there are no scheduled items. A true adherence percentage would require a number of scheduled items against which to measure completed items.)
+* **Patterns/Concerns:**  The complete absence of tracked data for this week is concerning and suggests either a significant lapse in tracking or a technical issue with data display on the Trainerize calendar.
+

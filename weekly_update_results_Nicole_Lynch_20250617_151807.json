@@ -1,0 +1,100 @@
+{
+  "client": "Nicole Lynch",
+  "timestamp": "20250617_151807",
+  "progressions": {
+    "Back Day": [
+      {
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "reps": "GOALS: S1: 2.5kg*12 | S2: 2.5kg*12 | S3: 2.5kg*12",
+        "reason": "Progressed from 2.5kg x 11 reps -> same weight, increased to 12 reps"
+      },
+      {
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "reps": "GOALS: S1: 40.0kg*12 | S2: 40.0kg*12 | S3: 40.0kg*12",
+        "reason": "Progressed from 40.0kg x 11 reps -> same weight, increased to 12 reps"
+      },
+      {
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "reps": "GOALS: S1: 35.0kg*10 | S2: 35.0kg*10 | S3: 35.0kg*10",
+        "reason": "Progressed from 35.0kg x 9 reps -> same weight, increased to 10 reps"
+      },
+      {
+        "exercise_name": "D.B bent over row",
+        "reps": "GOALS: S1: 20.0kg*10 | S2: 20.0kg*10 | S3: 20.0kg*10",
+        "reason": "Progressed from 20.0kg x 9 reps -> same weight, increased to 10 reps"
+      },
+      {
+        "exercise_name": "Cable Hammer Curls",
+        "reps": "GOALS: S1: 27.5kg*12 | S2: 27.5kg*12 | S3: 27.5kg*12",
+        "reason": "Progressed from 27.5kg x 11 reps -> same weight, increased to 12 reps"
+      }
+    ],
+    "Leg Day": [
+      {
+        "exercise_name": "Barbell Back Squat Pause",
+        "reps": "GOALS: S1: 35.0kg*12 | S2: 35.0kg*12 | S3: 35.0kg*12",
+        "reason": "Progressed from 35.0kg x 11 reps -> same weight, increased to 12 reps"
+      },
+      {
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "reps": "GOALS: S1: 15.0kg*12 | S2: 15.0kg*12 | S3: 15.0kg*12",
+        "reason": "Progressed from 15.0kg x 11 reps -> same weight, increased to 12 reps"
+      },
+      {
+        "exercise_name": "Bulgarian Lunge",
+        "reps": "GOALS: S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+        "reason": "Progressed from 12.5kg x 11 reps -> same weight, increased to 12 reps"
+      },
+      {
+        "exercise_name": "Standing Calf Raise",
+        "reps": "GOALS: S1: 37.5kg*15 | S2: 37.5kg*15 | S3: 37.5kg*15",
+        "reason": "Progressed from 37.5kg x 13 reps -> same weight, increased to 15 reps"
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Barbell Bench",
+        "reps": "GOALS: S1: 22.5kg*8 | S2: 22.5kg*8 | S3: 22.5kg*8",
+        "reason": "Progressed from 22.5kg x 7 reps -> same weight, increased to 8 reps"
+      },
+      {
+        "exercise_name": "Dumbbell Chest Press",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "reason": "Progressed from 12.5kg x 13 reps -> same weight, increased to 15 reps"
+      },
+      {
+        "exercise_name": "Cable Chest Dip",
+        "reps": "GOALS: S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+        "reason": "Progressed from 20.0kg x 11 reps -> same weight, increased to 12 reps"
+      },
+      {
+        "exercise_name": "Rope Tricep Pushdown",
+        "reps": "GOALS: S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+        "reason": "Progressed from 17.5kg x 11 reps -> same weight, increased to 12 reps"
+      }
+    ]
+  },
+  "results": {
+    "client": "Nicole Lynch",
+    "successful_workouts": 0,
+    "total_workouts": 3,
+    "successful_exercises": 0,
+    "total_exercises": 13,
+    "failed_exercises": [
+      "Back Day - Wide Grip Chin Up/ Assisted Chin Up",
+      "Back Day - Lat Pull Down Wide Grip",
+      "Back Day - Lat Machine Standing Straight Arm",
+      "Back Day - D.B bent over row",
+      "Back Day - Cable Hammer Curls",
+      "Leg Day - Barbell Back Squat Pause",
+      "Leg Day - Dumbbell Romanian Deadlifts",
+      "Leg Day - Bulgarian Lunge",
+      "Leg Day - Standing Calf Raise",
+      "Chest Day - Barbell Bench",
+      "Chest Day - Dumbbell Chest Press",
+      "Chest Day - Cable Chest Dip",
+      "Chest Day - Rope Tricep Pushdown"
+    ],
+    "status": "failed"
+  }
+}

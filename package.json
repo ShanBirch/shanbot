@@ -1,0 +1,23 @@
+{
+  "name": "shanbot",
+  "version": "1.0.0",
+  "description": "Instagram automation and analytics suite",
+  "main": "followersbot.py",
+  "type": "module",
+  "scripts": {
+    "start": "python followersbot.py",
+    "dashboard": "streamlit run analytics_dashboard.py",
+    "webhook": "uvicorn manychat_webhook_fullprompt:app --host 0.0.0.0 --port 8000"
+  },
+  "keywords": [
+    "instagram",
+    "automation",
+    "analytics",
+    "bot"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "task-master-ai": "^0.10.1"
+  }
+}

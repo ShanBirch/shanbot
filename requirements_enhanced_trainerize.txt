@@ -1,0 +1,6 @@
+selenium>=4.15.0
+google-generativeai>=0.3.0
+pathlib
+asyncio
+# Optional MCP support (if you want full MCP integration later)
+# mcp-server 

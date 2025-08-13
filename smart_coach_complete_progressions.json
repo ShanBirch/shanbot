@@ -1,0 +1,4524 @@
+{
+  "Test Client": {
+    "Weight Training": [
+      {
+        "exercise_name": "Barbell Bench Press",
+        "reps": "GOALS: S1: 87.5kg*8 | S2: 87.5kg*8 | S3: 87.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 87.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 87.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 87.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Deadlift",
+        "reps": "GOALS: S1: 127.5kg*6 | S2: 127.5kg*6 | S3: 127.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 127.5,
+            "reps": 6,
+            "reason": "Set 1: Progressed reps from 4 to 6"
+          },
+          {
+            "weight": 127.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 127.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Squat",
+        "reps": "GOALS: S1: 107.5kg*8 | S2: 107.5kg*8 | S3: 107.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 107.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 107.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 107.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Overhead Press",
+        "reps": "GOALS: S1: 57.5kg*10 | S2: 57.5kg*10 | S3: 57.5kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 57.5,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 57.5,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 57.5,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Rebecca DAngelo": {
+    "Weight Training": [
+      {
+        "exercise_name": "Machine Glute Kickback",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Barbell Hip Thruster",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hyper Extension Pause",
+        "reps": "GOALS: S1: 10.0kg*8 | S2: 10.0kg*8 | S3: 10.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 6 to 8"
+          },
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Seated Calf Raise",
+        "reps": "GOALS: S1: 15.0kg*15 | S2: 15.0kg*15 | S3: 15.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Woodchop",
+        "reps": "GOALS: S1: 10.0kg*15 | S2: 10.0kg*15 | S3: 10.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Seated Chest Press",
+        "reps": "GOALS: S1: 25.0kg*15 | S2: 25.0kg*15 | S3: 25.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Lat Pull Down",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Row",
+        "reps": "GOALS: S1: 25.0kg*15 | S2: 25.0kg*15 | S3: 25.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Bent Over Row",
+        "reps": "GOALS: S1: 17.5kg*15 | S2: 17.5kg*15 | S3: 17.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Seated Shoulder Press",
+        "reps": "GOALS: S1: 7.5kg*15 | S2: 7.5kg*15 | S3: 7.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Alternating Hammer Curls",
+        "reps": "GOALS: S1: 6.0kg*15 | S2: 6.0kg*15 | S3: 6.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 6.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 6.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 6.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Crunch Oblique Twist",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hyperextension",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell RDLS Eccentric",
+        "reps": "GOALS: S1: 28.0kg*15 | S2: 28.0kg*15 | S3: 28.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 28.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 28.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 28.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Angled Machine Single Leg Press",
+        "reps": "GOALS: S1: 42.5kg*6 | S2: 42.5kg*6 | S3: 42.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 42.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 40.0kg to 42.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 42.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 42.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Smith Machine Squat Eccentrics",
+        "reps": "GOALS: S1: 30.0kg*10 | S2: 30.0kg*10 | S3: 30.0kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 8 to 10"
+          },
+          {
+            "weight": 30.0,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Leg Extensions",
+        "reps": "GOALS: S1: 15.0kg*15 | S2: 15.0kg*15 | S3: 15.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hanging knee tucks",
+        "reps": "GOALS: S1: 0.0kg*15 | S2: 0.0kg*15 | S3: 0.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Medicine Ball Extended Crunches",
+        "reps": "GOALS: S1: 6.5kg*6 | S2: 6.5kg*6 | S3: 6.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 4.0kg to 6.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Ab Wheel",
+        "reps": "GOALS: S1: 0.0kg*12 | S2: 0.0kg*12 | S3: 0.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat pull down Pause",
+        "reps": "GOALS: S1: 25.0kg*12 | S2: 25.0kg*12 | S3: 25.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Row Wide Grip",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "2 Handed Dumbbell Rear Delt Row",
+        "reps": "GOALS: S1: 12.0kg*15 | S2: 12.0kg*15 | S3: 12.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 14 to 15"
+          },
+          {
+            "weight": 12.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hollow Body Rock",
+        "reps": "GOALS: S1: 2.5kg*6 | S2: 2.5kg*6 | S3: 2.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Plate Russian Twist",
+        "reps": "GOALS: S1: 6.5kg*6 | S2: 6.5kg*6 | S3: 6.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 4.0kg to 6.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Smith Machine Bulgarian Lunges",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Dumbbell Chest Press",
+        "reps": "GOALS: S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Rope Tricep Pushdown",
+        "reps": "GOALS: S1: 10.0kg*15 | S2: 10.0kg*15 | S3: 10.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "rebecca_dangelo": {
+    "Weight Training": [
+      {
+        "exercise_name": "Hyperextension",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell RDLS Eccentric",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Angled Machine Single Leg Press",
+        "reps": "GOALS: S1: 32.5kg*6 | S2: 32.5kg*6 | S3: 32.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 32.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 30.0kg to 32.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 32.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 32.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Leg Extensions",
+        "reps": "GOALS: S1: 15.0kg*12 | S2: 15.0kg*12 | S3: 15.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Seated Calf Raise",
+        "reps": "GOALS: S1: 12.5kg*6 | S2: 12.5kg*6 | S3: 12.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 10.0kg to 12.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Single Arm Lat Pull Down",
+        "reps": "GOALS: S1: 12.5kg*6 | S2: 12.5kg*6 | S3: 12.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 10.0kg to 12.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Row Wide Grip",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Seated Shoulder Press",
+        "reps": "GOALS: S1: 5.0kg*15 | S2: 5.0kg*15 | S3: 5.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "2 Handed Dumbbell Rear Delt Row",
+        "reps": "GOALS: S1: 12.0kg*15 | S2: 12.0kg*15 | S3: 12.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 14 to 15"
+          },
+          {
+            "weight": 12.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hanging knee tucks",
+        "reps": "GOALS: S1: 0.0kg*15 | S2: 0.0kg*15 | S3: 0.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hollow Body Rock",
+        "reps": "GOALS: S1: 2.5kg*6 | S2: 2.5kg*6 | S3: 2.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Glute Kickback",
+        "reps": "GOALS: S1: 10.0kg*15 | S2: 10.0kg*15 | S3: 10.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Barbell Hip Thruster",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hyper Extension Pause",
+        "reps": "GOALS: S1: 10.0kg*8 | S2: 10.0kg*8 | S3: 10.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 6 to 8"
+          },
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Woodchop",
+        "reps": "GOALS: S1: 7.5kg*15 | S2: 7.5kg*15 | S3: 7.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Seated Chest Press",
+        "reps": "GOALS: S1: 25.0kg*15 | S2: 25.0kg*15 | S3: 25.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Lat Pull Down",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Row",
+        "reps": "GOALS: S1: 25.0kg*15 | S2: 25.0kg*15 | S3: 25.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Alternating Hammer Curls",
+        "reps": "GOALS: S1: 6.0kg*15 | S2: 6.0kg*15 | S3: 6.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 6.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 6.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 6.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Crunch Oblique Twist",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Bent Over Row",
+        "reps": "GOALS: S1: 15.0kg*15 | S2: 15.0kg*15 | S3: 15.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Smith Machine Squat Eccentrics",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Medicine Ball Extended Crunches",
+        "reps": "GOALS: S1: 6.5kg*6 | S2: 6.5kg*6 | S3: 6.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 4.0kg to 6.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Ab Wheel",
+        "reps": "GOALS: S1: 0.0kg*12 | S2: 0.0kg*12 | S3: 0.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Smith Machine Bulgarian Lunges",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat pull down Pause",
+        "reps": "GOALS: S1: 25.0kg*12 | S2: 25.0kg*12 | S3: 25.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Plate Russian Twist",
+        "reps": "GOALS: S1: 6.5kg*6 | S2: 6.5kg*6 | S3: 6.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 4.0kg to 6.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 6.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Dumbbell Chest Press",
+        "reps": "GOALS: S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 10 to 12"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Rope Tricep Pushdown",
+        "reps": "GOALS: S1: 10.0kg*15 | S2: 10.0kg*15 | S3: 10.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Alice Forster": {
+    "Back Day": [
+      {
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "reps": "GOALS: S1: 2.5kg*10 | S2: 2.5kg*10 | S3: 2.5kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "reps": "GOALS: S1: 55.0kg*8 | S2: 55.0kg*8 | S3: 55.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "reps": "GOALS: S1: 55.0kg*10 | S2: 55.0kg*10 | S3: 55.0kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 55.0,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 55.0,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 55.0,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "D.B bent over row",
+        "reps": "GOALS: S1: 27.5kg*8 | S2: 27.5kg*8 | S3: 27.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 27.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 27.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 27.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Hammer Curls",
+        "reps": "GOALS: S1: 35.0kg*12 | S2: 35.0kg*12 | S3: 35.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Leg Day": [
+      {
+        "exercise_name": "Barbell Back Squat Pause",
+        "reps": "GOALS: S1: 55.0kg*8 | S2: 55.0kg*8 | S3: 55.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "reps": "GOALS: S1: 25.0kg*12 | S2: 25.0kg*12 | S3: 25.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Bulgarian Lunge",
+        "reps": "GOALS: S1: 17.5kg*10 | S2: 17.5kg*10 | S3: 17.5kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 17.5,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Standing Calf Raise",
+        "reps": "GOALS: S1: 22.5kg*15 | S2: 22.5kg*15 | S3: 22.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Weight Training": [
+      {
+        "exercise_name": "Leg Extensions",
+        "reps": "GOALS: S1: 40.0kg*12 | S2: 40.0kg*12 | S3: 40.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Standing Shoulder Press",
+        "reps": "GOALS: S1: 15.0kg*12 | S2: 15.0kg*12 | S3: 15.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Deltoid Lateral Raise",
+        "reps": "GOALS: S1: 5.0kg*12 | S2: 5.0kg*12 | S3: 5.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 5.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Face Pulls",
+        "reps": "GOALS: S1: 50.0kg*12 | S2: 50.0kg*12 | S3: 50.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 50.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 50.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 50.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Alternating Hammer Curls",
+        "reps": "GOALS: S1: 17.5kg*6 | S2: 17.5kg*6 | S3: 17.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 15.0kg to 17.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 17.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "reps": "GOALS: S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "reps": "GOALS: S1: 32.5kg*6 | S2: 32.5kg*6 | S3: 32.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 32.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 30.0kg to 32.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 32.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 32.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Plank",
+        "reps": "GOALS: S1: 5.0kg*6 | S2: 5.0kg*6 | S3: 5.0kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 2.5kg to 5.0kg, reset to 6 reps"
+          },
+          {
+            "weight": 5.0,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Crunch",
+        "reps": "GOALS: S1: 67.5kg*6 | S2: 67.5kg*6 | S3: 67.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 67.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 65.0kg to 67.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 67.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 67.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hanging knee tucks",
+        "reps": "GOALS: S1: 2.5kg*12 | S2: 2.5kg*12 | S3: 2.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Skull Crusher",
+        "reps": "GOALS: S1: 40.0kg*12 | S2: 40.0kg*12 | S3: 40.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Concentrated Bicep Curls",
+        "reps": "GOALS: S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Rope Tricep Pushdown",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Barbell Bench Chest Press",
+        "reps": "GOALS: S1: 45.0kg*6 | S2: 45.0kg*6 | S3: 45.0kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 45.0,
+            "reps": 6,
+            "reason": "Set 1: Progressed reps from 5 to 6"
+          },
+          {
+            "weight": 45.0,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 45.0,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Incline Dumbbell Bench press",
+        "reps": "GOALS: S1: 20.0kg*10 | S2: 20.0kg*10 | S3: 20.0kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 20.0,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Chest fly",
+        "reps": "GOALS: S1: 27.5kg*12 | S2: 27.5kg*12 | S3: 27.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 27.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 27.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 27.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Elena Green": {
+    "Weight Training": [
+      {
+        "exercise_name": "Band pull apart",
+        "reps": "GOALS: S1: 2.5kg*6 | S2: 2.5kg*6 | S3: 2.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Bicep Curl",
+        "reps": "GOALS: S1: 12.5kg*6 | S2: 12.5kg*6 | S3: 12.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 10.0kg to 12.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hollow Body Rocks",
+        "reps": "GOALS: S1: 2.5kg*6 | S2: 2.5kg*6 | S3: 2.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Press Handstand Split",
+        "reps": "GOALS: S1: 2.5kg*6 | S2: 2.5kg*6 | S3: 2.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Single Arm Floor Press",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 14 to 15"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Deltoid Lateral Raise",
+        "reps": "GOALS: S1: 5.0kg*15 | S2: 5.0kg*15 | S3: 5.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Hanging knee tucks",
+        "reps": "GOALS: S1: 2.5kg*15 | S2: 2.5kg*15 | S3: 2.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 14 to 15"
+          },
+          {
+            "weight": 2.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Kettlebell Goblet Squat",
+        "reps": "GOALS: S1: 15.0kg*6 | S2: 15.0kg*6 | S3: 15.0kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 12.5kg to 15.0kg, reset to 6 reps"
+          },
+          {
+            "weight": 15.0,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Rdls",
+        "reps": "GOALS: S1: 15kg*6 | S2: 15kg*6 | S3: 15kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 12.5kg to 15kg, reset to 6 reps"
+          },
+          {
+            "weight": 15,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Kettlebell Swing",
+        "reps": "GOALS: S1: 12.5kg*6 | S2: 12.5kg*6 | S3: 12.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 10.0kg to 12.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Walking Lunges",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Back Day": [
+      {
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "reps": "GOALS: S1: 2.5kg*10 | S2: 2.5kg*10 | S3: 2.5kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 8 to 10"
+          },
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Dumbbell Chest Press",
+        "reps": "GOALS: S1: 15kg*6 | S2: 15kg*6 | S3: 15kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 12.5kg to 15kg, reset to 6 reps"
+          },
+          {
+            "weight": 15,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Leg Day": [
+      {
+        "exercise_name": "Standing Calf Raise",
+        "reps": "GOALS: S1: 2.5kg*6 | S2: 2.5kg*6 | S3: 2.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Kylie Pinder": {
+    "Weight Training": [
+      {
+        "exercise_name": "Floor chest fly",
+        "reps": "GOALS: S1: 7.5kg*6 | S2: 7.5kg*6 | S3: 7.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 7.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 5.0kg to 7.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 7.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 7.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Front Raise",
+        "reps": "GOALS: S1: 5.0kg*15 | S2: 5.0kg*15 | S3: 5.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Sumo Squat",
+        "reps": "GOALS: S1: 7.5kg*15 | S2: 7.5kg*15 | S3: 7.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Banded Squat",
+        "reps": "GOALS: S1: 10.0kg*6 | S2: 10.0kg*6 | S3: 10.0kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 7.5kg to 10.0kg, reset to 6 reps"
+          },
+          {
+            "weight": 10.0,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Rdls",
+        "reps": "GOALS: S1: 5.0kg*12 | S2: 5.0kg*12 | S3: 5.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 5.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Calf Raises",
+        "reps": "GOALS: S1: 12.5kg*6 | S2: 12.5kg*6 | S3: 12.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 10.0kg to 12.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Upright Row",
+        "reps": "GOALS: S1: 2kg*6 | S2: 2kg*6 | S3: 2kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2kg, reset to 6 reps"
+          },
+          {
+            "weight": 2,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Anna Somogyi": {
+    "Back Day": [
+      {
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "reps": "GOALS: S1: 2.5kg*10 | S2: 2.5kg*10 | S3: 2.5kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "reps": "GOALS: S1: 30.0kg*15 | S2: 30.0kg*15 | S3: 30.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "D.B bent over row",
+        "reps": "GOALS: S1: 15.0kg*10 | S2: 15.0kg*10 | S3: 15.0kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 15.0,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Hammer Curls",
+        "reps": "GOALS: S1: 17.5kg*15 | S2: 17.5kg*15 | S3: 17.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Leg Day": [
+      {
+        "exercise_name": "Barbell Back Squat Pause",
+        "reps": "GOALS: S1: 22.5kg*15 | S2: 22.5kg*15 | S3: 22.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 14 to 15"
+          },
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 22.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Bulgarian Lunge",
+        "reps": "GOALS: S1: 5.0kg*15 | S2: 5.0kg*15 | S3: 5.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Standing Calf Raise",
+        "reps": "GOALS: S1: 2.5kg*6 | S2: 2.5kg*6 | S3: 2.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Weight Training": [
+      {
+        "exercise_name": "Leg Extensions",
+        "reps": "GOALS: S1: 15.0kg*15 | S2: 15.0kg*15 | S3: 15.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 12 to 15"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Chest Press",
+        "reps": "GOALS: S1: 7.5kg*15 | S2: 7.5kg*15 | S3: 7.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 7.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Chest Fly",
+        "reps": "GOALS: S1: 10.0kg*15 | S2: 10.0kg*15 | S3: 10.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "reps": "GOALS: S1: 10.0kg*15 | S2: 10.0kg*15 | S3: 10.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Barbell Bench Chest Press",
+        "reps": "GOALS: S1: 22.5kg*12 | S2: 22.5kg*12 | S3: 22.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 22.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 22.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Incline Dumbbell Bench press",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Kristy Cooper": {
+    "Weight Training": [
+      {
+        "exercise_name": "Barbell Bench Press",
+        "reps": "GOALS: S1: 37.5kg*8 | S2: 37.5kg*8 | S3: 37.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 37.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 37.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 37.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "reps": "GOALS: S1: 17.5kg*8 | S2: 17.5kg*8 | S3: 17.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Standing Lateral Raise",
+        "reps": "GOALS: S1: 7.5kg*8 | S2: 7.5kg*8 | S3: 7.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 7.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 7.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 7.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Shoulder Press",
+        "reps": "GOALS: S1: 10.0kg*8 | S2: 10.0kg*8 | S3: 10.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Woodchop",
+        "reps": "GOALS: S1: 12.5kg*8 | S2: 12.5kg*8 | S3: 12.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 12.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "2 Handed Straight Arm Lat Pull Down",
+        "reps": "GOALS: S1: 12.5kg*8 | S2: 12.5kg*8 | S3: 12.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 12.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Row",
+        "reps": "GOALS: S1: 27.5kg*8 | S2: 27.5kg*8 | S3: 27.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 27.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 27.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 27.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Barbell Bent Over Row",
+        "reps": "GOALS: S1: 45.0kg*8 | S2: 45.0kg*8 | S3: 45.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 45.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 45.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 45.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Face Pulls",
+        "reps": "GOALS: S1: 17.5kg*8 | S2: 17.5kg*8 | S3: 17.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Alternating Hammer Curls",
+        "reps": "GOALS: S1: 15.0kg*15 | S2: 15.0kg*15 | S3: 15.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Angled Machine Leg Press",
+        "reps": "GOALS: S1: 160.0kg*8 | S2: 160.0kg*8 | S3: 160.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 160.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 160.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 160.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Goblet Squat Pause",
+        "reps": "GOALS: S1: 22.5kg*8 | S2: 22.5kg*8 | S3: 22.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Seated Hip Adduction",
+        "reps": "GOALS: S1: 40.0kg*8 | S2: 40.0kg*8 | S3: 40.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 40.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 40.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 40.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Single Leg Quad Extension",
+        "reps": "GOALS: S1: 22.5kg*8 | S2: 22.5kg*8 | S3: 22.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lying Leg Curl",
+        "reps": "GOALS: S1: 30.0kg*8 | S2: 30.0kg*8 | S3: 30.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 30.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Incline Dumbbell Bench press",
+        "reps": "GOALS: S1: 17.5kg*8 | S2: 17.5kg*8 | S3: 17.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Nicole Lynch": {
+    "Back Day": [
+      {
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "reps": "GOALS: S1: 2.5kg*12 | S2: 2.5kg*12 | S3: 2.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "reps": "GOALS: S1: 40.0kg*12 | S2: 40.0kg*12 | S3: 40.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 40.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "reps": "GOALS: S1: 35.0kg*10 | S2: 35.0kg*10 | S3: 35.0kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 35.0,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 35.0,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 35.0,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "D.B bent over row",
+        "reps": "GOALS: S1: 20.0kg*10 | S2: 20.0kg*10 | S3: 20.0kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 20.0,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Hammer Curls",
+        "reps": "GOALS: S1: 27.5kg*12 | S2: 27.5kg*12 | S3: 27.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 27.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 27.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 27.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Leg Day": [
+      {
+        "exercise_name": "Barbell Back Squat Pause",
+        "reps": "GOALS: S1: 35.0kg*12 | S2: 35.0kg*12 | S3: 35.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "reps": "GOALS: S1: 15.0kg*12 | S2: 15.0kg*12 | S3: 15.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Bulgarian Lunge",
+        "reps": "GOALS: S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Standing Calf Raise",
+        "reps": "GOALS: S1: 37.5kg*15 | S2: 37.5kg*15 | S3: 37.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 37.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 37.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 37.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Barbell Bench",
+        "reps": "GOALS: S1: 22.5kg*8 | S2: 22.5kg*8 | S3: 22.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Chest Press",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Chest Dip",
+        "reps": "GOALS: S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Rope Tricep Pushdown",
+        "reps": "GOALS: S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Raechel Muller": {
+    "Back Day": [
+      {
+        "exercise_name": "Wide Grip Chin Up/ Assisted Chin Up",
+        "reps": "GOALS: S1: 2.5kg*12 | S2: 2.5kg*12 | S3: 2.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "reps": "GOALS: S1: 20.0kg*12 | S2: 20.0kg*12 | S3: 20.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "reps": "GOALS: S1: 25.0kg*12 | S2: 25.0kg*12 | S3: 25.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "D.B bent over row",
+        "reps": "GOALS: S1: 22.5kg*12 | S2: 22.5kg*12 | S3: 22.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 22.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 22.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Hammer Curls",
+        "reps": "GOALS: S1: 15.0kg*12 | S2: 15.0kg*12 | S3: 15.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Barbell Bench Chest Press",
+        "reps": "GOALS: S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Incline Dumbbell Bench press",
+        "reps": "GOALS: S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Chest fly",
+        "reps": "GOALS: S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Rope Tricep Pushdown",
+        "reps": "GOALS: S1: 17.5kg*15 | S2: 17.5kg*15 | S3: 17.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Weight Training": [
+      {
+        "exercise_name": "Cable Bench Triceps Push Down",
+        "reps": "GOALS: S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Leg Extensions",
+        "reps": "GOALS: S1: 20.0kg*15 | S2: 20.0kg*15 | S3: 20.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Standing Shoulder Press",
+        "reps": "GOALS: S1: 17.5kg*15 | S2: 17.5kg*15 | S3: 17.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Deltoid Lateral Raise",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Face Pulls",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Alternating Hammer Curls",
+        "reps": "GOALS: S1: 12.5kg*15 | S2: 12.5kg*15 | S3: 12.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Leg Day": [
+      {
+        "exercise_name": "Barbell Back Squat Pause",
+        "reps": "GOALS: S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "reps": "GOALS: S1: 17.5kg*15 | S2: 17.5kg*15 | S3: 17.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Bulgarian Lunge",
+        "reps": "GOALS: S1: 0.0kg*15 | S2: 0.0kg*15 | S3: 0.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 0.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Shane Minahan": {
+    "Weight Training": [
+      {
+        "exercise_name": "B.B Back Squat",
+        "reps": "GOALS: S1: 22.5kg*8 | S2: 22.5kg*8 | S3: 22.5kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 22.5,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Leg Press",
+        "reps": "GOALS: S1: 35.0kg*12 | S2: 35.0kg*12 | S3: 35.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 35.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Box Pistol Squat",
+        "reps": "GOALS: S1: 2.5kg*12 | S2: 2.5kg*12 | S3: 2.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Seated Shoulder Press",
+        "reps": "GOALS: S1: 25.0kg*8 | S2: 25.0kg*8 | S3: 25.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 25.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Reverse Fly",
+        "reps": "GOALS: S1: 15.0kg*12 | S2: 15.0kg*12 | S3: 15.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Single Arm Rear Delt Fly",
+        "reps": "GOALS: S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Smith Machine Upright Row",
+        "reps": "GOALS: S1: 17.5kg*12 | S2: 17.5kg*12 | S3: 17.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell 21",
+        "reps": "GOALS: S1: 12.5kg*6 | S2: 12.5kg*6 | S3: 12.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 10.0kg to 12.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Machine Seated Chest Fly",
+        "reps": "GOALS: S1: 82.5kg*12 | S2: 82.5kg*12 | S3: 82.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 82.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 82.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 82.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Rope Standing Overhead Tricep Extension",
+        "reps": "GOALS: S1: 25.0kg*15 | S2: 25.0kg*15 | S3: 25.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Single Arm Tricep Kick Backs",
+        "reps": "GOALS: S1: 17.5kg*15 | S2: 17.5kg*15 | S3: 17.5kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Leg Day": [
+      {
+        "exercise_name": "Bulgarian Lunge",
+        "reps": "GOALS: S1: 0.0kg*12 | S2: 0.0kg*12 | S3: 0.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Barbell Bench",
+        "reps": "GOALS: S1: 55.0kg*8 | S2: 55.0kg*8 | S3: 55.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 55.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Chest Press",
+        "reps": "GOALS: S1: 25.0kg*8 | S2: 25.0kg*8 | S3: 25.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 25.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 25.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 25.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Jen Frayne": {
+    "Weight Training": [
+      {
+        "exercise_name": "Smith Machine Squat",
+        "reps": "GOALS: S1: 12.5kg*12 | S2: 12.5kg*12 | S3: 12.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 12.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Row Wide Grip",
+        "reps": "GOALS: S1: 37.5kg*12 | S2: 37.5kg*12 | S3: 37.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 37.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 37.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 37.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Seated Lat Pull Down",
+        "reps": "GOALS: S1: 30.0kg*12 | S2: 30.0kg*12 | S3: 30.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 30.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 30.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 30.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Crunch Oblique Twist",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Chest Day": [
+      {
+        "exercise_name": "Dumbbell Chest Press",
+        "reps": "GOALS: S1: 10.0kg*12 | S2: 10.0kg*12 | S3: 10.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Jo Schiavetta": {
+    "Weight Training": [
+      {
+        "exercise_name": "Banded Clam",
+        "reps": "GOALS: S1: 0.0kg*12 | S2: 0.0kg*12 | S3: 0.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Leg Extensions",
+        "reps": "GOALS: S1: 17.5kg*6 | S2: 17.5kg*6 | S3: 17.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 17.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 15.0kg to 17.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 17.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 17.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Single Leg Kickback",
+        "reps": "GOALS: S1: 5.0kg*15 | S2: 5.0kg*15 | S3: 5.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Single Leg Adduction",
+        "reps": "GOALS: S1: 5.0kg*15 | S2: 5.0kg*15 | S3: 5.0kg*15",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 1: Progressed reps from 13 to 15"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 15,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Leg Day": [
+      {
+        "exercise_name": "Standing Calf Raise",
+        "reps": "GOALS: S1: 2.5kg*6 | S2: 2.5kg*6 | S3: 2.5kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 0.0kg to 2.5kg, reset to 6 reps"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 2.5,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Romanian Deadlifts",
+        "reps": "GOALS: S1: 20kg*6 | S2: 20kg*6 | S3: 20kg*6",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 20,
+            "reps": 6,
+            "reason": "Set 1: Completed 15 reps, increased weight from 17.5kg to 20kg, reset to 6 reps"
+          },
+          {
+            "weight": 20,
+            "reps": 6,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 20,
+            "reps": 6,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Bulgarian Lunge",
+        "reps": "GOALS: S1: 0.0kg*12 | S2: 0.0kg*12 | S3: 0.0kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 0.0,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  },
+  "Noushi Puddy": {
+    "Weight Training": [
+      {
+        "exercise_name": "Deadlift",
+        "reps": "GOALS: S1: 45.0kg*8 | S2: 45.0kg*8 | S3: 45.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 45.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 45.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 45.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Cable Rear Delt Row",
+        "reps": "GOALS: S1: 5.0kg*8 | S2: 5.0kg*8 | S3: 5.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 5.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 5.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 5.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Kneeling Single Arm rows",
+        "reps": "GOALS: S1: 7.5kg*12 | S2: 7.5kg*12 | S3: 7.5kg*12",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 7.5,
+            "reps": 12,
+            "reason": "Set 1: Progressed reps from 11 to 12"
+          },
+          {
+            "weight": 7.5,
+            "reps": 12,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 7.5,
+            "reps": 12,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Dumbbell Overhead Push",
+        "reps": "GOALS: S1: 10.0kg*8 | S2: 10.0kg*8 | S3: 10.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 10.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ],
+    "Back Day": [
+      {
+        "exercise_name": "Lat Machine Standing Straight Arm",
+        "reps": "GOALS: S1: 15.0kg*8 | S2: 15.0kg*8 | S3: 15.0kg*8",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 15.0,
+            "reps": 8,
+            "reason": "Set 1: Progressed reps from 7 to 8"
+          },
+          {
+            "weight": 15.0,
+            "reps": 8,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 15.0,
+            "reps": 8,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      },
+      {
+        "exercise_name": "Lat Pull Down Wide Grip",
+        "reps": "GOALS: S1: 40.0kg*10 | S2: 40.0kg*10 | S3: 40.0kg*10",
+        "reason": "Applied set-by-set progression algorithm based on real performance data",
+        "set_progressions": [
+          {
+            "weight": 40.0,
+            "reps": 10,
+            "reason": "Set 1: Progressed reps from 9 to 10"
+          },
+          {
+            "weight": 40.0,
+            "reps": 10,
+            "reason": "Set 2: Matched previous set"
+          },
+          {
+            "weight": 40.0,
+            "reps": 10,
+            "reason": "Set 3: Matched previous set"
+          }
+        ]
+      }
+    ]
+  }
+}

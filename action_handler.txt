@@ -1,0 +1,403 @@
+import logging
+import json
+import re
+import random
+from typing import Dict, Any, Optional
+
+# Assuming logger, config vars (GEMINI_MODEL_FLASH etc.), 
+# and functions (call_gemini_with_retry, update_manychat_fields, 
+# add_todo_item, get_calorie_analysis, update_analytics_data, 
+# TrainerizeAutomation, FORM_CHECK_REQUEST_RESPONSES) 
+# are loaded globally or passed into the calling context of detect_and_handle_action.
+logger = logging.getLogger(__name__) 
+
+# --- Action Detection and Handling ---
+
+async def detect_and_handle_action(
+    ig_username: str, 
+    message_text: str, 
+    data: Dict, 
+    # Pass necessary functions/modules/configs explicitly
+    call_gemini_func,
+    update_manychat_func,
+    add_todo_func,
+    get_calorie_analysis_func,
+    update_analytics_func,
+    get_video_analysis_func, # Added for consistency if form check moves here
+    trainerize_automation_class,
+    form_check_responses: list,
+    config: Dict, # Pass the whole config dictionary
+    # Pass pending state dictionaries (mutable, changes reflect back)
+    form_check_pending: Dict[str, bool],
+    food_analysis_pending: Dict[str, bool]
+) -> bool:
+    """Uses Gemini to detect user intent and handles multiple actions.
+    Relies on passed-in functions and config for external interactions."""
+    logger.info(
+        f"[detect_and_handle_action] Analyzing message from {ig_username} for actions: {message_text[:100]}"
+    )
+
+    if not data:
+        logger.error("No data dictionary provided to detect_and_handle_action")
+        return False
+
+    # Access config values via the passed dictionary
+    GEMINI_MODEL_FLASH = config.get('GEMINI_MODEL_FLASH')
+    GEMINI_MODEL_FLASH_STANDARD = config.get('GEMINI_MODEL_FLASH_STANDARD')
+    GEMINI_MODEL_PRO = config.get('GEMINI_MODEL_PRO') # Needed for calorie/video analysis
+    GEMINI_API_KEY = config.get('GEMINI_API_KEY')
+    MAX_RETRIES = config.get('MAX_RETRIES')
+    RETRY_DELAY = config.get('RETRY_DELAY')
+    ANALYTICS_FILE_PATH = config.get('ANALYTICS_FILE_PATH')
+    TRAINERIZE_USERNAME = config.get('TRAINERIZE_USERNAME')
+    TRAINERIZE_PASSWORD = config.get('TRAINERIZE_PASSWORD')
+
+    if not all([GEMINI_MODEL_FLASH, GEMINI_API_KEY, ANALYTICS_FILE_PATH]):
+         logger.error("Missing critical config values (GEMINI_MODEL_FLASH, GEMINI_API_KEY, ANALYTICS_FILE_PATH) for detect_and_handle_action")
+         return False
+
+    # --- MULTI-ACTION PROMPT --- 
+    intent_prompt = f"""Analyze this message to identify ALL requested actions:
+1. Workout program changes (adding or removing exercises).
+2. Requests for a form check/technique analysis based on a video.
+3. Requests for calorie/macro analysis of food based on an image.
+
+Message: "{message_text}"
+
+--- Workout Changes ---
+Standard Workout Day Categories & Target Output Types:
+- Leg Day (keywords: leg, legs, lower body) -> output type: "Leg Day"
+- Back day (keywords: back, pull) -> output type: "Back day"
+- Chest day (keywords: chest, push) -> output type: "Chest day"
+- Core Day (keywords: core, abs, abdominals) -> output type: "Core Day"
+- Shoulder Day (keywords: shoulders, delts) -> output type: "Shoulder Day"
+- Cardio Day (keywords: cardio, run, bike, conditioning) -> output type: "Cardio Day"
+- Arm Day (keywords: arms, biceps, triceps) -> output type: "Arm Day"
+
+Workout Change Instructions:
+- Identify every distinct workout change action requested (add, remove).
+- For each action, identify the exercise name.
+- For each action, identify the specific workout day mentioned or inferred. Map it to one of the Standard Workout Day Categories and use the full `output type` for 'workout_type'.
+- Prioritize user-mentioned day for 'workout_type'. Infer if not mentioned.
+- If adding an exercise, include default sets ('3') and reps ('10').
+
+--- Form Check Requests ---
+Form Check Keywords: form check, check form, technique, review video, analyse video, look at my lift
+
+Form Check Instructions:
+- If the user asks for a form check or technique review related to a video (using keywords above or similar phrasing), set "is_form_check_request" to true.
+
+--- Calorie/Macro Analysis Requests ---
+Food Analysis Keywords: calories, macros, check food, analyse meal, how much protein/carbs/fat, food pic
+
+Food Analysis Instructions:
+- Set "is_food_analysis_request" to true if the user uses food analysis keywords.
+- Independently, check if the message text contains a plausible image URL (look for 'lookaside.fbsbx.com'). Set "has_image_url" to true if found, false otherwise.
+
+--- Output Format ---
+Respond ONLY with a JSON object. Make sure the entire response is valid JSON.
+- Include "is_workout_request": true/false,
+- Include "actions": [...],
+- Include "is_form_check_request": true/false,
+- Include "is_food_analysis_request": true/false, (based on keywords only)
+- Include "has_image_url": true/false, (based on URL presence in this message)
+- Include "confidence": 0-100,
+- Include "explanation": "..."
+
+Format:
+{{{{  # Use double braces to escape JSON braces within f-string
+    "is_workout_request": true/false,
+    "actions": [
+        // ... workout actions ...
+    ],
+    "is_form_check_request": true/false,
+    "is_food_analysis_request": true/false,
+    "has_image_url": true/false,
+    "confidence": 0-100,
+    "explanation": "brief explanation summarizing all actions/requests"
+}}}}
+"""
+
+    try:
+        # Get intent analysis from Gemini using the passed function
+        intent_response = call_gemini_func(
+            GEMINI_MODEL_FLASH, 
+            intent_prompt,
+            GEMINI_API_KEY,
+            GEMINI_MODEL_FLASH_STANDARD, # Fallback 1
+            GEMINI_MODEL_FLASH_STANDARD, # Fallback 2 
+            MAX_RETRIES,
+            RETRY_DELAY
+        )
+        if not intent_response:
+            logger.error("Failed to get intent analysis from Gemini")
+            return False
+
+        # Clean and parse JSON (Robust parsing logic)
+        cleaned_response = intent_response.strip()
+        if cleaned_response.startswith("```json"):
+            cleaned_response = cleaned_response[len("```json"):].strip()
+        elif cleaned_response.startswith("```"):
+            cleaned_response = cleaned_response[len("```"):].strip()
+        if cleaned_response.endswith("```"):
+            cleaned_response = cleaned_response[:-len("```")]
+
+        intent_data = None
+        try:
+            first_brace_index = cleaned_response.find('{')
+            last_brace_index = cleaned_response.rfind('}')
+            if first_brace_index != -1 and last_brace_index != -1 and last_brace_index > first_brace_index:
+                potential_json_str = cleaned_response[first_brace_index : last_brace_index + 1]
+                logger.info(f"Extracted potential JSON block: {potential_json_str[:500]}...")
+                intent_data = json.loads(potential_json_str)
+                logger.info(f"Intent analysis parsed: {json.dumps(intent_data, indent=2)}")
+            else:
+                logger.error("Could not find valid start/end braces in intent response.")
+                logger.error(f"Original Gemini response (cleaned): {cleaned_response}")
+                return False
+        except json.JSONDecodeError as json_err:
+            logger.error(f"Failed to parse intent JSON: {json_err}")
+            logger.error(f"Original Gemini response (cleaned): {cleaned_response}")
+            return False
+        except Exception as e:
+            logger.error(f"Unexpected error during intent JSON parsing: {e}", exc_info=True)
+            return False
+        
+        if not intent_data: # Should be caught above, but double check
+             logger.error("Intent data is None after parsing attempt.")
+             return False
+
+        # --- Extract data from analysis ---
+        is_workout_req = intent_data.get('is_workout_request', False)
+        is_form_check_req = intent_data.get('is_form_check_request', False)
+        is_food_analysis_req = intent_data.get('is_food_analysis_request', False)
+        has_image_url = intent_data.get('has_image_url', False)
+        confidence = intent_data.get('confidence', 0)
+        requested_actions = intent_data.get('actions', [])
+        subscriber_id = data.get('id')
+        first_name = data.get('first_name', '')
+        last_name = data.get('last_name', '')
+        client_name_for_todo = data.get('name') or f"{first_name} {last_name}".strip() or ig_username
+
+        # --- Handle Form Check Request (PRIORITY 1) ---
+        if is_form_check_req and confidence > 70:
+            logger.info(f"Form check request detected for {ig_username} with confidence {confidence}.")
+            form_check_pending[ig_username] = True # Modify passed-in dict
+            response = random.choice(form_check_responses)
+            logger.info(f"Using dynamic response for form check request: '{response}'")
+            field_updates = {"o1 Response": response, "CONVERSATION": message_text}
+            # Use passed-in functions
+            update_success = update_manychat_func(subscriber_id, field_updates, config['MANYCHAT_API_KEY'])
+            if not update_success:
+                logger.error(f"Failed to update ManyChat fields for form check request {ig_username}")
+            ai_response_for_analytics = "AI responded asking user to send video for form check."
+            update_analytics_func(ig_username, message_text, ai_response_for_analytics, subscriber_id, first_name, last_name, ANALYTICS_FILE_PATH, config['load_json_func']) # Assumes loader func ref passed via config or similar
+            logger.info(f"Updated analytics data for {ig_username} after form check request.")
+            return True 
+
+        # --- Handle Food Analysis Request (PRIORITY 2) ---
+        elif is_food_analysis_req and confidence > 70:
+            logger.info(f"Food analysis request detected for {ig_username} with confidence {confidence}.")
+            if has_image_url:
+                url_pattern = r"(https?://lookaside\.fbsbx\.com/ig_messaging_cdn/\?asset_id=[\w-]+&signature=[\w\-_.~]+)"
+                match = re.search(url_pattern, message_text)
+                if match:
+                    image_url = match.group(1)
+                    logger.info(f"Found image URL for food analysis: {image_url[:100]}...")
+                    user_desc_text = message_text.replace(image_url, "").strip()
+                    # Use passed-in function
+                    analysis_result = get_calorie_analysis_func(
+                        image_url,
+                        GEMINI_API_KEY, 
+                        GEMINI_MODEL_PRO, 
+                        GEMINI_MODEL_FLASH, 
+                        GEMINI_MODEL_FLASH_STANDARD,
+                        user_description=user_desc_text
+                    )
+                    if not analysis_result:
+                        analysis_result = "Sorry mate, had a bit of trouble analysing that pic. Can you try sending it again?"
+                        logger.error(f"Food analysis failed for {ig_username} (URL: {image_url[:50]}...)")
+                        add_todo_func(ig_username, client_name_for_todo, f"Failed calorie analysis for image: {image_url[:50]}...", ANALYTICS_FILE_PATH)
+                    else:
+                        add_todo_func(ig_username, client_name_for_todo, f"Successfully provided calorie analysis: {image_url[:50]}...", ANALYTICS_FILE_PATH, status="completed")
+                    
+                    field_updates = {"o1 Response": analysis_result, "CONVERSATION": f"(User sent image for calorie check: {image_url[:50]}...)"}
+                    ai_response_for_analytics = f"AI provided food analysis. Result: {analysis_result[:100]}"
+                    user_message_for_analytics = f"(Sent food image: {image_url[:50]}...)"
+                else:
+                    logger.error(f"Intent indicated image URL present for {ig_username}, but regex failed.")
+                    response_text = "Hmm, thought I saw a picture link but couldn't grab it. Can you try sending the food pic again?"
+                    field_updates = {"o1 Response": response_text, "CONVERSATION": message_text}
+                    ai_response_for_analytics = "AI failed to extract detected image URL."
+                    user_message_for_analytics = message_text
+            else:
+                logger.info(f"Food analysis request for {ig_username} without image URL. Asking user.")
+                response_text = "Yep send the photo through, and a brief description of the ingredients used will help as well"
+                food_analysis_pending[ig_username] = True # Modify passed-in dict
+                logger.info(f"Set food_analysis_pending state for {ig_username}")
+                field_updates = {"o1 Response": response_text, "CONVERSATION": message_text}
+                ai_response_for_analytics = "AI asked user to send food photo and ingredients."
+                user_message_for_analytics = message_text
+
+            # Use passed-in functions for MC update and analytics
+            update_success = update_manychat_func(subscriber_id, field_updates, config['MANYCHAT_API_KEY'])
+            if not update_success:
+                logger.error(f"Failed to update ManyChat fields for food analysis flow for {ig_username}")
+            update_analytics_func(ig_username, user_message_for_analytics, ai_response_for_analytics, subscriber_id, first_name, last_name, ANALYTICS_FILE_PATH, config['load_json_func'])
+            logger.info(f"Updated analytics for {ig_username} during food analysis flow.")
+            return True 
+
+        # --- Handle Workout Modification Request (PRIORITY 3) ---
+        elif is_workout_req and confidence > 70:
+            if not requested_actions:
+                logger.warning("Workout request detected, but no actions found.")
+                return False
+
+            can_proceed = False
+            target_workout_type = None
+            for action_item in requested_actions:
+                action = action_item.get('action') or action_item.get('action_type') or action_item.get('type')
+                exercise = action_item.get('exercise_name') or action_item.get('exercise')
+                if action_item.get('workout_type') and exercise and action:
+                    can_proceed = True
+                    target_workout_type = action_item.get('workout_type')
+                    break
+            
+            if not can_proceed:
+                logger.warning("Detected workout request, but missing essential details for all actions.")
+                clarification_message = ("I think you want to change your workout, but I missed some details. "
+                                         "Can you please tell me the specific exercise, the action (add/remove), "
+                                         "and the workout day (e.g., Legs, Back)?")
+                if subscriber_id:
+                    field_updates = {"o1 Response": clarification_message, "CONVERSATION": message_text}
+                    update_success = update_manychat_func(subscriber_id, field_updates, config['MANYCHAT_API_KEY'])
+                    if not update_success:
+                         logger.error(f"Failed to send clarification request to ManyChat for {ig_username}")
+                    update_analytics_func(ig_username, message_text, clarification_message, subscriber_id, first_name, last_name, ANALYTICS_FILE_PATH, config['load_json_func'])
+                    logger.info(f"Sent clarification request and updated analytics for {ig_username}.")
+                    return True # Handled by asking for clarification
+                else:
+                    logger.error(f"Cannot send clarification request for {ig_username}, missing subscriber_id.")
+                    return False
+            
+            # --- Prepare for Trainerize --- 
+            client_full_name = data.get('name') or f"{first_name} {last_name}".strip() or ig_username
+            if not client_full_name or not subscriber_id or not TRAINERIZE_USERNAME or not TRAINERIZE_PASSWORD:
+                logger.error("Missing client name, subscriber ID, or Trainerize credentials for automation.")
+                return False
+
+            logger.info(f"Attempting Trainerize mods for {client_full_name} based on {len(requested_actions)} actions...")
+            trainerize = None
+            modification_attempted_and_failed = False
+            action_summary = {"success": [], "failed": []}
+            overall_success = False
+
+            try:
+                # Use passed-in Trainerize class
+                trainerize = trainerize_automation_class()
+                if not trainerize.login(TRAINERIZE_USERNAME, TRAINERIZE_PASSWORD):
+                    raise Exception("Failed to login to Trainerize")
+                trainerize.handle_notification_popup()
+                if not trainerize.navigate_to_client(client_full_name):
+                    raise Exception(f"Failed to navigate to client {client_full_name}")
+                if not trainerize.navigate_to_training_program():
+                    raise Exception("Failed to navigate to training program")
+                if not target_workout_type:
+                    raise Exception("Target workout type could not be determined.")
+                if not trainerize.click_workout_fuzzy(target_workout_type):
+                    raise Exception(f"Failed to find workout containing '{target_workout_type}'")
+                if not trainerize.click_edit_workout():
+                    raise Exception("Failed to enter edit mode")
+                
+                # Loop through actions
+                for i, action_item in enumerate(requested_actions):
+                    action_type = action_item.get('action') or action_item.get('action_type') or action_item.get('type')
+                    exercise_name = action_item.get('exercise_name') or action_item.get('exercise')
+                    current_workout_type = action_item.get('workout_type')
+                    
+                    if current_workout_type != target_workout_type:
+                        logger.warning(f"Action {i+1} workout type '{current_workout_type}' differs from navigated type '{target_workout_type}'. Proceeding.")
+                    if not action_type or not exercise_name:
+                        logger.warning(f"Skipping invalid action {i+1}: {action_item}")
+                        action_summary["failed"].append(f"Item {i+1} (invalid details)")
+                        continue
+
+                    logger.info(f"--- Performing Action {i+1}/{len(requested_actions)}: {action_type.upper()} '{exercise_name}' ---")
+                    action_successful_this_time = False
+                    try:
+                        if action_type == 'add':
+                            sets = action_item.get('sets', '3')
+                            reps = action_item.get('reps', '10')
+                            if trainerize.add_exercise(exercise_name, sets, reps):
+                                action_successful_this_time = True
+                        elif action_type == 'remove':
+                            if trainerize.remove_exercise(exercise_name):
+                                action_successful_this_time = True
+                        else:
+                            logger.error(f"Unknown action type '{action_type}'")
+                        
+                        if action_successful_this_time:
+                             logger.info(f"Action {i+1} SUCCEEDED: {action_type.upper()} '{exercise_name}'")
+                        else:
+                             logger.error(f"Action {i+1} FAILED: {action_type.upper()} '{exercise_name}'")
+                             
+                    except Exception as loop_e:
+                        logger.error(f"Action {i+1} ({action_type} '{exercise_name}') FAILED with exception: {loop_e}")
+                    
+                    # Record result
+                    summary_str = f"{action_type} {exercise_name}"
+                    if action_successful_this_time:
+                        action_summary["success"].append(summary_str)
+                    else:
+                        action_summary["failed"].append(summary_str)
+
+                # Save Workout (After Loop)
+                logger.info("Attempting to save workout...")
+                if trainerize.save_workout():
+                    logger.info("Workout saved successfully.")
+                    overall_success = True
+                else:
+                    logger.error("Failed to save workout after modifications!")
+                    overall_success = False
+            
+            except Exception as e:
+                error_message = f"Error during Trainerize automation: {str(e)}"
+                logger.error(error_message)
+                add_todo_func(ig_username, client_full_name, f"Trainerize automation failed: {str(e)[:100]}...", ANALYTICS_FILE_PATH)
+                action_summary["failed"].append(f"Overall process failed ({str(e)[:50]}...)")
+                modification_attempted_and_failed = True
+            finally:
+                if trainerize:
+                    if not modification_attempted_and_failed and overall_success:
+                        logger.info("Trainerize mods successful, cleaning up.")
+                        trainerize.cleanup()
+                    else:
+                        logger.warning("Trainerize mod had failures or save failed! Leaving browser open.")
+                        fail_reason = "Save workout failed" if not overall_success else f"Action(s) failed: {action_summary['failed']}"
+                        add_todo_func(ig_username, client_full_name, f"Trainerize issue: {fail_reason}", ANALYTICS_FILE_PATH)
+                        print("\n*** Trainerize browser window left open. Please close manually. ***\n")
+
+            # Construct Final Response
+            if overall_success and not action_summary["failed"]:
+                response = "Easy updated your program, need anything else?"
+                add_todo_func(ig_username, client_full_name, f"Successfully performed Trainerize actions: {action_summary['success']}", ANALYTICS_FILE_PATH, status="completed")
+            else:
+                response = "Yep ill get onto that asap and get back to you when its done!" # Generic response on failure
+
+            # Update ManyChat and Analytics
+            field_updates = {"o1 Response": response, "CONVERSATION": message_text}
+            update_success = update_manychat_func(subscriber_id, field_updates, config['MANYCHAT_API_KEY'])
+            if not update_success:
+                logger.error(f"Failed to update ManyChat fields for {ig_username}")
+            ai_response_for_analytics = f"Attempted Trainerize actions: Success={action_summary['success']}, Failed={action_summary['failed']}, Save Success={overall_success}"
+            update_analytics_func(ig_username, message_text, ai_response_for_analytics, subscriber_id, first_name, last_name, ANALYTICS_FILE_PATH, config['load_json_func'])
+            logger.info(f"Updated analytics data for {ig_username} with action summary.")
+            return True
+
+        else:
+            logger.info("Message not identified as a confident workout/form/food request.")
+            return False
+
+    except Exception as e:
+        logger.error(f"Error in detect_and_handle_action: {str(e)}", exc_info=True)
+        return False 

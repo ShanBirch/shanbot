@@ -1,0 +1,58 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-13 13:17:12
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9th-15th, 2025. This is indicated by the presence of completed workouts and the fact that it's the most recent week displayed.
+
+
+**DETAILED WORKOUT ANALYSIS (Current Week Only):**
+
+* **Monday June 9:** Resistance Training - NOT COMPLETED
+* **Tuesday June 10:** Resistance Training - COMPLETED
+* **Wednesday June 11:** Resistance Training - NOT COMPLETED
+* **Thursday June 12:** NOT VISIBLE
+* **Friday June 13:** Resistance Training - COMPLETED
+* **Saturday June 14:** NOT VISIBLE
+* **Sunday June 15:** NOT VISIBLE
+
+No additional workout details (sets, reps, RPE, etc.) are visible.
+
+
+**DETAILED NUTRITION TRACKING (Current Week Only):**
+
+* **Monday June 9:** NOT VISIBLE
+* **Tuesday June 10:** NOT VISIBLE
+* **Wednesday June 11:** NOT VISIBLE
+* **Thursday June 12:** NOT VISIBLE
+* **Friday June 13:** NOT VISIBLE
+* **Saturday June 14:** NOT VISIBLE
+* **Sunday June 15:** NOT VISIBLE
+
+
+**DETAILED WALKING/CARDIO TRACKING (Current Week Only):**
+
+* **Monday June 9:** NOT VISIBLE
+* **Tuesday June 10:** NOT VISIBLE
+* **Wednesday June 11:** NOT VISIBLE
+* **Thursday June 12:** NOT VISIBLE
+* **Friday June 13:** NOT VISIBLE
+* **Saturday June 14:** NOT VISIBLE
+* **Sunday June 15:** NOT VISIBLE
+
+
+**WEIGHT/BODY METRICS (Current Week Only):**
+
+* No weight measurements are visible for this week.
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Total workouts completed:** 2
+* **Total workouts scheduled:**  At least 3 (possibly more as Thursday, Saturday and Sunday are not fully visible)
+* **Total days with nutrition tracking:** 0
+* **Total days in current week:** 7
+* **Total walking sessions completed:** 0
+* **Total walking sessions scheduled:** NOT VISIBLE
+* **Overall current week adherence percentage:**  Approximately 29% (2/7 completed workouts). This is a rough estimate,  as the total number of scheduled workouts is unknown due to the incomplete view of the week.

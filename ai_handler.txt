@@ -1,0 +1,120 @@
+import google.generativeai as genai
+import time
+import logging
+from typing import Optional
+
+# Assuming logger is configured in the main script
+logger = logging.getLogger(__name__) 
+
+# --- Gemini Interaction Functions ---
+
+def call_gemini_with_retry(
+    model_name: str, 
+    prompt: str, 
+    api_key: str,
+    fallback_model_1: str, 
+    fallback_model_2: str,
+    max_retries: int, 
+    retry_delay: int,
+    retry_count: int = 0
+) -> Optional[str]:
+    """
+    Call Gemini API with retry logic and multiple fallback models.
+
+    Args:
+        model_name: Name of the Gemini model to use
+        prompt: The prompt to send to Gemini
+        api_key: The Gemini API Key
+        fallback_model_1: Name of the first fallback model
+        fallback_model_2: Name of the second fallback model
+        max_retries: Maximum retry attempts
+        retry_delay: Base delay between retries
+        retry_count: Current retry attempt number
+
+    Returns:
+        Generated text or None if all retries fail
+    """
+    try:
+        # Configure API key for this call (safer if key changes)
+        # Consider moving configure outside if key is constant for app lifetime
+        genai.configure(api_key=api_key)
+        
+        model = genai.GenerativeModel(model_name)
+        response = model.generate_content(prompt)
+        # Add safety check for response structure
+        if response and hasattr(response, 'text'):
+            return response.text.strip()
+        else:
+            logger.warning(f"Gemini response format unexpected for model {model_name}. Response: {response}")
+            # Handle potential empty or malformed responses based on API behavior
+            if retry_count < max_retries:
+                 logger.warning(f"Attempting retry {retry_count + 1} due to unexpected response format.")
+                 time.sleep(retry_delay)
+                 # Decide which model to retry with - sticking to original for now
+                 return call_gemini_with_retry(model_name, prompt, api_key, fallback_model_1, fallback_model_2, max_retries, retry_delay, retry_count + 1)
+            else:
+                 return None # Give up after retries
+
+    except Exception as e:
+        logger.warning(f"Gemini call failed for model {model_name} (Attempt {retry_count + 1}): {e}")
+        if retry_count < max_retries:
+            next_model_to_try = model_name # Default: retry same model
+            wait_time = retry_delay * (retry_count + 1) # Increase wait time
+
+            # Logic for falling back to different models
+            if "429" in str(e): # Rate limit error
+                logger.warning(f"Rate limit hit for {model_name}. Retrying after {wait_time}s.")
+                # Optionally switch to a fallback model immediately on rate limit
+                # next_model_to_try = fallback_model_1 
+            elif model_name == fallback_model_1: # If first fallback failed
+                 next_model_to_try = fallback_model_2
+                 logger.warning(f"Model {model_name} failed. Falling back to {next_model_to_try} after {wait_time}s.")
+            elif model_name != fallback_model_1 and model_name != fallback_model_2:
+                 next_model_to_try = fallback_model_1
+                 logger.warning(f"Model {model_name} failed. Falling back to {next_model_to_try} after {wait_time}s.")
+            # Else (if second fallback failed), we just retry the second fallback
+            
+            time.sleep(wait_time)
+            return call_gemini_with_retry(
+                next_model_to_try, 
+                prompt, 
+                api_key,
+                fallback_model_1, 
+                fallback_model_2,
+                max_retries, 
+                retry_delay,
+                retry_count + 1
+            )
+        else:
+            logger.error(f"All Gemini attempts failed after {max_retries} retries. Last error: {e}")
+            return None
+
+async def get_ai_response(prompt: str, 
+                          primary_model: str,
+                          fallback_model_1: str,
+                          fallback_model_2: str,
+                          api_key: str,
+                          max_retries: int,
+                          retry_delay: int
+                         ) -> Optional[str]:
+    """Get AI response using Gemini models with fallbacks."""
+    try:
+        # Call the retry function with the primary model first
+        response = call_gemini_with_retry(
+            primary_model, 
+            prompt, 
+            api_key, 
+            fallback_model_1, 
+            fallback_model_2, 
+            max_retries, 
+            retry_delay
+        )
+        if response:
+            return response
+        else:
+            logger.error("All Gemini models failed to generate response after retries.")
+            return None
+
+    except Exception as e:
+        logger.error(f"Unexpected error in get_ai_response wrapper: {str(e)}", exc_info=True)
+        return None 

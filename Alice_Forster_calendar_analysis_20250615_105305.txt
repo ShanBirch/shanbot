@@ -1,0 +1,52 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-15 10:53:05
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9th-15th, 2025.  This is indicated by the presence of a completed workout on June 15th.
+
+
+**DETAILED WORKOUT ANALYSIS (Current Week Only):**
+
+* **Completed Workouts:**
+    * Resistance Training - June 15th (✓)
+
+* **Incomplete Workouts:**
+    * Resistance Training - June 9th (○)
+    * Resistance Training - June 10th (○)
+    * Resistance Training - June 11th (○)
+    * Resistance Training - June 12th (○)
+    * Resistance Training - June 13th (○)
+    * Resistance Training - June 14th (○)
+
+
+**DETAILED NUTRITION TRACKING (Current Week Only):**
+
+* June 9th: NO NUTRITION TRACKED
+* June 10th: NO NUTRITION TRACKED
+* June 11th: NO NUTRITION TRACKED
+* June 12th: NO NUTRITION TRACKED
+* June 13th: NO NUTRITION TRACKED
+* June 14th: NO NUTRITION TRACKED
+* June 15th: NO NUTRITION TRACKED
+
+
+**DETAILED WALKING/CARDIO TRACKING (Current Week Only):**
+
+There is no visible walking or cardio data for the current week.
+
+
+**WEIGHT/BODY METRICS (Current Week Only):**
+
+No weight or body metric data is visible for the current week.
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Total Visible Items:** 7
+* **Completed Items:** 1
+* **Incomplete Items:** 6
+* **Adherence Percentage:** 14.3% (1/7)
+
+**Concerns:**  There's extremely low adherence to the scheduled workout plan this week.  Only one of the seven scheduled Resistance Training sessions was completed.  There's also a lack of tracked nutrition data for the entire week.

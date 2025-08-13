@@ -1,0 +1,830 @@
+#!/usr/bin/env python
+
+"""
+Fitness Video Auto-Labeler GUI
+A graphical user interface for the Fitness Video Auto-Labeler application.
+"""
+
+# Configure ImageMagick path for MoviePy
+import os
+try:
+    from moviepy.config import change_settings
+
+    # Common installation paths for ImageMagick on Windows
+    possible_paths = [
+        r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe",
+        r"C:\Program Files\ImageMagick-7.1.1-Q16\magick.exe",
+        r"C:\Program Files\ImageMagick-7.0.8-Q16\magick.exe",
+        r"C:\Program Files\ImageMagick-6.9.13-Q16\convert.exe"
+    ]
+
+    # Check if any of these paths exist
+    for path in possible_paths:
+        if os.path.exists(path):
+            print(f"Found ImageMagick at: {path}")
+            change_settings({"IMAGEMAGICK_BINARY": path})
+            break
+    else:
+        print("Warning: ImageMagick not found at common locations.")
+        print("If you encounter errors, please install ImageMagick from:")
+        print("https://imagemagick.org/script/download.php")
+        print("Make sure to check 'Install legacy utilities' during installation.")
+except ImportError:
+    print("Warning: MoviePy configuration module not found.")
+
+# Import the fixed auto labeler
+import fixed_video_auto_labeler as auto_labeler
+from text_overlay_generator import text_overlay, TEXT_POSITIONS
+from exercise_database import exercise_db
+import sys
+import json
+import time
+import threading
+import subprocess
+import queue
+from datetime import datetime
+from tkinter import *
+from tkinter import ttk, filedialog, messagebox
+import tkinter.scrolledtext as ScrolledText
+import tkinter.font as tkFont
+
+class RedirectText:
+    """
+    Redirect stdout to a tkinter Text widget.
+    """
+
+    def __init__(self, text_widget):
+        """Initialize with a text widget to redirect to."""
+        self.text_widget = text_widget
+        self.buffer = ""
+
+    def write(self, string):
+        """Write to the text widget."""
+        self.buffer += string
+        if "\n" in self.buffer:
+            self.text_widget.config(state=NORMAL)
+            self.text_widget.insert(END, self.buffer)
+            self.text_widget.see(END)
+            self.text_widget.config(state=DISABLED)
+            self.buffer = ""
+
+    def flush(self):
+        """Flush the buffer."""
+        if self.buffer:
+            self.text_widget.config(state=NORMAL)
+            self.text_widget.insert(END, self.buffer)
+            self.text_widget.see(END)
+            self.text_widget.config(state=DISABLED)
+            self.buffer = ""
+
+
+class VideoPreviewPanel(Frame):
+    """
+    A panel for previewing processed videos.
+    """
+
+    def __init__(self, parent):
+        """Initialize the preview panel."""
+        super().__init__(parent)
+        self.parent = parent
+        self.create_widgets()
+
+    def create_widgets(self):
+        """Create the widgets for the preview panel."""
+        # Create a label for the preview
+        self.preview_label = Label(self, text="Video Preview")
+        self.preview_label.pack(side=TOP, fill=X)
+
+        # Create a frame for the preview
+        self.preview_frame = Frame(self, bg="black", width=400, height=300)
+        self.preview_frame.pack(side=TOP, fill=BOTH,
+                                expand=TRUE, padx=10, pady=10)
+
+        # Create a label for the preview image
+        self.preview_image_label = Label(
+            self.preview_frame, bg="black", text="No video selected")
+        self.preview_image_label.pack(side=TOP, fill=BOTH, expand=TRUE)
+
+        # Create controls for the preview
+        self.controls_frame = Frame(self)
+        self.controls_frame.pack(side=BOTTOM, fill=X, padx=10, pady=10)
+
+        # Create a button to open the selected video
+        self.open_button = Button(
+            self.controls_frame, text="Open Video", command=self.open_video)
+        self.open_button.pack(side=LEFT, padx=5)
+
+        # Create a button to open the directory
+        self.open_dir_button = Button(
+            self.controls_frame, text="Open Directory", command=self.open_directory)
+        self.open_dir_button.pack(side=RIGHT, padx=5)
+
+        # Current video path
+        self.current_video = None
+
+    def set_video(self, video_path):
+        """Set the current video path."""
+        self.current_video = video_path
+        if video_path:
+            # Update the preview label
+            self.preview_label.config(
+                text=f"Video Preview: {os.path.basename(video_path)}")
+
+            # Update the preview image
+            self.preview_image_label.config(
+                text=f"Video loaded: {os.path.basename(video_path)}")
+        else:
+            # Clear the preview
+            self.preview_label.config(text="Video Preview")
+            self.preview_image_label.config(text="No video selected")
+
+    def open_video(self):
+        """Open the current video in the default video player."""
+        if self.current_video and os.path.exists(self.current_video):
+            try:
+                # Open with default application
+                if sys.platform == 'win32':
+                    os.startfile(self.current_video)
+                elif sys.platform == 'darwin':  # macOS
+                    subprocess.run(['open', self.current_video])
+                else:  # Linux
+                    subprocess.run(['xdg-open', self.current_video])
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not open video: {e}")
+        else:
+            messagebox.showinfo("No Video", "No video is currently selected.")
+
+    def open_directory(self):
+        """Open the directory containing the current video."""
+        if self.current_video and os.path.exists(self.current_video):
+            try:
+                # Open directory with default file explorer
+                directory = os.path.dirname(self.current_video)
+                if sys.platform == 'win32':
+                    os.startfile(directory)
+                elif sys.platform == 'darwin':  # macOS
+                    subprocess.run(['open', directory])
+                else:  # Linux
+                    subprocess.run(['xdg-open', directory])
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not open directory: {e}")
+        else:
+            messagebox.showinfo("No Video", "No video is currently selected.")
+
+
+class VideoQueuePanel(Frame):
+    """
+    A panel for displaying the video processing queue.
+    """
+
+    def __init__(self, parent, preview_panel):
+        """Initialize the queue panel."""
+        super().__init__(parent)
+        self.parent = parent
+        self.preview_panel = preview_panel
+        self.create_widgets()
+
+        # Video queue
+        self.video_queue = []
+        self.processed_videos = []
+
+    def create_widgets(self):
+        """Create the widgets for the queue panel."""
+        # Create a label for the queue
+        self.queue_label = Label(self, text="Video Queue")
+        self.queue_label.pack(side=TOP, fill=X)
+
+        # Create tabs for queue and processed videos
+        self.tabs = ttk.Notebook(self)
+        self.tabs.pack(side=TOP, fill=BOTH, expand=TRUE, padx=10, pady=10)
+
+        # Create queue tab
+        self.queue_tab = Frame(self.tabs)
+        self.tabs.add(self.queue_tab, text="Queue")
+
+        # Create processed tab
+        self.processed_tab = Frame(self.tabs)
+        self.tabs.add(self.processed_tab, text="Processed")
+
+        # Create queue list
+        self.queue_frame = Frame(self.queue_tab)
+        self.queue_frame.pack(side=TOP, fill=BOTH, expand=TRUE)
+
+        self.queue_scrollbar = Scrollbar(self.queue_frame)
+        self.queue_scrollbar.pack(side=RIGHT, fill=Y)
+
+        self.queue_listbox = Listbox(
+            self.queue_frame, yscrollcommand=self.queue_scrollbar.set)
+        self.queue_listbox.pack(side=LEFT, fill=BOTH, expand=TRUE)
+
+        self.queue_scrollbar.config(command=self.queue_listbox.yview)
+
+        # Bind select event
+        self.queue_listbox.bind('<<ListboxSelect>>', self.on_queue_select)
+
+        # Create processed list
+        self.processed_frame = Frame(self.processed_tab)
+        self.processed_frame.pack(side=TOP, fill=BOTH, expand=TRUE)
+
+        self.processed_scrollbar = Scrollbar(self.processed_frame)
+        self.processed_scrollbar.pack(side=RIGHT, fill=Y)
+
+        self.processed_listbox = Listbox(
+            self.processed_frame, yscrollcommand=self.processed_scrollbar.set)
+        self.processed_listbox.pack(side=LEFT, fill=BOTH, expand=TRUE)
+
+        self.processed_scrollbar.config(command=self.processed_listbox.yview)
+
+        # Bind select event
+        self.processed_listbox.bind(
+            '<<ListboxSelect>>', self.on_processed_select)
+
+        # Create controls
+        self.controls_frame = Frame(self)
+        self.controls_frame.pack(side=BOTTOM, fill=X, padx=10, pady=10)
+
+        # Create a button to clear the queue
+        self.clear_button = Button(
+            self.controls_frame, text="Clear Queue", command=self.clear_queue)
+        self.clear_button.pack(side=LEFT, padx=5)
+
+        # Create a button to clear processed
+        self.clear_processed_button = Button(
+            self.controls_frame, text="Clear Processed", command=self.clear_processed)
+        self.clear_processed_button.pack(side=RIGHT, padx=5)
+
+    def update_queue(self):
+        """Update the queue listbox."""
+        self.queue_listbox.delete(0, END)
+        for video in self.video_queue:
+            self.queue_listbox.insert(END, os.path.basename(video))
+
+    def update_processed(self):
+        """Update the processed listbox."""
+        self.processed_listbox.delete(0, END)
+        for video in self.processed_videos:
+            self.processed_listbox.insert(END, os.path.basename(video))
+
+    def add_to_queue(self, video_path):
+        """Add a video to the queue."""
+        if video_path not in self.video_queue:
+            self.video_queue.append(video_path)
+            self.update_queue()
+
+    def add_to_processed(self, video_path):
+        """Add a video to the processed list."""
+        if video_path not in self.processed_videos:
+            self.processed_videos.append(video_path)
+            self.update_processed()
+
+    def remove_from_queue(self, video_path):
+        """Remove a video from the queue."""
+        if video_path in self.video_queue:
+            self.video_queue.remove(video_path)
+            self.update_queue()
+
+    def on_queue_select(self, event):
+        """Handle queue selection event."""
+        selection = self.queue_listbox.curselection()
+        if selection:
+            index = selection[0]
+            video_path = self.video_queue[index]
+            self.preview_panel.set_video(video_path)
+
+    def on_processed_select(self, event):
+        """Handle processed selection event."""
+        selection = self.processed_listbox.curselection()
+        if selection:
+            index = selection[0]
+            video_path = self.processed_videos[index]
+            self.preview_panel.set_video(video_path)
+
+    def clear_queue(self):
+        """Clear the video queue."""
+        if messagebox.askyesno("Clear Queue", "Are you sure you want to clear the queue?"):
+            self.video_queue = []
+            self.update_queue()
+
+    def clear_processed(self):
+        """Clear the processed list."""
+        if messagebox.askyesno("Clear Processed", "Are you sure you want to clear the processed list?"):
+            self.processed_videos = []
+            self.update_processed()
+
+
+class SettingsPanel(LabelFrame):
+    """
+    A panel for configuring the application settings.
+    """
+
+    def __init__(self, parent, config):
+        """Initialize the settings panel."""
+        super().__init__(parent, text="Settings")
+        self.parent = parent
+        self.config = config
+        self.create_widgets()
+
+    def create_widgets(self):
+        """Create the widgets for the settings panel."""
+        # Create a frame for the settings
+        settings_frame = Frame(self)
+        settings_frame.pack(side=TOP, fill=BOTH, expand=TRUE, padx=10, pady=10)
+
+        # Directory setting
+        dir_frame = Frame(settings_frame)
+        dir_frame.pack(side=TOP, fill=X, pady=5)
+
+        dir_label = Label(
+            dir_frame, text="Monitor Directory:", width=15, anchor=W)
+        dir_label.pack(side=LEFT, padx=5)
+
+        self.dir_var = StringVar(value=self.config.get("monitor_directory"))
+        dir_entry = Entry(dir_frame, textvariable=self.dir_var, width=30)
+        dir_entry.pack(side=LEFT, fill=X, expand=TRUE, padx=5)
+
+        dir_button = Button(dir_frame, text="Browse",
+                            command=self.browse_directory)
+        dir_button.pack(side=RIGHT, padx=5)
+
+        # Text style setting
+        style_frame = Frame(settings_frame)
+        style_frame.pack(side=TOP, fill=X, pady=5)
+
+        style_label = Label(
+            style_frame, text="Text Style:", width=15, anchor=W)
+        style_label.pack(side=LEFT, padx=5)
+
+        self.style_var = StringVar(value=self.config.get("text_style"))
+        style_options = ["minimal", "bold_statement",
+                         "fitness_pro", "instagram_classic"]
+        style_dropdown = ttk.Combobox(
+            style_frame, textvariable=self.style_var, values=style_options)
+        style_dropdown.pack(side=LEFT, fill=X, expand=TRUE, padx=5)
+
+        # Hook position setting
+        hook_frame = Frame(settings_frame)
+        hook_frame.pack(side=TOP, fill=X, pady=5)
+
+        hook_label = Label(
+            hook_frame, text="Hook Position:", width=15, anchor=W)
+        hook_label.pack(side=LEFT, padx=5)
+
+        self.hook_var = StringVar(value=self.config.get("hook_position"))
+        hook_options = list(TEXT_POSITIONS.keys())
+        hook_dropdown = ttk.Combobox(
+            hook_frame, textvariable=self.hook_var, values=hook_options)
+        hook_dropdown.pack(side=LEFT, fill=X, expand=TRUE, padx=5)
+
+        # Tip position setting
+        tip_frame = Frame(settings_frame)
+        tip_frame.pack(side=TOP, fill=X, pady=5)
+
+        tip_label = Label(tip_frame, text="Tip Position:", width=15, anchor=W)
+        tip_label.pack(side=LEFT, padx=5)
+
+        self.tip_var = StringVar(value=self.config.get("tip_position"))
+        tip_options = list(TEXT_POSITIONS.keys())
+        tip_dropdown = ttk.Combobox(
+            tip_frame, textvariable=self.tip_var, values=tip_options)
+        tip_dropdown.pack(side=LEFT, fill=X, expand=TRUE, padx=5)
+
+        # Auto-process existing setting
+        auto_frame = Frame(settings_frame)
+        auto_frame.pack(side=TOP, fill=X, pady=5)
+
+        auto_label = Label(auto_frame, text="Auto-Process:",
+                           width=15, anchor=W)
+        auto_label.pack(side=LEFT, padx=5)
+
+        self.auto_var = BooleanVar(
+            value=self.config.get("auto_process_existing"))
+        auto_check = Checkbutton(
+            auto_frame, text="Process existing videos on startup", variable=self.auto_var)
+        auto_check.pack(side=LEFT, fill=X, expand=TRUE, padx=5)
+
+        # Buttons frame
+        buttons_frame = Frame(self)
+        buttons_frame.pack(side=BOTTOM, fill=X, padx=10, pady=10)
+
+        # Save button
+        save_button = Button(
+            buttons_frame, text="Save Settings", command=self.save_settings)
+        save_button.pack(side=RIGHT, padx=5)
+
+        # Reset button
+        reset_button = Button(
+            buttons_frame, text="Reset to Default", command=self.reset_to_default)
+        reset_button.pack(side=LEFT, padx=5)
+
+    def browse_directory(self):
+        """Open a directory browser dialog."""
+        directory = filedialog.askdirectory(
+            initialdir=self.config.get("monitor_directory"),
+            title="Select Directory to Monitor"
+        )
+        if directory:
+            self.dir_var.set(directory)
+
+    def save_settings(self):
+        """Save the current settings to the configuration."""
+        try:
+            # Update configuration
+            self.config.set("monitor_directory", self.dir_var.get())
+            self.config.set("text_style", self.style_var.get())
+            self.config.set("hook_position", self.hook_var.get())
+            self.config.set("tip_position", self.tip_var.get())
+            self.config.set("auto_process_existing", self.auto_var.get())
+
+            messagebox.showinfo("Settings", "Settings saved successfully.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not save settings: {e}")
+
+    def reset_to_default(self):
+        """Reset settings to default values."""
+        if messagebox.askyesno("Reset Settings", "Are you sure you want to reset to default settings?"):
+            # Reset to default
+            self.dir_var.set(auto_labeler.DEFAULT_MONITOR_DIR)
+            self.style_var.set("minimal")
+            self.hook_var.set("center_focus")
+            self.tip_var.set("bottom_banner")
+            self.auto_var.set(False)
+
+
+class VideoAutoLabelerGUI:
+    """
+    Main GUI for the Fitness Video Auto-Labeler application.
+    """
+
+    def __init__(self, root):
+        """Initialize the GUI."""
+        self.root = root
+        self.root.title("Fitness Video Auto-Labeler")
+        self.root.geometry("1024x768")
+        self.root.minsize(800, 600)
+
+        # Set icon
+        try:
+            self.root.iconbitmap("icon.ico")
+        except:
+            pass
+
+        # Create configuration object
+        self.config = auto_labeler.Config()
+
+        # Create main frame
+        self.main_frame = Frame(self.root)
+        self.main_frame.pack(side=TOP, fill=BOTH, expand=TRUE)
+
+        # Create panels
+        self.create_panels()
+
+        # Configure grid
+        self.main_frame.columnconfigure(0, weight=1)
+        self.main_frame.columnconfigure(1, weight=2)
+        self.main_frame.rowconfigure(0, weight=3)
+        self.main_frame.rowconfigure(1, weight=1)
+
+        # Create status bar
+        self.status_var = StringVar()
+        self.status_var.set("Ready")
+        self.status_bar = Label(
+            self.root, textvariable=self.status_var, bd=1, relief=SUNKEN, anchor=W)
+        self.status_bar.pack(side=BOTTOM, fill=X)
+
+        # Initialize monitoring thread
+        self.monitoring_running = False
+        self.monitor_thread = None
+
+        # Create video processing queue
+        self.processing_queue = queue.Queue()
+
+        # Create video handler
+        self.video_handler = None
+
+        # Periodically update the UI
+        self.update_ui()
+
+    def create_panels(self):
+        """Create the panels for the GUI."""
+        # Create preview panel
+        self.preview_panel = VideoPreviewPanel(self.main_frame)
+        self.preview_panel.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+
+        # Create queue panel
+        self.queue_panel = VideoQueuePanel(self.main_frame, self.preview_panel)
+        self.queue_panel.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+
+        # Create console output panel
+        self.console_frame = LabelFrame(self.main_frame, text="Console Output")
+        self.console_frame.grid(
+            row=1, column=0, columnspan=2, sticky="nsew", padx=5, pady=5)
+
+        self.console_text = ScrolledText.ScrolledText(
+            self.console_frame, state=DISABLED)
+        self.console_text.pack(side=TOP, fill=BOTH,
+                               expand=TRUE, padx=5, pady=5)
+
+        # Redirect stdout to console
+        self.stdout_redirect = RedirectText(self.console_text)
+        sys.stdout = self.stdout_redirect
+
+        # Create settings panel
+        self.settings_panel = SettingsPanel(self.root, self.config)
+        self.settings_panel.pack(side=TOP, fill=X, padx=10, pady=10)
+
+        # Create control buttons
+        self.buttons_frame = Frame(self.root)
+        self.buttons_frame.pack(side=TOP, fill=X, padx=10, pady=5)
+
+        # Start/Stop monitoring button
+        self.monitor_button_text = StringVar(value="Start Monitoring")
+        self.monitor_button = Button(
+            self.buttons_frame,
+            textvariable=self.monitor_button_text,
+            command=self.toggle_monitoring,
+            width=15
+        )
+        self.monitor_button.pack(side=LEFT, padx=5)
+
+        # Process selected video button
+        self.process_button = Button(
+            self.buttons_frame,
+            text="Process Selected",
+            command=self.process_selected,
+            width=15
+        )
+        self.process_button.pack(side=LEFT, padx=5)
+
+        # Add video button
+        self.add_button = Button(
+            self.buttons_frame,
+            text="Add Video",
+            command=self.add_video,
+            width=15
+        )
+        self.add_button.pack(side=LEFT, padx=5)
+
+        # Process all videos button
+        self.process_all_button = Button(
+            self.buttons_frame,
+            text="Process All",
+            command=self.process_all,
+            width=15
+        )
+        self.process_all_button.pack(side=RIGHT, padx=5)
+
+    def update_ui(self):
+        """Update the UI periodically."""
+        # Check if monitoring thread is still alive
+        if self.monitor_thread and not self.monitor_thread.is_alive():
+            self.monitoring_running = False
+            self.monitor_button_text.set("Start Monitoring")
+            self.status_var.set("Monitoring stopped")
+
+        # Schedule next update
+        self.root.after(1000, self.update_ui)
+
+    def toggle_monitoring(self):
+        """Toggle the directory monitoring on/off."""
+        if not self.monitoring_running:
+            # Start monitoring
+            try:
+                # Save settings first
+                self.settings_panel.save_settings()
+
+                # Update status
+                self.monitoring_running = True
+                self.monitor_button_text.set("Stop Monitoring")
+                self.status_var.set(
+                    f"Monitoring {self.config.get('monitor_directory')}")
+
+                # Start monitoring in a separate thread
+                self.monitor_thread = threading.Thread(
+                    target=self.start_monitoring, daemon=True)
+                self.monitor_thread.start()
+
+                print(
+                    f"Started monitoring {self.config.get('monitor_directory')}")
+            except Exception as e:
+                messagebox.showerror(
+                    "Error", f"Could not start monitoring: {e}")
+                self.monitoring_running = False
+                self.monitor_button_text.set("Start Monitoring")
+        else:
+            # Stop monitoring
+            self.monitoring_running = False
+            self.monitor_button_text.set("Start Monitoring")
+            self.status_var.set("Stopping monitoring...")
+            print("Stopping monitoring...")
+
+    def start_monitoring(self):
+        """Start monitoring the directory for new videos."""
+        try:
+            # Get monitoring directory and video extensions
+            monitor_dir = self.config.get("monitor_directory")
+            video_extensions = self.config.get("video_extensions")
+
+            # Ensure monitoring directory exists
+            if not os.path.exists(monitor_dir):
+                os.makedirs(monitor_dir, exist_ok=True)
+                print(f"Created monitoring directory: {monitor_dir}")
+
+            # Initialize video handler
+            self.video_handler = auto_labeler.VideoHandler(
+                monitor_dir, video_extensions)
+
+            # Start video processor worker thread
+            processor_thread = threading.Thread(
+                target=self.video_processor_worker, daemon=True)
+            processor_thread.start()
+
+            # Process existing videos if enabled
+            if self.config.get("auto_process_existing"):
+                self.process_existing_videos(monitor_dir, video_extensions)
+
+            # Start directory observer
+            observer = auto_labeler.Observer()
+            observer.schedule(self.video_handler, monitor_dir, recursive=True)
+            observer.start()
+
+            print(f"Monitoring directory: {monitor_dir}")
+            print("Waiting for new videos...")
+
+            # Keep running until monitoring is stopped
+            while self.monitoring_running:
+                time.sleep(1)
+
+            # Stop observer
+            observer.stop()
+            observer.join()
+
+            print("Monitoring stopped")
+        except Exception as e:
+            print(f"Error in monitoring thread: {e}")
+
+    def video_processor_worker(self):
+        """Worker thread for processing videos from the queue."""
+        while self.monitoring_running:
+            try:
+                # Get video from queue with 1-second timeout
+                video_path = self.processing_queue.get(timeout=1)
+
+                # Process the video
+                print(f"Processing video from queue: {video_path}")
+
+                # Update status
+                self.status_var.set(
+                    f"Processing {os.path.basename(video_path)}")
+
+                # Get settings from config
+                text_style = self.config.get("text_style", "minimal")
+                hook_position = self.config.get(
+                    "hook_position", "center_focus")
+                tip_position = self.config.get("tip_position", "bottom_banner")
+
+                # Process the video
+                output_path, caption = text_overlay.process_video(
+                    video_path,
+                    text_style=text_style,
+                    hook_position=hook_position,
+                    tip_position=tip_position
+                )
+
+                if output_path:
+                    # Mark as processed
+                    if self.video_handler:
+                        self.video_handler.mark_as_processed(video_path)
+
+                    # Add to processed list
+                    self.root.after(
+                        0, lambda p=output_path: self.queue_panel.add_to_processed(p))
+
+                    # Remove from queue
+                    self.root.after(
+                        0, lambda p=video_path: self.queue_panel.remove_from_queue(p))
+
+                    # Save caption to a text file
+                    if caption:
+                        caption_path = os.path.splitext(
+                            output_path)[0] + "_caption.txt"
+                        with open(caption_path, 'w', encoding='utf-8') as f:
+                            f.write(caption)
+                        print(f"Caption saved to: {caption_path}")
+
+                    # Update status
+                    self.status_var.set(
+                        f"Processed {os.path.basename(video_path)}")
+                else:
+                    # Update status
+                    self.status_var.set(
+                        f"Failed to process {os.path.basename(video_path)}")
+
+                # Mark task as done
+                self.processing_queue.task_done()
+
+            except queue.Empty:
+                # Queue is empty, just continue the loop
+                continue
+            except Exception as e:
+                print(f"Error in video processor worker: {e}")
+                # Update status
+                self.status_var.set("Error processing video")
+                # Mark task as done even if it failed
+                try:
+                    self.processing_queue.task_done()
+                except:
+                    pass
+
+    def process_existing_videos(self, directory, video_extensions):
+        """
+        Process existing videos in the monitoring directory.
+
+        Args:
+            directory (str): Directory to scan for videos
+            video_extensions (list): List of video file extensions to process
+        """
+        print(f"Scanning for existing videos in {directory}...")
+
+        try:
+            for root, _, files in os.walk(directory):
+                # Skip the processed subdirectory
+                processed_dir = self.config.get("processed_subdirectory")
+                if processed_dir in os.path.normpath(root).split(os.sep):
+                    continue
+
+                for filename in files:
+                    filepath = os.path.join(root, filename)
+
+                    # Check if it's a video file and not already processed
+                    if any(filename.lower().endswith(ext) for ext in video_extensions) and \
+                       (not self.video_handler or filepath not in self.video_handler.processed_files) and \
+                       "_processed" not in filename:  # Also check for processed in filename
+
+                        print(f"Found existing video: {filepath}")
+                        self.processing_queue.put(filepath)
+
+                        # Add to queue panel
+                        self.root.after(
+                            0, lambda p=filepath: self.queue_panel.add_to_queue(p))
+        except Exception as e:
+            print(f"Error scanning for existing videos: {e}")
+
+    def process_selected(self):
+        """Process the selected video in the queue."""
+        selection = self.queue_panel.queue_listbox.curselection()
+        if selection:
+            index = selection[0]
+            video_path = self.queue_panel.video_queue[index]
+
+            # Add to processing queue
+            self.processing_queue.put(video_path)
+            print(f"Added {os.path.basename(video_path)} to processing queue")
+        else:
+            messagebox.showinfo(
+                "No Selection", "Please select a video from the queue to process.")
+
+    def add_video(self):
+        """Add a video file to the queue."""
+        filetypes = [
+            ("Video Files", "*.mp4 *.mov *.avi *.mkv *.wmv"),
+            ("All Files", "*.*")
+        ]
+
+        video_paths = filedialog.askopenfilenames(
+            initialdir=self.config.get("monitor_directory"),
+            title="Select Video File(s)",
+            filetypes=filetypes
+        )
+
+        if video_paths:
+            for video_path in video_paths:
+                # Add to queue panel
+                self.queue_panel.add_to_queue(video_path)
+                print(f"Added {os.path.basename(video_path)} to queue")
+
+    def process_all(self):
+        """Process all videos in the queue."""
+        if not self.queue_panel.video_queue:
+            messagebox.showinfo("Empty Queue", "The video queue is empty.")
+            return
+
+        # Add all videos to processing queue
+        for video_path in self.queue_panel.video_queue:
+            self.processing_queue.put(video_path)
+
+        print(
+            f"Added {len(self.queue_panel.video_queue)} videos to processing queue")
+
+
+if __name__ == "__main__":
+    # Create the root window
+    root = Tk()
+
+    # Create the GUI
+    app = VideoAutoLabelerGUI(root)
+
+    # Start the main loop
+    root.mainloop()
+
+    # Restore stdout
+    sys.stdout = sys.__stdout__

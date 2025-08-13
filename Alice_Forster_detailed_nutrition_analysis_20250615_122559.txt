@@ -1,0 +1,109 @@
+🍎 COMPREHENSIVE NUTRITION ANALYSIS - ALICE FORSTER
+📅 DETAILED MEAL BREAKDOWN FROM POPUP SCREENSHOTS
+================================================================================
+
+📸 POPUP SCREENSHOT #1: nutrition_popup_2.png
+------------------------------------------------------------
+**DATE:** 10 Jun 2025
+
+**TOTAL CALORIES:** NOT VISIBLE
+
+**MACROS:**
+- Protein: 105g
+- Carbs: 140g
+- Fat: 47g
+
+**DETAILED MEALS:**
+
+**BREAKFAST (331 Cal):**
+- SHDLCK - Whey Protein Isolate Chocolate, 35 gram (135 Cal)
+- Rolled Oats Home Brand - Oats, 40 gram (155 Cal)
+- Aldi - almond milk unsweetened, 250 ml (41 Cal)
+
+**LUNCH (203 Cal):**
+- Konjac Noodles, 1 serving (203 Cal)
+
+**DINNER (590 Cal):**
+- Slendier - Fettuccine Organic Edamame Pasta, 240 g (238 Cal)
+- Coles - Grass Fed Beef Meatballs (252 Cal)
+
+**SNACKS:** NOT VISIBLE
+------------------------------------------------------------
+
+📸 POPUP SCREENSHOT #2: nutrition_popup_3.png
+------------------------------------------------------------
+**DATE:** 12 Jun 2025
+
+**TOTAL CALORIES:** 1400
+
+**MACROS:**
+- Protein: 125g
+- Carbs: 141g
+- Fat: 45g
+
+**DETAILED MEALS:**
+
+**BREAKFAST (362 Cal):**
+- Caramel Oreo Weatbix, 1 serving (362 Cal)
+
+**LUNCH (203 Cal):**
+- Konjac Noodles, 1 serving (203 Cal)
+
+**DINNER (652 Cal):**
+- Beef Oyster Blade - Steak, 300 g (403 Cal)
+- Greek Side Salad - Greek Side Salad, 1 cup (125 Cal)
+- Spud Light - Potatoes, 250 gram (124 Cal)
+
+**SNACKS:** NOT VISIBLE
+------------------------------------------------------------
+
+📸 POPUP SCREENSHOT #3: nutrition_popup_4.png
+------------------------------------------------------------
+**DATE:** 13 Jun 2025
+
+**TOTAL CALORIES:** 709 remaining (out of 1400)
+
+**MACROS:**
+- Protein: 53g remaining (out of 105g)
+- Carbs: 55g remaining (out of 140g)
+- Fat: 26g remaining (out of 47g)
+
+**DETAILED MEALS:**
+
+**BREAKFAST (406 Cal):**
+- Weatbix - Weatbix, 31 g 2 biscuits (110 Cal)
+- Farmers Union - Greek Yoghurt, 100 g (122 Cal)
+- Macro Mike - Vanilla Protein Powder, 20 g (72 Cal)
+- Oreos, 2 cookie (102 Cal)
+
+**LUNCH (203 Cal):**
+- Konjac Noodles, 1 serving (203 Cal)
+
+**DINNER:** NOT VISIBLE
+
+**SNACKS (81 Cal):**
+- Arnott's - Mint Slice (81 Cal)
+------------------------------------------------------------
+
+📸 POPUP SCREENSHOT #4: nutrition_popup_5.png
+------------------------------------------------------------
+**DATE:** 14 Jun 2025
+
+**TOTAL CALORIES:** 1400
+
+**MACROS:**
+- Protein: 105g
+- Carbs: 140g
+- Fat: 47g
+
+**DETAILED MEALS:**
+
+**SNACKS (90 Cal):**
+- Vegemite - Vegemite 50 gm (90 Cal)
+
+**BREAKFAST:** NOT VISIBLE
+**LUNCH:** NOT VISIBLE
+**DINNER:** NOT VISIBLE
+
+
+------------------------------------------------------------

@@ -1,0 +1,48 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-13 13:05:51
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+- The current week is the week starting Monday, June 10th, 2025.  This is indicated by the date visible on the calendar and the completed and incomplete tasks.
+- The date range for the current week is June 10th, 2025 - June 14th, 2025.
+
+
+**DETAILED WORKOUT ANALYSIS (Current Week Only):**
+
+- Monday, June 10: Chest Day - COMPLETED; Walking - COMPLETED
+- Tuesday, June 11: Core Day - COMPLETED; Walking - COMPLETED
+- Wednesday, June 12: Back Day - COMPLETED
+- Thursday, June 13: NOT VISIBLE
+- Friday, June 14: NOT VISIBLE
+
+
+**DETAILED NUTRITION TRACKING (Current Week Only):**
+
+- Monday, June 10: 1442.78 Cals / 3 Meals
+- Tuesday, June 11: 1353.15 Cals / 4 Meals
+- Wednesday, June 12: 690.62 Cals / 3 Meals
+- Thursday, June 13: NOT VISIBLE
+- Friday, June 14: NOT VISIBLE
+
+
+**DETAILED WALKING/CARDIO TRACKING (Current Week Only):**
+
+- Monday, June 10: Walking COMPLETED
+- Tuesday, June 11: Walking COMPLETED
+- Wednesday, June 12: Walking NOT COMPLETED (although scheduled)
+- Thursday, June 13: NOT VISIBLE
+- Friday, June 14: NOT VISIBLE
+
+
+**WEIGHT/BODY METRICS (Current Week Only):**
+
+- Saturday, June 7: 79.1 kg
+
+
+**CURRENT WEEK SUMMARY:**
+
+- Total workouts completed: 3 / Total workouts scheduled:  At least 5 (possibly more, as "+ 2 More" and "+ 1 More" entries indicate additional workouts are present but details are hidden)
+- Total days with nutrition tracking: 3 / Total days in the current week: 5
+- Total walking sessions completed: 2 / Total walking sessions scheduled: At least 3 (possibly more due to hidden entries)
+- Overall current week adherence percentage:  Approximately 60% (based on completed workouts only, which is a limited measure of adherence). A more accurate percentage requires information on the hidden workout and walking entries.

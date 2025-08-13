@@ -1,0 +1,31 @@
+{
+  "name": "Shannon Birch",
+  "business_name": "Cocos Personal Training",
+  "date_range": "11 Nov - 17 Nov",
+  "has_weight_data": true,
+  "current_weight": 75.5,
+  "current_weight_message": "Down 0.3kg from last week!",
+  "workouts_this_week": 4,
+  "has_workout_data": true,
+  "total_reps": 156,
+  "total_sets": 48,
+  "total_weight_lifted": 3420,
+  "workload_increase": 8.5,
+  "has_nutrition_data": true,
+  "calories_consumed": "2650",
+  "has_steps_data": true,
+  "step_count": "8,500",
+  "has_sleep_data": true,
+  "sleep_hours": "7-8 hours",
+  "personalized_message": "Outstanding week Shannon! Your consistency is paying off with solid strength gains across multiple exercises. Keep pushing those progressive overloads!",
+  "progression_analysis": {
+    "goal_completion_rate": 0,
+    "exercises_improved": [],
+    "exercises_maintained": [],
+    "exercises_declined": [],
+    "next_week_goals": [],
+    "overall_summary": "No workout data available for analysis.",
+    "motivation_message": "Let's get back to training and build some momentum!",
+    "has_progression_data": false
+  }
+}

@@ -1,0 +1,75 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-14 11:00:59
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9-15, 2025.  This is evident from the number of completed checkmarks and recent nutrition and weight tracking data.
+
+**DETAILED WORKOUT ANALYSIS (June 9-15, 2025):**
+
+* **COMPLETED:**
+    * Chest Day: June 9
+    * Shoulder Day: June 10
+    * Walking: June 10
+    * Core Day: June 11
+    * Walking: June 11
+    * Back Day: June 12
+    * Walking: June 12
+    * Workout of the day: June 6 (Although this falls outside the specified week, I am including it as requested by the prompt.)
+
+* **INCOMPLETE:**
+    * Resistance Training: June 9
+    * Resistance Training: June 10
+    * Resistance Training: June 11
+    * Resistance Training: June 12
+    * Leg Day: June 10
+    * Leg Day: June 11
+    * Resistance Training: June 6 (Although this falls outside the specified week, I am including it as requested by the prompt.)
+    * Back Day: June 6 (Although this falls outside the specified week, I am including it as requested by the prompt.)
+
+* **"+More":**  There are "+More" indicators on several days, suggesting additional, hidden workouts.
+
+
+**DETAILED NUTRITION TRACKING (June 9-15, 2025):**
+
+* June 9: 1442.78 Cals / 3 Meals
+* June 10: 1380.44 Cals / 4 Meals
+* June 11: 1353.15 Cals / 4 Meals
+* June 12: 690.62 Cals / 3 Meals
+* June 6: 1455.78 Cals / 4 Meals (Although this falls outside the specified week, I am including it as requested by the prompt.)
+* June 13:  NO NUTRITION TRACKED
+* June 14: 90 Cals / 1 Meal
+* June 15: NO NUTRITION TRACKED
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9-15, 2025):**
+
+* June 9: Completed
+* June 10: Completed
+* June 11: Completed
+* June 12: Completed
+* June 6: Completed (Although this falls outside the specified week, I am including it as requested by the prompt.)
+* June 13: Completed
+* June 14: NO WALKING DATA
+* June 15: NO WALKING DATA
+
+
+**WEIGHT/BODY METRICS (June 9-15, 2025):**
+
+* June 6: 79.1 kg
+* June 13: 78.9 kg
+
+
+**CURRENT WEEK SUMMARY (June 9-15, 2025):**
+
+* **Completed Items:** 11 (includes walking)
+* **Incomplete Items:** 7
+* **Total Items:** 18
+* **Adherence Percentage:** 61.1% (11/18)
+
+**Patterns and Concerns:**
+
+* Inconsistent nutrition tracking.  Several days lack data.
+* The majority of Resistance Training workouts are incomplete. This might indicate a pattern of missed or skipped workouts.
+* The client did fairly well with cardio workouts.

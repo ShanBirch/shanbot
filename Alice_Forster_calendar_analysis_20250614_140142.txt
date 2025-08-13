@@ -1,0 +1,74 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-14 14:01:42
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9th-15th, 2025.  This is evident from the numerous completed checkmarks ✓ and recent nutrition and weight tracking data within this week's entries.
+
+
+**DETAILED WORKOUT ANALYSIS (June 9th-15th, 2025):**
+
+* **COMPLETED:**
+    * Chest Day - June 9th
+    * Shoulder Day - June 10th
+    * Walking - June 10th
+    * Core Day - June 11th
+    * Walking - June 11th
+    * Back Day - June 12th
+    * Walking - June 12th
+    * Workout of the day - June 6th (This is technically the previous week, but included here because it is the closest completed workout before the target week. It should be considered when assessing adherence)
+
+* **INCOMPLETE:**
+    * Resistance Training - June 9th
+    * Resistance Training - June 10th
+    * Resistance Training - June 11th
+    * Resistance Training - June 12th
+    * Leg Day - June 10th (this is shown on the 10th as partially overlapping with the shoulder day)
+    * Resistance Training - June 9th (This is in the first box of the 9th)
+
+* **"+More"**:  There is "+ More" text indicating additional hidden workouts for several days.
+
+
+**DETAILED NUTRITION TRACKING (June 9th-15th, 2025):**
+
+* June 9th: 1442.78 Cals / 3 Meals
+* June 10th: 1380.44 Cals / 4 Meals
+* June 11th: 1353.15 Cals / 4 Meals
+* June 12th: 690.62 Cals / 3 Meals
+* June 13th:  NO NUTRITION TRACKED
+* June 14th:  90 Cals / 1 Meal
+* June 15th: NO NUTRITION TRACKED
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9th-15th, 2025):**
+
+* June 9th: Completed
+* June 10th: Completed
+* June 11th: Completed
+* June 12th: Completed
+* June 13th: NO WALKING DATA
+* June 14th: NO WALKING DATA
+* June 15th: NO WALKING DATA
+
+
+**WEIGHT/BODY METRICS (June 9th-15th, 2025):**
+
+* June 6th: 79.1 kg
+* June 13th: 78.9 kg
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed Items:** 8 workouts + 4 walking sessions + 4 nutrition entries + 2 weight entries = 18
+* **Incomplete Items:** 6 workouts + 3 nutrition entries + 3 walking sessions = 12
+* **Total Items:** 30
+* **Adherence Percentage:** (18/30) * 100% = 60%
+
+**Patterns and Concerns:**
+
+* Inconsistent nutrition tracking; multiple days have no data recorded.
+*  Low adherence to the scheduled workouts.  Several days show many incomplete entries.  Important to note that there are several "+more" entries which could increase the total number of activities.
+* Weight shows a small decrease over the week.
+
+

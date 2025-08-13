@@ -1,0 +1,350 @@
+Post-Onboarding Nutrition Calculation Plan
+
+1. TRIGGER POINT
+- When completion phrase is detected: "No worries! Ill let you know when your set up, and youll get an invite via email from me! Let me get into this! Chat in a bit!"
+- Sets is_onboarding to false
+- Triggers nutrition calculation process
+
+2. DATA COLLECTION
+- Get full conversation history from analytics_data_good.json
+- Extract all messages between onboarding start and completion
+- Format conversation as Client/Shannon dialogue
+
+3. GEMINI ANALYSIS
+Create prompt for Gemini to extract:
+- Weight (in kg)
+- Height (in cm)
+- Age
+- Gender
+- Activity level
+- Training frequency
+- Fitness goals
+- Dietary preferences
+- Training experience
+- Sleep habits
+- Stress levels
+- Injuries/limitations
+
+Expected JSON Response Format:
+{
+    "personal_info": {
+        "email": {"value": "example@email.com", "confidence": 95},
+        "full_name": {"value": "John Smith", "confidence": 95},
+        "phone": {"value": "0478209395", "confidence": 95},
+        "birth_date": {"value": "1990-07-15", "confidence": 95}
+    },
+    "physical_stats": {
+        "weight": {"value": 82, "unit": "kg", "confidence": 95},
+        "height": {"value": 181, "unit": "cm", "confidence": 95},
+        "target_weight": {"value": 90, "unit": "kg", "confidence": 90}
+    },
+    "fitness_info": {
+        "primary_goal": {"value": "muscle_gain", "confidence": 95},
+        "activity_level": {"value": "moderately_active", "confidence": 90},
+        "gym_access": {"value": "full_gym", "confidence": 95}
+    },
+    "training_schedule": {
+        "days": [
+            {"day": "monday", "time": "evening"},
+            {"day": "wednesday", "time": "evening"},
+            {"day": "saturday", "time": "morning"},
+            {"day": "sunday", "time": "morning"}
+        ],
+        "confidence": 90
+    },
+    "dietary_info": {
+        "restrictions": {
+            "value": ["lactose_intolerant", "no_shellfish"],
+            "confidence": 90
+        },
+        "dislikes": {
+            "value": ["mushrooms"],
+            "confidence": 90
+        },
+        "regular_meals": {
+            "breakfast": ["oats_with_protein", "smoothie"],
+            "lunch": ["chicken_and_rice", "pasta"],
+            "dinner": ["steak", "salmon_with_veggies", "pizza"],
+            "confidence": 85
+        }
+    },
+    "exercise_preferences": {
+        "dislikes": {
+            "value": ["burpees", "running"],
+            "confidence": 90
+        },
+        "current_routine": {
+            "value": "none",
+            "confidence": 95
+        }
+    }
+}
+
+4. NUTRITION CALCULATION
+Using extracted data:
+- Calculate BMR using Mifflin-St Jeor equation
+- Apply activity multiplier
+- Adjust based on goals
+- Calculate macro splits based on:
+  * Goal type (muscle gain/fat loss/maintenance)
+  * Training experience
+  * Current weight
+  * Activity level
+
+5. STORE RESULTS
+Add to analytics_data_good.json under user's metrics:
+{
+    "nutrition_data": {
+        "calculated_on": "timestamp",
+        "daily_calories": 2500,
+        "macros": {
+            "protein": {"grams": 180, "calories": 720},
+            "carbs": {"grams": 280, "calories": 1120},
+            "fats": {"grams": 73, "calories": 660}
+        },
+        "calculation_factors": {
+            "bmr": 1800,
+            "activity_multiplier": 1.375,
+            "goal_adjustment": 300
+        },
+        "source_data": {
+            // Gemini extracted data here
+        },
+        "confidence_score": 85  // Average of all confidence scores
+    }
+}
+
+5.5 MEAL PLAN GENERATION
+- Feed nutrition data back to Gemini with prompt for meal plan creation:
+{
+    "daily_calories": 2500,
+    "macros": {
+        "protein": 180,
+        "carbs": 280,
+        "fats": 73
+    },
+    "dietary_preferences": ["gluten-free"],
+    "meals_per_day": 4
+}
+
+Expected Meal Plan Format from Gemini:
+{
+    "day_1": {
+        "meal_1": {
+            "name": "Breakfast",
+            "time": "7:00 AM",
+            "foods": [
+                {
+                    "item": "Eggs",
+                    "amount": "4 whole",
+                    "macros": {"protein": 24, "carbs": 0, "fats": 20}
+                },
+                {
+                    "item": "Oatmeal",
+                    "amount": "1 cup",
+                    "macros": {"protein": 6, "carbs": 32, "fats": 3}
+                }
+            ],
+            "total_macros": {"protein": 30, "carbs": 32, "fats": 23},
+            "calories": 455
+        },
+        // ... other meals
+    },
+    "day_2": {
+        // Similar structure
+    },
+    "shopping_list": [
+        {
+            "item": "Eggs",
+            "amount": "2 dozen",
+            "notes": "Free range preferred"
+        }
+        // ... other items
+    ],
+    "meal_prep_tips": [
+        "Cook rice in bulk for multiple meals",
+        "Prep vegetables on Sunday"
+    ]
+}
+
+Generate PDF with sections:
+1. Client Information
+   - Name, goals, dietary preferences
+   - Daily caloric and macro targets
+
+2. Meal Plan Overview
+   - Daily breakdown
+   - Timing recommendations
+   - Portion guide
+
+3. Detailed Daily Plans
+   - Day 1 and Day 2 meals
+   - Each meal's ingredients and portions
+   - Macro breakdowns
+   - Preparation instructions
+
+4. Shopping List
+   - Organized by food category
+   - Quantities needed
+   - Suggested brands/alternatives
+
+5. Meal Prep Guide
+   - Prep day instructions
+   - Storage recommendations
+   - Reheating guidelines
+
+Save PDF as: "{client_name}_initial_meal_plan_{date}.pdf"
+Store PDF path in analytics_data_good.json for future reference
+
+PDF Formatting Specifications:
+1. Document Settings
+   - Page Size: A4 (210 x 297 mm)
+   - Margins: 2.5cm all sides
+   - Orientation: Portrait
+   - Color Scheme: 
+     * Primary: #1A237E (Dark Blue)
+     * Secondary: #4CAF50 (Green)
+     * Accent: #FF9800 (Orange)
+     * Text: #333333 (Dark Gray)
+
+2. Typography
+   - Title: Montserrat Bold, 24pt
+   - Section Headers: Montserrat SemiBold, 18pt
+   - Subheaders: Montserrat Medium, 14pt
+   - Body Text: Open Sans Regular, 11pt
+   - Tables: Open Sans Regular, 10pt
+   - Footer: Open Sans Light, 9pt
+
+3. Layout Elements
+   - Header:
+     * Coco's PT Logo (top left)
+     * Client Name & Date (top right)
+     * Page Numbers (bottom right)
+   
+   - Section Dividers:
+     * 1pt line in primary color
+     * 10pt spacing above and below
+   
+   - Tables:
+     * Alternating row colors: White/#F5F5F5
+     * Header row: Primary color with white text
+     * 1pt borders in #E0E0E0
+
+4. Visual Elements
+   - Macro Breakdowns:
+     * Pie charts for daily macro split
+     * Bar graphs for meal-by-meal comparison
+     * Colors: Use brand color scheme
+   
+   - Portion Guide:
+     * Include hand-portion reference images
+     * Use icons for food categories
+   
+   - Meal Images:
+     * Example photo for each meal (optional)
+     * 16:9 aspect ratio
+     * Maximum width: 500px
+
+5. Special Sections
+   - Recipe Cards:
+     * Boxed layout with light gray background
+     * Ingredients list with bullet points
+     * Step-by-step instructions numbered
+     * Prep time and cooking time icons
+   
+   - Shopping List:
+     * Categorized with icons
+     * Checkbox for each item
+     * Two columns per page
+   
+   - Meal Prep Timeline:
+     * Timeline graphic with icons
+     * Color-coded by day
+     * Time estimates for each task
+
+6. File Specifications
+   - Format: PDF/A (for long-term archiving)
+   - Resolution: 300 DPI for images
+   - File Size: Optimize to max 5MB
+   - Fonts: Embedded
+   - Color Space: CMYK for print compatibility
+
+7. Generation Method
+   - Use ReportLab Python library
+   - Generate HTML template first
+   - Convert to PDF using WeasyPrint
+   - Add dynamic elements with Python
+   - Include metadata (client name, date, version)
+
+6. ZAPIER INTEGRATION
+- Instead of Selenium automation, send webhook to Zapier:
+  Endpoint: https://hooks.zapier.com/hooks/catch/15198875/2n1fcu1/
+  
+  POST Request Format:
+  {
+    "client_info": {
+        "email": "example@email.com",
+        "full_name": "John Smith",
+        "phone": "0478209395",
+        "birth_date": "1990-07-15"
+    },
+    "program_details": {
+        "goal": "muscle_gain",
+        "training_days": [
+            {"day": "monday", "time": "evening"},
+            {"day": "wednesday", "time": "evening"},
+            {"day": "saturday", "time": "morning"},
+            {"day": "sunday", "time": "morning"}
+        ],
+        "gym_access": "full_gym",
+        "exercise_exclusions": ["burpees", "running"]
+    },
+    "nutrition": {
+        "daily_calories": 2500,
+        "macros": {
+            "protein": 180,
+            "carbs": 280,
+            "fats": 73
+        },
+        "dietary_restrictions": ["lactose_intolerant", "no_shellfish"],
+        "food_dislikes": ["mushrooms"]
+    },
+    "attachments": {
+        "meal_plan_pdf": "{base64_encoded_pdf}",
+        "filename": "john_smith_initial_meal_plan_2024-03-14.pdf"
+    }
+  }
+
+  Expected Response:
+  {
+    "attempt": "{uuid}",
+    "id": "{uuid}",
+    "request_id": "{uuid}",
+    "status": "success"
+  }
+
+Zapier Flow:
+1. Webhook receives client data
+2. Creates Trainerize account
+3. Uploads meal plan PDF
+4. Sends welcome email with:
+   - Trainerize login details
+   - Attached meal plan
+   - Next steps instructions
+5. Adds client to follow-up sequence
+
+Error Handling:
+- Retry webhook on failure (max 3 attempts)
+- Log failed attempts in analytics_data_good.json
+- Send notification if manual intervention needed
+
+7. NEXT STEPS
+- Start Trainerize onboarding process
+- Send nutrition data to client
+- Begin tracking in calorie tracking system
+
+Implementation Notes:
+- Use Gemini's natural language understanding instead of regex parsing
+- Store confidence scores to flag uncertain data
+- Keep full conversation context for future reference
+- Consider recalculation triggers (weight changes, goal changes)

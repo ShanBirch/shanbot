@@ -1,0 +1,68 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-13 13:19:26
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9th-15th, 2025.  This is indicated by the highest number of completed activities and recent nutrition/weight tracking within that week's entries.
+
+
+**DETAILED WORKOUT ANALYSIS (June 9th-15th, 2025):**
+
+* **COMPLETED:**
+    * Chest Day - June 9th
+    * Shoulder Day - June 10th
+    * Walking - June 10th
+    * Core Day - June 11th
+    * Walking - June 11th
+    * Back Day - June 12th
+    * Workout of the Day - June 6th (This falls outside the requested week, but is mentioned for the sake of completeness)
+
+* **INCOMPLETE:**
+    * Resistance Training - June 9th
+    * Resistance Training - June 10th
+    * Resistance Training - June 11th
+    * Resistance Training - June 12th
+    * Leg Day - June 10th (partially visible)
+    * Walking - June 9th
+    * Resistance Training - June 9th (partially visible)
+
+
+**DETAILED NUTRITION TRACKING (June 9th-15th, 2025):**
+
+* June 9th: 1442.78 Cals / 3 Meals
+* June 10th: 1380.44 Cals / 4 Meals
+* June 11th: 1353.15 Cals / 4 Meals
+* June 12th: 690.62 Cals / 3 Meals
+* June 13th: NO NUTRITION TRACKED
+* June 14th: NO NUTRITION TRACKED
+* June 15th: NO NUTRITION TRACKED
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9th-15th, 2025):**
+
+* June 9th: Walking - Incomplete (○)
+* June 10th: Walking - Complete (✓)
+* June 11th: Walking - Complete (✓)
+* June 12th: Walking - Incomplete (○)
+* June 13th: NO WALKING TRACKED
+* June 14th: NO WALKING TRACKED
+* June 15th: NO WALKING TRACKED
+
+
+**WEIGHT/BODY METRICS (June 9th-15th, 2025):**
+
+* June 6th: 79.1 kg  (This falls outside the requested week, but is mentioned for the sake of completeness)
+* June 13th: 90 Cals / 1 Meal (This is calorie intake, not a weight measurement.)
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed:** 7 (Including walking entries)
+* **Incomplete:** 11 (Including walking entries)
+* **Total:** 18
+* **Adherence Percentage:** 38.9% (7/18)
+
+**Patterns and Concerns:**
+
+There is a significant lack of adherence.  Several workouts and walking sessions are incomplete or missing for the specified week, and nutrition data is lacking from after the 12th.  This indicates a potential need for intervention to improve client engagement and consistency. There also appears to be incomplete or missing entries for the resistance training workouts within the week.

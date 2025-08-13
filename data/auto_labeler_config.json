@@ -1,0 +1,20 @@
+{
+    "monitor_directory": "C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\Content Videos",
+    "text_style": "fitness_pro",
+    "hook_position": "center_focus",
+    "tip_position": "bottom_banner",
+    "processed_subdirectory": "processed",
+    "video_extensions": [
+        ".mp4",
+        ".MP4",
+        ".mov",
+        ".MOV",
+        ".avi",
+        ".AVI",
+        ".mkv",
+        ".MKV",
+        ".wmv",
+        ".WMV"
+    ],
+    "auto_process_existing": false
+}

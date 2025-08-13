@@ -1,0 +1,65 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-13 13:28:07
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9th-15th, 2025.  This is determined by the high number of completed activities and recent nutrition and weight tracking entries within this week compared to others.
+
+
+**DETAILED WORKOUT ANALYSIS (June 9th-15th, 2025):**
+
+* **COMPLETED:**
+    * Chest Day: June 9th
+    * Walking: June 9th
+    * Shoulder Day: June 10th
+    * Walking: June 10th
+    * Core Day: June 11th
+    * Walking: June 11th
+    * Back Day: June 12th
+    * Workout of the Day: June 6th (Though outside the stated week, it's chronologically close and included in completed count)
+
+
+* **INCOMPLETE:**
+    * Resistance Training: June 9th
+    * Resistance Training: June 10th
+    * Resistance Training: June 11th
+    * Resistance Training: June 12th
+    * Resistance Training: June 6th (Though outside the stated week, it's chronologically close and included in incomplete count)
+
+* **"+More":**  There are "+More" entries indicating additional hidden workouts for several days.
+
+
+**DETAILED NUTRITION TRACKING (June 9th-15th, 2025):**
+
+* June 9th: 1442.78 Cals / 3 Meals
+* June 10th: 1380.44 Cals / 4 Meals
+* June 11th: 1353.15 Cals / 4 Meals
+* June 12th: 690.62 Cals / 3 Meals
+* June 6th: 1455.78 Cals / 4 Meals (Chronologically close, included in count)
+* June 13th: 90 Cals / 1 Meal (Chronologically close, included in count)
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9th-15th, 2025):**
+
+* June 9th: Completed
+* June 10th: Completed
+* June 11th: Completed
+* June 6th: Completed (Chronologically close, included in count)
+
+
+**WEIGHT/BODY METRICS (June 9th-15th, 2025):**
+
+* June 6th: 79.1 kg
+
+
+**CURRENT WEEK SUMMARY (June 9th-15th, 2025):**
+
+* **Completed:** 8 workouts, 4 walking sessions, 5 nutrition entries, 1 weight entry
+* **Incomplete:** 4 workouts, 0 walking sessions, 0 nutrition entries, 0 weight entries
+* **Total Items:** 12 completed, 4 incomplete.
+* **Adherence Percentage:**  75% (12 completed / 16 total items)
+
+**Patterns/Concerns:**
+
+The client shows good adherence to their workout plan, though the absence of nutrition data for certain days requires further investigation.  The "+More" entries suggest there might be more data not fully visible in the screenshot. The large difference in daily calorie intake (from 690 to 1455) shows need for nutrition consistency.  The very low calorie intake on June 13th (90 calories) is extremely concerning and warrants immediate attention.

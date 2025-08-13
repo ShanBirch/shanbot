@@ -1,0 +1,253 @@
+# Shanbot Analytics Dashboard Enhancement Plan
+
+## Overview
+This plan outlines the enhancements to be made to the existing analytics dashboard while preserving current functionality. The goal is to improve client journey tracking, automate check-ins, and integrate program management capabilities.
+
+## Current Features to Preserve
+- Global analytics tracking
+- User profile management
+- Message sending capabilities
+- Follow-up system
+- AI message generation
+- Analytics processing
+
+## Enhancement Plan
+
+### 1. Enhance Global Analytics Tab
+
+#### New Metrics to Add:
+```python
+# Trial Period Overview
+- Active trials by week (Week 1-4)
+- Trial conversion rates
+- Check-in compliance rates
+
+# Client Journey Metrics
+- Lead to Trial conversion
+- Trial to Paid conversion
+- Retention rates
+
+# Check-in Performance
+- Wednesday check-in completion rates
+- First week message delivery stats
+- End of week follow-up stats
+```
+
+### 2. Expand User Profiles Section
+
+#### New Profile Features:
+```python
+# Trial Status Tracking
+- Current trial week
+- Check-in history
+- Program feedback
+- Next scheduled action
+
+# Program Management
+- Current program details
+- Edit history
+- Meal plan status
+
+# Automated Actions
+- Scheduled check-ins
+- Trial milestone messages
+- Conversion prompts
+```
+
+### 3. Add Pipeline View Tab
+
+#### Implementation:
+```python
+def display_pipeline_view():
+    # Lead Stage
+    leads = filter_users_by_stage("lead")
+    display_stage_metrics("Leads", leads)
+    
+    # Trial Stages
+    for week in range(1, 5):
+        trial_users = filter_users_by_trial_week(week)
+        display_stage_metrics(f"Trial Week {week}", trial_users)
+    
+    # Paid Members
+    paid = filter_users_by_stage("paid")
+    display_stage_metrics("Paid Members", paid)
+```
+
+### 4. Enhance Check-in Management
+
+#### New Check-in Features:
+```python
+def enhanced_checkin_manager():
+    # Wednesday Global Check-ins
+    schedule_wednesday_checkins()
+    
+    # Trial Period Check-ins
+    schedule_trial_checkins()
+    
+    # Custom Check-in Templates
+    manage_checkin_templates()
+    
+    # Check-in Analytics
+    display_checkin_metrics()
+```
+
+### 5. Program Management Integration
+
+#### Integration Features:
+```python
+def program_management_integration():
+    # Program Editor Interface
+    display_program_editor()
+    
+    # Meal Plan Generator
+    display_meal_plan_tools()
+    
+    # Google Sheets Integration
+    display_onboarding_data()
+```
+
+### 6. Enhanced Analytics Processing
+
+#### New Analytics Features:
+```python
+def enhanced_analytics_processing():
+    # Trial Period Tracking
+    track_trial_progress()
+    
+    # Response Level Classification
+    update_responder_status()
+    
+    # Conversion Opportunity Detection
+    identify_conversion_opportunities()
+    
+    # Check-in Compliance Monitoring
+    monitor_checkin_compliance()
+```
+
+## Data Structure Updates
+
+### Enhanced User Data Structure:
+```python
+user_data.update({
+    "trial_status": {
+        "active": bool,
+        "week": int,
+        "start_date": datetime,
+        "check_ins": [],
+        "feedback": []
+    },
+    "program_data": {
+        "current_program": str,
+        "meal_plan": str,
+        "edit_history": []
+    },
+    "automation_schedule": {
+        "next_check_in": datetime,
+        "trial_milestones": [],
+        "conversion_prompts": []
+    }
+})
+```
+
+## Implementation Steps
+
+### 1. Data Structure Updates
+- Add new fields to existing user data
+- Migrate existing data to new structure
+- Validate data integrity
+
+### 2. UI Component Integration
+- Add Trial Status Tracker
+- Integrate Program Management Tools
+- Add Check-in Scheduler
+- Implement Pipeline View
+
+### 3. Function Enhancements
+```python
+# Modify existing functions:
+- display_conversation()  # Add trial tracking
+- calculate_overall_quality_score()  # Add trial metrics
+- generate_ai_follow_up_message()  # Add trial-aware messaging
+```
+
+### 4. New Automation Functions
+```python
+# Add new automation:
+- schedule_wednesday_checkins()
+- track_trial_progress()
+- manage_program_edits()
+- handle_conversion_prompts()
+```
+
+## Client Journey Automation
+
+### 1. Initial Contact to Free Trial
+- Detect rapport building phase
+- Offer free month trial
+- Track link clicks:
+  * Coaching onboarding form: https://www.cocospersonaltraining.com/coaching-onboarding-form
+  * Membership link: https://www.cocospersonaltraining.com/memberships
+
+### 2. Trial Period Management
+- Week 1: First day message + End of week check-in
+- Weeks 2-3: Wednesday check-ins + Progress validation
+- Week 4: Membership conversion messaging
+
+### 3. Check-in System
+- Automated Wednesday night check-ins
+- Trial period milestone messages
+- Progress validation messages
+- Conversion prompts
+
+## Testing Strategy
+
+### 1. Component Testing
+- Test each new feature individually
+- Verify data structure updates
+- Validate automation triggers
+
+### 2. Integration Testing
+- Test full client journey flow
+- Verify check-in scheduling
+- Test program management integration
+
+### 3. User Acceptance Testing
+- Test with sample client data
+- Verify automation accuracy
+- Validate reporting accuracy
+
+## Implementation Priority
+
+1. Trial Period Tracking
+   - Implement trial status monitoring
+   - Add check-in scheduling
+   - Set up milestone tracking
+
+2. Check-in System Enhancement
+   - Add Wednesday check-in automation
+   - Implement trial-specific messages
+   - Set up progress validation
+
+3. Pipeline View
+   - Create stage-based visualization
+   - Add status transitions
+   - Implement filtering
+
+4. Program Management
+   - Integrate program editor
+   - Add meal plan generation
+   - Connect Google Sheets
+
+## Next Steps
+
+1. Begin with Trial Period Tracking implementation
+2. Test and validate with sample data
+3. Proceed with Check-in System enhancement
+4. Continue with remaining components
+
+## Notes
+- Preserve all existing functionality
+- Implement changes incrementally
+- Test thoroughly before deployment
+- Document all new features
+- Train team on new capabilities

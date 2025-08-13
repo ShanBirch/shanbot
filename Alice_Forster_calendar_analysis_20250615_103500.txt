@@ -1,0 +1,67 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-15 10:35:00
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of **June 9th-15th, 2025**.  This is based on the highest number of completed checkmarks and recent nutrition/weight entries.
+
+**DETAILED WORKOUT ANALYSIS (June 9th-15th, 2025):**
+
+* **Completed Workouts:**
+    * Chest Day: June 9th
+    * Shoulder Day: June 10th
+    * Walking: June 10th
+    * Core Day: June 11th
+    * Walking: June 11th
+    * Back Day: June 12th
+    * Walking: June 12th
+    * Workout of the day: June 6th (This is technically before the week but given the other data points, it's likely related)
+
+* **Incomplete Workouts:**
+    * Resistance Training: June 9th
+    * Resistance Training: June 10th
+    * Resistance Training: June 11th
+    * Resistance Training: June 12th
+    * Walking: June 14th (This one falls outside the most active week, but we keep it for clarity)
+
+
+**DETAILED NUTRITION TRACKING (June 9th-15th, 2025):**
+
+* June 9th: 1442.78 Cals / 3 Meals
+* June 10th: 1380.44 Cals / 4 Meals
+* June 11th: 1353.15 Cals / 4 Meals
+* June 12th: 690.62 Cals / 3 Meals
+* June 13th: NO NUTRITION TRACKED
+* June 14th: NO NUTRITION TRACKED
+* June 15th: NO NUTRITION TRACKED
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9th-15th, 2025):**
+
+* June 9th: Completed
+* June 10th: Completed
+* June 11th: Completed
+* June 12th: Completed
+* June 13th: NO WALKING TRACKED
+* June 14th: Incomplete
+* June 15th: NO WALKING TRACKED
+
+
+**WEIGHT/BODY METRICS (June 9th-15th, 2025):**
+
+* June 6th: 79.1 kg
+* June 13th: 78.9 kg
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed Items:** 10 (including workout of the day)
+* **Incomplete Items:** 5
+* **Adherence Percentage:**  Approximately 67% (10/15). This is only a visual estimate due to incomplete entries
+
+**Patterns and Concerns:**
+
+* Good adherence to workouts and nutrition tracking at the beginning of the week, but it significantly decreases towards the end.
+* Inconsistent walking tracking throughout the week.  This could just be that it wasn't tracked each day, and that data is available if it had been checked off.
+* Weight loss is seen throughout the week. However, without other metrics, it is unclear what led to this weight loss.

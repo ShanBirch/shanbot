@@ -1,0 +1,69 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-15 08:40:41
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9th-15th, 2025.  This is indicated by the most completed checkmarks (✓) and the presence of recent nutrition and weight data.
+
+**DETAILED WORKOUT ANALYSIS (June 9th-15th, 2025):**
+
+* **COMPLETED:**
+    * Chest Day - June 9th
+    * Walking - June 9th
+    * Shoulder Day - June 10th
+    * Walking - June 10th
+    * Core Day - June 11th
+    * Walking - June 11th
+    * Back Day - June 12th
+    * Walking - June 12th
+    * Workout of the Day - June 6th (This is technically in the prior week, but includes data points within the June 9-15th timeframe)
+
+* **INCOMPLETE:**
+    * Resistance Training - June 9th
+    * Resistance Training - June 10th
+    * Resistance Training - June 11th
+    * Resistance Training - June 12th
+    * Resistance Training - June 9th (second instance)
+
+* **"+More"**:  Indicates additional hidden workouts on multiple days.
+
+
+**DETAILED NUTRITION TRACKING (June 9th-15th, 2025):**
+
+* June 9th: 1442.78 Cals / 3 Meals
+* June 10th: 1380.44 Cals / 4 Meals
+* June 11th: 1353.15 Cals / 4 Meals
+* June 12th: 690.62 Cals / 3 Meals
+* June 6th: 1455.78 Cals / 4 Meals (This is technically in the prior week, but includes data points within the June 9-15th timeframe)
+* June 13th: NO NUTRITION TRACKED
+* June 14th: NO NUTRITION TRACKED
+* June 15th: NO NUTRITION TRACKED
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9th-15th, 2025):**
+
+* June 9th: Walking ✓
+* June 10th: Walking ✓
+* June 11th: Walking ✓
+* June 12th: Walking ✓
+* June 6th: Walking ✓ (This is technically in the prior week, but includes data points within the June 9-15th timeframe)
+
+No distances are specified.
+
+
+**WEIGHT/BODY METRICS (June 9th-15th, 2025):**
+
+* June 6th: 79.1 kg
+* June 13th: 78.9 kg
+* June 13th: 90 Cals / 1 Meal
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed:** 9 visible completed items (includes workout of the day data)
+* **Incomplete:** 5 visible incomplete items
+* **Total:** 14 visible items
+* **Adherence Percentage:** (9/14) * 100% = 64.3% (Note: this is only of visible items and does not account for hidden workouts)
+
+**Concerns:** Inconsistent nutrition tracking - missing data for several days;  Hidden workouts suggest potentially more incomplete activities.  There's a need for better adherence to the workout and nutrition plans.

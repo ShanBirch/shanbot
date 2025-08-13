@@ -1,0 +1,24 @@
+{
+    "name": "John",
+    "business_name": "Fitness First",
+    "date_range": "10 March - 16 March",
+    "start_weight": 95,
+    "current_weight": 92,
+    "weight_goal": 85,
+    "current_weight_message": "Great progress so far! You're on track to reach your goal weight.",
+    "workouts_this_week": 5,
+    "workout_types": [
+        "Upper Body",
+        "Lower Body",
+        "HIIT",
+        "Cardio"
+    ],
+    "total_reps": 720,
+    "total_sets": 86,
+    "total_weight_lifted": 1125,
+    "workload_increase": 105.5,
+    "calories_consumed": 2500,
+    "step_count": 12000,
+    "sleep_hours": "7-8 Hours Most Nights",
+    "personalized_message": "Awesome week, John! Your consistency is paying off. The increase in strength and endurance is impressive. Let's keep the momentum going next week!"
+}

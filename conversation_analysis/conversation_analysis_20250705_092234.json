@@ -1,0 +1,169 @@
+{
+  "scheduled_responses": {
+    "total_records": 407,
+    "columns": [
+      "schedule_id",
+      "review_id",
+      "user_ig_username",
+      "user_subscriber_id",
+      "incoming_message_text",
+      "incoming_message_timestamp",
+      "response_text",
+      "calculated_delay_minutes",
+      "scheduled_send_time",
+      "status",
+      "created_at",
+      "sent_at",
+      "error_message",
+      "original_response_time",
+      "user_response_time",
+      "user_notes",
+      "manual_context",
+      "processed_at"
+    ],
+    "sample_data": [
+      {
+        "schedule_id": 1,
+        "review_id": 1263,
+        "user_ig_username": "black_monkey_go_green",
+        "user_subscriber_id": "263338143",
+        "incoming_message_text": "I am born vegan...and will die vegan... i hope we support each other for real...I liked 3 of your new post as a welcome\ud83e\udd8d",
+        "incoming_message_timestamp": "2025-06-25T09:56:15.098126",
+        "response_text": "Hey thanks for reaching out and for the support! That's awesome being born vegan, keen to support each other for sure! How long have you been into the fitness side of things?",
+        "calculated_delay_minutes": 28,
+        "scheduled_send_time": "2025-06-25T10:57:14.698688",
+        "status": "sent",
+        "created_at": "2025-06-25 00:29:14",
+        "sent_at": "2025-06-25T12:54:01.639499",
+        "error_message": null,
+        "original_response_time": "2025-06-25T10:29:14.699693",
+        "user_response_time": "2025-06-25T09:56:15.098126",
+        "user_notes": "",
+        "manual_context": "",
+        "processed_at": null
+      },
+      {
+        "schedule_id": 2,
+        "review_id": 1267,
+        "user_ig_username": "flowerlea44",
+        "user_subscriber_id": "1013503726",
+        "incoming_message_text": "I\u2019ve always loved animals. Even as a little girl, I would never drink milk, and always struggled eating meat. I never liked eggs. I\u2019ve been vegetarian most of my adult life. Once I found out about dairy farming, that was it for me. I love being vegan. \nThat\u2019s amazing you\u2019ve been vegetarian since birth! I can\u2019t imagine ever putting animals products into my body again.",
+        "incoming_message_timestamp": "2025-06-25T10:10:18.333514",
+        "response_text": "Yeah I totally get that hey, sounds like the dairy farming thing was a big moment. Was the transition from vegetarian to fully vegan a big one?",
+        "calculated_delay_minutes": 18,
+        "scheduled_send_time": "2025-06-25T10:47:16.570598",
+        "status": "sent",
+        "created_at": "2025-06-25 00:29:16",
+        "sent_at": "2025-06-25T12:53:37.197577",
+        "error_message": null,
+        "original_response_time": "2025-06-25T10:29:16.572605",
+        "user_response_time": "2025-06-25T10:10:18.333514",
+        "user_notes": "",
+        "manual_context": "",
+        "processed_at": null
+      },
+      {
+        "schedule_id": 3,
+        "review_id": 1265,
+        "user_ig_username": "le_greenies",
+        "user_subscriber_id": "1843140745",
+        "incoming_message_text": "Ooh and a heads up, school\nholidays start Sat so my rhythm will be all over the show but will do my best!",
+        "incoming_message_timestamp": "2025-06-25T10:05:10.657765",
+        "response_text": "Hey Elena! Oh no sucks you're not feeling 100% mate, hope you're feeling heaps better soon! Awesome work getting those legs session vids sent through and smashing it even when you're not feeling tops \ud83d\udcaa Love seeing the work!\n\nWith RDLs, you wanna feel a stretch in your hamstrings, usually going heavier helps with that stretch aye!\n\nTotally get the school holidays messing with the rhythm too! How are you planning to keep the sessions going over the break?",
+        "calculated_delay_minutes": 25,
+        "scheduled_send_time": "2025-06-25T10:54:18.103201",
+        "status": "sent",
+        "created_at": "2025-06-25 00:29:18",
+        "sent_at": "2025-06-25T12:53:49.701433",
+        "error_message": null,
+        "original_response_time": "2025-06-25T10:29:18.104172",
+        "user_response_time": "2025-06-25T10:05:10.657765",
+        "user_notes": "",
+        "manual_context": "",
+        "processed_at": null
+      }
+    ]
+  },
+  "auto_mode_activity": {
+    "total_records": 497,
+    "columns": [
+      "activity_id",
+      "timestamp",
+      "user_ig_username",
+      "action_type",
+      "action_details",
+      "message_preview",
+      "status",
+      "processing_time_ms",
+      "auto_mode_type"
+    ],
+    "sample_data": [
+      {
+        "activity_id": 1,
+        "timestamp": "2025-07-02T21:05:06.088512",
+        "user_ig_username": "test_user",
+        "action_type": "test",
+        "action_details": null,
+        "message_preview": "Test message for verification",
+        "status": "info",
+        "processing_time_ms": NaN,
+        "auto_mode_type": "general"
+      },
+      {
+        "activity_id": 2,
+        "timestamp": "2025-07-02T22:09:30.172298",
+        "user_ig_username": "vegan4tanimals",
+        "action_type": "sending",
+        "action_details": null,
+        "message_preview": "Yeah nice one getting the workouts in at home with",
+        "status": "processing",
+        "processing_time_ms": NaN,
+        "auto_mode_type": "general"
+      },
+      {
+        "activity_id": 3,
+        "timestamp": "2025-07-02T22:10:02.317293",
+        "user_ig_username": "vegan4tanimals",
+        "action_type": "sent",
+        "action_details": "{\"was_updated\": true, \"new_messages_count\": 4}",
+        "message_preview": "Yeah nice one still getting the workouts in at hom",
+        "status": "success",
+        "processing_time_ms": 32178.0,
+        "auto_mode_type": "general"
+      }
+    ]
+  },
+  "messages": {
+    "total_records": 6621,
+    "columns": [
+      "id",
+      "ig_username",
+      "timestamp",
+      "type",
+      "text"
+    ],
+    "sample_data": [
+      {
+        "id": 31,
+        "ig_username": "danielle_emily_ruth",
+        "timestamp": "2025-05-18T10:25:53.450498+00:00",
+        "type": "user",
+        "text": "It is Matthias track in Olinda\nOur favorite spot"
+      },
+      {
+        "id": 32,
+        "ig_username": "danielle_emily_ruth",
+        "timestamp": "2025-05-18T10:25:53.450498+00:00",
+        "type": "ai",
+        "text": "Ah, yes, Matthias track! Your favorite spot - that's fantastic!"
+      },
+      {
+        "id": 33,
+        "ig_username": "danielle_emily_ruth",
+        "timestamp": "2025-05-19T04:03:00.203672+00:00",
+        "type": "user",
+        "text": "I love it \nSparkle has a great time there\nWe walk, meditate and have lunch together \nIt\u2019s our special time"
+      }
+    ]
+  }
+}

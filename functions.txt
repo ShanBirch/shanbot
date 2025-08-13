@@ -1,0 +1,5 @@
+
+def create_slide_with_text(video_path, text_elements, duration=3.0):
+def process_client_data(client_data_file, video_path, output_dir):
+def main():
+

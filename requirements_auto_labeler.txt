@@ -1,0 +1,11 @@
+# Fitness Video Auto-Labeler Requirements
+
+# Video processing
+moviepy==1.0.3
+pillow==9.5.0
+
+# Directory monitoring
+watchdog==3.0.0
+
+# UI
+tkinter  # Usually comes with Python standard library 

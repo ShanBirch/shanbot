@@ -1,0 +1,27 @@
+{
+  "name": "Sarah Johnson",
+  "business_name": "Elite Fitness Studio",
+  "date_range": "13 Jan - 19 Jan",
+  "workouts_this_week": 4,
+  "has_exercise_data": true,
+  "total_reps": 156,
+  "total_sets": 24,
+  "total_weight_lifted": 2840,
+  "most_improved_exercise": {
+    "name": "Barbell Bench Press",
+    "current_performance_desc": "85kg x 8 reps",
+    "improvement_type": "weight_increase",
+    "improvement_percentage": 12.5
+  },
+  "has_weight_data": true,
+  "current_weight": 68.5,
+  "current_weight_message": "Great progress! Down 0.8kg this week",
+  "has_steps_data": true,
+  "current_steps_avg": 9240,
+  "current_steps_message": "Excellent daily activity level!",
+  "has_nutrition_data": true,
+  "current_nutrition_message": "Protein goals consistently met this week",
+  "has_sleep_data": true,
+  "current_sleep_avg": 7.2,
+  "current_sleep_message": "Quality sleep supporting your recovery"
+}

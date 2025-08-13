@@ -1,0 +1,505 @@
+activity_id,timestamp,user_ig_username,action_type,action_details,message_preview,status,processing_time_ms,auto_mode_type
+1,2025-07-02T21:05:06.088512,test_user,test,,Test message for verification,info,,general
+2,2025-07-02T22:09:30.172298,vegan4tanimals,sending,,Yeah nice one getting the workouts in at home with,processing,,general
+3,2025-07-02T22:10:02.317293,vegan4tanimals,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Yeah nice one still getting the workouts in at hom,success,32178.0,general
+4,2025-07-02T22:15:02.652811,user_1122119577,sending,,"Yeah nice one, 17 years is solid hey! You training",processing,,general
+5,2025-07-02T22:15:29.533677,user_1122119577,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Hey! 17 years is solid! How's things?,success,26901.0,general
+6,2025-07-02T22:23:29.945289,alanapurceno,sending,,Yeah nice one! That energy boost from going vegan ,processing,,general
+7,2025-07-02T22:23:54.885574,alanapurceno,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Haha yeah okay, good you're feeling unreal! What k",success,24970.0,general
+8,2025-07-02T22:34:55.492841,user_262625975,sending,,"Yeah nice one, 8 years is solid! That's a long tim",processing,,general
+9,2025-07-02T22:35:21.902926,user_262625975,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 8 years is solid! What got you into",success,26439.0,general
+10,2025-07-02T22:37:22.085864,user_30817551,sending,,"Yeah nice one, 12 and a half years vegan and no me",processing,,general
+11,2025-07-02T22:37:48.691046,user_30817551,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Hey nice to meet you too! Wow, 12 1/2 years vegan ",success,26641.0,general
+12,2025-07-02T22:40:48.901742,grateful_vegan_sunflower,sending,,"Oh nice one, keen to get into online coaching hey,",processing,,general
+13,2025-07-02T22:41:16.142981,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah okay, you're keen to get into online coaching",success,27263.0,general
+14,2025-07-02T22:47:16.534018,black_monkey_go_green,sending,,"Yeah totally get that, that's a really cool way to",processing,,general
+15,2025-07-02T22:47:45.591401,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah totally get that perspective again hey, focus",success,29082.0,general
+16,2025-07-02T22:51:45.850041,vegan4tanimals,sending,,"Yeah totally get that, staying fit and avoiding ge",processing,,general
+17,2025-07-02T22:52:14.242587,vegan4tanimals,sent,"{""was_updated"": true, ""new_messages_count"": 5}","Yeah totally get that hey, staying fit and avoidin",success,28419.0,general
+18,2025-07-02T22:56:14.500511,black_monkey_go_green,sending,,"Ah nice one growin up with yoga, thats solid! Im 3",processing,,general
+19,2025-07-02T22:56:42.939240,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 4}","Yeah got that again hey, awesome growing up with y",success,28459.0,general
+20,2025-07-02T22:58:43.108516,vegan4tanimals,sending,,"Haha no worries at all! So yeah, it's basically my",processing,,general
+21,2025-07-02T22:59:11.569392,vegan4tanimals,sent,"{""was_updated"": true, ""new_messages_count"": 6}",Haha no worries at all! Happy to run it back for y,success,28484.0,general
+22,2025-07-02T23:00:11.700822,_kasantoss_,sending,,"Yeah nice one, 7 years is solid! I've been vegetar",processing,,general
+23,2025-07-02T23:00:41.295494,_kasantoss_,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah nice one getting to 7 years vegan in December,success,29615.0,general
+24,2025-07-02T23:01:41.411131,user_754569174,sending,,Haha okay 10 years old! What ya upto today?,processing,,general
+25,2025-07-02T23:02:07.256990,user_754569174,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Haha 10 years old hey! How things?,success,25862.0,general
+26,2025-07-02T23:09:07.671986,grateful_vegan_sunflower,sending,,Nah wasn't raised SDA hey! But yeah that's solid t,processing,,general
+27,2025-07-02T23:09:38.283307,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah totally get that, feeling heaps better going ",success,30629.0,general
+28,2025-07-02T23:29:39.391781,user_369312216,sending,,"Yeah nice one, 7/8 years is solid! I've been veget",processing,,general
+29,2025-07-02T23:30:07.550783,user_369312216,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 7/8 years is solid! I've been veget",success,28187.0,general
+30,2025-07-02T23:34:07.857673,user_1277884026,sending,,"Yeah nice one, 10 years is solid! That's a massive",processing,,general
+31,2025-07-02T23:34:34.725501,user_1277884026,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, solid ten years hey! No worries at ",success,26899.0,general
+32,2025-07-02T23:59:36.143168,vegan4tanimals,sending,,Yeah totally get that hey! It's awesome that you'v,processing,,general
+33,2025-07-03T00:00:08.146434,vegan4tanimals,sent,"{""was_updated"": true, ""new_messages_count"": 7}",Yeah totally get that hey! :),success,32032.0,general
+34,2025-07-03T00:05:08.483423,asemanenilgun000,sending,,"Yeah awesome, 3 years vegan and 4 years veggie bef",processing,,general
+35,2025-07-03T00:05:39.998321,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Haha got ya! And yeah, 3 years vegan is proper sol",success,31551.0,general
+36,2025-07-03T05:23:54.478536,asemanenilgun000,sending,,Yeah you're spot on about plants! Love that you're,processing,,general
+37,2025-07-03T05:24:24.432231,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Haha yeah totally get that hey, your passion for i",success,29971.0,general
+38,2025-07-03T05:56:25.669757,user_1466535080,sending,,"Nice one, almost 7 years is solid! I've been veget",processing,,general
+39,2025-07-03T05:56:51.118284,user_1466535080,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, almost 7 years is solid! I've been ",success,25465.0,general
+40,2025-07-03T06:08:51.568844,grateful_vegan_sunflower,sending,,Yeah mate that's awesome! Love that mission about ,processing,,general
+41,2025-07-03T06:09:29.772963,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah mate, seriously awesome mission you got there",success,38218.0,general
+42,2025-07-03T06:13:30.009826,asemanenilgun000,sending,,"Yeah totally get that, using your Instagram is a s",processing,,general
+43,2025-07-03T06:13:54.468907,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah totally get that, using your Instagram is a s",success,24475.0,general
+44,2025-07-03T06:16:54.622537,grateful_vegan_sunflower,sending,,Ah fair enough! Totally get investing in that acad,processing,,general
+45,2025-07-03T06:17:19.377639,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Ah fair enough! Totally get investing in that acad,success,24770.0,general
+46,2025-07-03T06:31:19.896083,grateful_vegan_sunflower,sending,,Ah right okay! When does it kick off then?,processing,,general
+47,2025-07-03T06:31:48.411520,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Ah right okay! Keen to get into that online coachi,success,28533.0,general
+48,2025-07-03T06:49:49.100057,grateful_vegan_sunflower,sending,,"Ah okay cool, yeah keen to get into that coaching ",processing,,general
+49,2025-07-03T06:50:15.438615,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 6}","Ah okay cool, middle of the month hey! What are yo",success,26353.0,general
+50,2025-07-03T06:59:15.783404,grateful_vegan_sunflower,sending,,Yeah okay nice! Getting those paying clients sorte,processing,,general
+51,2025-07-03T06:59:46.992950,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 7}",Yeah okay nice! Getting those paying clients sorte,success,31226.0,general
+52,2025-07-03T07:00:47.103263,asemanenilgun000,sending,,Yeah okay sharing videos and articles about the to,processing,,general
+53,2025-07-03T07:01:11.564752,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Yeah that's really impactful stuff hey. What kind ,success,24483.0,general
+54,2025-07-03T07:12:11.976427,asemanenilgun000,sending,,"Yeah, I totally get that hey! Just getting the tru",processing,,general
+55,2025-07-03T07:12:41.309143,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Yeah totally get that hey! Just getting the truth ,success,29362.0,general
+56,2025-07-03T07:26:41.859652,a.living.vegan,sending,,"Yeah totally get that hey! That's a powerful why, ",processing,,general
+57,2025-07-03T07:27:13.718162,a.living.vegan,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Ah, fully get that hey! So cool you figured it out",success,31876.0,general
+58,2025-07-03T07:43:14.303284,a.living.vegan,sending,,Yeah totally hey! That health education aspect is ,processing,,general
+59,2025-07-03T07:43:41.818014,a.living.vegan,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Perfect! First up, Can i grab your Email Address, ",success,27535.0,general
+60,2025-07-03T07:51:42.142550,a.living.vegan,sending,,"Perfect! First up, Can i grab your Email Address, ",processing,,general
+61,2025-07-03T07:52:05.885114,a.living.vegan,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Perfect! First up, Can i grab your Email Address, ",success,23758.0,general
+62,2025-07-03T08:39:07.773590,grateful_vegan_sunflower,sending,,"Yeah totally get that, focusing on helping vegan c",processing,,general
+63,2025-07-03T08:39:43.330964,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 8}",Yeah keen on helping just vegans keen to switch he,success,35586.0,general
+64,2025-07-03T08:43:43.496384,asemanenilgun000,sending,,Legend! That's awesome you've managed to turn a fe,processing,,general
+65,2025-07-03T08:44:10.688695,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 6}",Yeah awesome that feels unreal hey! That energy yo,success,27206.0,general
+66,2025-07-03T08:49:10.945459,grateful_vegan_sunflower,sending,,Oh no... sucks hey! What did the guy say?,processing,,general
+67,2025-07-03T08:49:37.855387,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 9}","Oh no, sucks hey seeing stuff like that! What was ",success,26941.0,general
+68,2025-07-03T08:50:37.933504,asemanenilgun000,sending,,Haha fair enough! Happens like that hey! Even with,processing,,general
+69,2025-07-03T08:51:09.229155,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 7}","Haha yeah fair enough, happens like that sometimes",success,31295.0,general
+70,2025-07-03T08:58:09.487928,grateful_vegan_sunflower,sending,,"Yeah I saw the screenshot of his profile hey, what",processing,,general
+71,2025-07-03T08:58:38.205624,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 10}",Yeah I see you're saying you sent the screenshot h,success,28734.0,general
+72,2025-07-03T09:04:38.501470,grateful_vegan_sunflower,sending,,"Yeah right, gotcha now! Ah man, that's proper roug",processing,,general
+73,2025-07-03T09:05:11.496233,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 11}","Ah man, yeah gotcha now, saw the comment too! That",success,33017.0,general
+74,2025-07-03T09:06:11.573816,asemanenilgun000,sending,,"Yeah totally get that, that sounds like a really t",processing,,general
+75,2025-07-03T09:06:38.355580,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 8}","Yeah totally get that, that sounds like an intense",success,26802.0,general
+76,2025-07-03T09:12:38.613970,grateful_vegan_sunflower,sending,,"Yeah okay, sucks that this is the first time its b",processing,,general
+77,2025-07-03T09:13:10.903252,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 12}","Yeah okay, totally get that, sucks this is the fir",success,32322.0,general
+78,2025-07-03T09:17:11.104387,asemanenilgun000,sending,,"Fair go, sounds like you've got some interesting g",processing,,general
+79,2025-07-03T09:17:42.183147,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 10}","Yeah nice one, looking after 7 support birds! What",success,31099.0,general
+80,2025-07-03T09:18:42.276158,asemanenilgun000,sending,,"Okay nice one, taking care of 7 birds! Sounds like",processing,,general
+81,2025-07-03T09:19:05.098366,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 10}","Yeah nice one, looking after 7 support birds! What",success,22836.0,general
+82,2025-07-03T09:19:05.133537,grateful_vegan_sunflower,sending,,"Yeah totally makes sense hey, sometimes ignoring a",processing,,general
+83,2025-07-03T09:19:31.916657,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 13}","Ah yeah seeing that comment again hey, still sucks",success,26803.0,general
+84,2025-07-03T09:26:32.202297,user_1870226231,sending,,"Nice one, 11 years is solid! As I mentioned, I've ",processing,,general
+85,2025-07-03T09:26:58.533857,user_1870226231,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 11 years is solid! I've been vegeta",success,26338.0,general
+86,2025-07-03T09:32:58.783303,eatyerveggies00,sending,,"Ah yeah nice one, that's epic how you changed ever",processing,,general
+87,2025-07-03T09:33:22.031993,eatyerveggies00,sent,"{""was_updated"": true, ""new_messages_count"": 1}",haha looks like that came through twice hey! Still,success,23271.0,general
+88,2025-07-03T09:34:22.125926,asemanenilgun000,sending,,"Yeah fully get that, looking after birds from bad ",processing,,general
+89,2025-07-03T09:34:50.615110,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 11}","Hey! Yeah fully get that, looking after birds from",success,28521.0,general
+90,2025-07-03T09:36:50.733267,grateful_vegan_sunflower,sending,,Yeah nice one keen to get that academy going hey! ,processing,,general
+91,2025-07-03T09:37:17.059512,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 14}",Yeah nice one keen you're excited hey! Totally get,success,26341.0,general
+92,2025-07-03T09:54:17.720181,grateful_vegan_sunflower,sending,,Yeah totally free hey! Reckon it could give you so,processing,,general
+93,2025-07-03T09:54:44.205093,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 15}",Yeah totally free hey! Totally get that you'll be ,success,26503.0,general
+94,2025-07-03T09:59:44.412286,asemanenilgun000,sending,,"Oh, like, what breeds of birds are they? Like parr",processing,,general
+95,2025-07-03T10:00:12.833456,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 12}","Ah okay, sorry about that! No worries at all. Just",success,28440.0,general
+96,2025-07-03T10:04:13.031185,asemanenilgun000,sending,,"Yeah nice one, budgies and cockatiels! Must be hea",processing,,general
+97,2025-07-03T10:04:43.331391,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 13}","Yeah nice one, budgies and cockatiels! Must keep y",success,30316.0,general
+98,2025-07-03T10:11:43.637065,asemanenilgun000,sending,,"Yeah totally get that, living in a small place wit",processing,,general
+99,2025-07-03T10:12:13.575187,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 14}","Yeah totally get that, makes sense that living sit",success,29964.0,general
+100,2025-07-03T10:32:14.331042,asemanenilgun000,sending,,Yeah totally get that! All good though as long as ,processing,,general
+101,2025-07-03T10:32:42.685918,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 15}","Yeah totally get that! Family and the birds, gotta",success,28364.0,general
+102,2025-07-03T10:35:42.856205,asemanenilgun000,sending,,"Yeah okay gotcha, organising it all online makes s",processing,,general
+103,2025-07-03T10:36:09.926837,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 16}",Haha looks like you copied the whole chat hey! All,success,27090.0,general
+104,2025-07-03T10:43:10.227583,asemanenilgun000,sending,,"Yeah nice one, that's awesome the public is donati",processing,,general
+105,2025-07-03T10:43:39.029593,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 17}","Yeah nice one, that support is awesome hey! How ar",success,28817.0,general
+106,2025-07-03T11:05:39.835650,asemanenilgun000,sending,,"Yeah okay totally get that, no worries at all with",processing,,general
+107,2025-07-03T11:06:06.286696,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 18}","Yeah totally get that, no worries at all with Goog",success,26472.0,general
+108,2025-07-03T11:54:15.593518,cocos_pt_studio,sending,,Hey g! All good here thanks. Just getting stuck in,processing,,general
+109,2025-07-03T11:54:48.582492,cocos_pt_studio,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Hey g! Hope your little homey rabbit is doing well,success,33001.0,general
+110,2025-07-03T17:48:55.326298,black_monkey_go_green,sending,,"Yeah totally get that hey, ""simply about being"" an",processing,,general
+111,2025-07-03T17:49:21.884311,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 5}","Yeah totally get that again hey, ""simply about bei",success,26589.0,general
+112,2025-07-03T17:50:21.999888,black_monkey_go_green,sending,,:),processing,,general
+113,2025-07-03T17:50:50.946201,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Yeah I totally get that hey 🙏❤️🌈,success,28964.0,general
+114,2025-07-03T17:53:51.146744,black_monkey_go_green,sending,,"Hey! Nah, I don't do yoga hey. I'm more into gym s",processing,,general
+115,2025-07-03T17:54:25.680909,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 6}","Hey! Still not doing yoga myself hey, just focusin",success,34552.0,general
+116,2025-07-03T18:14:26.513278,user_1322089393,sending,,"Yeah nice one, 13 years is solid! I've been vegeta",processing,,general
+117,2025-07-03T18:14:54.147071,user_1322089393,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 13 years is really solid! I've been",success,27648.0,general
+118,2025-07-03T18:37:54.995246,shane_minahan,sending,,Oh no sucks bro being away for a funeral hey! Tota,processing,,general
+119,2025-07-03T18:38:22.631922,shane_minahan,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Oh no sucks bro being away for a funeral hey! Tota,success,27655.0,general
+120,2025-07-03T18:44:22.880016,user_1011633504,sending,,"I've been vegetarian since birth, gave up milk a f",processing,,general
+121,2025-07-03T18:44:46.203630,user_1011633504,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 10 years is solid! I've been vegeta",success,23336.0,general
+122,2025-07-03T18:46:46.312872,karolina_bln91,sending,,"Yeah, 'a life is a life' is a realy powerful way t",processing,,general
+123,2025-07-03T18:47:24.971974,karolina_bln91,failed,"{""error"": ""Failed to send via ManyChat""}","Yeah totally hey, sounds like it really was the be",failed,38651.0,general
+124,2025-07-03T18:49:25.086377,like_the_doll_,sending,,Yeah nice one! Good it was pretty easy for you hey,processing,,general
+125,2025-07-03T18:49:52.460134,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Haha yeah sounds like it was heaps easy hey! Seen ,success,27388.0,general
+126,2025-07-03T19:12:53.652122,karolina_bln91,sending,,"Haha yeah okay, sounds like you realy do know your",processing,,general
+127,2025-07-03T19:13:17.603726,karolina_bln91,sent,"{""was_updated"": true, ""new_messages_count"": 2}",Haha yeah you're definitely making me keen to try ,success,23962.0,general
+128,2025-07-03T19:19:17.904355,user_122740793,sending,,"Yeah nice one, 10 years is solid! I've been vegeta",processing,,general
+129,2025-07-03T19:19:46.004609,user_122740793,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 10 years vegetarian is solid, and t",success,28126.0,general
+130,2025-07-03T19:22:46.172442,user_1876806535,sending,,Yeah nice one loving the posts and plant based pos,processing,,general
+131,2025-07-03T19:23:11.997678,user_1876806535,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Ah nice one! Love hearing that! 8 years vegan is s,success,25843.0,general
+132,2025-07-03T19:32:12.362958,iapiisk,sending,,"Ah okay, yeah totally understand the back and fort",processing,,general
+133,2025-07-03T19:32:40.607152,iapiisk,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Haha looks like that message sent twice hey! Yeah ,success,28258.0,general
+134,2025-07-03T19:34:40.770118,lilith_is_a_punk,sending,,Yeah nice one being vegan since 2020! Totally get ,processing,,general
+135,2025-07-03T19:35:04.196138,lilith_is_a_punk,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah totally get that hey! As I mentioned, I've be",success,23432.0,general
+136,2025-07-03T19:42:04.506474,user_706507153,sending,,"Yeah nice one, 26 years is solid! I've been vegeta",processing,,general
+137,2025-07-03T19:42:34.530929,user_706507153,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Haha good morning to you too! Seems like you're in,success,30037.0,general
+138,2025-07-03T19:43:34.638220,littlecardiffkitchen,sending,,Haha totally! I hear ya on the cow milk giving you,processing,,general
+139,2025-07-03T19:44:01.839778,littlecardiffkitchen,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah totally! It is way easier now with all the al,success,27226.0,general
+140,2025-07-03T19:46:01.960877,user_1704494905,sending,,"Yeah nice one, 7 years is solid! I've been vegetar",processing,,general
+141,2025-07-03T19:46:29.509682,user_1704494905,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 7 years is solid! You've definitely",success,27567.0,general
+142,2025-07-03T19:47:29.596316,karolina_bln91,sending,,"Haha yeah, I reckon I need to give vegan baking a ",processing,,general
+143,2025-07-03T19:47:58.699388,karolina_bln91,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Haha sent those again hey! Nah not just about you,",success,29121.0,general
+144,2025-07-03T20:04:59.483843,karolina_bln91,sending,,"Yeah nice, that makes sense you gotta leave it ove",processing,,general
+145,2025-07-03T20:05:28.799246,karolina_bln91,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Haha looks like you sent a few messages through th,success,29326.0,general
+146,2025-07-03T20:48:30.113981,user_1966975059,sending,,"Heyy nice one, years is solild! What got you into ",processing,,general
+147,2025-07-03T20:48:56.232417,user_1966975059,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Hey! Years vegan, nice one! How did you get into t",success,26152.0,general
+148,2025-07-03T20:54:56.596838,millie_millz83,sending,,"Yeah I totally get that hey, 'loving animals and h",processing,,general
+149,2025-07-03T20:55:25.662377,millie_millz83,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah totally get that hey, both loving animals and",success,29077.0,general
+150,2025-07-03T21:10:26.347067,user_659010138,sending,,"Yeah totally get that hey, don't feel ashamed thou",processing,,general
+151,2025-07-03T21:10:53.857242,user_659010138,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah totally get that hey, that feeling of 'why di",success,27527.0,general
+152,2025-07-03T21:23:54.486519,marissussmilch,sending,,"Yeah I totally get that hey, learning about those ",processing,,general
+153,2025-07-03T21:24:23.324642,marissussmilch,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah totally get that hey! It's eye opening learni,success,28861.0,general
+154,2025-07-03T21:50:24.469442,mayouvegan,sending,,Oh awesome! That's really good you feel great and ,processing,,general
+155,2025-07-03T21:50:49.250517,mayouvegan,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, its good to hear its all going well",success,24806.0,general
+156,2025-07-03T21:57:49.600307,millie_millz83,sending,,"Yeah totally get that hey, heaps of people struggl",processing,,general
+157,2025-07-03T21:58:19.687849,millie_millz83,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah totally get that hey, sucks when people tell ",success,30108.0,general
+158,2025-07-03T22:08:20.362215,millie_millz83,sending,,"Yeah totally get that hey, sucks that some people ",processing,,general
+159,2025-07-03T22:08:52.037301,millie_millz83,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah totally get that hey, finding those vegan fri",success,31689.0,general
+160,2025-07-03T22:15:52.358680,millie_millz83,sending,,"Yeah totally get that hey, balancing it with being",processing,,general
+161,2025-07-03T22:16:23.009320,millie_millz83,sent,"{""was_updated"": true, ""new_messages_count"": 4}","Yeah totally get that hey, it's hard cooking in th",success,30666.0,general
+162,2025-07-03T22:17:23.095614,millie_millz83,sending,,"Yeah totally get that hey, balancing the new mommy",processing,,general
+163,2025-07-03T22:17:52.636112,millie_millz83,sent,"{""was_updated"": true, ""new_messages_count"": 5}","Yeah totally get that hey, balancing everything wi",success,29545.0,general
+164,2025-07-03T22:41:53.542919,user_417931630,sending,,Haha yeah nice hey! How things?,processing,,general
+165,2025-07-03T22:42:19.949726,user_417931630,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah love that always always hey! What ya been up ,success,26426.0,general
+166,2025-07-03T22:45:20.116491,livrenee_fit,sending,,Yeah nice one getting those amazing internet frien,processing,,general
+167,2025-07-03T22:45:46.125734,livrenee_fit,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah, that's awesome the community is so supportiv",success,26024.0,general
+168,2025-07-03T23:05:46.867381,user_1023521085,sending,,Lifetime hey... Winding down for the night?,processing,,general
+169,2025-07-03T23:06:18.398380,user_1023521085,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah, Lifetime... Lifetime... is a deep one hey. W",success,31553.0,general
+170,2025-07-03T23:07:18.499352,user_537425016,sending,,"Yeah nice one, 6 years is solid! I've been vegetar",processing,,general
+171,2025-07-03T23:07:45.149085,user_537425016,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 6 years is solid! I've been vegetar",success,26665.0,general
+172,2025-07-03T23:11:45.334128,pluumeria,sending,,Haha yeah you got me! My bad! Remember you said 'A,processing,,general
+173,2025-07-03T23:12:16.881643,pluumeria,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Oh haha you're totally right! My bad, must be gett",success,31567.0,general
+174,2025-07-03T23:18:17.143298,kayblossom9,sending,,Legend! Perfect! You can check it all out here! ht,processing,,general
+175,2025-07-03T23:18:40.711707,kayblossom9,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Legend! Okay perfect! I've got all the details on ,success,23588.0,general
+176,2025-07-03T23:25:41.024836,asemanenilgun000,sending,,Yeah good they're doing well! Free flying and play,processing,,general
+177,2025-07-03T23:26:09.985126,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 19}",Yeah awesome they're doing well and free in the ro,success,28982.0,general
+178,2025-07-03T23:41:10.570546,user_426319321,sending,,"Yeah nice one, 8 years is solid - you've definitel",processing,,general
+179,2025-07-03T23:41:35.572872,user_426319321,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 8 years is solid! I am! I'm actuall",success,25017.0,general
+180,2025-07-03T23:43:35.683510,asemanenilgun000,sending,,"Yeah right! That makes heaps of sense, giving the ",processing,,general
+181,2025-07-03T23:44:04.332832,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 20}","Yeah nice one, looking after those 7 for life! Pro",success,28666.0,general
+182,2025-07-03T23:48:04.517878,kayblossom9,sending,,"Yeah totally get that hey, that's a solid mix of t",processing,,general
+183,2025-07-03T23:48:34.888752,kayblossom9,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah totally get that, sounds like you've got heap",success,30388.0,general
+184,2025-07-03T23:49:34.981028,user_361387491,sending,,Yeah hopefully you will be one day hey! How's your,processing,,general
+185,2025-07-03T23:50:02.800953,user_361387491,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one! Mate, the perfect way to start towa",success,27834.0,general
+186,2025-07-03T23:58:03.229081,productividad.calidad95162,sending,,No worries at all! Saw you're into stoic philosoph,processing,,general
+187,2025-07-03T23:58:39.168918,productividad.calidad95162,sent,"{""was_updated"": true, ""new_messages_count"": 1}",No worries mate!,success,35964.0,general
+188,2025-07-04T00:04:39.426862,user_734104225,sending,,"Yeah nice one, 9 years is solid and hitting 10 in ",processing,,general
+189,2025-07-04T00:05:05.870096,user_734104225,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Ah nice one! 9 years and heading for 10 is solid h,success,26461.0,general
+190,2025-07-04T00:24:06.575206,mayouvegan,sending,,Yeah nice one getting all those results! Feeling m,processing,,general
+191,2025-07-04T00:24:36.428323,mayouvegan,sent,"{""was_updated"": true, ""new_messages_count"": 2}",Yeah that's awesome getting all those health and p,success,29869.0,general
+192,2025-07-04T00:38:36.977925,lizzie.loves.veg,sending,,"No worries at all mate, happens like that hey! Hop",processing,,general
+193,2025-07-04T00:39:04.642928,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah nice one getting the bloods done, good on ya ",success,27694.0,general
+194,2025-07-04T00:41:04.770694,lizzie.loves.veg,sending,,Yeah nice one! Totally get that office work making,processing,,general
+195,2025-07-04T00:41:34.848242,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 2}",Yeah good on ya being proud of yourself hey! Getti,success,30097.0,general
+196,2025-07-04T00:43:34.970154,lizzie.loves.veg,sending,,Yeah nice one getting back into that! Totally get ,processing,,general
+197,2025-07-04T00:44:04.937954,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Yeah nice one getting back into it hey! Muscle mem,success,29984.0,general
+198,2025-07-04T00:45:05.025772,lizzie.loves.veg,sending,,"Yeah I totally get that hey, weights are awesome f",processing,,general
+199,2025-07-04T00:45:32.963543,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 4}","Yeah muscle memory is totally a thing hey, your bo",success,27957.0,general
+200,2025-07-04T00:48:33.111202,lizzie.loves.veg,sending,,"Haha yeah totally hey, muscle memory's wild like t",processing,,general
+201,2025-07-04T00:49:02.134023,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Yeah haha I see that now! Sorry it copy pasted wei,success,29037.0,general
+202,2025-07-04T00:51:02.260818,lizzie.loves.veg,sending,,Yeah good for sure you feel more energy and lighte,processing,,general
+203,2025-07-04T00:51:39.714459,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 6}",Yeah good you're feeling more energy and lighter h,success,37471.0,general
+204,2025-07-04T00:52:39.813997,iapiisk,sending,,"Haha okay Kasper! Saw you're into photography too,",processing,,general
+205,2025-07-04T00:53:09.966565,iapiisk,sent,"{""was_updated"": true, ""new_messages_count"": 2}",Haha looks like that message sent twice hey! That',success,30170.0,general
+206,2025-07-04T00:54:10.065399,lizzie.loves.veg,sending,,Yeah good you have more energy and feel lighter he,processing,,general
+207,2025-07-04T00:54:38.657430,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 7}","Yeah nice one, preferring that toned body feel str",success,28610.0,general
+208,2025-07-04T00:55:38.746451,iapiisk,sending,,Oh interesting trying those different styles! Soun,processing,,general
+209,2025-07-04T00:56:06.897997,iapiisk,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah I've been vegetarian since birth, gave up mil",success,28168.0,general
+210,2025-07-04T00:58:07.014532,lizzie.loves.veg,sending,,"Yeah, totally get that! 'Hopefully influence other",processing,,general
+211,2025-07-04T00:58:31.495730,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 8}","Yeah love that hey, focusing on physical and menta",success,24497.0,general
+212,2025-07-04T01:01:31.652614,lizzie.loves.veg,sending,,Fair enough hey! No worries at all! :),processing,,general
+213,2025-07-04T01:02:00.225589,lizzie.loves.veg,sent,"{""was_updated"": true, ""new_messages_count"": 9}","Crikey, thanks for the massive yarn, mate! Sounds ",success,28586.0,general
+214,2025-07-04T01:04:00.367683,myvegventures,sending,,"Yeah nice one, it's crazy how much better you can ",processing,,general
+215,2025-07-04T01:04:25.231012,myvegventures,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah, totally get that, giving up dairy can make a",success,24882.0,general
+216,2025-07-04T01:32:26.253878,like_the_doll_,sending,,Yeah nice one! Focusing on fur activism sounds rea,processing,,general
+217,2025-07-04T01:32:53.930308,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah totally get that, fur is a huge one hey. What",success,27698.0,general
+218,2025-07-04T01:34:54.066878,pawperffct,sending,,Yeah tough balance hey! Hope you're finding some t,processing,,general
+219,2025-07-04T01:35:24.819962,pawperffct,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Ah right, sounds like you've got a lot on your pla",success,30772.0,general
+220,2025-07-04T01:45:25.279009,like_the_doll_,sending,,"Yeah okay, totally get just being super passionate",processing,,general
+221,2025-07-04T01:45:54.155802,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah right, mostly just an activist hey! That's aw",success,28893.0,general
+222,2025-07-04T01:51:54.378890,like_the_doll_,sending,,"Whoa, lived in a car and drove across the country ",processing,,general
+223,2025-07-04T01:52:23.147837,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Hell yeah! That's unreal dedication living in a ca,success,28787.0,general
+224,2025-07-04T01:56:23.330745,grateful_vegan_sunflower,sending,,Yeah nice one! Seeing the results you want with th,processing,,general
+225,2025-07-04T01:56:56.731738,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 15}",Yeah nice one! Awesome you're seeing the results y,success,33419.0,general
+226,2025-07-04T02:09:57.253756,user_2010925209,sending,,"Yeah nice one, four years is solid! And inspired b",processing,,general
+227,2025-07-04T02:10:24.328280,user_2010925209,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yea nice one, four years is solid! That's cool you",success,27102.0,general
+228,2025-07-04T02:12:24.459817,grateful_vegan_sunflower,sending,,"Yeah nice one, finding clients is definitely the t",processing,,general
+229,2025-07-04T02:12:58.301329,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 16}",Yeah nice one focusing on finding those paying cli,success,33855.0,general
+230,2025-07-04T02:23:58.748314,user_1350192157,sending,,"Hey good morning! Nice one, 7 months is solid! I'v",processing,,general
+231,2025-07-04T02:24:26.155919,user_1350192157,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah nice one! 7 months plant based is solid hey. ,success,27425.0,general
+232,2025-07-04T02:29:26.388282,asemanenilgun000,sending,,Haha yeah you hope they think the same! 😂 Sounds h,processing,,general
+233,2025-07-04T02:29:53.815563,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 21}","Yeah nice one, I'm sure they totally think the sam",success,27443.0,general
+234,2025-07-04T02:32:53.964677,user_167810061,sending,,"Nice one, 7 years is solid! I've been vegetarian s",processing,,general
+235,2025-07-04T02:33:18.214389,user_167810061,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 7 years is solid! I've been vegetar",success,24266.0,general
+236,2025-07-04T02:34:18.309360,like_the_doll_,sending,,"Yeah right, sounds like it really was the best cam",processing,,general
+237,2025-07-04T02:34:41.425374,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Ah nice! Yeah love that you found something you're,success,23135.0,general
+238,2025-07-04T02:37:41.573166,asemanenilgun000,sending,,"Yeah okay public reports make sense, good that the",processing,,general
+239,2025-07-04T02:38:08.509991,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 22}","Yeah okay, getting reports from the public is a so",success,26952.0,general
+240,2025-07-04T02:40:08.621519,iicandii9,sending,,Yeah nice one! Love hearing that it's been the bes,processing,,general
+241,2025-07-04T02:40:35.436522,iicandii9,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah totally get that! It happens like that hey, b",success,26839.0,general
+242,2025-07-04T02:52:35.892640,iicandii9,sending,,Yeah I reckon its probably pretty similar unfortun,processing,,general
+243,2025-07-04T02:53:02.597765,iicandii9,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah that's a solid question hey, I think it's pre",success,26716.0,general
+244,2025-07-04T03:11:03.299704,iicandii9,sending,,"Yeah that totally makes sense hey, finding quick v",processing,,general
+245,2025-07-04T03:11:30.574664,iicandii9,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah totally get that, being on the go makes findi",success,27292.0,general
+246,2025-07-04T03:13:30.697800,livingthat_lablife,sending,,"Yeah totally get that hey, but awesome you made th",processing,,general
+247,2025-07-04T03:13:59.474703,livingthat_lablife,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Haha nice one, totally get that feeling about wish",success,28802.0,general
+248,2025-07-04T03:14:59.553008,like_the_doll_,sending,,Fair enough! I noticed you've got a solid alternat,processing,,general
+249,2025-07-04T03:15:23.760744,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 6}",Fair enough hey! Totally get that! Hell yeah on th,success,24223.0,general
+250,2025-07-04T03:21:23.995311,like_the_doll_,sending,,Yeah wow having to move all your stuff every night,processing,,general
+251,2025-07-04T03:21:52.803001,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 7}","Yeah totally get that, sounds rough moving stuff e",success,28823.0,general
+252,2025-07-04T03:21:52.850052,user_774846284,sending,,"Yeah nice one, 10 years is solid! I've been vegeta",processing,,general
+253,2025-07-04T03:22:18.944694,user_774846284,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 10 years is solid! I've been vegeta",success,26117.0,general
+254,2025-07-04T03:23:19.023399,livrenee_fit,sending,,"Yeah that makes total sense, good on ya for educat",processing,,general
+255,2025-07-04T03:23:43.931905,livrenee_fit,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah nice one! That makes a lot of sense, sounds l",success,24913.0,general
+256,2025-07-04T03:47:44.823757,user_1531199795,sending,,"Yeah nice one, 10 years is solid! I've been vegeta",processing,,general
+257,2025-07-04T03:48:11.430215,user_1531199795,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 10 years is solid! I've been vegeta",success,26620.0,general
+258,2025-07-04T03:57:11.829812,grateful_vegan_sunflower,sending,,"Yeah nice one, keen you're excited for that hey! F",processing,,general
+259,2025-07-04T03:57:40.756665,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 17}","Yeah right, sounds like you're keen hey! Focusing ",success,28942.0,general
+260,2025-07-04T04:04:41.023955,livrenee_fit,sending,,Oh hell yeah! That's massive getting relief from t,processing,,general
+261,2025-07-04T04:05:10.192575,livrenee_fit,sent,"{""was_updated"": true, ""new_messages_count"": 3}",Yeah that's wild how cutting dairy sorted that out,success,29182.0,general
+262,2025-07-04T04:11:10.465028,asemanenilgun000,sending,,Yeah okay that sounds like a super thorough proces,processing,,general
+263,2025-07-04T04:11:36.526487,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 23}",Yeah wow that sounds like a really thorough proces,success,26064.0,general
+264,2025-07-04T04:15:36.802372,henry_ngwena_av,sending,,Yeah nice one with the evening bike rides! Sounds ,processing,,general
+265,2025-07-04T04:16:07.112478,henry_ngwena_av,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah solid! Getting those bike rides in every even,success,30339.0,general
+266,2025-07-04T04:17:07.227342,asemanenilgun000,sending,,Yeah gotcha hey! Haha fair enough on the lazy part,processing,,general
+267,2025-07-04T04:17:40.915060,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 24}",Haha okay I got ya hey! Makes sense with everythin,success,33706.0,general
+268,2025-07-04T04:21:41.164375,henry_ngwena_av,sending,,Yeah totally hey! Promoting plant based living in ,processing,,general
+269,2025-07-04T04:22:06.741527,henry_ngwena_av,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Okay cool, look, I reckon I've got something that ",success,25600.0,general
+270,2025-07-04T04:22:06.782513,asemanenilgun000,sending,,"Yeah totally get that, you meant you're not alone ",processing,,general
+271,2025-07-04T04:22:38.848810,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 25}","Yeah nice one, doing it together takes the pressur",success,32088.0,general
+272,2025-07-04T04:23:38.959167,soyboygainz,sending,,:),processing,,general
+273,2025-07-04T04:24:03.130287,soyboygainz,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Okay nice one mate, totally get being locked into ",success,24193.0,general
+274,2025-07-04T04:31:03.459767,theveganinheels,sending,,"Yeah nice one, 20 years is massive! Do you find th",processing,,general
+275,2025-07-04T04:31:29.861574,theveganinheels,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah nice one 20 years is solid! How did you feel ,success,26418.0,general
+276,2025-07-04T04:35:30.073341,livingthat_lablife,sending,,"Yeah okay, totally get that it can take a bit to d",processing,,general
+277,2025-07-04T04:35:53.430338,livingthat_lablife,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah totally get that, figuring out how to make ba",success,23372.0,general
+278,2025-07-04T04:39:53.640335,henry_ngwena_av,sending,,Legend! Looking forward to hearing what you think ,processing,,general
+279,2025-07-04T04:40:21.587726,henry_ngwena_av,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Legend! Sounds awesome, keen to hear what you thin",success,27970.0,general
+280,2025-07-04T04:40:21.622886,user_293058569,sending,,"Yeah nice one, since late 2016 is solid! I've been",processing,,general
+281,2025-07-04T04:40:47.545162,user_293058569,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Hey thanks for reaching out! Yeah nice one, late 2",success,25943.0,general
+282,2025-07-04T04:44:47.739068,thechiphale,sending,,"Yeah right, a dissociative state hey! That's wild ",processing,,general
+283,2025-07-04T04:45:13.142134,thechiphale,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Haha wow a dissociative state is an intense way to,success,25418.0,general
+284,2025-07-04T04:50:13.363794,henry_ngwena_av,sending,,"Yeah okay! Even just biking is solid prep hey, esp",processing,,general
+285,2025-07-04T04:50:38.690911,henry_ngwena_av,sent,"{""was_updated"": true, ""new_messages_count"": 4}","Yeah fair enough hey, biking's solid for the cardi",success,25340.0,general
+286,2025-07-04T04:51:38.770940,iicandii9,sending,,"No worries at all! Sounds good, let me know how yo",processing,,general
+287,2025-07-04T04:52:04.925916,iicandii9,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Yeah no worries at all! Hope you find it useful! I,success,26170.0,general
+288,2025-07-04T04:53:05.023792,grateful_vegan_sunflower,sending,,"Yeah right okay they're helping you with that, kee",processing,,general
+289,2025-07-04T04:53:34.598952,grateful_vegan_sunflower,sent,"{""was_updated"": true, ""new_messages_count"": 18}","Yeah okay, good the academy is helping you with th",success,29595.0,general
+290,2025-07-04T04:55:34.707213,asemanenilgun000,sending,,"Woah, 50 birds from one place is a massive rescue ",processing,,general
+291,2025-07-04T04:56:05.353197,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 26}","Yeah wow, rescuing 50 birds is unreal hey! That's ",success,30646.0,general
+292,2025-07-04T05:02:05.619064,sproutandseeds,sending,,"Yeah totally get that hey, that's awesome that Cow",processing,,general
+293,2025-07-04T05:02:31.837546,sproutandseeds,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah totally get that hey, Cowspiracy and environm",success,26234.0,general
+294,2025-07-04T05:02:31.867726,asemanenilgun000,sending,,"Ah, awesome! So you went to both festivals? That's",processing,,general
+295,2025-07-04T05:02:59.387586,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 27}","Yeah wow, collaborating on it is awesome hey! Soun",success,27533.0,general
+296,2025-07-04T05:10:59.742559,asemanenilgun000,sending,,"Yeah okay, fair enough 😊 That bird conservation gr",processing,,general
+297,2025-07-04T05:11:34.623511,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 28}",Haha oh hey! Looks like you pasted a bit of our ch,success,34900.0,general
+298,2025-07-04T05:19:34.984364,asemanenilgun000,sending,,"Oh no, that sounds really tough dealing with bulim",processing,,general
+299,2025-07-04T05:20:06.792770,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 29}","Oh no, thanks for sharing that, sounds like things",success,31825.0,general
+300,2025-07-04T05:21:06.886368,thechiphale,sending,,"Oh hell yeah, getting ready to shoot a short film ",processing,,general
+301,2025-07-04T05:21:35.716779,thechiphale,sent,"{""was_updated"": true, ""new_messages_count"": 2}",Yeah nice one getting ready to shoot a film in Oct,success,28846.0,general
+302,2025-07-04T05:35:36.339584,theveganinheels,sending,,"Totally get that hey, an ethical decision makes it",processing,,general
+303,2025-07-04T05:36:03.406763,theveganinheels,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah totally get that, ethical decisions make it h",success,27090.0,general
+304,2025-07-04T05:50:03.934943,asemanenilgun000,sending,,"Yeah wow, dealing with a war and being completely ",processing,,general
+305,2025-07-04T05:50:30.551417,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 30}","Oh man, thanks for sharing that, that sounds incre",success,26634.0,general
+306,2025-07-04T06:23:31.753863,user_158573602,sending,,"Yeah nice one, 30 years vegetarian, almost 10 year",processing,,general
+307,2025-07-04T06:23:57.193718,user_158573602,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Hey thanks for reaching out! Yeah nice one, 30 yea",success,25457.0,general
+308,2025-07-04T06:27:57.409191,theveganinheels,sending,,Yeah nice one influencing people across hey! That',processing,,general
+309,2025-07-04T06:28:25.199052,theveganinheels,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah nice one hey, managing to influence a few fri",success,27808.0,general
+310,2025-07-04T06:29:25.272185,asemanenilgun000,sending,,"Aw, mate, hearing you feel that empty and like thi",processing,,general
+311,2025-07-04T06:29:55.244594,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 31}","Oh man, hearing you say you feel empty and futile ",success,29979.0,general
+312,2025-07-04T06:49:56.041614,livrenee_fit,sending,,Yeah nice one getting into competing after going v,processing,,general
+313,2025-07-04T06:50:30.072834,livrenee_fit,sent,"{""was_updated"": true, ""new_messages_count"": 4}","Yeah hell yeah, getting into bodybuilding after go",success,34047.0,general
+314,2025-07-04T07:03:30.541595,sproutandseeds,sending,,Yeah nice one dialing it down to just climbing and,processing,,general
+315,2025-07-04T07:03:54.130044,sproutandseeds,sent,"{""was_updated"": true, ""new_messages_count"": 2}",Yeah awesome! Climbing and running recreationally ,success,23605.0,general
+316,2025-07-04T07:45:56.116357,asemanenilgun000,sending,,"Oh man, totally hear you on that, fighting like he",processing,,general
+317,2025-07-04T07:46:27.314361,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 32}","Oh man, thanks for sharing that, that sounds incre",success,31215.0,general
+318,2025-07-04T07:57:27.840225,like_the_doll_,sending,,"Yeah right, sounds intense doing that for a whole ",processing,,general
+319,2025-07-04T07:57:56.921084,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 8}",Yeah a year living in the car to finish out those ,success,29110.0,general
+320,2025-07-04T07:58:56.997470,user_624356735,sending,,"Yeah nice one, 5 years vegan is solid, and a decad",processing,,general
+321,2025-07-04T07:59:19.777478,user_624356735,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 5 years is solid! I've been vegetar",success,22797.0,general
+322,2025-07-04T08:01:19.899860,theveganinheels,sending,,"Yeah nice one, being active is key! Given your vib",processing,,general
+323,2025-07-04T08:01:43.814852,theveganinheels,sent,"{""was_updated"": true, ""new_messages_count"": 4}","Oh nice, that's solid you're active hey! What kind",success,23934.0,general
+324,2025-07-04T08:05:44.059226,thompson.robin,sending,,"Yeah wow, Dominion is intense hey. Totally underst",processing,,general
+325,2025-07-04T08:06:19.891355,thompson.robin,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah totally get that hey, it's heavy seeing that ",success,35852.0,general
+326,2025-07-04T08:11:20.113601,tattooedvegan444,sending,,"Yeah totally get that hey, learning about the dair",processing,,general
+327,2025-07-04T08:11:48.413193,tattooedvegan444,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah wow, totally get that hey. Seeing that stuff ",success,28318.0,general
+328,2025-07-04T08:12:48.532884,asemanenilgun000,sending,,"Yeah totally get that, feeling trapped at home whe",processing,,general
+329,2025-07-04T08:13:15.810488,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 33}","Oh man, yeah, totally get what you mean about feel",success,27303.0,general
+330,2025-07-04T08:14:15.938387,thompson.robin,sending,,"Yeah totally get that hey, it's heavy stuff. With ",processing,,general
+331,2025-07-04T08:14:41.909201,thompson.robin,sent,"{""was_updated"": true, ""new_messages_count"": 3}",Yeah nice one influencing your partner mate that's,success,26006.0,general
+332,2025-07-04T08:15:42.014878,thompson.robin,sending,,Yeah nice one influencing your partner to go vegan,processing,,general
+333,2025-07-04T08:16:10.422358,thompson.robin,sent,"{""was_updated"": true, ""new_messages_count"": 3}","Yeah nice one influencing your partner and others,",success,28427.0,general
+334,2025-07-04T08:21:10.697040,black_monkey_go_green,sending,,"Yeah wow mate, that's a really powerful way to put",processing,,general
+335,2025-07-04T08:21:43.518541,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 7}","Yeah, that's a really powerful perspective hey. 'Q",success,32853.0,general
+336,2025-07-04T08:32:44.048593,livrenee_fit,sending,,Oh awesome you're already working with a coach spe,processing,,general
+337,2025-07-04T08:33:08.986976,livrenee_fit,sent,"{""was_updated"": true, ""new_messages_count"": 5}","Ah fair enough, good on ya for having a coach for ",success,24954.0,general
+338,2025-07-04T08:33:09.042218,thompson.robin,sending,,"Yeah nice one being in the gym for a decade, thats",processing,,general
+339,2025-07-04T08:33:34.637544,thompson.robin,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Yeah nice one on a decade in the gym! Sounds like ,success,25624.0,general
+340,2025-07-04T08:33:34.687942,black_monkey_go_green,sending,,"Oh yeah, sounds like singing was always part of yo",processing,,general
+341,2025-07-04T08:34:02.612725,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 8}",Haha thats a cool way to think about starting sing,success,27948.0,general
+342,2025-07-04T08:39:02.879840,livrenee_fit,sending,,:),processing,,general
+343,2025-07-04T08:39:30.962183,livrenee_fit,sent,"{""was_updated"": true, ""new_messages_count"": 6}","Ah, you absolute legend! So stoked you're loving i",success,28106.0,general
+344,2025-07-04T08:42:31.152490,black_monkey_go_green,sending,,"Yeah I totally get that hey, sounds like Tetebatu ",processing,,general
+345,2025-07-04T08:43:00.709501,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 10}","Yeah I totally get that hey, that's a really insig",success,29581.0,general
+346,2025-07-04T08:43:00.756697,thompson.robin,sending,,"Oh sorry mate, yeah after a decade in the gym what",processing,,general
+347,2025-07-04T08:43:28.000004,thompson.robin,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Haha hey looks like you pasted some old chat there,success,27268.0,general
+348,2025-07-04T08:44:28.124740,black_monkey_go_green,sending,,:),processing,,general
+349,2025-07-04T08:45:01.851570,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 10}",Yeah I totally get that hey ❤️🙏🌈 Sounds like livin,success,33763.0,general
+350,2025-07-04T08:48:02.016547,asemanenilgun000,sending,,"Yeah, totally get that feeling of just not knowing",processing,,general
+351,2025-07-04T08:48:31.777104,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 34}","Oh man, I hear you saying 'I don't know' again, an",success,29765.0,general
+352,2025-07-04T08:49:31.881644,thompson.robin,sending,,"Yeah nice one, 3 times a week is solid! Good that ",processing,,general
+353,2025-07-04T08:49:59.575702,thompson.robin,sent,"{""was_updated"": true, ""new_messages_count"": 6}","Yeah nice one training 3 times a week hey, that's ",success,27713.0,general
+354,2025-07-04T08:49:59.639023,black_monkey_go_green,sending,,Yeah nice one! It's huge how much movement affects,processing,,general
+355,2025-07-04T08:50:29.443655,black_monkey_go_green,sent,"{""was_updated"": true, ""new_messages_count"": 11}","Yeah I totally get that hey, how it makes you feel",success,29833.0,general
+356,2025-07-04T08:53:29.863630,nis_somani,sending,,Yeah nice one mate! 110kg is solid for squats and ,processing,,general
+357,2025-07-04T08:53:57.811948,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah nice one mate! 110kg on squats and deadies is,success,27967.0,general
+358,2025-07-04T08:59:58.236199,nis_somani,sending,,Haha nah mate 110kg is solid even for 1RMs! That f,processing,,general
+359,2025-07-04T09:00:25.751347,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 2}",Yeah that feeling is epic hey! Love pushing the bo,success,27529.0,general
+360,2025-07-04T09:00:25.847191,asemanenilgun000,sending,,"Oh man, totally get that hey, feeling trapped at h",processing,,general
+361,2025-07-04T09:00:53.472672,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 35}","Yeah wow, that sounds incredibly heavy hey. Feelin",success,27687.0,general
+362,2025-07-04T09:04:53.737205,asemanenilgun000,sending,,"Yeah I hear you, it sounds incredibly heavy hey. I",processing,,general
+363,2025-07-04T09:05:23.745914,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 36}","No worries at all hey, happy to lend an ear. That'",success,30033.0,general
+364,2025-07-04T09:06:23.858306,nis_somani,sending,,"Oh nice one, glad you got to Red Sparrow! How was ",processing,,general
+365,2025-07-04T09:06:51.624663,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 3}",Oh nice one trying Red Sparrow last month! How was,success,27793.0,general
+366,2025-07-04T09:06:51.670785,thompson.robin,sending,,hahah you rekon what makes you say that?,processing,,general
+367,2025-07-04T09:07:16.140827,thompson.robin,sent,"{""was_updated"": true, ""new_messages_count"": 7}",hahah you rekon what makes you say that?,success,24497.0,general
+368,2025-07-04T09:11:16.328362,asemanenilgun000,sending,,"No worries at all hey, glad I could lend an ear. A",processing,,general
+369,2025-07-04T09:11:44.694803,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 37}","Aw no worries at all hey, proper appreciate you sa",success,28386.0,general
+370,2025-07-04T09:17:45.023303,asemanenilgun000,sending,,Ah man 🥺,processing,,general
+371,2025-07-04T09:18:16.433334,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 38}","Yeah proper heavy hey, sending strength :)",success,31427.0,general
+372,2025-07-04T09:24:16.705739,nis_somani,sending,,Ah nice! Which pizza did you try there? Gotta go b,processing,,general
+373,2025-07-04T09:24:42.222251,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Yeah nice one again mate 110 is solid! Love that f,success,25538.0,general
+374,2025-07-04T09:27:42.378742,asemanenilgun000,sending,,No worries at all hey! 😊,processing,,general
+375,2025-07-04T09:28:12.888222,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 39}",Haha looks like you copied the whole chat there he,success,30522.0,general
+376,2025-07-04T09:29:12.973721,livrenee_fit,sending,,:),processing,,general
+377,2025-07-04T09:29:41.760494,livrenee_fit,sent,"{""was_updated"": true, ""new_messages_count"": 7}","Aww, thanks mate! So stoked you're finding your cr",success,28805.0,general
+378,2025-07-04T09:31:41.886566,nis_somani,sending,,Haha nice one trying the Salsiccia! Yeah gotta wor,processing,,general
+379,2025-07-04T09:32:13.742476,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Haha Salsiccia is a good choice mate! Yeah maybe h,success,31873.0,general
+380,2025-07-04T09:33:13.826234,asemanenilgun000,sending,,My pleasure hey 😊,processing,,general
+381,2025-07-04T09:33:39.890103,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 40}",Haha yeah looks like you did the whole chat again ,success,26080.0,general
+382,2025-07-04T09:39:40.139026,asemanenilgun000,sending,,Yeah nice one hey! Awesome you're hoping so too 😄,processing,,general
+383,2025-07-04T09:40:06.367551,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 41}",Haha yeah looks like you did the whole chat again ,success,26244.0,general
+384,2025-07-04T09:45:06.575013,asemanenilgun000,sending,,"Haha yeah totally get that, makes heaps of sense w",processing,,general
+385,2025-07-04T09:45:32.541348,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 42}",Haha yeah totally makes sense about the Google Tra,success,25977.0,general
+386,2025-07-04T09:48:32.686267,nis_somani,sending,,Yeah good one! Sounds like you're keen on explorin,processing,,general
+387,2025-07-04T09:49:06.281959,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 7}","Okay nice one, sounds like you like a veggie heavy",success,33610.0,general
+388,2025-07-04T09:50:06.359418,nis_somani,sending,,Ah yeah nice one! Cheesy with all those fresh topp,processing,,general
+389,2025-07-04T09:50:34.286240,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 7}","Haha nice one! Basil, peppers, cherry tomatoes, ol",success,27943.0,general
+390,2025-07-04T09:54:34.486299,asemanenilgun000,sending,,:),processing,,general
+391,2025-07-04T09:55:08.262034,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 43}","Bloody hell, mate, thanks for sharing all that, th",success,33787.0,general
+392,2025-07-04T10:00:08.478993,asemanenilgun000,sending,,Proper appreciate that mate 😊,processing,,general
+393,2025-07-04T10:00:40.568735,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 44}",Haha doing the whole chat copy again hey! All good,success,32094.0,general
+394,2025-07-04T10:04:40.772100,asemanenilgun000,sending,,No worries at all hey :),processing,,general
+395,2025-07-04T10:05:10.090668,asemanenilgun000,sent,"{""was_updated"": true, ""new_messages_count"": 25}","Aw no worries at all hey, keep copying the chat al",success,29335.0,general
+396,2025-07-04T10:05:10.123635,nis_somani,sending,,Haha nice one! Always good to be open minded hey! ,processing,,general
+397,2025-07-04T10:05:36.952213,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 8}","Haha yeah totally get that hey, good to be open to",success,26844.0,general
+398,2025-07-04T10:14:37.414693,nis_somani,sending,,"Yeah nice range there! I'm pretty basic hey, just ",processing,,general
+399,2025-07-04T10:15:11.011425,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 9}","Yeah nice one with the sauces mate! Marinara, bbq,",success,33610.0,general
+400,2025-07-04T10:15:11.053301,like_the_doll_,sending,,Hell yeah! 5 campaign wins off the back of a year ,processing,,general
+401,2025-07-04T10:15:47.477974,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 8}","Crikey, 5 campaign wins after living in a car for ",success,36441.0,general
+402,2025-07-04T10:20:47.755316,like_the_doll_,sending,,"Yeah totally get that hey, that makes sense about ",processing,,general
+403,2025-07-04T10:21:16.848836,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 9}","Ah totally get that hey, sounds like a big change ",success,29093.0,general
+404,2025-07-04T10:28:17.171106,like_the_doll_,sending,,"Yeah totally get that hey, makes sense it would be",processing,,general
+405,2025-07-04T10:28:46.668161,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 10}","Yeah okay, makes sense it would feel weird for a w",success,29510.0,general
+406,2025-07-04T10:33:46.934038,like_the_doll_,sending,,"Crikey, Conde Nast and Berluti?! That's absolutely",processing,,general
+407,2025-07-04T10:34:15.291620,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 11}","Woah, working on Conde Nast and Berluti for fur fr",success,28385.0,general
+408,2025-07-04T10:46:15.891503,nis_somani,sending,,"Yeah exactly hey, totally agree! Gotta give everyt",processing,,general
+409,2025-07-04T10:46:46.948076,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 11}","Ah yeah fair enough mate, just keen on getting tho",success,31079.0,general
+410,2025-07-04T10:47:47.077794,nis_somani,sending,,"Yeah fair enough hey, Tassie and SA trips sound aw",processing,,general
+411,2025-07-04T10:48:16.768698,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 11}","Yeah okay mate, totally get that, just keen on get",success,29710.0,general
+412,2025-07-04T10:55:17.128062,like_the_doll_,sending,,"Yeah right, contacting first then a pressure campa",processing,,general
+413,2025-07-04T10:55:46.339367,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 12}","Yeah right, contact and then the pressure campaign",success,29235.0,general
+414,2025-07-04T11:06:46.764623,nis_somani,sending,,"Yeah totally get that hey, balance is key! So wher",processing,,general
+415,2025-07-04T11:07:19.317146,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 12}","Yeah nice one mate, 110 on the 1RMs is solid! Love",success,32565.0,general
+416,2025-07-04T11:09:19.438154,user_2137472162,sending,,"Yeah nice one, 6 years is solid! I've been vegetar",processing,,general
+417,2025-07-04T11:09:48.269528,user_2137472162,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 6 years is solid brother! You've de",success,28846.0,general
+418,2025-07-04T11:11:48.408604,ralphguerino2,sending,,"Oh hey, yeah I own the studio and also run the onl",processing,,general
+419,2025-07-04T11:12:10.611745,ralphguerino2,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Yeah I own the gym Coco's PT in Hampton and I also,success,22229.0,general
+420,2025-07-04T11:18:11.664981,ralphguerino2,sending,,"Oh man, sucks you're dealing with depression at th",processing,,general
+421,2025-07-04T11:18:44.866949,ralphguerino2,sent,"{""was_updated"": true, ""new_messages_count"": 2}",Ah bummer it is you're dealing with depression hey,success,33295.0,general
+422,2025-07-04T11:21:45.217695,ralphguerino2,sending,,Legend! How things going?,processing,,general
+423,2025-07-04T11:22:12.630622,ralphguerino2,sent,"{""was_updated"": true, ""new_messages_count"": 3}",Yeah I own the gym and do the online coaching as w,success,27425.0,general
+424,2025-07-04T11:32:13.142666,ralphguerino2,sending,,Yeah nice one working at a gym! Sounds like a soli,processing,,general
+425,2025-07-04T11:32:42.747752,ralphguerino2,sent,"{""was_updated"": true, ""new_messages_count"": 4}","Hey thanks for reaching out!
+That's cool you work ",success,29617.0,general
+426,2025-07-04T11:37:42.989755,nis_somani,sending,,"Haha fair question mate! Nah not really hey, keep ",processing,,general
+427,2025-07-04T11:38:12.507430,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 13}","Haha good question mate! Nah I don't drink at all,",success,29544.0,general
+428,2025-07-04T11:40:12.679585,ralphguerino2,sending,,Yeah nice one getting home and chilling out! What ,processing,,general
+429,2025-07-04T11:40:40.033038,ralphguerino2,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Yeah I own Coco's gym here in Hampton and run the ,success,27375.0,general
+430,2025-07-04T11:45:40.358939,nis_somani,sending,,Haha fair enough mate! Wine tasting sounds like a ,processing,,general
+431,2025-07-04T11:46:12.686261,nis_somani,sent,"{""was_updated"": true, ""new_messages_count"": 14}",Haha nice one mate! Wine tasting sounds like a min,success,32344.0,general
+432,2025-07-04T12:00:15.002813,cocos_pt_studio,sending,,Hey bro! All good here thanks. Just saw you signed,processing,,general
+433,2025-07-04T12:01:09.422591,cocos_pt_studio,sent,"{""was_updated"": true, ""new_messages_count"": 1}",Hey bro! Just chilling doing my checkins! Saw you ,success,55480.0,general
+434,2025-07-04T12:39:14.097423,user_284145447,sending,,"Yeah nice one, 6 months is solid! I've been vegeta",processing,,general
+435,2025-07-04T12:39:40.554691,user_284145447,sent,"{""was_updated"": true, ""new_messages_count"": 1}","Yeah nice one, 6 months is solid! I've been vegeta",success,26479.0,general
+436,2025-07-04T13:04:41.698522,sisterdelphi,sending,,"Yeah nice one, 7 years is solid! For the animals h",processing,,general
+437,2025-07-04T13:05:10.986437,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Yeah nice one, 7 years vegan is solid! Earthlings ",success,29312.0,general
+438,2025-07-04T13:07:11.173806,sisterdelphi,sending,,Hahah yeah you picked it! Im down in Melbourne the,processing,,general
+439,2025-07-04T13:07:40.917619,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 2}","Ah nice one, North Coast NSW hey! Beautiful spot! ",success,29768.0,general
+440,2025-07-04T13:12:41.262452,sisterdelphi,sending,,Yeah nice one having those two channels hey! That',processing,,general
+441,2025-07-04T13:13:12.412019,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Yeah right having two channels sounds like you're ,success,31175.0,general
+442,2025-07-04T13:15:12.565508,sisterdelphi,sending,,"Yeah totally get that hey, 'flat out' is real when",processing,,general
+443,2025-07-04T13:15:43.293715,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Haha yeah sounds like you're definitely flat out m,success,30758.0,general
+444,2025-07-04T13:15:43.336382,sisterdelphi,sending,,"Thanks, glad it looks helpful! Yeah, sounds like y",processing,,general
+445,2025-07-04T13:16:11.153536,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 5}",Yeah sounds like those messages came through again,success,27836.0,general
+446,2025-07-04T13:22:11.506917,sisterdelphi,sending,,"Yeah right, four channels is massive hey! Taking i",processing,,general
+447,2025-07-04T13:22:36.270640,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 8}","Yeah, four channels is heaps hey! Sounds like you'",success,24793.0,general
+448,2025-07-04T13:23:36.386632,sisterdelphi,sending,,"Yeah totally get that hey, trying to gently run th",processing,,general
+449,2025-07-04T13:24:07.622990,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 10}","Yeah thanks for sending through the links!
+
+Totall",success,31262.0,general
+450,2025-07-04T13:25:07.756164,sisterdelphi,sending,,"Yeah makes sense hey, nailing the food side of thi",processing,,general
+451,2025-07-04T13:25:40.488704,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 11}",Yeah sounds like those messages came through a few,success,32759.0,general
+452,2025-07-04T13:26:40.614241,sisterdelphi,sending,,"Cheers mate, thanks for sending those through and ",processing,,general
+453,2025-07-04T13:27:05.331909,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 11}",Yeah sounds like those messages came through again,success,24740.0,general
+454,2025-07-04T13:29:05.525156,sisterdelphi,sending,,Yeah wow living off grid like that sounds like leg,processing,,general
+455,2025-07-04T13:29:36.172538,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 14}","Yeah wow, living off grid sounds like serious boot",success,30674.0,general
+456,2025-07-04T13:31:36.333296,sisterdelphi,sending,,Haha yeah exactly hey! Hard to slack off when it's,processing,,general
+457,2025-07-04T13:32:05.114223,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 16}",Haha yeah gotta stay honest with the fitness chann,success,28796.0,general
+458,2025-07-04T13:32:05.167093,sisterdelphi,sending,,Yeah good plan getting out for some sunshine and a,processing,,general
+459,2025-07-04T13:32:32.155693,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 16}",Haha sounds like those messages came through again,success,27011.0,general
+460,2025-07-04T13:32:32.215115,sisterdelphi,sending,,"Yeah totally get that, feeling ungrounded without ",processing,,general
+461,2025-07-04T13:32:59.977965,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 16}",Yeah totally get that needing walks for grounding ,success,27801.0,general
+462,2025-07-04T13:34:00.099379,sisterdelphi,sending,,"Oh nice one, thanks for sending that through! Keen",processing,,general
+463,2025-07-04T13:34:33.099513,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 18}",Yeah speed walks along the river sound mint! Total,success,33028.0,general
+464,2025-07-04T13:36:33.236308,sisterdelphi,sending,,"Yeah nice one, sounds like a good walk along the r",processing,,general
+465,2025-07-04T13:37:04.066393,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 19}","Yeah I totally get that hey, feeling like a raceho",success,30847.0,general
+466,2025-07-04T13:37:04.111911,sisterdelphi,sending,,"Yeah totally get that hey, that nervous energy is ",processing,,general
+467,2025-07-04T13:37:30.633818,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 20}","G'day! Wow, thanks for the epic message! Sounds li",success,26539.0,general
+468,2025-07-04T13:38:30.752693,sisterdelphi,sending,,"Yeah I totally get that hey, like you've got the c",processing,,general
+469,2025-07-04T13:39:02.345754,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 21}","Ah okay, totally get that hey! Good on ya for doin",success,31619.0,general
+470,2025-07-04T13:40:02.461229,sisterdelphi,sending,,Awesome! Good plan getting that walk in while the ,processing,,general
+471,2025-07-04T13:40:32.775535,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 22}",Ah legendary! Really appreciate you being on 'team,success,30325.0,general
+472,2025-07-04T13:40:32.868265,sisterdelphi,sending,,"Ah, fair enough! No worries at all, mate. Sounds l",processing,,general
+473,2025-07-04T13:41:00.530716,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 22}",Ah awesome! Really appreciate you doing the vegan ,success,27726.0,general
+474,2025-07-04T13:42:00.626004,sisterdelphi,sending,,"Ah cheers for that, legend! Appreciate you support",processing,,general
+475,2025-07-04T13:42:32.626958,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 23}","G'day there!
+
+Thanks heaps for the epic message an",success,32016.0,general
+476,2025-07-04T13:43:32.715966,sisterdelphi,sending,,:),processing,,general
+477,2025-07-04T13:43:58.524169,sisterdelphi,sent,"{""was_updated"": true, ""new_messages_count"": 23}",:),success,25821.0,general
+478,2025-07-04T14:27:01.544751,hopefulosmosis,sending,,Legend! How long you been at it?,processing,,general
+479,2025-07-04T14:27:32.407401,hopefulosmosis,sent,"{""was_updated"": true, ""new_messages_count"": 3}",Ah cheers! Glad you're feeling happier than ever h,success,30900.0,general
+480,2025-07-04T14:29:32.616771,hopefulosmosis,sending,,"Ah cheers for the message lovely!
+
+Yeah hearing th",processing,,general
+481,2025-07-04T14:29:59.735317,hopefulosmosis,sent,"{""was_updated"": true, ""new_messages_count"": 3}",Yeah that's solid hey! Been lifting weights for ab,success,27149.0,general
+482,2025-07-04T14:29:59.801206,hopefulosmosis,sending,,Ah cheers! Hope you're having a good week! Been ge,processing,,general
+483,2025-07-04T14:30:23.039887,hopefulosmosis,sent,"{""was_updated"": true, ""new_messages_count"": 3}",Yeah glad to hear you're feeling happier than ever,success,23273.0,general
+484,2025-07-04T16:40:27.521848,like_the_doll_,sending,,"Yeah right, giving the links for more info! Apprec",processing,,general
+485,2025-07-04T16:40:56.983854,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 13}","Yeah right, escalating from stores to HQ to homes ",success,29478.0,general
+486,2025-07-04T16:45:57.223712,iapiisk,sending,,Hey! Hope you're having a good day! Been getting a,processing,,general
+487,2025-07-04T16:48:33.842742,iapiisk,sent,"{""was_updated"": true, ""new_messages_count"": 3}",Haha looks like that message sent twice hey! Yeah ,success,156641.0,general
+488,2025-07-04T16:49:34.019803,iapiisk,sending,,Kasper! :) Been planning any cool travel lately?,processing,,general
+489,2025-07-04T16:55:04.229768,iapiisk,sent,"{""was_updated"": true, ""new_messages_count"": 4}",Haha looks like those messages are sending twice! ,success,330252.0,general
+490,2025-07-04T17:06:04.657615,like_the_doll_,sending,,"Ah, beauty! Yeah, not getting much backlash is gro",processing,,general
+491,2025-07-04T17:06:36.136139,like_the_doll_,sent,"{""was_updated"": true, ""new_messages_count"": 14}","Yeah right, good it doesn't get too heated hey. Sa",success,31503.0,general
+492,2025-07-05T09:00:12.920373,cocos_pt_studio,sending,,Haha what's goin on bro! Reckon your ready to get ,processing,,general
+493,2025-07-05T09:00:41.931423,cocos_pt_studio,sent,"{""was_updated"": true, ""new_messages_count"": 4}","Haha Yo yooo bro! All good here thanks, just getti",success,29053.0,general
+494,2025-07-05T09:04:42.180585,cocos_pt_studio,sending,,Haha Dirty dawg back at ya! 😂 Just getting stuck i,processing,,general
+495,2025-07-05T09:05:09.538478,cocos_pt_studio,sent,"{""was_updated"": true, ""new_messages_count"": 5}","Haha Yo yooo bro! All good here thanks, getting st",success,27388.0,general
+496,2025-07-05T09:13:09.960771,cocos_pt_studio,sending,,Legend,processing,,general
+497,2025-07-05T09:13:41.914248,cocos_pt_studio,sent,"{""was_updated"": true, ""new_messages_count"": 6}",Haha the meal plan and workout program for the cha,success,31971.0,general

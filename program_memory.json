@@ -1,0 +1,44 @@
+{
+  "programs": {
+    "Test Program": {
+      "built_date": "2025-05-26T14:39:36.528528",
+      "training_phase": "Week 1-4",
+      "workout_count": 2,
+      "workout_names": [
+        "Chest Day",
+        "Back Day"
+      ],
+      "program_hash": "6250dc75d1057d4d2c1539b88ca229bc",
+      "total_exercises": 10
+    },
+    "Coco's Studio": {
+      "built_date": "2025-05-26T14:42:34.956519",
+      "training_phase": "Week 1-4",
+      "workout_count": 5,
+      "workout_names": [
+        "Chest Day",
+        "Shoulder Day",
+        "Leg Day",
+        "Core Day",
+        "Back Day"
+      ],
+      "program_hash": "4328dcdaaf964524fbb5adc658f0fe16",
+      "total_exercises": 25
+    },
+    "Coco's Studio - Week 5-8": {
+      "built_date": "2025-05-26T15:08:46.766825",
+      "training_phase": "Week 5-8",
+      "workout_count": 5,
+      "workout_names": [
+        "Chest Day - Strength",
+        "Shoulder Day - Strength",
+        "Leg Day - Strength",
+        "Core Day - Strength",
+        "Back Day - Strength"
+      ],
+      "program_hash": "960f937600c4c06bcd9cccc73b84c9d6",
+      "total_exercises": 25
+    }
+  },
+  "last_updated": "2025-05-26T15:08:46.766825"
+}

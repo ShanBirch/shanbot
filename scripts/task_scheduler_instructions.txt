@@ -1,0 +1,29 @@
+INSTRUCTIONS FOR SETTING UP INSTAGRAM BOT IN TASK SCHEDULER
+
+Follow these steps to set up the Instagram bot to run automatically every night at 8:00 PM:
+
+1. Press Windows key + R to open Run dialog
+2. Type "taskschd.msc" and press Enter to open Task Scheduler
+
+3. In Task Scheduler, click "Create Basic Task..." in the right-hand Actions panel
+4. Enter "Instagram Bot" as the Name and click Next
+
+5. Select "Daily" for the trigger and click Next
+6. Set the start time to 8:00:00 PM and click Next
+
+7. Select "Start a program" for the action and click Next
+8. For Program/script, browse to:
+   C:\Users\Shannon\OneDrive\Desktop\shanbot\scripts\run_instagram_bot.bat
+9. Click Next, then Finish
+
+10. Find your new "Instagram Bot" task in the Task Scheduler Library
+11. Right-click on it and select "Properties"
+12. On the General tab, check "Run whether user is logged on or not"
+13. Check "Wake the computer to run this task"
+14. Under the Conditions tab, check "Wake the computer to run this task"
+15. Under the Settings tab, ensure "Allow task to be run on demand" is checked
+16. Click OK to save changes (you'll be prompted for your Windows password)
+
+Your Instagram bot will now run automatically at 8:00 PM every day until it processes the entire list of followers. The script already has logic to keep track of which users it has processed, so it will continue from where it left off each day.
+
+If you need to run the script manually at any time, you can right-click on the task in Task Scheduler and select "Run". 

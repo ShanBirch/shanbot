@@ -1,0 +1,9 @@
+
+def get_cached_video_clip(video_path, duration=3.0, audio=False):
+def get_cached_font(font_name, font_size):
+def create_slide_with_text(video_path, text_elements, duration=3.0):
+def process_client_data(client_data_file, video_path, output_dir):
+def process_client_files_parallel(client_files, video_path, output_dir, max_workers=3):
+def clean_up_resources():
+def main():
+

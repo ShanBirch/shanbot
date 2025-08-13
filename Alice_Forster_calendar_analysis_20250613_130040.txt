@@ -1,0 +1,44 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-13 13:00:40
+============================================================
+
+**WORKOUT COMPLETION ANALYSIS:**
+
+* **Total Scheduled Workouts:**  At least 30 workouts are visible in the screenshot (the exact number is higher, as "+More" is indicated in multiple daily entries).
+* **Total Completed Workouts:** At least 15 workouts are visibly marked as complete. The actual number is higher due to "+More" entries.
+* **Specific Workout Types:** Resistance Training, Leg Day, Core Day, Shoulder Day, Chest Day, Back Day, Functional Strength Training, Walking (cardio).
+* **Completion Percentage (visible weeks):** Approximately 50% (15/30). This is a rough estimate due to the "+More" entries that make it impossible to know the exact numbers.
+
+
+**CARDIO/ACTIVITY TRACKING:**
+
+* **Walking/Cardio Sessions Completed:** At least 9 walking sessions are completed (the actual number is higher due to "+More" entries).
+* **Walking/Cardio Sessions Scheduled:** At least 14 visible walking sessions are scheduled (the actual number is higher).
+* **Cardio Consistency:** Cardio adherence is relatively high in the visible weeks, with nearly all scheduled walking sessions completed. There is no visible pattern beyond this.
+
+
+**NUTRITION TRACKING:**
+
+* **Days with Calorie/Meal Tracking:**  Multiple days show calorie and meal tracking.  Examples:  1357.31 Cals / 4 Meals, 1360.62 Cals / 4 Meals, 1442.78 Cals / 3 Meals, 1380.44 Cals / 4 Meals, 1353.15 Cals / 4 Meals, 690.62 Cals / 3 Meals, 1455.78 Cals / 4 Meals, 90 Cals / 1 Meal.
+* **Nutrition Tracking Consistency Percentage:** Based on the visible days, the nutrition tracking consistency is high, showing daily entries for several days. The exact percentage cannot be calculated without the full dataset.
+* **Average Calories (visible):** A rough estimate from visible data puts the average calories consumed around 1200-1400. This is a very rough average.
+
+
+**WEIGHT/BODY METRICS:**
+
+* **Weight Measurements:** One weight entry is visible: 79.1 kg.
+* **Date of Weight Entry:** June 6th (assuming the weeks are consecutive).
+
+
+**WEEKLY PATTERNS & INSIGHTS:**
+
+* **Strongest Days for Adherence:**  The beginning of the week seems to have stronger adherence in general.
+* **Weakest Days for Adherence:** The later part of the week exhibits lower adherence than the beginning.  This is highly subjective and might not reflect a broader trend, needing the full week's data to confirm.
+* **Concerning Gaps:**  There are some missed workouts towards the end of the week.  Further data is required to determine if this is a recurring pattern.
+* **Excellent Streaks:**  There are visible periods of consistent adherence early in the week.
+* **Overall Weekly Consistency Assessment:** While there are some signs of excellent adherence, there are clear gaps and inconsistencies toward the end of the week that require attention and discussion with the client to uncover causes and develop strategies to enhance compliance.
+
+
+**SUMMARY:**
+
+The client shows a moderate level of adherence and engagement.  While cardio and nutrition tracking show generally good consistency, workout adherence is inconsistent, particularly later in the week.  Further analysis with the complete dataset, and a discussion with the client about their adherence patterns, will be necessary to gain a more comprehensive understanding and develop targeted interventions. The observed weight loss is a positive sign.

@@ -1,0 +1,48 @@
+
+=== SHANBOT CONVERSATION CAPABILITIES SUMMARY ===
+Generated: 2025-07-05 09:25:51
+
+OVERVIEW:
+- Total Conversations: 6621 messages
+- Response Rate: 84.6%
+- Active Users: 10 unique users
+- Date Range: 2025-04-09 02:28:21.957358+00:00 to 2025-06-28 10:49:25.938788+00:00
+
+AI CAPABILITIES:
+- Questions Asked: 1839 times
+- Encouragement Given: 254 times
+- Advice Provided: 98 times
+- Workout Guidance: 352 times
+- Nutrition Guidance: 399 times
+- Personal Touch: 1346 times
+
+CONVERSATION TOPICS (Top 10):
+- gym: 326 mentions
+- vegan: 303 mentions
+- training: 292 mentions
+- plant: 259 mentions
+- fitness: 177 mentions
+- food: 170 mentions
+- workout: 127 mentions
+- weight: 106 mentions
+- protein: 94 mentions
+- health: 78 mentions
+
+RESPONSE CHARACTERISTICS:
+- Average AI response: 28.1 words
+- Average user message: 35.0 words
+- AI provides 0.8x more detailed responses
+
+STRENGTHS IDENTIFIED:
+1. High response rate (84.6%)
+2. Comprehensive fitness and nutrition knowledge
+3. Personalized, encouraging communication style
+4. Handles complex workout and diet discussions
+5. Maintains engaging conversations across multiple users
+
+COACHING CAPABILITIES:
+- Provides workout guidance and form corrections
+- Offers nutrition advice with vegan focus
+- Motivates and encourages users consistently
+- Asks relevant questions to understand user needs
+- Adapts responses to individual user contexts

@@ -1,0 +1,161 @@
+Database Schema:
+
+--- Table: users ---
+CREATE TABLE users (
+    ig_username TEXT PRIMARY KEY,
+    subscriber_id TEXT,
+    metrics_json TEXT,
+    calorie_tracking_json TEXT,
+    workout_program_json TEXT,
+    meal_plan_json TEXT,
+    client_analysis_json TEXT,
+    is_onboarding INTEGER,
+    is_in_checkin_flow_mon INTEGER,
+    is_in_checkin_flow_wed INTEGER,
+    client_status TEXT
+    -- Add more columns as needed
+, bio TEXT, first_name TEXT, last_name TEXT)
+
+--- Table: messages ---
+CREATE TABLE messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ig_username TEXT,
+    timestamp TEXT,
+    type TEXT,
+    text TEXT,
+    FOREIGN KEY(ig_username) REFERENCES users(ig_username)
+)
+
+--- Table: sqlite_sequence ---
+CREATE TABLE sqlite_sequence(name,seq)
+
+--- Table: pending_reviews ---
+CREATE TABLE pending_reviews (
+    review_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_ig_username TEXT NOT NULL,
+    user_subscriber_id TEXT NOT NULL,
+    incoming_message_text TEXT,
+    incoming_message_timestamp TEXT,
+    generated_prompt_text TEXT,
+    proposed_response_text TEXT,
+    status TEXT DEFAULT 'pending_review',
+    created_timestamp TEXT DEFAULT CURRENT_TIMESTAMP,
+    reviewed_timestamp TEXT,
+    final_response_text TEXT
+, prompt_type TEXT DEFAULT 'unknown', user_message_text TEXT, regeneration_count INTEGER DEFAULT 0)
+
+--- Table: learning_feedback_log ---
+CREATE TABLE learning_feedback_log (
+    log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    review_id INTEGER,
+    user_ig_username TEXT,
+    user_subscriber_id TEXT,
+    original_prompt_text TEXT,
+    original_gemini_response TEXT,
+    edited_response_text TEXT,
+    user_notes TEXT,
+    is_good_example_for_few_shot INTEGER DEFAULT 0,
+    logged_timestamp TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (review_id) REFERENCES pending_reviews(review_id)
+)
+
+--- Table: client_workout_sessions ---
+CREATE TABLE client_workout_sessions (
+            session_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            client_name_key TEXT NOT NULL, -- Standardized client name from Trainerize (e.g., rebecca_dangelo)
+            ig_username TEXT, -- Instagram username, if available and found in users table
+            workout_date TEXT NOT NULL, -- ISO Format: YYYY-MM-DD
+            week_identifier TEXT NOT NULL, -- Format: YYYY-Www (e.g., 2023-W30)
+            workout_name TEXT,
+            exercises_json TEXT, -- JSON string of the exercises list
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+            -- Consider adding FOREIGN KEY (ig_username) REFERENCES users(ig_username) if appropriate
+            -- once data population strategy for users table is clear for all client types.
+        , total_reps INTEGER DEFAULT 0, total_sets INTEGER DEFAULT 0, total_weight_lifted REAL DEFAULT 0, workout_duration_minutes INTEGER, session_notes TEXT, raw_session_data TEXT)
+
+--- Table: exercise_sessions ---
+CREATE TABLE exercise_sessions (
+                exercise_session_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                session_id INTEGER,
+                client_name_key TEXT NOT NULL,
+                ig_username TEXT,
+                workout_date TEXT NOT NULL,
+                exercise_name TEXT NOT NULL,
+                sets_json TEXT NOT NULL,
+                total_reps INTEGER DEFAULT 0,
+                total_sets INTEGER DEFAULT 0,
+                max_weight REAL DEFAULT 0,
+                average_weight REAL DEFAULT 0,
+                total_volume REAL DEFAULT 0,
+                exercise_notes TEXT,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (session_id) REFERENCES client_workout_sessions(session_id)
+            )
+
+--- Table: weekly_goals ---
+CREATE TABLE weekly_goals (
+                goal_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                client_name_key TEXT NOT NULL,
+                ig_username TEXT,
+                week_identifier TEXT NOT NULL,
+                workout_name TEXT NOT NULL,
+                exercise_name TEXT NOT NULL,
+                target_weight REAL,
+                target_reps INTEGER,
+                target_sets INTEGER,
+                goal_type TEXT DEFAULT 'progression',
+                status TEXT DEFAULT 'active',
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                achieved_at TEXT,
+                notes TEXT
+            )
+
+--- Table: workout_progressions ---
+CREATE TABLE workout_progressions (
+                progression_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                client_name_key TEXT NOT NULL,
+                ig_username TEXT,
+                exercise_name TEXT NOT NULL,
+                week_identifier TEXT NOT NULL,
+                previous_performance TEXT,
+                current_performance TEXT,
+                progression_type TEXT,
+                improvement_percentage REAL,
+                progression_notes TEXT,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+
+--- Table: new_leads ---
+CREATE TABLE new_leads (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                hashtag_found TEXT,
+                coaching_score INTEGER,
+                coaching_reasons TEXT,
+                posts_analyzed INTEGER,
+                interests TEXT,
+                lifestyle_indicators TEXT,
+                recent_activities TEXT,
+                conversation_topics TEXT,
+                post_summaries TEXT,
+                analysis_data TEXT,
+                timestamp TEXT,
+                status TEXT DEFAULT 'new',
+                notes TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            , followed_at TEXT, follow_status TEXT, dm_sent_at TEXT, dm_message TEXT, dm_status TEXT)
+
+--- Table: potential_clients ---
+CREATE TABLE potential_clients (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE,
+            source_account TEXT,
+            bio TEXT,
+            interests TEXT,
+            created_at TEXT,
+            followed_at TEXT,
+            follow_status TEXT,
+            dm_sent_at TEXT,
+            dm_message TEXT,
+            dm_status TEXT
+        )

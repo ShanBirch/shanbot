@@ -1,0 +1,6 @@
+@echo off
+echo Running ShanBot Client Data Collection...
+python checkin.py
+echo.
+echo Press any key to exit...
+pause > nul 

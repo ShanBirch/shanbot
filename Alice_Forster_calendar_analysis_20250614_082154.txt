@@ -1,0 +1,64 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-14 08:21:54
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The most active week appears to be the week of June 9th-15th, 2025.  This is determined by the presence of the most completed checkmarks (✓), recent nutrition tracking, and the most activity overall compared to other weeks shown.
+
+
+**DETAILED WORKOUT ANALYSIS (June 9th-15th, 2025):**
+
+* **Completed Workouts:**
+    * Workout of the day - June 6th
+    * Back Day - June 12th
+    * Core Day - June 11th
+    * Shoulder Day - June 10th
+    * Walking (multiple entries on various days)
+
+
+* **Incomplete Workouts:**
+    * Resistance Training - June 9th
+    * Leg Day - June 10th
+    * Resistance Training - June 13th
+    * Back Day - June 13th (marked as incomplete even though walking was completed)
+    * Resistance Training - June 6th
+    * Back Day - June 6th
+
+
+**DETAILED NUTRITION TRACKING (June 9th-15th, 2025):**
+
+* June 6th: 1455.78 Cals / 4 Meals
+* June 9th: NO NUTRITION TRACKED
+* June 10th: 1380.44 Cals / 4 Meals
+* June 11th: 1353.15 Cals / 4 Meals
+* June 12th: 690.62 Cals / 3 Meals
+* June 13th: NO NUTRITION TRACKED
+* June 14th: 90 Cals / 1 Meal
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9th-15th, 2025):**
+
+* June 6th: Walking ✓ (Distance not specified)
+* June 9th: Walking ✓ (Distance not specified)
+* June 10th: Walking ✓ (Distance not specified)
+* June 11th: Walking ✓ (Distance not specified)
+* June 12th: Walking ✓ (Distance not specified)
+* June 13th: Walking ✓ (Distance not specified)
+
+
+**WEIGHT/BODY METRICS (June 9th-15th, 2025):**
+
+* June 6th: 79.1 kg
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed Items:** 6+ (The exact number of walking sessions is unclear due to lack of specific distance data)
+* **Incomplete Items:** 6
+* **Visible Completed Adherence:**  Approximately 50% (This is a rough estimate as the number of completed walking sessions is uncertain, which influences the overall percentage.)
+* **Visible Incomplete Adherence:** 50%
+* **Patterns/Concerns:** Inconsistent nutrition tracking.  Multiple walking sessions were marked as completed without distance data.  The low number of workouts fully completed in the week.
+
+
+

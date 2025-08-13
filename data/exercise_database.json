@@ -1,0 +1,355 @@
+{
+    "squat": {
+        "name": "Squat",
+        "variations": [
+            "goblet",
+            "front",
+            "back",
+            "sumo",
+            "box",
+            "jump",
+            "overhead",
+            "split"
+        ],
+        "primary_muscles": [
+            "quads",
+            "glutes",
+            "hamstrings",
+            "core"
+        ],
+        "hook": "PERFECT YOUR SQUAT FORM",
+        "technique_tips": [
+            "FEET SHOULDER-WIDTH APART",
+            "CHEST UP, CORE TIGHT",
+            "KNEES TRACK WITH TOES",
+            "HIPS BACK AND DOWN",
+            "DEPTH: THIGHS PARALLEL OR LOWER"
+        ],
+        "common_mistakes": [
+            "Knees collapsing inward",
+            "Heels lifting off ground",
+            "Rounding lower back",
+            "Not achieving proper depth",
+            "Looking down instead of forward"
+        ],
+        "hashtags": [
+            "squatform",
+            "legday",
+            "strengthtraining",
+            "squatchallenge",
+            "lowerbodyworkout"
+        ]
+    },
+    "deadlift": {
+        "name": "Deadlift",
+        "variations": [
+            "conventional",
+            "sumo",
+            "romanian",
+            "stiff_leg",
+            "trap_bar",
+            "single_leg"
+        ],
+        "primary_muscles": [
+            "hamstrings",
+            "glutes",
+            "lower_back",
+            "traps"
+        ],
+        "hook": "MASTER THE DEADLIFT",
+        "technique_tips": [
+            "FEET HIP-WIDTH APART",
+            "BAR OVER MID-FOOT",
+            "FLAT BACK THROUGHOUT",
+            "PUSH THROUGH HEELS",
+            "HIPS AND SHOULDERS RISE TOGETHER"
+        ],
+        "common_mistakes": [
+            "Rounding the back",
+            "Bar too far from shins",
+            "Jerking the weight up",
+            "Looking up instead of neutral",
+            "Starting with hips too low"
+        ],
+        "hashtags": [
+            "deadliftform",
+            "posteriorchain",
+            "strengthtraining",
+            "deadliftday",
+            "powerlifting"
+        ]
+    },
+    "deadlift_romanian": {
+        "name": "Romanian Deadlift",
+        "variations": [
+            "single_leg",
+            "dumbbell",
+            "kettlebell",
+            "barbell",
+            "elevated"
+        ],
+        "primary_muscles": [
+            "hamstrings",
+            "glutes",
+            "lower_back"
+        ],
+        "hook": "BUILD THAT POSTERIOR CHAIN",
+        "technique_tips": [
+            "SOFT KNEE BEND",
+            "HINGE AT HIPS, FLAT BACK",
+            "PUSH HIPS BACK",
+            "BAR CLOSE TO BODY",
+            "FEEL THE HAMSTRING STRETCH"
+        ],
+        "common_mistakes": [
+            "Bending knees too much",
+            "Rounding the back",
+            "Not pushing hips back far enough",
+            "Bar drifting away from legs",
+            "Not engaging core properly"
+        ],
+        "hashtags": [
+            "romatiandeadlift",
+            "rdl",
+            "hamstringworkout",
+            "hingepattern",
+            "posteriorchain"
+        ]
+    },
+    "pushup": {
+        "name": "Push-Up",
+        "variations": [
+            "wide",
+            "narrow",
+            "decline",
+            "incline",
+            "diamond",
+            "spiderman",
+            "archer"
+        ],
+        "primary_muscles": [
+            "chest",
+            "shoulders",
+            "triceps",
+            "core"
+        ],
+        "hook": "PUSH-UP PERFECTION",
+        "technique_tips": [
+            "HANDS SLIGHTLY WIDER THAN SHOULDERS",
+            "BODY IN STRAIGHT LINE",
+            "ELBOWS 45\u00b0 TO BODY",
+            "LOWER TO 1-2 INCHES FROM FLOOR",
+            "PRESS THROUGH ENTIRE PALM"
+        ],
+        "common_mistakes": [
+            "Sagging hips",
+            "Flaring elbows too wide",
+            "Incomplete range of motion",
+            "Head dropping forward",
+            "Not engaging core"
+        ],
+        "hashtags": [
+            "pushupchallenge",
+            "calisthenics",
+            "bodyweightstrength",
+            "chestworkout",
+            "pushupform"
+        ]
+    },
+    "plank_side": {
+        "name": "Side Plank",
+        "variations": [
+            "elbow",
+            "straight_arm",
+            "modified_knee",
+            "raised_leg",
+            "rotation"
+        ],
+        "primary_muscles": [
+            "obliques",
+            "transverse_abdominis",
+            "hip_abductors",
+            "shoulders"
+        ],
+        "hook": "IGNITE YOUR OBLIQUES",
+        "technique_tips": [
+            "STACK SHOULDERS, HIPS, KNEES",
+            "LIFT HIPS HIGH",
+            "ENGAGE OBLIQUES",
+            "KEEP NECK NEUTRAL",
+            "BREATHE STEADILY"
+        ],
+        "common_mistakes": [
+            "Letting hips sag",
+            "Improper alignment",
+            "Holding breath",
+            "Looking up or down",
+            "Not engaging core fully"
+        ],
+        "hashtags": [
+            "sideplank",
+            "coreworkout",
+            "obliques",
+            "functionalfitness",
+            "stabilitytraining"
+        ]
+    },
+    "burpee": {
+        "name": "Burpee",
+        "variations": [
+            "standard",
+            "pushup",
+            "jump",
+            "box_jump",
+            "single_leg",
+            "lateral"
+        ],
+        "primary_muscles": [
+            "full_body",
+            "chest",
+            "quads",
+            "shoulders",
+            "core"
+        ],
+        "hook": "BURN MORE WITH BURPEES",
+        "technique_tips": [
+            "DROP HANDS TO FLOOR",
+            "JUMP TO PLANK POSITION",
+            "OPTIONAL: ADD PUSH-UP",
+            "JUMP FEET TOWARD HANDS",
+            "EXPLOSIVE JUMP UP"
+        ],
+        "common_mistakes": [
+            "Rounding back during squat",
+            "Improper push-up form",
+            "Shallow squat on landing",
+            "Not extending fully on jump",
+            "Inadequate core engagement"
+        ],
+        "hashtags": [
+            "burpeechallenge",
+            "hiitworkout",
+            "fullbodyworkout",
+            "functionaltraining",
+            "cardioworkout"
+        ]
+    },
+    "bench_press": {
+        "name": "Bench Press",
+        "variations": [
+            "flat",
+            "incline",
+            "decline",
+            "close_grip",
+            "wide_grip",
+            "dumbbell"
+        ],
+        "primary_muscles": [
+            "chest",
+            "shoulders",
+            "triceps"
+        ],
+        "hook": "BENCH PRESS BASICS",
+        "technique_tips": [
+            "FEET PLANTED FIRMLY",
+            "SHOULDER BLADES RETRACTED",
+            "SLIGHT ARCH IN LOWER BACK",
+            "BAR PATH OVER MID-CHEST",
+            "ELBOWS AT 45\u00b0 TO BODY"
+        ],
+        "common_mistakes": [
+            "Bouncing bar off chest",
+            "Excessive arch",
+            "Flaring elbows too wide",
+            "Lifting head off bench",
+            "Uneven bar path"
+        ],
+        "hashtags": [
+            "benchpress",
+            "chestday",
+            "strengthtraining",
+            "upperbodyworkout",
+            "gymlife"
+        ]
+    },
+    "row": {
+        "name": "Row",
+        "variations": [
+            "barbell",
+            "dumbbell",
+            "cable",
+            "inverted",
+            "pendlay",
+            "meadows",
+            "t-bar"
+        ],
+        "primary_muscles": [
+            "upper_back",
+            "lats",
+            "biceps",
+            "rear_deltoids"
+        ],
+        "hook": "BUILD A STRONGER BACK",
+        "technique_tips": [
+            "CHEST UP, SHOULDERS BACK",
+            "PULL TOWARD LOWER RIBS",
+            "ELBOWS CLOSE TO BODY",
+            "SQUEEZE SHOULDER BLADES",
+            "CONTROLLED ECCENTRIC"
+        ],
+        "common_mistakes": [
+            "Using momentum",
+            "Rounding shoulders",
+            "Insufficient range of motion",
+            "Lifting hips/torso",
+            "Wrist flexion/extension"
+        ],
+        "hashtags": [
+            "backmuscles",
+            "rowingworkout",
+            "latbuilder",
+            "backday",
+            "pullmovement"
+        ]
+    },
+    "lunge": {
+        "name": "Lunge",
+        "variations": [
+            "forward",
+            "reverse",
+            "lateral",
+            "walking",
+            "curtsy",
+            "jump",
+            "deficit"
+        ],
+        "primary_muscles": [
+            "quads",
+            "glutes",
+            "hamstrings",
+            "calves"
+        ],
+        "hook": "PERFECT LUNGE TECHNIQUE",
+        "technique_tips": [
+            "TORSO UPRIGHT",
+            "FRONT KNEE OVER ANKLE",
+            "BACK KNEE TOWARD GROUND",
+            "90\u00b0 ANGLES IN BOTH KNEES",
+            "CORE ENGAGED THROUGHOUT"
+        ],
+        "common_mistakes": [
+            "Front knee extending past toes",
+            "Leaning too far forward",
+            "Not going deep enough",
+            "Knees collapsing inward",
+            "Uneven weight distribution"
+        ],
+        "hashtags": [
+            "lungevariations",
+            "legworkout",
+            "lowerbody",
+            "unilateraltraining",
+            "stabilitytraining"
+        ]
+    }
+}

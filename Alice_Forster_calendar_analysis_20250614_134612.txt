@@ -1,0 +1,68 @@
+Calendar Analysis for Alice Forster
+Generated on: 2025-06-14 13:46:12
+============================================================
+
+**CURRENT WEEK IDENTIFICATION:**
+
+The current/most active week appears to be the week of **June 9-15, 2025**.  This is identified by the presence of the most completed checkmarks (✓), recent nutrition tracking, and the most recent weight tracking.
+
+**DETAILED WORKOUT ANALYSIS (June 9-15, 2025):**
+
+* **COMPLETED:**
+    * Chest Day - June 9th
+    * Shoulder Day - June 10th
+    * Walking - June 10th
+    * Core Day - June 11th
+    * Walking - June 11th
+    * Back Day - June 12th
+    * Walking - June 12th
+    * Workout of the day - June 6th (While not technically in the current week, it's the most recent completed workout before the week in question)
+
+* **INCOMPLETE:**
+    * Resistance Training - June 9th
+    * Resistance Training - June 10th
+    * Resistance Training - June 11th
+    * Resistance Training - June 12th
+    * Leg Day - June 10th (and June 3rd, June 17th - both out of week 9-15 but within the visible calendar range)
+
+
+**DETAILED NUTRITION TRACKING (June 9-15, 2025):**
+
+* June 9th: 1442.78 Cals / 3 Meals
+* June 10th: 1380.44 Cals / 4 Meals
+* June 11th: 1353.15 Cals / 4 Meals
+* June 12th: 690.62 Cals / 3 Meals
+* June 6th: 1455.78 Cals / 4 Meals (Technically before this week, but the most recent tracked nutrition)
+* June 13th: 90 Cals / 1 Meal
+* June 14th: NO NUTRITION TRACKED
+
+
+**DETAILED WALKING/CARDIO TRACKING (June 9-15, 2025):**
+
+* June 9th: Completed
+* June 10th: Completed
+* June 11th: Completed
+* June 12th: Completed
+* June 6th: Completed (from outside the main week)
+
+
+**WEIGHT/BODY METRICS (June 9-15, 2025):**
+
+* June 6th: 79.1 kg
+* June 13th: 78.9 kg
+
+
+**CURRENT WEEK SUMMARY:**
+
+* **Completed Items:** 10 (including the workout from June 6th)
+* **Incomplete Items:** 4
+* **Adherence Percentage:**  71.4% (10/14 completed). This is an overall approximation, as it's not fully clear from the image whether other, hidden activities were completed in the "+More" sections. It's likely higher if these hidden items are factored in.
+
+**Patterns/Concerns:**
+
+* Consistent daily walking is positive.
+* Nutrition tracking is incomplete and irregular (missing many days).
+* Resistance training is consistently incomplete.  More attention should be paid to these sessions.
+
+
+**Important Note:**  The "+More" entries make precise adherence calculations impossible without seeing the full contents of the hidden workout schedules. The adherence percentage is calculated from the *visible* completed/incomplete activities.
