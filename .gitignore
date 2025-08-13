@@ -8,6 +8,7 @@ __pycache__/
 .venv/
 env/
 venv/
+myenv/
 
 # OS / IDE
 .DS_Store
@@ -37,6 +38,19 @@ chromedriver-*/
 *.sqlite
 *.db
 *.db-journal
+
+# Secrets and tokens
+service-account-credentials.json
+sheets_credentials.json
+sheets_credentials.json.json
+instagram_session.json
+instagram_cookies.pkl
+token.pickle
+*.pkl
+
+# Large local artifacts
+trainerize full html/
+output/
 
 # Heavy/binary files to exclude from repo
 *.mp4
