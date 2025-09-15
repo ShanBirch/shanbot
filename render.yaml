@@ -12,7 +12,7 @@ services:
     plan: free
     autoDeploy: true
     buildCommand: pip install -r requirements-webhook.txt
-    startCommand: python init_database.py && uvicorn webhook_main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn simple_webhook:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     envVars:
       - key: PYTHON_VERSION
