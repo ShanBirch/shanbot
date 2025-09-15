@@ -9,38 +9,6 @@ if _CURR_DIR not in sys.path:
 if _PARENT_DIR not in sys.path:
     sys.path.insert(0, _PARENT_DIR)
 
-from shared_utils import get_user_topics
-from dashboard_sqlite_utils import (
-    load_conversations_from_sqlite,
-    get_pending_reviews,
-    update_review_status,
-    add_message_to_history,
-    get_review_accuracy_stats,
-    insert_manual_context_message,
-    add_response_to_review_queue,
-    get_good_few_shot_examples,
-    get_vegan_few_shot_examples,
-    is_user_in_vegan_flow,
-    delete_reviews_for_user
-)
-from notifications import display_notification_panel, add_trial_notification, add_sale_notification, add_email_collected_notification
-from user_management import display_daily_report, bulk_update_leads_journey_stage, bulk_update_client_profiles, display_user_profiles_with_bulk_update
-from analytics_overview import get_stage_metrics, display_overview_tab, get_users_from_last_30_days, display_recent_interactions
-from overview import display_overview
-from client_journey import display_client_journey
-from user_profiles import display_user_profiles, display_user_profile, get_usernames, trigger_check_in
-from scheduled_followups import (
-    display_scheduled_followups,
-    display_bulk_review_and_send,
-    bulk_generate_followups,
-    get_user_category,
-    get_topic_for_category,
-    verify_trial_signup,
-    check_sheet_for_signups,
-    get_user_sheet_details as get_checkin_data
-)
-from checkins_manager import display_checkins_manager, generate_checkin_message, send_checkin_message
-import notifications
 import streamlit as st
 import subprocess
 import re
@@ -61,13 +29,41 @@ import random
 import google.oauth2.service_account
 import googleapiclient.discovery
 import time
-# # from dashboard_sqlite_utils import update_analytics_data as save_metrics_to_sqlite
-
-
-def save_metrics_to_sqlite(*args, **kwargs):
-    """Stub function for metrics saving"""
-    pass
-
+import notifications
+from checkins_manager import display_checkins_manager, generate_checkin_message, send_checkin_message
+from scheduled_followups import (
+    display_scheduled_followups,
+    display_bulk_review_and_send,
+    bulk_generate_followups,
+    get_user_category,
+    get_topic_for_category,
+    verify_trial_signup,
+    check_sheet_for_signups,
+    get_user_sheet_details as get_checkin_data
+)
+from user_profiles import display_user_profiles, display_user_profile, get_usernames, trigger_check_in
+from client_journey import display_client_journey
+from overview import display_overview
+from analytics_overview import get_stage_metrics, display_overview_tab, get_users_from_last_30_days, display_recent_interactions
+from user_management import display_daily_report, bulk_update_leads_journey_stage, bulk_update_client_profiles, display_user_profiles_with_bulk_update
+from notifications import display_notification_panel, add_trial_notification, add_sale_notification, add_email_collected_notification
+from dashboard_sqlite_utils import (
+    load_conversations_from_sqlite,
+    get_pending_reviews,
+    update_review_status,
+    add_message_to_history,
+    get_review_accuracy_stats,
+    insert_manual_context_message,
+    add_response_to_review_queue,
+    get_good_few_shot_examples,
+    get_vegan_few_shot_examples,
+    is_user_in_vegan_flow,
+    delete_reviews_for_user,
+    update_analytics_data
+)
+# Use update_analytics_data as save_metrics_to_sqlite 
+save_metrics_to_sqlite = update_analytics_data
+from shared_utils import get_user_topics
 
 
 # Configure the page FIRST - before any other Streamlit commands or imports
