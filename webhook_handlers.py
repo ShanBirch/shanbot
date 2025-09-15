@@ -25,8 +25,15 @@ import asyncio
 from pathlib import Path
 import subprocess
 from PIL import Image
-from post_onboarding_handler import PostOnboardingHandler
 from todo_utils import add_todo_item
+
+# Add guarded import for PostOnboardingHandler
+try:
+    from post_onboarding_handler import PostOnboardingHandler
+except ImportError as e:
+    PostOnboardingHandler = None
+    logger = logging.getLogger("manychat_webhook")
+    logger.warning(f"Could not import PostOnboardingHandler: {e}. Onboarding features disabled.")
 import sqlite3
 import shutil
 import glob
@@ -35,13 +42,7 @@ import glob
 from app.manychat_utils import update_manychat_fields
 from app.analytics import update_analytics_data
 
-# Add guarded import
-try:
-    from post_onboarding_handler import PostOnboardingHandler
-except Exception as e:
-    PostOnboardingHandler = None
-    logging.getLogger("manychat_webhook").warning(
-        f"[Startup] Could not import PostOnboardingHandler: {e}. Onboarding features disabled.")
+# PostOnboardingHandler already imported with guard above
 
 # Add stub for active users analysis if missing
 if 'trigger_instagram_analysis_for_active_users' not in globals():
