@@ -9,7 +9,7 @@ import google.generativeai as genai
 import google.oauth2.service_account
 import googleapiclient.discovery
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import pytz
 from app import prompts
 import time
@@ -177,6 +177,16 @@ GEMINI_MODEL_FLASH_STANDARD = "gemini-1.5-flash"
 # File paths
 CHECKIN_REVIEWS_DIR = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\output\\checkin_reviews"
 SHEETS_CREDENTIALS_PATH = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\sheets_credentials.json"
+
+# SQLite database path (robust relative fallback)
+try:
+    # Prefer relative path to the repo root for portability
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    sqlite_db_path = os.path.join(
+        BASE_DIR, "app", "analytics_data_good.sqlite")
+except Exception:
+    # Fallback to known absolute path
+    sqlite_db_path = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\app\\analytics_data_good.sqlite"
 
 # Global state tracking
 form_check_pending: Dict[str, bool] = {}
@@ -827,16 +837,14 @@ async def call_gemini_with_retry(model_name: str, prompt: str, retry_count: int 
         return None
 
 
-SQLITE_PATH = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\app\\analytics_data_good.sqlite"
-
-
 def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tuple[list, dict, Optional[str]]:
     """
     Retrieve user data from SQLite. If user doesn't exist, create a new one.
     """
     conn = None
     try:
-        conn = sqlite3.connect(SQLITE_PATH)
+        conn = sqlite3.connect(sqlite_db_path)
+        conn.row_factory = sqlite3.Row
         c = conn.cursor()
 
         # Ensure sender column exists
@@ -975,7 +983,7 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
                     "text": message
                 })
 
-        # If table is sparse (e.g., many null message_text/text), augment with pending_reviews
+        # Only augment with pending_reviews that were actually sent (status = 'sent')
         try:
             c.execute(
                 """
@@ -985,33 +993,40 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
             )
             row_user = c.fetchone()
             ig_for_pending = row_user[0] if row_user and row_user[0] else ig_username
+
             c.execute(
                 """
-                SELECT incoming_message_text, incoming_message_timestamp, proposed_response_text, final_response_text, created_timestamp
+                SELECT final_response_text, reviewed_timestamp, created_timestamp
                 FROM pending_reviews
-                WHERE user_ig_username = ?
+                WHERE user_ig_username = ? AND status = 'sent' AND final_response_text IS NOT NULL
                 ORDER BY created_timestamp DESC
                 LIMIT 50
                 """,
                 (ig_for_pending,),
             )
-            rows_pr = c.fetchall()
-            for inc_text, inc_ts, proposed_ai, final_ai, created_ts in rows_pr:
-                if inc_text and str(inc_text).strip():
+            rows_sent = c.fetchall() or []
+            for final_ai, reviewed_ts, created_ts in rows_sent:
+                final_txt = str(final_ai).strip()
+                if final_txt:
                     history.append({
-                        "timestamp": (inc_ts or created_ts),
-                        "type": "user",
-                        "text": str(inc_text).strip(),
-                    })
-                ai_text = (final_ai or proposed_ai)
-                if ai_text and str(ai_text).strip():
-                    history.append({
-                        "timestamp": (created_ts or inc_ts),
+                        "timestamp": (reviewed_ts or created_ts),
                         "type": "ai",
-                        "text": str(ai_text).strip(),
+                        "text": final_txt,
                     })
         except Exception:
             pass
+
+        # Normalize message type labels across schemas
+        def _canonical_type(t: Optional[str]) -> str:
+            t_lower = str(t or "").strip().lower()
+            if t_lower in ("user", "incoming", "lead", "client"):
+                return "user"
+            if t_lower in ("ai", "assistant", "bot", "outgoing", "system"):
+                return "ai"
+            return t_lower or "unknown"
+
+        for i in range(len(history)):
+            history[i]["type"] = _canonical_type(history[i].get("type"))
 
         # Remove duplicates based on (timestamp, type, text) combination (more robust)
         seen = set()
@@ -1031,6 +1046,50 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
             logger.warning(
                 f"Error sorting conversation history for {ig_username}: {e}")
             history = unique_history
+
+        # Second-pass dedupe: collapse consecutive identical messages from the same sender
+        # within a short window to avoid duplicates caused by multi-path logging/scheduling
+        def _parse_dt(ts: Optional[str]) -> Optional[datetime]:
+            if not ts:
+                return None
+            try:
+                # Support both Zulu time and naive ISO strings
+                return datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+            except Exception:
+                return None
+
+        final_history: list[dict] = []
+        last_by_type: dict[str, tuple[str, Optional[datetime]]] = {}
+        last_by_text: dict[str, Optional[datetime]] = {}
+        window = timedelta(minutes=5)
+
+        for msg in history:
+            msg_type = str(msg.get("type") or "unknown")
+            msg_text = (msg.get("text") or "").strip()
+            msg_dt = _parse_dt(msg.get("timestamp"))
+
+            prev = last_by_type.get(msg_type)
+            is_dup = False
+            if prev:
+                prev_text, prev_dt = prev
+                if msg_text and prev_text == msg_text:
+                    # If timestamps are close or unavailable, consider duplicate
+                    if not prev_dt or not msg_dt or abs((msg_dt - prev_dt)) <= window:
+                        is_dup = True
+
+            # Cross-type duplicate check (same exact text any sender) within window
+            if not is_dup and msg_text:
+                prev_text_dt = last_by_text.get(msg_text)
+                if prev_text_dt and msg_dt and abs((msg_dt - prev_text_dt)) <= window:
+                    is_dup = True
+
+            if not is_dup:
+                final_history.append(msg)
+                last_by_type[msg_type] = (msg_text, msg_dt)
+                if msg_text:
+                    last_by_text[msg_text] = msg_dt
+
+        history = final_history
 
         # --- Populate metrics dictionary ---
         # Start with all data from the user row
@@ -1078,7 +1137,7 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
         logger.info(f"Successfully retrieved data for user '{ig_username}'")
         return history, metrics, ig_username
 
-    except sqlite3.Error as e:
+    except Exception as e:
         logger.error(
             f"[get_user_data] SQLite error for {ig_username}: {e}", exc_info=True)
         return [], {}, None
