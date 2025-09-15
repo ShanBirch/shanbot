@@ -191,7 +191,8 @@ else:
     USE_POSTGRES = False
     try:
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        sqlite_db_path = os.path.join(BASE_DIR, "app", "analytics_data_good.sqlite")
+        sqlite_db_path = os.path.join(
+            BASE_DIR, "app", "analytics_data_good.sqlite")
     except Exception:
         sqlite_db_path = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\app\\analytics_data_good.sqlite"
     logger.info(f"Using SQLite database: {sqlite_db_path}")
@@ -845,6 +846,105 @@ async def call_gemini_with_retry(model_name: str, prompt: str, retry_count: int 
         return None
 
 
+def ensure_database_tables():
+    """Ensure all required tables exist - create them if they don't"""
+    if not USE_POSTGRES:
+        return  # Skip for SQLite (tables should exist locally)
+    
+    try:
+        import psycopg2
+        conn = psycopg2.connect(DATABASE_URL)
+        cursor = conn.cursor()
+        
+        # Create users table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                ig_username TEXT UNIQUE,
+                subscriber_id TEXT UNIQUE,
+                first_name TEXT,
+                last_name TEXT,
+                client_status TEXT DEFAULT 'Not a Client',
+                journey_stage TEXT DEFAULT 'Initial Inquiry',
+                is_onboarding BOOLEAN DEFAULT FALSE,
+                is_in_checkin_flow_mon BOOLEAN DEFAULT FALSE,
+                is_in_checkin_flow_wed BOOLEAN DEFAULT FALSE,
+                is_in_ad_flow BOOLEAN DEFAULT FALSE,
+                last_interaction_timestamp TEXT,
+                profile_bio_text TEXT,
+                interests_json TEXT DEFAULT '[]',
+                conversation_topics_json TEXT DEFAULT '[]',
+                client_analysis_json TEXT DEFAULT '{}',
+                goals_text TEXT,
+                current_fitness_level_text TEXT,
+                injuries_limitations_text TEXT,
+                preferred_workout_types_text TEXT,
+                lifestyle_factors_text TEXT,
+                engagement_preferences_text TEXT,
+                meal_plan_summary TEXT,
+                weekly_workout_summary TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        # Create messages table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS messages (
+                id SERIAL PRIMARY KEY,
+                ig_username TEXT,
+                subscriber_id TEXT,
+                message_type TEXT,
+                message_text TEXT,
+                sender TEXT,
+                message TEXT,
+                timestamp TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        # Create pending_reviews table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS pending_reviews (
+                id SERIAL PRIMARY KEY,
+                user_ig_username TEXT,
+                subscriber_id TEXT,
+                user_message TEXT,
+                ai_response_text TEXT,
+                final_response_text TEXT,
+                prompt_type TEXT,
+                status TEXT DEFAULT 'pending',
+                created_timestamp TEXT,
+                reviewed_timestamp TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        # Create analytics_data table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS analytics_data (
+                id SERIAL PRIMARY KEY,
+                subscriber_id TEXT,
+                ig_username TEXT,
+                message_text TEXT,
+                message_direction TEXT,
+                timestamp TEXT,
+                first_name TEXT,
+                last_name TEXT,
+                client_status TEXT,
+                journey_stage TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        conn.commit()
+        logger.info("✅ Database tables ensured")
+        cursor.close()
+        conn.close()
+        
+    except Exception as e:
+        logger.error(f"❌ Error ensuring database tables: {e}")
+
 def get_database_connection():
     """Get database connection - PostgreSQL on Render, SQLite locally"""
     if USE_POSTGRES:
@@ -859,34 +959,47 @@ def get_database_connection():
         conn.row_factory = sqlite3.Row
         return conn, conn.cursor()
 
+
 def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tuple[list, dict, Optional[str]]:
     """
     Retrieve user data from database. If user doesn't exist, create a new one.
     """
+    # Ensure database tables exist (for PostgreSQL)
+    ensure_database_tables()
+    
     conn = None
     try:
         conn, c = get_database_connection()
 
-        # Ensure sender column exists
-        try:
-            c.execute("PRAGMA table_info(messages)")
-            cols = {row[1] for row in c.fetchall()}
-            if 'sender' not in cols:
-                logger.info(
-                    "[get_user_data] Adding missing 'sender' column to messages table")
-                c.execute("ALTER TABLE messages ADD COLUMN sender TEXT")
-                conn.commit()
-        except Exception as col_e:
-            logger.error(
-                f"[get_user_data] Failed to ensure sender column: {col_e}")
+        # Ensure sender column exists (SQLite only)
+        if not USE_POSTGRES:
+            try:
+                c.execute("PRAGMA table_info(messages)")
+                cols = {row[1] for row in c.fetchall()}
+                if 'sender' not in cols:
+                    logger.info(
+                        "[get_user_data] Adding missing 'sender' column to messages table")
+                    c.execute("ALTER TABLE messages ADD COLUMN sender TEXT")
+                    conn.commit()
+            except Exception as col_e:
+                logger.error(
+                    f"[get_user_data] Failed to ensure sender column: {col_e}")
 
         # Prioritize lookup by subscriber_id if available, otherwise use ig_username
-        if subscriber_id:
-            c.execute("SELECT * FROM users WHERE subscriber_id = ?",
-                      (subscriber_id,))
+        if USE_POSTGRES:
+            if subscriber_id:
+                c.execute("SELECT * FROM users WHERE subscriber_id = %s",
+                          (subscriber_id,))
+            else:
+                c.execute("SELECT * FROM users WHERE ig_username = %s",
+                          (ig_username,))
         else:
-            c.execute("SELECT * FROM users WHERE ig_username = ?",
-                      (ig_username,))
+            if subscriber_id:
+                c.execute("SELECT * FROM users WHERE subscriber_id = ?",
+                          (subscriber_id,))
+            else:
+                c.execute("SELECT * FROM users WHERE ig_username = ?",
+                          (ig_username,))
 
         row = c.fetchone()
 
