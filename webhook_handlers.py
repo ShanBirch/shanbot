@@ -33,7 +33,8 @@ try:
 except ImportError as e:
     PostOnboardingHandler = None
     logger = logging.getLogger("manychat_webhook")
-    logger.warning(f"Could not import PostOnboardingHandler: {e}. Onboarding features disabled.")
+    logger.warning(
+        f"Could not import PostOnboardingHandler: {e}. Onboarding features disabled.")
 import sqlite3
 import shutil
 import glob
@@ -179,15 +180,21 @@ GEMINI_MODEL_FLASH_STANDARD = "gemini-1.5-flash"
 CHECKIN_REVIEWS_DIR = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\output\\checkin_reviews"
 SHEETS_CREDENTIALS_PATH = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\sheets_credentials.json"
 
-# SQLite database path (robust relative fallback)
-try:
-    # Prefer relative path to the repo root for portability
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    sqlite_db_path = os.path.join(
-        BASE_DIR, "app", "analytics_data_good.sqlite")
-except Exception:
-    # Fallback to known absolute path
-    sqlite_db_path = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\app\\analytics_data_good.sqlite"
+# Database configuration - use PostgreSQL on Render, SQLite locally
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL:
+    # Use PostgreSQL on Render
+    USE_POSTGRES = True
+    logger.info(f"Using PostgreSQL database: {DATABASE_URL[:50]}...")
+else:
+    # Use SQLite locally
+    USE_POSTGRES = False
+    try:
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        sqlite_db_path = os.path.join(BASE_DIR, "app", "analytics_data_good.sqlite")
+    except Exception:
+        sqlite_db_path = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\app\\analytics_data_good.sqlite"
+    logger.info(f"Using SQLite database: {sqlite_db_path}")
 
 # Global state tracking
 form_check_pending: Dict[str, bool] = {}
@@ -838,15 +845,27 @@ async def call_gemini_with_retry(model_name: str, prompt: str, retry_count: int 
         return None
 
 
+def get_database_connection():
+    """Get database connection - PostgreSQL on Render, SQLite locally"""
+    if USE_POSTGRES:
+        import psycopg2
+        from psycopg2.extras import RealDictCursor
+        conn = psycopg2.connect(DATABASE_URL)
+        conn.autocommit = False
+        return conn, conn.cursor(cursor_factory=RealDictCursor)
+    else:
+        import sqlite3
+        conn = sqlite3.connect(sqlite_db_path)
+        conn.row_factory = sqlite3.Row
+        return conn, conn.cursor()
+
 def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tuple[list, dict, Optional[str]]:
     """
-    Retrieve user data from SQLite. If user doesn't exist, create a new one.
+    Retrieve user data from database. If user doesn't exist, create a new one.
     """
     conn = None
     try:
-        conn = sqlite3.connect(sqlite_db_path)
-        conn.row_factory = sqlite3.Row
-        c = conn.cursor()
+        conn, c = get_database_connection()
 
         # Ensure sender column exists
         try:
