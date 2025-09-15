@@ -180,22 +180,76 @@ GEMINI_MODEL_FLASH_STANDARD = "gemini-1.5-flash"
 CHECKIN_REVIEWS_DIR = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\output\\checkin_reviews"
 SHEETS_CREDENTIALS_PATH = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\sheets_credentials.json"
 
-# Database configuration - use PostgreSQL on Render, SQLite locally
+# Database configuration - prefer PostgreSQL on Render, fallback to SQLite locally
 DATABASE_URL = os.getenv('DATABASE_URL')
-if DATABASE_URL:
-    # Use PostgreSQL on Render
-    USE_POSTGRES = True
-    logger.info(f"Using PostgreSQL database: {DATABASE_URL[:50]}...")
+USE_POSTGRES = bool(DATABASE_URL)
+
+if USE_POSTGRES:
+    logger.info("Using PostgreSQL database")
 else:
-    # Use SQLite locally
-    USE_POSTGRES = False
     try:
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         sqlite_db_path = os.path.join(
             BASE_DIR, "app", "analytics_data_good.sqlite")
     except Exception:
         sqlite_db_path = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\app\\analytics_data_good.sqlite"
-    logger.info(f"Using SQLite database: {sqlite_db_path}")
+    logger.info(f"Using SQLite DB Path: {sqlite_db_path}")
+
+
+def get_conn_cursor():
+    if USE_POSTGRES:
+        import psycopg2
+        from psycopg2.extras import RealDictCursor
+        conn = psycopg2.connect(DATABASE_URL)
+        return conn, conn.cursor(cursor_factory=RealDictCursor)
+    else:
+        import sqlite3
+        conn = sqlite3.connect(sqlite_db_path)
+        conn.row_factory = sqlite3.Row
+        return conn, conn.cursor()
+
+
+def ensure_tables_pg(c, conn):
+    if not USE_POSTGRES:
+        return
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+          id SERIAL PRIMARY KEY,
+          ig_username TEXT UNIQUE,
+          subscriber_id TEXT UNIQUE,
+          first_name TEXT,
+          last_name TEXT,
+          client_status TEXT DEFAULT 'Not a Client',
+          is_in_ad_flow BOOLEAN DEFAULT FALSE,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS messages (
+          id SERIAL PRIMARY KEY,
+          ig_username TEXT,
+          subscriber_id TEXT,
+          message_text TEXT,
+          sender TEXT,
+          timestamp TEXT,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS pending_reviews (
+          id SERIAL PRIMARY KEY,
+          user_ig_username TEXT,
+          subscriber_id TEXT,
+          user_message TEXT,
+          ai_response_text TEXT,
+          final_response_text TEXT,
+          status TEXT DEFAULT 'pending',
+          created_timestamp TEXT,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+
 
 # Global state tracking
 form_check_pending: Dict[str, bool] = {}
@@ -850,12 +904,12 @@ def ensure_database_tables():
     """Ensure all required tables exist - create them if they don't"""
     if not USE_POSTGRES:
         return  # Skip for SQLite (tables should exist locally)
-    
+
     try:
         import psycopg2
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        
+
         # Create users table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
@@ -887,7 +941,7 @@ def ensure_database_tables():
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+
         # Create messages table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS messages (
@@ -902,7 +956,7 @@ def ensure_database_tables():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+
         # Create pending_reviews table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS pending_reviews (
@@ -919,7 +973,7 @@ def ensure_database_tables():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+
         # Create analytics_data table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS analytics_data (
@@ -936,14 +990,15 @@ def ensure_database_tables():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+
         conn.commit()
         logger.info("✅ Database tables ensured")
         cursor.close()
         conn.close()
-        
+
     except Exception as e:
         logger.error(f"❌ Error ensuring database tables: {e}")
+
 
 def get_database_connection():
     """Get database connection - PostgreSQL on Render, SQLite locally"""
@@ -961,80 +1016,56 @@ def get_database_connection():
 
 
 def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tuple[list, dict, Optional[str]]:
-    """
-    Retrieve user data from database. If user doesn't exist, create a new one.
-    """
-    # Ensure database tables exist (for PostgreSQL)
-    ensure_database_tables()
-    
+    """Retrieve user data; create if missing. Uses Postgres on Render, SQLite locally."""
     conn = None
     try:
-        conn, c = get_database_connection()
+        conn, c = get_conn_cursor()
 
-        # Ensure sender column exists (SQLite only)
-        if not USE_POSTGRES:
-            try:
-                c.execute("PRAGMA table_info(messages)")
-                cols = {row[1] for row in c.fetchall()}
-                if 'sender' not in cols:
-                    logger.info(
-                        "[get_user_data] Adding missing 'sender' column to messages table")
-                    c.execute("ALTER TABLE messages ADD COLUMN sender TEXT")
-                    conn.commit()
-            except Exception as col_e:
-                logger.error(
-                    f"[get_user_data] Failed to ensure sender column: {col_e}")
+        # Ensure tables on Render (Postgres)
+        ensure_tables_pg(c, conn)
 
-        # Prioritize lookup by subscriber_id if available, otherwise use ig_username
+        # Look up existing user
         if USE_POSTGRES:
             if subscriber_id:
-                c.execute("SELECT * FROM users WHERE subscriber_id = %s",
-                          (subscriber_id,))
+                c.execute("SELECT * FROM users WHERE subscriber_id = %s", (subscriber_id,))
             else:
-                c.execute("SELECT * FROM users WHERE ig_username = %s",
-                          (ig_username,))
+                c.execute("SELECT * FROM users WHERE ig_username = %s", (ig_username,))
+            row = c.fetchone()
         else:
             if subscriber_id:
-                c.execute("SELECT * FROM users WHERE subscriber_id = ?",
-                          (subscriber_id,))
+                c.execute("SELECT * FROM users WHERE subscriber_id = ?", (subscriber_id,))
             else:
-                c.execute("SELECT * FROM users WHERE ig_username = ?",
-                          (ig_username,))
-
-        row = c.fetchone()
-
-        if not row:
-            logger.warning(
-                f"User '{ig_username}' (SubID: {subscriber_id}) not found. Creating new user.")
-            if not subscriber_id:
-                logger.error(
-                    f"Cannot create new user '{ig_username}' without a subscriber_id.")
-                return [], {}, None
-
-            # Create a new user with default values
-            current_timestamp = datetime.now(timezone.utc).isoformat()
-            c.execute("""
-                INSERT INTO users (ig_username, subscriber_id, last_interaction_timestamp, client_status, journey_stage)
-                VALUES (?, ?, ?, ?, ?)
-            """, (ig_username, subscriber_id, current_timestamp, "Not a Client", "Initial Inquiry"))
-            conn.commit()
-            logger.info(f"Successfully created new user: {ig_username}")
-
-            # After creating, fetch the new user's data to proceed
-            c.execute("SELECT * FROM users WHERE subscriber_id = ?",
-                      (subscriber_id,))
+                c.execute("SELECT * FROM users WHERE ig_username = ?", (ig_username,))
             row = c.fetchone()
-            if not row:  # Should not happen, but as a safeguard
-                logger.error(
-                    f"Failed to fetch newly created user {ig_username}.")
+
+        # Create if missing (requires subscriber_id)
+        if not row:
+            if not subscriber_id:
+                logger.error(f"Cannot create user '{ig_username}' without subscriber_id")
                 return [], {}, None
+            if USE_POSTGRES:
+                c.execute(
+                    "INSERT INTO users (ig_username, subscriber_id, client_status) VALUES (%s, %s, %s)",
+                    (ig_username, subscriber_id, "Not a Client"),
+                )
+                conn.commit()
+                c.execute("SELECT * FROM users WHERE subscriber_id = %s", (subscriber_id,))
+                row = c.fetchone()
+            else:
+                c.execute(
+                    "INSERT INTO users (ig_username, subscriber_id, client_status) VALUES (?, ?, ?)",
+                    (ig_username, subscriber_id, "Not a Client"),
+                )
+                conn.commit()
+                c.execute("SELECT * FROM users WHERE subscriber_id = ?", (subscriber_id,))
+                row = c.fetchone()
 
-        # --- Proceed with data extraction for the found/created user ---
-
-        # Get column names to build a dictionary dynamically
-        c.execute("PRAGMA table_info(users)")
-        user_columns = [col[1] for col in c.fetchall()]
-        user_data = dict(zip(user_columns, row))
+        # Normalize row → dict
+        if USE_POSTGRES:
+            user_data = dict(row) if row else {}
+        else:
+            user_columns = [col[0] for col in c.description]
+            user_data = dict(zip(user_columns, row)) if row else {}
 
         # Get conversation history from messages table (handle multiple storage formats)
         history_query_key = user_data.get('subscriber_id')
