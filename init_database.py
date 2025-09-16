@@ -127,3 +127,4 @@ if __name__ == "__main__":
     else:
         print("❌ Database initialization failed")
         exit(1)
+

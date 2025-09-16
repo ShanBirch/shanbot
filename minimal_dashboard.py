@@ -28,3 +28,4 @@ with tab3:
 
 st.sidebar.success("🎉 Render deployment successful!")
 st.sidebar.info("Next: Configure webhook integration")
+

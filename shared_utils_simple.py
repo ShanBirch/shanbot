@@ -16,3 +16,4 @@ def call_gemini_with_retry_sync(model_name: str, prompt: str, retry_count: int =
 def queue_message_for_followup(username, message, topic):
     """Queue a message for follow-up sending"""
     pass
+

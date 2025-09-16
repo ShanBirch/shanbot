@@ -106,3 +106,4 @@ def display_user_profiles_with_bulk_update(*args):
     import streamlit as st
     st.info("User profiles with bulk update - coming soon")
 """
+
