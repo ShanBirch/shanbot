@@ -145,7 +145,10 @@ def update_analytics_data(
     and user information. Creates a new user if one doesn't exist.
     """
     logger.debug(f"Updating analytics for subscriber_id: {subscriber_id}")
-    ensure_db_schema()
+    
+    # Only run SQLite schema checks if not on Postgres
+    if not USE_POSTGRES:
+        ensure_db_schema()
 
     # Use Postgres on Render
     if USE_POSTGRES:
