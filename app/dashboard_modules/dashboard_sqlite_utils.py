@@ -38,8 +38,14 @@ if not os.path.exists(SQLITE_DB_PATH):
 if not os.path.exists(ANALYZER_SCRIPT_PATH):
     ANALYZER_SCRIPT_PATH = r"C:\Users\Shannon\OneDrive\Desktop\shanbot\anaylize_followers.py"
 
-logger.info(f"Using SQLite DB Path: {SQLITE_DB_PATH}")
-logger.info(f"Using Analyzer Script Path: {ANALYZER_SCRIPT_PATH}")
+DATABASE_URL = os.getenv("DATABASE_URL")
+USE_POSTGRES = bool(DATABASE_URL)
+
+if not USE_POSTGRES:
+    logger.info(f"Using SQLite DB Path: {SQLITE_DB_PATH}")
+    logger.info(f"Using Analyzer Script Path: {ANALYZER_SCRIPT_PATH}")
+else:
+    logger.info("Dashboard: Using PostgreSQL backend")
 
 
 def ensure_db_schema():
@@ -1075,18 +1081,56 @@ def create_auto_mode_tracking_tables_if_not_exists(conn):
 
 def get_pending_reviews():
     """Fetches all responses from the queue that are pending review."""
+    # Prefer Postgres when configured (Render)
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            from psycopg2.extras import RealDictCursor
+
+            conn = psycopg2.connect(DATABASE_URL)
+            cur = conn.cursor(cursor_factory=RealDictCursor)
+            cur.execute(
+                """
+                SELECT 
+                    id AS review_id,
+                    user_ig_username,
+                    COALESCE(user_subscriber_id, subscriber_id) AS user_subscriber_id,
+                    COALESCE(incoming_message_text, user_message) AS incoming_message_text,
+                    COALESCE(proposed_response_text, ai_response_text) AS proposed_response_text,
+                    prompt_type,
+                    status,
+                    created_timestamp,
+                    reviewed_timestamp,
+                    final_response_text
+                FROM pending_reviews
+                WHERE status IN ('pending_review','pending','regenerated','auto_scheduled')
+                ORDER BY created_timestamp DESC NULLS LAST, id DESC
+                LIMIT 200
+                """
+            )
+            rows = cur.fetchall() or []
+            return [dict(r) for r in rows]
+        except Exception as e:
+            logger.error(f"Error getting pending reviews from Postgres: {e}")
+            return []
+        finally:
+            try:
+                if conn:
+                    conn.close()
+            except Exception:
+                pass
+
+    # SQLite fallback (local dev)
     conn = get_db_connection()
     try:
-        # Enable row factory to get dictionaries instead of tuples
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         cursor.execute(
             "SELECT * FROM pending_reviews WHERE status = 'pending_review' ORDER BY created_timestamp DESC")
         rows = cursor.fetchall()
-        # Convert Row objects to dictionaries for easier access
         return [dict(row) for row in rows]
     except sqlite3.Error as e:
-        logger.error(f"Error getting pending reviews: {e}")
+        logger.error(f"Error getting pending reviews (SQLite): {e}")
         return []
     finally:
         if conn:
@@ -1095,6 +1139,31 @@ def get_pending_reviews():
 
 def update_review_status(review_id, new_status, final_response_text=None):
     """Updates the status of a review item and logs the final approved/sent text."""
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            conn = psycopg2.connect(DATABASE_URL)
+            cur = conn.cursor()
+            cur.execute(
+                """
+                UPDATE pending_reviews 
+                SET status = %s, final_response_text = %s, reviewed_timestamp = %s
+                WHERE id = %s
+                """,
+                (new_status, final_response_text, datetime.now().isoformat(), review_id),
+            )
+            conn.commit()
+            return True
+        except Exception as e:
+            logger.error(f"Error updating review status in Postgres for id {review_id}: {e}")
+            return False
+        finally:
+            try:
+                if conn:
+                    conn.close()
+            except Exception:
+                pass
+
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
@@ -1106,7 +1175,7 @@ def update_review_status(review_id, new_status, final_response_text=None):
         conn.commit()
         return True
     except sqlite3.Error as e:
-        logger.error(f"Error updating review status for ID {review_id}: {e}")
+        logger.error(f"Error updating review status for ID {review_id} (SQLite): {e}")
         return False
     finally:
         if conn:
