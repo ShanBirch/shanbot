@@ -140,7 +140,12 @@ def add_response_to_review_queue(
                     CREATE TABLE IF NOT EXISTS pending_reviews (
                       id SERIAL PRIMARY KEY,
                       user_ig_username TEXT,
+                      user_subscriber_id TEXT,
                       subscriber_id TEXT,
+                      incoming_message_text TEXT,
+                      incoming_message_timestamp TEXT,
+                      generated_prompt_text TEXT,
+                      proposed_response_text TEXT,
                       user_message TEXT,
                       ai_response_text TEXT,
                       final_response_text TEXT,
@@ -156,8 +161,8 @@ def add_response_to_review_queue(
                 cur.execute(
                     """
                     INSERT INTO pending_reviews
-                      (user_ig_username, subscriber_id, user_message, ai_response_text,
-                       prompt_type, status, created_timestamp)
+                      (user_ig_username, user_subscriber_id, incoming_message_text, proposed_response_text,
+                       prompt_type, status, incoming_message_timestamp)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)
                     RETURNING id
                     """,

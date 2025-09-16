@@ -264,7 +264,12 @@ def ensure_tables_pg(c, conn):
         CREATE TABLE IF NOT EXISTS pending_reviews (
           id SERIAL PRIMARY KEY,
           user_ig_username TEXT,
+          user_subscriber_id TEXT,
           subscriber_id TEXT,
+          incoming_message_text TEXT,
+          incoming_message_timestamp TEXT,
+          generated_prompt_text TEXT,
+          proposed_response_text TEXT,
           user_message TEXT,
           ai_response_text TEXT,
           final_response_text TEXT,
@@ -307,7 +312,13 @@ def ensure_tables_pg(c, conn):
         "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS final_response_text TEXT",
         "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS prompt_type TEXT",
         "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS reviewed_timestamp TEXT",
-        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS user_subscriber_id TEXT"
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS user_subscriber_id TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS incoming_message_text TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS incoming_message_timestamp TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS generated_prompt_text TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS proposed_response_text TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS user_message TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS ai_response_text TEXT"
     ]
     for stmt in alter_stmts:
         try:
@@ -1032,7 +1043,12 @@ def ensure_database_tables():
             CREATE TABLE IF NOT EXISTS pending_reviews (
                 id SERIAL PRIMARY KEY,
                 user_ig_username TEXT,
+                user_subscriber_id TEXT,
                 subscriber_id TEXT,
+                incoming_message_text TEXT,
+                incoming_message_timestamp TEXT,
+                generated_prompt_text TEXT,
+                proposed_response_text TEXT,
                 user_message TEXT,
                 ai_response_text TEXT,
                 final_response_text TEXT,
