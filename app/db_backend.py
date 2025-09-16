@@ -161,15 +161,16 @@ def add_response_to_review_queue(
                 cur.execute(
                     """
                     INSERT INTO pending_reviews
-                      (user_ig_username, user_subscriber_id, incoming_message_text, proposed_response_text,
-                       prompt_type, status, incoming_message_timestamp)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                      (user_ig_username, user_subscriber_id, incoming_message_text, generated_prompt_text,
+                       proposed_response_text, prompt_type, status, incoming_message_timestamp)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                     RETURNING id
                     """,
                     (
                         user_ig_username,
                         user_subscriber_id,
                         incoming_message_text,
+                        generated_prompt_text,
                         proposed_response_text,
                         prompt_type,
                         status,
