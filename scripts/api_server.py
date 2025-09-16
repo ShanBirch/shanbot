@@ -52,7 +52,7 @@ def adjust_code():
        """
 
     try:
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(prompt)
         adjusted_code = response.text
         return jsonify({'adjusted_code': adjusted_code})

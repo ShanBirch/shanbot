@@ -77,8 +77,31 @@ class ConversationStrategy:
         Returns True if fresh_lead = 1, False otherwise
         """
         try:
+            # First check if we're using Postgres and processing_queue table doesn't exist
+            import os
+            database_url = os.getenv('DATABASE_URL')
+            if database_url:
+                # On Postgres - processing_queue table doesn't exist there
+                # Return False (not a fresh lead) to avoid errors
+                logger.debug(
+                    f"Postgres mode - skipping fresh lead check for {ig_username}")
+                return False
+
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
+
+            # Check if processing_queue table exists
+            cursor.execute("""
+                SELECT name FROM sqlite_master 
+                WHERE type='table' AND name='processing_queue'
+            """)
+            table_exists = cursor.fetchone()
+
+            if not table_exists:
+                logger.debug(
+                    f"processing_queue table doesn't exist - skipping fresh lead check for {ig_username}")
+                conn.close()
+                return False
 
             cursor.execute("""
                 SELECT fresh_lead FROM processing_queue 

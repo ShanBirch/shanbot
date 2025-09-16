@@ -54,7 +54,7 @@ try:
 except ImportError:
     AI_AVAILABLE = False
     GEMINI_API_KEY = None
-    GEMINI_MODEL_PRO = "gemini-pro"
+    GEMINI_MODEL_PRO = "gemini-1.5-flash"
 
 # Local Gemini function to avoid import issues
 
@@ -70,7 +70,7 @@ def call_gemini_with_retry_sync(model_name: str, prompt: str) -> str:
         GEMINI_MODEL_PRO,  # gemini-2.5-flash-lite-preview-06-17 (primary)
         GEMINI_MODEL_FLASH,  # gemini-2.5-flash
         GEMINI_MODEL_LITE,  # gemini-2.0-flash-exp
-        "gemini-pro"  # Final fallback to stable model
+        "gemini-1.5-flash"  # Final fallback to stable model
     ]
 
     # Remove duplicates while preserving order

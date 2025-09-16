@@ -172,7 +172,7 @@ MANYCHAT_API_KEY = os.getenv(
     "MANYCHAT_API_KEY", "996573:5b6dc180662de1be343655db562ee918")
 GEMINI_API_KEY = os.getenv(
     "GEMINI_API_KEY", "AIzaSyAH6467EocGBwuMi-oDLawrNyCKjPHHmN8")
-GEMINI_MODEL_PRO = "gemini-pro"
+GEMINI_MODEL_PRO = "gemini-1.5-flash"
 GEMINI_MODEL_FLASH = "gemini-1.5-flash"
 GEMINI_MODEL_FLASH_STANDARD = "gemini-1.5-flash"
 
@@ -306,7 +306,8 @@ def ensure_tables_pg(c, conn):
         # pending_reviews
         "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS final_response_text TEXT",
         "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS prompt_type TEXT",
-        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS reviewed_timestamp TEXT"
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS reviewed_timestamp TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS user_subscriber_id TEXT"
     ]
     for stmt in alter_stmts:
         try:

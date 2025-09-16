@@ -1969,7 +1969,7 @@ def generate_new_hashtags(driver, existing_hashtags):
         """
 
         # Using the text-only model is faster and cheaper for this task
-        text_model = genai.GenerativeModel('gemini-pro')
+        text_model = genai.GenerativeModel('gemini-1.5-flash')
         response = text_model.generate_content(prompt)
 
         new_hashtags = [h.strip().replace('#', '')
