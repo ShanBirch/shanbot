@@ -3,7 +3,7 @@ databases:
     databaseName: shanbot
     user: shanbot_user
     plan: free
-    version: "16"
+    postgresMajorVersion: 16
 
 services:
   - name: shanbot-webhook
