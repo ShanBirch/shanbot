@@ -69,6 +69,18 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, WebDriverException
 
+# Ensure UTF-8 console output on Windows to avoid crashes when printing emojis
+try:
+    os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
+    os.environ.setdefault('PYTHONUTF8', '1')
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
+    if hasattr(sys.stderr, 'reconfigure'):
+        sys.stderr.reconfigure(encoding='utf-8')
+except Exception:
+    # If the environment doesn't support reconfigure, continue safely
+    pass
+
 # Gemini AI imports
 import google.generativeai as genai
 import google.api_core.exceptions

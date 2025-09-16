@@ -96,12 +96,20 @@ TRAINERIZE_PASSWORD=cyywp7nyk2
 # 1. Start webhook system (current main)
 python webhook_main.py
 
-# 2. Start dashboard (separate terminal, Windows absolute path recommended)
-python -m streamlit run C:\Users\Shannon\OneDrive\Desktop\shanbot\app\dashboard_modules\dashboard.py --server.headless true
+# 2. Start dashboard (separate terminal, headless mode)
+cd app/dashboard_modules && python -m streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
+
+# Alternative: Use run_dashboard.py launcher
+python run_dashboard.py
 
 # 3. Start ngrok tunnel (separate terminal)
 ngrok http 8001
 ```
+
+### Dashboard Access
+- **URL**: http://localhost:8501
+- **Headless mode**: No browser auto-open, manual navigation required
+- **Features**: Lead Generation, Response & Review, Analytics, User Profiles
 
 ## 🔧 Common Tasks
 - **Add AI prompts**: Edit `app/prompts.py`

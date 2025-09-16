@@ -3,14 +3,72 @@ from datetime import datetime, timezone
 from typing import Dict, Optional, Any
 import sqlite3
 import json
+import os
 
 logger = logging.getLogger(__name__)
 
 SQLITE_DB_PATH = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\app\\analytics_data_good.sqlite"
+DATABASE_URL = os.getenv('DATABASE_URL')
+USE_POSTGRES = bool(DATABASE_URL)
 
 
 def ensure_db_schema():
-    """Ensures the database schema is up-to-date."""
+    """Ensures the database schema is up-to-date for the active backend."""
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            conn = psycopg2.connect(DATABASE_URL)
+            cur = conn.cursor()
+            # Users table (fields used by analytics and flows)
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS users (
+                    id SERIAL PRIMARY KEY,
+                    ig_username TEXT,
+                    subscriber_id TEXT UNIQUE,
+                    first_name TEXT,
+                    last_name TEXT,
+                    client_status TEXT DEFAULT 'Not a Client',
+                    journey_stage TEXT DEFAULT 'Initial Inquiry',
+                    is_onboarding BOOLEAN DEFAULT FALSE,
+                    is_in_checkin_flow_mon BOOLEAN DEFAULT FALSE,
+                    is_in_checkin_flow_wed BOOLEAN DEFAULT FALSE,
+                    is_in_ad_flow BOOLEAN DEFAULT FALSE,
+                    ad_script_state TEXT,
+                    ad_scenario INTEGER,
+                    lead_source TEXT,
+                    fb_ad BOOLEAN DEFAULT FALSE,
+                    last_interaction_timestamp TEXT,
+                    client_analysis_json TEXT,
+                    offer_made BOOLEAN DEFAULT FALSE,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            )
+            # Messages table
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS messages (
+                    id SERIAL PRIMARY KEY,
+                    ig_username TEXT,
+                    subscriber_id TEXT,
+                    message_type TEXT,
+                    message_text TEXT,
+                    timestamp TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            )
+            conn.commit()
+            cur.close()
+            conn.close()
+            logger.info("Ensured PostgreSQL schema (users, messages)")
+        except Exception as e:
+            logger.error(f"PostgreSQL error in ensure_db_schema: {e}")
+        return
+
+    # SQLite fallback (local dev)
     conn = None
     try:
         logger.info("Verifying database schema...")
@@ -26,7 +84,8 @@ def ensure_db_schema():
             "is_in_ad_flow": "BOOLEAN",
             "ad_script_state": "TEXT",
             "ad_scenario": "INTEGER",
-            "lead_source": "TEXT"
+            "lead_source": "TEXT",
+            "fb_ad": "BOOLEAN"
         }
 
         for col, col_type in required_columns.items():
@@ -35,6 +94,20 @@ def ensure_db_schema():
                     f"Adding missing column '{col}' to 'users' table.")
                 cursor.execute(
                     f"ALTER TABLE users ADD COLUMN {col} {col_type}")
+
+        # Ensure messages table exists (SQLite)
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS messages (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                ig_username TEXT,
+                subscriber_id TEXT,
+                timestamp TEXT,
+                message_type TEXT,
+                message_text TEXT
+            )
+            """
+        )
 
         conn.commit()
         logger.info("✓ Database schema verified and updated.")
@@ -73,6 +146,100 @@ def update_analytics_data(
     """
     logger.debug(f"Updating analytics for subscriber_id: {subscriber_id}")
     ensure_db_schema()
+
+    # Use Postgres on Render
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            conn = psycopg2.connect(DATABASE_URL)
+            cur = conn.cursor()
+
+            subscriber_id_to_use = subscriber_id or ig_username
+
+            # Read current state if exists
+            cur.execute(
+                "SELECT is_in_ad_flow, ad_script_state, ad_scenario, lead_source, COALESCE(fb_ad, FALSE) FROM users WHERE subscriber_id = %s OR ig_username = %s",
+                (subscriber_id, ig_username),
+            )
+            row = cur.fetchone()
+            if row:
+                current_is_in_ad_flow, current_ad_script_state, current_ad_scenario, current_lead_source, current_fb_ad = row
+                is_in_ad_flow_to_use = is_in_ad_flow if is_in_ad_flow is not False else current_is_in_ad_flow
+                ad_script_state_to_set = ad_script_state if ad_script_state is not None else current_ad_script_state
+                ad_scenario_to_set = ad_scenario if ad_scenario is not None else current_ad_scenario
+                lead_source_to_use = lead_source if lead_source is not None else current_lead_source
+                fb_ad_to_use = fb_ad if fb_ad else current_fb_ad
+                cur.execute(
+                    """
+                    UPDATE users
+                    SET first_name = %s, last_name = %s, client_status = %s, journey_stage = %s,
+                        is_onboarding = %s, is_in_checkin_flow_mon = %s, is_in_checkin_flow_wed = %s,
+                        last_interaction_timestamp = %s, client_analysis_json = %s, offer_made = %s,
+                        is_in_ad_flow = %s, ad_script_state = %s, ad_scenario = %s, lead_source = %s,
+                        fb_ad = %s, ig_username = %s, updated_at = CURRENT_TIMESTAMP
+                    WHERE subscriber_id = %s OR ig_username = %s
+                    """,
+                    (
+                        first_name, last_name, client_status, journey_stage,
+                        is_onboarding, is_in_checkin_flow_mon, is_in_checkin_flow_wed,
+                        timestamp, client_analysis_json, offer_made,
+                        is_in_ad_flow_to_use, ad_script_state_to_set, ad_scenario_to_set, lead_source_to_use,
+                        fb_ad_to_use, ig_username, subscriber_id_to_use, ig_username,
+                    ),
+                )
+            else:
+                is_in_ad_flow_to_use = is_in_ad_flow
+                ad_script_state_to_set = ad_script_state if is_in_ad_flow else None
+                ad_scenario_to_set = ad_scenario if is_in_ad_flow else None
+                lead_source_to_use = lead_source
+                fb_ad_to_use = fb_ad
+                cur.execute(
+                    """
+                    INSERT INTO users (
+                        ig_username, subscriber_id, first_name, last_name, client_status,
+                        journey_stage, is_onboarding, is_in_checkin_flow_mon, is_in_checkin_flow_wed,
+                        last_interaction_timestamp, client_analysis_json, offer_made, is_in_ad_flow,
+                        ad_script_state, ad_scenario, lead_source, fb_ad
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    """,
+                    (
+                        ig_username, subscriber_id_to_use, first_name, last_name, client_status,
+                        journey_stage, is_onboarding, is_in_checkin_flow_mon, is_in_checkin_flow_wed,
+                        timestamp, client_analysis_json, offer_made, is_in_ad_flow_to_use,
+                        ad_script_state_to_set, ad_scenario_to_set, lead_source_to_use, fb_ad_to_use,
+                    ),
+                )
+
+            # Normalize and insert message
+            def _normalize_direction(direction: str) -> str:
+                if not direction:
+                    return 'unknown'
+                d = direction.strip().lower()
+                if d in ['incoming', 'user', 'client', 'lead', 'human']:
+                    return 'user'
+                if d in ['outgoing', 'ai', 'bot', 'shanbot', 'shannon', 'assistant', 'system']:
+                    return 'ai'
+                return d
+
+            normalized_type = _normalize_direction(message_direction)
+            cur.execute(
+                """
+                INSERT INTO messages (ig_username, subscriber_id, timestamp, message_type, message_text)
+                VALUES (%s, %s, %s, %s, %s)
+                """,
+                (ig_username, subscriber_id_to_use,
+                 timestamp, normalized_type, message_text),
+            )
+
+            conn.commit()
+            cur.close()
+            conn.close()
+            logger.info(
+                f"Successfully updated analytics for {subscriber_id_to_use} (Postgres)")
+        except Exception as e:
+            logger.error(
+                f"Postgres error in update_analytics_data for {subscriber_id}: {e}")
+        return
 
     conn = None
     try:

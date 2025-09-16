@@ -2037,10 +2037,28 @@ def add_message_to_history(ig_username: str, message_type: str, message_text: st
         elif mt not in ['user', 'ai']:
             mt = 'unknown'
 
-        cursor.execute("""
-            INSERT INTO messages (ig_username, subscriber_id, timestamp, message_type, message_text)
-            VALUES (?, ?, ?, ?, ?)
-        """, (ig_username, subscriber_id, message_timestamp, mt, message_text))
+        # Idempotency: skip insert if same sender+text exists in last 5 minutes
+        try:
+            cursor.execute(
+                """
+                SELECT COUNT(1) FROM messages
+                WHERE ig_username = ? AND message_type = ? AND message_text = ?
+                AND timestamp >= datetime(?, '-5 minutes')
+                """,
+                (ig_username, mt, message_text, message_timestamp),
+            )
+            exists_recent = (cursor.fetchone() or [0])[0] > 0
+        except Exception:
+            exists_recent = False
+
+        if exists_recent:
+            logger.info(
+                f"[add_message_to_history] Skipping duplicate recent message for {ig_username} ({mt}): '{message_text[:80]}'")
+        else:
+            cursor.execute("""
+                INSERT INTO messages (ig_username, subscriber_id, timestamp, message_type, message_text)
+                VALUES (?, ?, ?, ?, ?)
+            """, (ig_username, subscriber_id, message_timestamp, mt, message_text))
         conn.commit()
     except sqlite3.Error as e:
         logger.error(

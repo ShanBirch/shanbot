@@ -449,7 +449,7 @@ except ImportError:
 # Add caching for expensive operations
 
 
-@st.cache_data(ttl=300)  # Cache for 5 minutes
+@st.cache_data(ttl=10)  # Cache for 10 seconds so new messages appear quickly
 def get_cached_pending_reviews(limit: int = 50) -> List[Dict]:
     """Get pending reviews with caching to improve performance"""
     try:
@@ -508,12 +508,57 @@ except ImportError:
             st.error("ManyChat integration not available")
             return False
 
-# Import split_response_into_messages function
+# Import split_response_into_messages function with robust path handling and fallback
 try:
-    from webhook_handlers import split_response_into_messages
-except ImportError:
-    def split_response_into_messages(text):
-        return [text]
+    import sys
+    import os
+    import re
+    PROJECT_ROOT = os.path.abspath(os.path.join(
+        os.path.dirname(__file__), '..', '..'))
+    if PROJECT_ROOT not in sys.path:
+        sys.path.insert(0, PROJECT_ROOT)
+    from webhook_handlers import split_response_into_messages  # shared splitter
+except Exception:
+    # Robust fallback: 1–3 parts based on sentences/length
+    import re
+
+    def split_response_into_messages(text: str) -> list:
+        text = (text or '').strip()
+        if not text:
+            return []
+        # Short messages stay single
+        if len(text) <= 150:
+            return [text]
+        # Split by sentences
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+        if len(sentences) <= 2:
+            # Force split roughly into two/three parts by length
+            max_len = max(1, len(text) // 3)
+            parts = []
+            while text:
+                parts.append(text[:max_len].rstrip())
+                text = text[max_len:].lstrip()
+                if len(parts) == 2:
+                    parts.append(text)
+                    break
+            return [p for p in parts if p]
+        # Combine sentences into up to 3 messages
+        result, current = [], ''
+        target = max(150, int(len(text)/3))
+        for s in sentences:
+            if len(current) + len(s) + 1 <= target or not current:
+                current = (current + ' ' + s).strip()
+            else:
+                result.append(current)
+                current = s
+            if len(result) == 2:
+                # put the rest into the last chunk
+                remaining = ' '.join(sentences[sentences.index(s):])
+                result.append((current + ' ' + remaining).strip())
+                return [p for p in result if p]
+        if current:
+            result.append(current)
+        return result[:3]
 
 # Import auto mode tracking functions (with fallback if not available)
 
@@ -1320,366 +1365,10 @@ def display_enhanced_auto_stats():
 def display_response_review_queue(delete_callback: callable):
     """
     Displays the response review queue, allowing users to approve, edit, or discard responses.
-    Now includes Auto Mode functionality using a shared state file.
+    Auto Mode controls and review stats have been moved to other pages.
     """
 
-    st.subheader("🤖 Auto Mode Controls")
-
-    # Simple, consistent layout
-    col_auto1, col_auto2, col_auto3, col_stats = st.columns([1, 1, 1, 1])
-
-    with col_auto1:
-        # General Auto Mode button - clear on/off state
-        is_currently_active = is_auto_mode_active()
-
-        if is_currently_active:
-            button_text = "🟢 Auto Mode ON"
-            button_type = "primary"
-            help_text = "Click to turn OFF auto mode"
-        else:
-            button_text = "⚫ Auto Mode OFF"
-            button_type = "secondary"
-            help_text = "Click to turn ON auto mode"
-
-        if st.button(button_text, type=button_type, use_container_width=True, help=help_text):
-            new_status = not is_currently_active
-            success = set_auto_mode_status(new_status)
-
-            if success:
-                if new_status:
-                    st.success("✅ Auto Mode ENABLED!")
-
-                    # Launch the auto-sender script from its new location in the project root
-                    try:
-                        shanbot_dir = Path(__file__).parent.parent.parent
-                        script_path = os.path.join(
-                            shanbot_dir, "auto_response_sender.py")
-
-                        if not os.path.exists(script_path):
-                            st.error(
-                                f"Auto-sender script not found at {script_path}")
-                        else:
-                            import subprocess
-                            # Launch the script in a new console
-                            subprocess.Popen(
-                                [sys.executable, "-u", script_path],
-                                cwd=shanbot_dir,
-                                creationflags=subprocess.CREATE_NEW_CONSOLE if hasattr(
-                                    subprocess, 'CREATE_NEW_CONSOLE') else 0
-                            )
-                            st.info(
-                                "✅ Auto-sender script started in a new window.")
-
-                    except Exception as e:
-                        st.error(f"Failed to start auto-sender script: {e}")
-                        logger.error(
-                            f"Error starting auto-sender script: {e}", exc_info=True)
-
-                    st.balloons()
-                else:
-                    st.info("Auto Mode DISABLED.")
-            else:
-                st.error("Error updating Auto Mode status. Check logs.")
-            st.rerun()
-
-    with col_auto2:
-        # Vegan Auto Mode button - clear on/off state
-        is_vegan_currently_active = is_vegan_auto_mode_active()
-
-        if is_vegan_currently_active:
-            vegan_button_text = "🟢 Vegan Mode ON"
-            vegan_button_type = "primary"
-            vegan_help_text = "Click to turn OFF vegan auto mode"
-        else:
-            vegan_button_text = "⚫ Vegan Mode OFF"
-            vegan_button_type = "secondary"
-            vegan_help_text = "Click to turn ON vegan auto mode"
-
-        if st.button(vegan_button_text, type=vegan_button_type, use_container_width=True, help=vegan_help_text):
-            new_vegan_status = not is_vegan_currently_active
-            success = set_vegan_auto_mode_status(new_vegan_status)
-
-            if success:
-                if new_vegan_status:
-                    st.success("✅ Vegan Auto Mode ENABLED!")
-                    st.info("🌱 Now auto-processing only fresh vegan leads")
-
-                    # Launch the auto-sender script (same as general auto mode)
-                    try:
-                        shanbot_dir = Path(__file__).parent.parent.parent
-                        script_path = os.path.join(
-                            shanbot_dir, "auto_response_sender.py")
-
-                        if not os.path.exists(script_path):
-                            st.error(
-                                f"Auto-sender script not found at {script_path}")
-                        else:
-                            import subprocess
-                            # Launch the script in a new console
-                            subprocess.Popen(
-                                [sys.executable, "-u", script_path],
-                                cwd=shanbot_dir,
-                                creationflags=subprocess.CREATE_NEW_CONSOLE if hasattr(
-                                    subprocess, 'CREATE_NEW_CONSOLE') else 0
-                            )
-                            st.info(
-                                "✅ Vegan auto-sender script started in a new window.")
-
-                    except Exception as e:
-                        st.error(
-                            f"Failed to start vegan auto-sender script: {e}")
-                        logger.error(
-                            f"Error starting vegan auto-sender script: {e}", exc_info=True)
-
-                    st.balloons()
-                else:
-                    st.info("🌱 Vegan Auto Mode DISABLED.")
-            else:
-                st.error("Error updating Vegan Auto Mode status. Check logs.")
-            st.rerun()
-
-    with col_auto3:
-        # Vegan Ad Auto Mode button - clear on/off state
-        is_vegan_ad_currently_active = is_vegan_ad_auto_mode_active()
-
-        if is_vegan_ad_currently_active:
-            vegan_ad_button_text = "🟢 Vegan Ad Mode ON"
-            vegan_ad_button_type = "primary"
-            vegan_ad_help_text = "Click to turn OFF vegan ad auto mode"
-        else:
-            vegan_ad_button_text = "⚫ Vegan Ad Mode OFF"
-            vegan_ad_button_type = "secondary"
-            vegan_ad_help_text = "Click to turn ON vegan ad auto mode"
-
-        if st.button(vegan_ad_button_text, type=vegan_ad_button_type, use_container_width=True, help=vegan_ad_help_text):
-            new_vegan_ad_status = not is_vegan_ad_currently_active
-            success = set_vegan_ad_auto_mode_status(new_vegan_ad_status)
-
-            if success:
-                if new_vegan_ad_status:
-                    st.success("✅ Vegan Ad Auto Mode ENABLED!")
-                    st.info(
-                        "🌱 Now auto-processing ad responses (excluding paying clients)")
-
-                    # Launch the auto-sender script (same as other auto modes)
-                    try:
-                        shanbot_dir = Path(__file__).parent.parent.parent
-                        script_path = os.path.join(
-                            shanbot_dir, "auto_response_sender.py")
-
-                        if not os.path.exists(script_path):
-                            st.error(
-                                f"Auto-sender script not found at {script_path}")
-                        else:
-                            import subprocess
-                            # Launch the script in a new console
-                            subprocess.Popen(
-                                [sys.executable, "-u", script_path],
-                                cwd=shanbot_dir,
-                                creationflags=subprocess.CREATE_NEW_CONSOLE if hasattr(
-                                    subprocess, 'CREATE_NEW_CONSOLE') else 0
-                            )
-                            st.info(
-                                "✅ Vegan ad auto-sender script started in a new window.")
-
-                    except Exception as e:
-                        st.error(f"Failed to start auto-sender script: {e}")
-                        logger.error(
-                            f"Error starting auto-sender script: {e}", exc_info=True)
-
-                    st.balloons()
-                else:
-                    st.info("Vegan Ad Auto Mode DISABLED.")
-            else:
-                st.error("Error updating Vegan Ad Auto Mode status. Check logs.")
-            st.rerun()
-
-    # Simple stats section matching existing dashboard style
-    with col_stats:
-        stats = get_scheduled_responses_stats()
-
-        # Metrics row
-        col_metric1, col_metric2, col_live_toggle = st.columns([1, 1, 1])
-
-        with col_metric1:
-            st.metric("Scheduled", stats['scheduled'])
-
-        with col_metric2:
-            # Get recent activity count
-            try:
-                available, functions = get_auto_mode_functions()
-                if available:
-                    live_stats = functions['get_live_auto_mode_stats']()
-                    recent_activity = live_stats.get('recent_activity', 0)
-                    st.metric("Recent Activity", recent_activity)
-                else:
-                    st.metric("Queue Status", "Ready")
-            except:
-                st.metric("Queue Status", "Ready")
-
-        # Live-mode checkbox (auto-refresh)
-        with col_live_toggle:
-            live_controls_enabled = st.checkbox(
-                "🟢 Live", key="review_live_toggle")
-
-        # If live mode is active poll every 10 s
-        if live_controls_enabled:
-            import time as _rvtime
-            _rvtime.sleep(10)
-            st.rerun()
-
-    # Show next scheduled response time if any
-    if stats['next_send_time']:
-        try:
-            next_time = datetime.fromisoformat(
-                stats['next_send_time'].split('+')[0])
-            time_until = next_time - datetime.now()
-            if time_until.total_seconds() > 0:
-                time_str = f"{int(time_until.total_seconds() / 60)} min"
-                st.caption(f"⏰ Next response due in {time_str}")
-        except Exception:
-            pass
-
-    st.divider()
-
-    # Simple activity feed matching dashboard style
-    with st.expander("📋 Recent Activity", expanded=False):
-        try:
-            available, functions = get_auto_mode_functions()
-            if available:
-                activities = functions['get_recent_auto_activities'](limit=8)
-                if activities:
-                    # Show only top 8 for cleaner look
-                    for activity in activities[:8]:
-                        timestamp = activity.get('timestamp', '')
-                        if timestamp:
-                            try:
-                                dt = datetime.fromisoformat(
-                                    timestamp.split('+')[0])
-                                time_str = dt.strftime('%H:%M:%S')
-                            except:
-                                time_str = timestamp[:8]
-                        else:
-                            time_str = "Unknown"
-
-                        user = activity.get('user_ig_username', 'Unknown')
-                        action = activity.get('action_type', 'Unknown')
-                        status = activity.get('status', 'info')
-                        message_preview = activity.get('message_preview', '')
-
-                        # Clean status icons
-                        if status == 'success':
-                            icon = "✅"
-                        elif status == 'processing':
-                            icon = "⚡"
-                        elif status == 'failed':
-                            icon = "❌"
-                        else:
-                            icon = "ℹ️"
-
-                        if action == 'sent':
-                            st.caption(
-                                f"`{time_str}` {icon} **Response sent** to @{user}: *{message_preview[:50]}{'...' if len(message_preview) > 50 else ''}*")
-                        elif action == 'sending':
-                            st.caption(
-                                f"`{time_str}` {icon} **Sending** to @{user}: *{message_preview[:50]}{'...' if len(message_preview) > 50 else ''}*")
-                        else:
-                            st.caption(
-                                f"`{time_str}` {icon} **{action.title()}** for @{user}")
-                else:
-                    st.caption("No recent activity")
-            else:
-                st.caption("Activity tracking not available")
-        except Exception as e:
-            st.caption(f"Could not load activity: {e}")
-
-        # Live-updates toggle for this lightweight feed
-        live_simple_updates = st.checkbox(
-            "🔄 Live", value=False, key="simple_activity_live_updates")
-
-        try:
-            available, functions = get_auto_mode_functions()
-            if available:
-                activities = functions['get_recent_auto_activities'](limit=8)
-                if activities:
-                    # Show only top 8 for cleaner look
-                    for activity in activities[:8]:
-                        timestamp = activity.get('timestamp', '')
-                        if timestamp:
-                            try:
-                                dt = datetime.fromisoformat(
-                                    timestamp.split('+')[0])
-                                time_str = dt.strftime('%H:%M:%S')
-                            except:
-                                time_str = timestamp[:8]
-                        else:
-                            time_str = "Unknown"
-
-                        user = activity.get('user_ig_username', 'Unknown')
-                        action = activity.get('action_type', 'Unknown')
-                        status = activity.get('status', 'info')
-                        message_preview = activity.get('message_preview', '')
-
-                        # Clean status icons
-                        if status == 'success':
-                            icon = "✅"
-                        elif status == 'processing':
-                            icon = "⚡"
-                        elif status == 'failed':
-                            icon = "❌"
-                        else:
-                            icon = "ℹ️"
-
-                        if action == 'sent':
-                            st.caption(
-                                f"`{time_str}` {icon} **Response sent** to @{user}: *{message_preview[:50]}{'...' if len(message_preview) > 50 else ''}*")
-                        elif action == 'sending':
-                            st.caption(
-                                f"`{time_str}` {icon} **Sending** to @{user}: *{message_preview[:50]}{'...' if len(message_preview) > 50 else ''}*")
-                        else:
-                            st.caption(
-                                f"`{time_str}` {icon} **{action.title()}** for @{user}")
-                else:
-                    st.caption("No recent activity")
-            else:
-                st.caption("Activity tracking not available")
-        except Exception as e:
-            st.caption(f"Could not load activity: {e}")
-
-        # Auto-refresh when live is enabled
-        if live_simple_updates:
-            import time as _simp_live
-            _simp_live.sleep(10)
-            st.rerun()
-
-    st.divider()
-
-    # Display Review Accuracy Stats
-    accuracy_stats = db_utils.get_review_accuracy_stats()
-    if accuracy_stats:
-        col_header, col_reset = st.columns([3, 1])
-        with col_header:
-            st.subheader("Review Accuracy Statistics")
-        with col_reset:
-            if st.button("🔄 Reset Stats", type="secondary", help="Clear all learning statistics and start fresh"):
-                with st.spinner("Resetting learning statistics..."):
-                    success, message = db_utils.reset_learning_stats()
-                    if success:
-                        st.success(message)
-                        st.rerun()  # Refresh to show updated stats
-                    else:
-                        st.error(message)
-
-        cols = st.columns(4)
-        cols[0].metric("Total Processed", accuracy_stats.get(
-            "total_processed_including_discarded", 0))
-        cols[1].metric("Sent As-Is", f"{accuracy_stats.get('accuracy_percentage', 0.0)}%",
-                       delta=f"{accuracy_stats.get('sent_as_is', 0)} count")
-        cols[2].metric("Edited by User", f"{accuracy_stats.get('edited_percentage', 0.0)}%",
-                       delta=f"{accuracy_stats.get('edited_by_user', 0)} count")
-        cols[3].metric("Regenerated Response", f"{accuracy_stats.get('regenerated_percentage', 0.0)}%",
-                       delta=f"{accuracy_stats.get('regenerated_count', 0)} count")
-        st.divider()
+    # Note: Auto Mode controls moved to Webhook page; no toggles or feeds here
 
     # Initialize session state for review queue management
     if 'current_review_user_ig' not in st.session_state:
@@ -1687,7 +1376,18 @@ def display_response_review_queue(delete_callback: callable):
     if 'last_action_review_id' not in st.session_state:
         st.session_state.last_action_review_id = None
 
-    # Use cached version with limited results for better performance
+    # Quick refresh control
+    top_col1, top_col2 = st.columns([0.8, 0.2])
+    with top_col2:
+        if st.button("🔄 Refresh", key="refresh_reviews_top", use_container_width=True):
+            try:
+                if hasattr(st, 'cache_data'):
+                    st.cache_data.clear()
+            except Exception:
+                pass
+            st.rerun()
+
+    # Use cached version with short TTL for better UX
     with st.spinner("Loading review queue..."):
         all_pending_reviews = get_cached_pending_reviews(limit=50)
 
@@ -1800,6 +1500,11 @@ def display_response_review_queue(delete_callback: callable):
                     st.session_state.current_review_user_ig = sorted_users_with_reviews[0]
                 else:
                     st.session_state.current_review_user_ig = None
+                try:
+                    if hasattr(st, 'cache_data'):
+                        st.cache_data.clear()
+                except Exception:
+                    pass
                 st.rerun()
             else:
                 st.error(
@@ -2746,14 +2451,8 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
             st.success(
                 f"✅ Message sent successfully to {user_ig} (trigger issue)")
 
-        # Persist both sides to messages table so future history is complete
+        # Persist only the sent AI message; user message should already be present
         try:
-            inc_text = (review_item.get('incoming_message_text') or '').strip()
-            inc_ts = review_item.get(
-                'incoming_message_timestamp') or get_melbourne_time_str()
-            if inc_text:
-                db_utils.add_message_to_history(
-                    user_ig, 'user', inc_text, inc_ts)
             db_utils.add_message_to_history(
                 user_ig, 'ai', edited_response, get_melbourne_time_str())
         except Exception:
@@ -2876,6 +2575,12 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
         st.success(
             f"✅ Response sent to {user_ig} and logged (original response used)!")
 
+    # Clear caches and refresh so user list updates immediately
+    try:
+        if hasattr(st, 'cache_data'):
+            st.cache_data.clear()
+    except Exception:
+        pass
     # Force page refresh - the review will disappear because its status is now "sent"
     st.rerun()
 
@@ -2903,6 +2608,11 @@ def handle_discard(review_item, user_notes):
     st.session_state.last_action_review_id = review_item['review_id']
     st.warning(
         f"Response for review {review_item['review_id']} for {review_item['user_ig_username']} discarded. Refreshing...")
+    try:
+        if hasattr(st, 'cache_data'):
+            st.cache_data.clear()
+    except Exception:
+        pass
     st.rerun()
 
 

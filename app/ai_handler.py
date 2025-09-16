@@ -56,7 +56,7 @@ def call_gemini_with_retry(model_name: str, prompt: str, retry_count: int = 0) -
         return None
 
 
-async def get_ai_response(prompt: str) -> Optional[str]:
+async def get_ai_response(prompt: str, model: str = None) -> str:
     """Get AI response using Gemini models with fallbacks."""
     try:
         # First try with GEMINI_MODEL_PRO

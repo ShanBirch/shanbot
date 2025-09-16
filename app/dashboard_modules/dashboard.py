@@ -1,52 +1,4 @@
-import sys
-import os
-
-# Bootstrap import path BEFORE any local imports so modules in this folder resolve on Render
-_CURR_DIR = os.path.dirname(os.path.abspath(__file__))
-_PARENT_DIR = os.path.dirname(_CURR_DIR)
-if _CURR_DIR not in sys.path:
-    sys.path.insert(0, _CURR_DIR)
-if _PARENT_DIR not in sys.path:
-    sys.path.insert(0, _PARENT_DIR)
-
-import streamlit as st
-import subprocess
-import re
-import numpy as np
-import requests
-import pytz
-import pandas as pd
-from typing import Dict, List, Optional, Tuple, Any
-import sqlite3
-from datetime import datetime, timedelta
-import tempfile  # Added for creating temporary username files
-import subprocess  # Added for triggering Instagram analysis
-import json
-import logging
-from pathlib import Path
-import google.generativeai as genai
-import random
-import google.oauth2.service_account
-import googleapiclient.discovery
-import time
-import notifications
-from checkins_manager import display_checkins_manager, generate_checkin_message, send_checkin_message
-from scheduled_followups import (
-    display_scheduled_followups,
-    display_bulk_review_and_send,
-    bulk_generate_followups,
-    get_user_category,
-    get_topic_for_category,
-    verify_trial_signup,
-    check_sheet_for_signups,
-    get_user_sheet_details as get_checkin_data
-)
-from user_profiles import display_user_profiles, display_user_profile, get_usernames, trigger_check_in
-from client_journey import display_client_journey
-from overview import display_overview
-from analytics_overview import get_stage_metrics, display_overview_tab, get_users_from_last_30_days, display_recent_interactions
-from user_management import display_daily_report, bulk_update_leads_journey_stage, bulk_update_client_profiles, display_user_profiles_with_bulk_update
-from notifications import display_notification_panel, add_trial_notification, add_sale_notification, add_email_collected_notification
+from shared_utils import get_user_topics
 from dashboard_sqlite_utils import (
     load_conversations_from_sqlite,
     get_pending_reviews,
@@ -61,9 +13,57 @@ from dashboard_sqlite_utils import (
     delete_reviews_for_user,
     update_analytics_data
 )
-# Use update_analytics_data as save_metrics_to_sqlite 
+from notifications import display_notification_panel, add_trial_notification, add_sale_notification, add_email_collected_notification
+from user_management import display_daily_report, bulk_update_leads_journey_stage, bulk_update_client_profiles, display_user_profiles_with_bulk_update
+from analytics_overview import get_stage_metrics, display_overview_tab, get_users_from_last_30_days, display_recent_interactions
+from overview import display_overview
+from client_journey import display_client_journey
+from user_profiles import display_user_profiles, display_user_profile, get_usernames, trigger_check_in
+from scheduled_followups import (
+    display_scheduled_followups,
+    display_bulk_review_and_send,
+    bulk_generate_followups,
+    get_user_category,
+    get_topic_for_category,
+    verify_trial_signup,
+    check_sheet_for_signups,
+    get_user_sheet_details as get_checkin_data
+)
+from checkins_manager import display_checkins_manager, generate_checkin_message, send_checkin_message
+import notifications
+import time
+import googleapiclient.discovery
+import google.oauth2.service_account
+import random
+import google.generativeai as genai
+from pathlib import Path
+import logging
+import json
+import subprocess  # Added for triggering Instagram analysis
+import tempfile  # Added for creating temporary username files
+from datetime import datetime, timedelta
+import sqlite3
+from typing import Dict, List, Optional, Tuple, Any
+import pandas as pd
+import pytz
+import requests
+import numpy as np
+import re
+import subprocess
+import streamlit as st
+import sys
+import os
+
+# Bootstrap import path BEFORE any local imports so modules in this folder resolve on Render
+_CURR_DIR = os.path.dirname(os.path.abspath(__file__))
+_PARENT_DIR = os.path.dirname(_CURR_DIR)
+if _CURR_DIR not in sys.path:
+    sys.path.insert(0, _CURR_DIR)
+if _PARENT_DIR not in sys.path:
+    sys.path.insert(0, _PARENT_DIR)
+
+# Use update_analytics_data as save_metrics_to_sqlite
 save_metrics_to_sqlite = update_analytics_data
-from shared_utils import get_user_topics
 
 
 # Configure the page FIRST - before any other Streamlit commands or imports

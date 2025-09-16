@@ -1,8 +1,13 @@
 
-from app.dashboard_modules.dashboard_sqlite_utils import add_response_to_review_queue
+from app.db_backend import (
+    add_response_to_review_queue,
+    add_message_to_history,
+    set_user_ad_flow,
+)
 from app import prompts
 from app.general_utils import get_melbourne_time_str, format_conversation_history, clean_and_dedupe_history
 from app.ai_handler import get_ai_response
+import json
 from utilities import process_conversation_for_media
 import logging
 from typing import Dict, Any
@@ -23,12 +28,31 @@ class AdResponseHandler:
         """Determine if a message is a response to an ad. Returns (is_ad, scenario, confidence)."""
         logger.info(
             f"[AdResponse] Analyzing message from {ig_username}: '{message_text}' for ad intent")
-        text = message_text.lower()
+        # Process media first to extract any textual context before classification/heuristics
+        processed_text = message_text
+        try:
+            processed_text = process_conversation_for_media(message_text)
+            if processed_text != message_text:
+                logger.info(
+                    f"[AdResponse] Media processed for detection. Using processed text: {processed_text[:100]}...")
+        except Exception as e:
+            logger.warning(
+                f"[AdResponse] Media processing failed for detection: {e}")
+
+        text = (processed_text or "").lower()
         scenario = 3  # Default to plant_based
         confidence = 0
 
-        ad_keywords = ["challenge", "vegan challenge",
-                       "vegetarian challenge", "learn more", "get started"]
+        ad_keywords = [
+            "challenge", "vegan challenge", "vegetarian challenge",
+            "learn more", "get started", "interested", "know more", "more about",
+            "ready to", "join", "sign me up", "count me in",
+            # Add more common ad response phrases
+            "yes", "yeah", "yep", "sure", "ok", "okay", "sounds good",
+            "tell me more", "info", "information", "details", "how much",
+            "cost", "price", "free", "trial", "help", "lose weight",
+            "fitness", "workout", "diet", "healthy", "transformation"
+        ]
 
         # Check for vegan challenge (with typo tolerance)
         if ("vegan" in text and "challeng" in text) or "vegan challenge" in text:
@@ -58,12 +82,80 @@ class AdResponseHandler:
             scenario = 3
             confidence = 80
 
-        # Check for short first messages (common for ad responses)
+        # Check for short first messages (common for ad responses) - be more aggressive
         conv_history_len = len(metrics.get('conversation_history', []))
-        if confidence == 0 and conv_history_len <= 1 and len(message_text.split()) < 10:
+        if confidence == 0 and conv_history_len <= 2 and len(message_text.split()) < 15:
             logger.info(
-                f"[AdResponse] Short first message detected (history: {conv_history_len}, words: {len(message_text.split())})")
-            confidence = 40
+                f"[AdResponse] Short early message detected (history: {conv_history_len}, words: {len(message_text.split())})")
+            confidence = 55  # Higher confidence for early short messages
+
+        # Even more aggressive - if it's a very first message and not obviously spam
+        if conv_history_len == 0 and len(message_text.split()) <= 5:
+            # Simple first messages like "Hi", "Hey", "Hello", "Yes" etc
+            simple_starters = ["hi", "hey", "hello",
+                               "yes", "yeah", "yep", "interested", "info"]
+            if any(starter in text for starter in simple_starters):
+                confidence = max(confidence, 60)
+                logger.info(
+                    f"[AdResponse] Simple starter message detected: '{message_text}'")
+
+        # Boost confidence for ANY response if user has no conversation history (likely from ads)
+        if conv_history_len == 0 and confidence < 50:
+            # Give benefit of doubt to first-time messagers
+            confidence = max(confidence, 45)
+
+        # Lightweight Gemini-based classifier to complement heuristics
+        try:
+            classifier_prompt = (
+                "You are a strict classifier. Answer ONLY in JSON.\n\n"
+                f"UserMessage: \"{processed_text}\"\n\n"
+                "Question: Could this person be inquiring about our Vegan Weight Loss Challenge?\n\n"
+                "Return JSON with keys: is_ad_interest (true/false), confidence (0.0-1.0), reasons (array), matched_cues (array).\n"
+                "Rules:\n"
+                "- Treat vegan/plant-based + interest cues (interested, know more, join, ready, challenge, program) as strong.\n"
+                "- Be conservative if it's only diet identity (e.g., pescetarian) with no interest cue.\n"
+            )
+            cls_raw = await get_ai_response(classifier_prompt)
+            cls_data = None
+            if cls_raw:
+                try:
+                    # Extract JSON if model wrapped text
+                    start = cls_raw.find('{')
+                    end = cls_raw.rfind('}')
+                    json_str = cls_raw[start:end+1] if start != - \
+                        1 and end != -1 else cls_raw
+                    cls_data = json.loads(json_str)
+                except Exception:
+                    cls_data = None
+
+            if isinstance(cls_data, dict):
+                cls_is_ad = bool(cls_data.get('is_ad_interest', False))
+                cls_conf = float(cls_data.get('confidence', 0.0))
+                matched_cues = [str(c).lower() for c in (cls_data.get(
+                    'matched_cues') or []) if isinstance(c, (str, int, float))]
+
+                # Scenario hint from classifier cues if not already set to vegan/vegetarian
+                if scenario == 3:
+                    if any('vegan' in c for c in matched_cues) or 'vegan' in text:
+                        scenario = 1
+                    elif any('vegetarian' in c for c in matched_cues) or 'vegetarian' in text:
+                        scenario = 2
+
+                # Fuse with heuristics: promote to at least 70% if classifier is confident
+                if cls_is_ad and cls_conf >= 0.65:
+                    confidence = max(confidence, int(round(cls_conf * 100)))
+                    if confidence < 70:
+                        confidence = 70
+        except Exception as e:
+            logger.warning(f"[AdResponse] Classifier step failed: {e}")
+
+        # Small boost if known ad-origin lead
+        try:
+            lead_source = str(metrics.get('lead_source', '') or '').lower()
+            if any(k in lead_source for k in ['facebook_ad', 'paid_plant_based_challenge', 'plant_based_challenge', 'ad']):
+                confidence = min(95, confidence + 10)
+        except Exception:
+            pass
 
         is_ad = confidence >= 50
 
@@ -140,48 +232,22 @@ class AdResponseHandler:
 
             # ✅ CRITICAL: Tag user as being in ad flow so subsequent messages use this flow
             try:
-                import sqlite3
-                conn = sqlite3.connect(
-                    r"C:\Users\Shannon\OneDrive\Desktop\shanbot\app\analytics_data_good.sqlite")
-                cursor = conn.cursor()
-
-                # Check if user exists, if not create basic entry
-                cursor.execute(
-                    "SELECT ig_username FROM users WHERE ig_username = ?", (ig_username,))
-                if not cursor.fetchone():
-                    cursor.execute("""
-                        INSERT INTO users (ig_username, subscriber_id, lead_source, is_in_ad_flow, ad_script_state, ad_scenario) 
-                        VALUES (?, ?, ?, ?, ?, ?)
-                    """, (ig_username, subscriber_id, 'paid_plant_based_challenge', True, 'step1', scenario))
+                current_state = metrics.get('ad_script_state', 'step1')
+                next_state = AdResponseHandler._advance_script_state(
+                    current_state, message_text)
+                ok = set_user_ad_flow(
+                    ig_username=ig_username,
+                    subscriber_id=subscriber_id,
+                    scenario=scenario,
+                    next_state=next_state,
+                    lead_source='paid_plant_based_challenge',
+                )
+                if ok:
                     logger.info(
-                        f"[AdResponse] Created new user entry for {ig_username} with ad flow flags")
+                        f"[AdResponse] Successfully tagged {ig_username} for ad flow (scenario={scenario})")
                 else:
-                    # Advance script state based on user interaction
-                    current_state = metrics.get('ad_script_state', 'step1')
-                    next_state = AdResponseHandler._advance_script_state(
-                        current_state, message_text)
-
-                    logger.info(
-                        f"[AdResponse] Executing UPDATE for {ig_username} with values: lead_source=paid_plant_based_challenge, is_in_ad_flow=True, ad_script_state={next_state}, ad_scenario={scenario}")
-
-                    cursor.execute("""
-                        UPDATE users 
-                        SET lead_source = ?, is_in_ad_flow = ?, ad_script_state = ?, ad_scenario = ? 
-                        WHERE ig_username = ?
-                    """, ('paid_plant_based_challenge', True, next_state, scenario, ig_username))
-
-                    rows_affected = cursor.rowcount
-                    logger.info(
-                        f"[AdResponse] UPDATE affected {rows_affected} rows for {ig_username}")
-                    logger.info(
-                        f"[AdResponse] Updated {ig_username}: {current_state} → {next_state}")
-
-                conn.commit()
-                logger.info(
-                    f"[AdResponse] Database commit completed for {ig_username}")
-                conn.close()
-                logger.info(
-                    f"[AdResponse] Successfully tagged {ig_username} for ad flow (scenario={scenario})")
+                    logger.error(
+                        f"[AdResponse] Failed to tag {ig_username} for ad flow via db backend")
             except Exception as e:
                 logger.error(
                     f"[AdResponse] Failed to tag {ig_username} for ad flow: {e}")
@@ -222,14 +288,18 @@ class AdResponseHandler:
 
             # Persist the incoming USER message immediately
             try:
-                from app.dashboard_modules.dashboard_sqlite_utils import add_message_to_history
-                add_message_to_history(ig_username=ig_username, message_type='user',
-                                       message_text=message_text or '', message_timestamp=user_message_timestamp_iso)
+                add_message_to_history(
+                    ig_username=ig_username,
+                    message_type='user',
+                    message_text=message_text or '',
+                    message_timestamp=user_message_timestamp_iso,
+                )
             except Exception as persist_e:
                 logger.warning(
                     f"[AdResponse] Could not append user message for {ig_username}: {persist_e}")
 
-            # Add to review queue with appropriate status
+            # Idempotency: avoid queuing duplicate reviews for the same incoming text
+            # within a short window
             review_status = 'auto_scheduled' if should_auto_process else 'pending_review'
             review_id = add_response_to_review_queue(
                 user_ig_username=ig_username,
@@ -317,36 +387,7 @@ class AdResponseHandler:
                 logger.error(
                     f"[AdResponse] ❌ Failed to queue ad response for {ig_username}")
 
-            # Also add AI response to conversation history for complete context
-            try:
-                from datetime import datetime, timedelta
-                # Calculate AI response timestamp (user timestamp + realistic delay)
-                import random
-                try:
-                    user_msg_timestamp = datetime.fromisoformat(
-                        user_message_timestamp_iso.split('+')[0])
-                    delay_seconds = random.randint(
-                        30, 90)  # Realistic response delay
-                    ai_response_timestamp = (
-                        user_msg_timestamp + timedelta(seconds=delay_seconds)).isoformat()
-                except (ValueError, AttributeError):
-                    ai_response_timestamp = datetime.now().isoformat()
-
-                # Save AI response to messages table for conversation history (use same format as user messages)
-                conn = sqlite3.connect(
-                    r"C:\Users\Shannon\OneDrive\Desktop\shanbot\app\analytics_data_good.sqlite")
-                cursor = conn.cursor()
-                cursor.execute("""
-                    INSERT INTO messages (ig_username, subscriber_id, timestamp, sender, message)
-                    VALUES (?, ?, ?, ?, ?)
-                """, (ig_username, subscriber_id, ai_response_timestamp, 'ai', ai_response))
-                conn.commit()
-                conn.close()
-                logger.info(
-                    f"[AdResponse] Added AI response to conversation history for {ig_username}")
-            except Exception as e:
-                logger.error(
-                    f"[AdResponse] Failed to add AI response to conversation history: {e}")
+            # Do NOT log AI response here to avoid duplicates; it will be logged on send by the auto-sender
 
             return True
         except Exception as e:

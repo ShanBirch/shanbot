@@ -212,6 +212,7 @@ def get_conn_cursor():
 def ensure_tables_pg(c, conn):
     if not USE_POSTGRES:
         return
+    # Base tables
     c.execute("""
         CREATE TABLE IF NOT EXISTS users (
           id SERIAL PRIMARY KEY,
@@ -220,8 +221,30 @@ def ensure_tables_pg(c, conn):
           first_name TEXT,
           last_name TEXT,
           client_status TEXT DEFAULT 'Not a Client',
+          journey_stage TEXT DEFAULT 'Initial Inquiry',
+          is_onboarding BOOLEAN DEFAULT FALSE,
+          is_in_checkin_flow_mon BOOLEAN DEFAULT FALSE,
+          is_in_checkin_flow_wed BOOLEAN DEFAULT FALSE,
           is_in_ad_flow BOOLEAN DEFAULT FALSE,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          ad_script_state TEXT,
+          ad_scenario INTEGER,
+          lead_source TEXT,
+          fb_ad BOOLEAN DEFAULT FALSE,
+          last_interaction_timestamp TEXT,
+          profile_bio_text TEXT,
+          interests_json TEXT DEFAULT '[]',
+          conversation_topics_json TEXT DEFAULT '[]',
+          client_analysis_json TEXT DEFAULT '{}',
+          goals_text TEXT,
+          current_fitness_level_text TEXT,
+          injuries_limitations_text TEXT,
+          preferred_workout_types_text TEXT,
+          lifestyle_factors_text TEXT,
+          engagement_preferences_text TEXT,
+          meal_plan_summary TEXT,
+          weekly_workout_summary TEXT,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
     c.execute("""
@@ -229,8 +252,10 @@ def ensure_tables_pg(c, conn):
           id SERIAL PRIMARY KEY,
           ig_username TEXT,
           subscriber_id TEXT,
+          message_type TEXT,
           message_text TEXT,
           sender TEXT,
+          message TEXT,
           timestamp TEXT,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -243,11 +268,51 @@ def ensure_tables_pg(c, conn):
           user_message TEXT,
           ai_response_text TEXT,
           final_response_text TEXT,
+          prompt_type TEXT,
           status TEXT DEFAULT 'pending',
           created_timestamp TEXT,
+          reviewed_timestamp TEXT,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
+    # Reconcile columns across versions (safe no-ops if present)
+    alter_stmts = [
+        # users
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS journey_stage TEXT DEFAULT 'Initial Inquiry'",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_onboarding BOOLEAN DEFAULT FALSE",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_in_checkin_flow_mon BOOLEAN DEFAULT FALSE",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_in_checkin_flow_wed BOOLEAN DEFAULT FALSE",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS ad_script_state TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS ad_scenario INTEGER",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS lead_source TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS fb_ad BOOLEAN DEFAULT FALSE",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS last_interaction_timestamp TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS profile_bio_text TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS interests_json TEXT DEFAULT '[]'",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS conversation_topics_json TEXT DEFAULT '[]'",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS client_analysis_json TEXT DEFAULT '{}'",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS goals_text TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS current_fitness_level_text TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS injuries_limitations_text TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS preferred_workout_types_text TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS lifestyle_factors_text TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS engagement_preferences_text TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS meal_plan_summary TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS weekly_workout_summary TEXT",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+        # messages
+        "ALTER TABLE messages ADD COLUMN IF NOT EXISTS sender TEXT",
+        "ALTER TABLE messages ADD COLUMN IF NOT EXISTS message TEXT",
+        # pending_reviews
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS final_response_text TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS prompt_type TEXT",
+        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS reviewed_timestamp TEXT"
+    ]
+    for stmt in alter_stmts:
+        try:
+            c.execute(stmt)
+        except Exception:
+            pass
     conn.commit()
 
 
@@ -924,6 +989,10 @@ def ensure_database_tables():
                 is_in_checkin_flow_mon BOOLEAN DEFAULT FALSE,
                 is_in_checkin_flow_wed BOOLEAN DEFAULT FALSE,
                 is_in_ad_flow BOOLEAN DEFAULT FALSE,
+                ad_script_state TEXT,
+                ad_scenario INTEGER,
+                lead_source TEXT,
+                fb_ad BOOLEAN DEFAULT FALSE,
                 last_interaction_timestamp TEXT,
                 profile_bio_text TEXT,
                 interests_json TEXT DEFAULT '[]',
@@ -1027,21 +1096,26 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
         # Look up existing user
         if USE_POSTGRES:
             if subscriber_id:
-                c.execute("SELECT * FROM users WHERE subscriber_id = %s", (subscriber_id,))
+                c.execute(
+                    "SELECT * FROM users WHERE subscriber_id = %s", (subscriber_id,))
             else:
-                c.execute("SELECT * FROM users WHERE ig_username = %s", (ig_username,))
+                c.execute(
+                    "SELECT * FROM users WHERE ig_username = %s", (ig_username,))
             row = c.fetchone()
         else:
             if subscriber_id:
-                c.execute("SELECT * FROM users WHERE subscriber_id = ?", (subscriber_id,))
+                c.execute(
+                    "SELECT * FROM users WHERE subscriber_id = ?", (subscriber_id,))
             else:
-                c.execute("SELECT * FROM users WHERE ig_username = ?", (ig_username,))
+                c.execute("SELECT * FROM users WHERE ig_username = ?",
+                          (ig_username,))
             row = c.fetchone()
 
         # Create if missing (requires subscriber_id)
         if not row:
             if not subscriber_id:
-                logger.error(f"Cannot create user '{ig_username}' without subscriber_id")
+                logger.error(
+                    f"Cannot create user '{ig_username}' without subscriber_id")
                 return [], {}, None
             if USE_POSTGRES:
                 c.execute(
@@ -1049,7 +1123,8 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
                     (ig_username, subscriber_id, "Not a Client"),
                 )
                 conn.commit()
-                c.execute("SELECT * FROM users WHERE subscriber_id = %s", (subscriber_id,))
+                c.execute(
+                    "SELECT * FROM users WHERE subscriber_id = %s", (subscriber_id,))
                 row = c.fetchone()
             else:
                 c.execute(
@@ -1057,7 +1132,8 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
                     (ig_username, subscriber_id, "Not a Client"),
                 )
                 conn.commit()
-                c.execute("SELECT * FROM users WHERE subscriber_id = ?", (subscriber_id,))
+                c.execute(
+                    "SELECT * FROM users WHERE subscriber_id = ?", (subscriber_id,))
                 row = c.fetchone()
 
         # Normalize row → dict
@@ -1077,36 +1153,75 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
         # Query by subscriber_id first (support BOTH new and old column names)
         # New schema columns: message_type, message_text
         # Old schema columns: type, text
-        try:
+        if USE_POSTGRES:
+            # Postgres uses %s placeholders
+            try:
+                c.execute(
+                    "SELECT timestamp, message_type, message_text FROM messages WHERE subscriber_id = %s ORDER BY timestamp DESC LIMIT 200",
+                    (history_query_key,),
+                )
+                history_rows_subscriber_new = c.fetchall()
+            except Exception:
+                history_rows_subscriber_new = []
+
+            try:
+                c.execute(
+                    "SELECT timestamp, sender, message FROM messages WHERE subscriber_id = %s ORDER BY timestamp DESC LIMIT 200",
+                    (history_query_key,),
+                )
+                history_rows_subscriber_old = c.fetchall()
+            except Exception:
+                history_rows_subscriber_old = []
+        else:
+            try:
+                c.execute(
+                    "SELECT timestamp, message_type, message_text FROM messages WHERE subscriber_id = ? ORDER BY timestamp DESC LIMIT 200",
+                    (history_query_key,),
+                )
+                history_rows_subscriber_new = c.fetchall()
+            except Exception:
+                history_rows_subscriber_new = []
+
             c.execute(
-                "SELECT timestamp, message_type, message_text FROM messages WHERE subscriber_id = ? ORDER BY timestamp DESC LIMIT 200",
+                "SELECT timestamp, sender, message FROM messages WHERE subscriber_id = ? ORDER BY timestamp DESC LIMIT 200",
                 (history_query_key,),
             )
-            history_rows_subscriber_new = c.fetchall()
-        except Exception:
-            history_rows_subscriber_new = []
-
-        c.execute(
-            "SELECT timestamp, type, text FROM messages WHERE subscriber_id = ? ORDER BY timestamp DESC LIMIT 200",
-            (history_query_key,),
-        )
-        history_rows_subscriber_old = c.fetchall()
+            history_rows_subscriber_old = c.fetchall()
 
         # Query by ig_username (support BOTH new and old formats)
-        try:
+        if USE_POSTGRES:
+            try:
+                c.execute(
+                    "SELECT timestamp, message_type, message_text FROM messages WHERE ig_username = %s ORDER BY timestamp DESC LIMIT 200",
+                    (ig_username,),
+                )
+                history_rows_username_new = c.fetchall()
+            except Exception:
+                history_rows_username_new = []
+
+            try:
+                c.execute(
+                    "SELECT timestamp, sender, message FROM messages WHERE ig_username = %s ORDER BY timestamp DESC LIMIT 200",
+                    (ig_username,),
+                )
+                history_rows_username_old = c.fetchall()
+            except Exception:
+                history_rows_username_old = []
+        else:
+            try:
+                c.execute(
+                    "SELECT timestamp, message_type, message_text FROM messages WHERE ig_username = ? ORDER BY timestamp DESC LIMIT 200",
+                    (ig_username,),
+                )
+                history_rows_username_new = c.fetchall()
+            except Exception:
+                history_rows_username_new = []
+
             c.execute(
-                "SELECT timestamp, message_type, message_text FROM messages WHERE ig_username = ? ORDER BY timestamp DESC LIMIT 200",
+                "SELECT timestamp, sender, message FROM messages WHERE ig_username = ? ORDER BY timestamp DESC LIMIT 200",
                 (ig_username,),
             )
-            history_rows_username_new = c.fetchall()
-        except Exception:
-            history_rows_username_new = []
-
-        c.execute(
-            "SELECT timestamp, sender, message FROM messages WHERE ig_username = ? ORDER BY timestamp DESC LIMIT 200",
-            (ig_username,),
-        )
-        history_rows_username_old = c.fetchall()
+            history_rows_username_old = c.fetchall()
 
         # Combine both result sets and handle both storage formats
         history = []
@@ -1149,25 +1264,56 @@ def get_user_data(ig_username: str, subscriber_id: Optional[str] = None) -> tupl
 
         # Only augment with pending_reviews that were actually sent (status = 'sent')
         try:
-            c.execute(
-                """
-                SELECT user_ig_username FROM users WHERE subscriber_id = ? LIMIT 1
-                """,
-                (subscriber_id,),
-            )
-            row_user = c.fetchone()
-            ig_for_pending = row_user[0] if row_user and row_user[0] else ig_username
+            if USE_POSTGRES:
+                c.execute(
+                    """
+                    SELECT ig_username FROM users WHERE subscriber_id = %s LIMIT 1
+                    """,
+                    (subscriber_id,),
+                )
+                row_user = c.fetchone()
+                ig_for_pending = (row_user.get('ig_username')
+                                  if row_user else None) or ig_username
 
-            c.execute(
-                """
-                SELECT final_response_text, reviewed_timestamp, created_timestamp
-                FROM pending_reviews
-                WHERE user_ig_username = ? AND status = 'sent' AND final_response_text IS NOT NULL
-                ORDER BY created_timestamp DESC
-                LIMIT 50
-                """,
-                (ig_for_pending,),
-            )
+                c.execute(
+                    """
+                    SELECT final_response_text, reviewed_timestamp, created_timestamp
+                    FROM pending_reviews
+                    WHERE user_ig_username = %s AND status = 'sent' AND final_response_text IS NOT NULL
+                    ORDER BY created_timestamp DESC
+                    LIMIT 50
+                    """,
+                    (ig_for_pending,),
+                )
+            else:
+                c.execute(
+                    """
+                    SELECT ig_username FROM users WHERE subscriber_id = ? LIMIT 1
+                    """,
+                    (subscriber_id,),
+                )
+                row_user = c.fetchone()
+                # SQLite row is a tuple when row_factory not dict; support both
+                ig_for_pending = None
+                try:
+                    ig_for_pending = row_user[0] if row_user else None
+                except Exception:
+                    try:
+                        ig_for_pending = row_user['ig_username'] if row_user else None
+                    except Exception:
+                        ig_for_pending = None
+                ig_for_pending = ig_for_pending or ig_username
+
+                c.execute(
+                    """
+                    SELECT final_response_text, reviewed_timestamp, created_timestamp
+                    FROM pending_reviews
+                    WHERE user_ig_username = ? AND status = 'sent' AND final_response_text IS NOT NULL
+                    ORDER BY created_timestamp DESC
+                    LIMIT 50
+                    """,
+                    (ig_for_pending,),
+                )
             rows_sent = c.fetchall() or []
             for final_ai, reviewed_ts, created_ts in rows_sent:
                 final_txt = str(final_ai).strip()

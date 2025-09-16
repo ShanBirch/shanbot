@@ -11,7 +11,8 @@ from webhook_handlers import (
     get_user_data,
     build_member_chat_prompt,
     get_ai_response,
-    process_conversation_for_media
+    process_conversation_for_media,
+    split_response_into_messages
 )
 from app.dashboard_modules.dashboard_sqlite_utils import (
     get_db_connection,
@@ -352,32 +353,7 @@ async def reprocess_with_new_messages(
         return None
 
 
-def split_response_into_messages(text):
-    """Split response into multiple messages if too long"""
-    max_length = 900
-    if len(text) <= max_length:
-        return [text]
-
-    # Try to split at sentence boundaries
-    sentences = text.split('. ')
-    messages = []
-    current_message = ""
-
-    for sentence in sentences:
-        if len(current_message + sentence + '. ') <= max_length:
-            current_message += sentence + '. '
-        else:
-            if current_message:
-                messages.append(current_message.strip())
-                current_message = sentence + '. '
-            else:
-                # Single sentence too long, force split
-                messages.append(sentence[:max_length])
-
-    if current_message:
-        messages.append(current_message.strip())
-
-    return messages
+# Use the shared splitter imported from webhook_handlers
 
 
 def send_response_via_manychat(scheduled_response):

@@ -39,7 +39,7 @@ class CoreActionHandler:
 
             # Persist the incoming USER message to the unified messages table immediately
             try:
-                from app.dashboard_modules.dashboard_sqlite_utils import add_message_to_history
+                from app.db_backend import add_message_to_history
                 add_message_to_history(ig_username=ig_username, message_type='user',
                                        message_text=message_text or '', message_timestamp=user_message_timestamp_iso)
             except Exception as persist_e:
@@ -230,7 +230,7 @@ class CoreActionHandler:
                         f"[CoreGeneral] Using fallback ig_username '{ig_username}' for general conversation")
 
                 # Queue response for review
-                from app.dashboard_modules.dashboard_sqlite_utils import add_response_to_review_queue
+                from app.db_backend import add_response_to_review_queue
                 review_id = add_response_to_review_queue(
                     user_ig_username=ig_username,
                     user_subscriber_id=subscriber_id,
@@ -301,31 +301,74 @@ class CoreActionHandler:
 
     @staticmethod
     def _get_recent_ai_questions(ig_username: str, limit: int = 3) -> list:
-        """Get recent AI questions for duplicate detection."""
-        from app.dashboard_modules.dashboard_sqlite_utils import get_db_connection
-        conn = get_db_connection()
+        """Get recent AI questions for duplicate detection (Postgres-aware)."""
         try:
-            cursor = conn.cursor()
-
-            cursor.execute("""
-                SELECT proposed_response_text 
-                FROM response_review_queue 
-                WHERE user_ig_username = ? 
-                AND proposed_response_text LIKE '%?%'
-                ORDER BY created_at DESC 
-                LIMIT ?
-            """, (ig_username, limit))
-
-            rows = cursor.fetchall()
-
             questions = []
-            for row in rows:
-                response_text = row[0]
-                # Extract questions (simple heuristic)
-                sentences = response_text.split('.')
-                for sentence in sentences:
-                    if '?' in sentence:
-                        questions.append(sentence.strip() + '?')
+            # Prefer Postgres if configured
+            try:
+                import os
+                from app.db_backend import is_postgres
+                if is_postgres():
+                    import psycopg2
+                    from psycopg2.extras import RealDictCursor
+                    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+                    cur = conn.cursor(cursor_factory=RealDictCursor)
+                    try:
+                        cur.execute(
+                            """
+                            SELECT ai_response_text
+                            FROM pending_reviews
+                            WHERE user_ig_username = %s
+                              AND ai_response_text LIKE %s
+                            ORDER BY created_timestamp DESC
+                            LIMIT %s
+                            """,
+                            (ig_username, "%?%", limit),
+                        )
+                        rows = cur.fetchall() or []
+                        for row in rows:
+                            response_text = (row or {}).get("ai_response_text")
+                            if not response_text:
+                                continue
+                            sentences = str(response_text).split('.')
+                            for sentence in sentences:
+                                if '?' in sentence:
+                                    questions.append(sentence.strip() + '?')
+                    finally:
+                        conn.close()
+                    return questions[:limit]
+            except Exception:
+                # Fall through to SQLite if Postgres not available/failed
+                pass
+
+            # SQLite fallback
+            from app.dashboard_modules.dashboard_sqlite_utils import get_db_connection
+            conn = get_db_connection()
+            try:
+                cursor = conn.cursor()
+                cursor.execute(
+                    """
+                    SELECT proposed_response_text 
+                    FROM pending_reviews 
+                    WHERE user_ig_username = ? 
+                      AND proposed_response_text LIKE '%?%'
+                    ORDER BY created_timestamp DESC 
+                    LIMIT ?
+                    """,
+                    (ig_username, limit),
+                )
+                rows = cursor.fetchall() or []
+                for row in rows:
+                    response_text = row[0] if row else None
+                    if not response_text:
+                        continue
+                    sentences = str(response_text).split('.')
+                    for sentence in sentences:
+                        if '?' in sentence:
+                            questions.append(sentence.strip() + '?')
+            finally:
+                if conn:
+                    conn.close()
 
             return questions[:limit]
 
@@ -333,6 +376,3 @@ class CoreActionHandler:
             logger.error(
                 f"[CoreQuestions] Error getting recent questions for {ig_username}: {e}")
             return []
-        finally:
-            if conn:
-                conn.close()

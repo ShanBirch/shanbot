@@ -12,19 +12,20 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 def create_tables():
     """Create all required database tables."""
-    
+
     database_url = os.getenv('DATABASE_URL')
     if not database_url:
         logger.error("DATABASE_URL environment variable not set")
         return False
-    
+
     try:
         # Connect to PostgreSQL
         conn = psycopg2.connect(database_url)
         cursor = conn.cursor()
-        
+
         # Create users table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
@@ -56,7 +57,7 @@ def create_tables():
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+
         # Create messages table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS messages (
@@ -71,7 +72,7 @@ def create_tables():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+
         # Create pending_reviews table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS pending_reviews (
@@ -88,7 +89,7 @@ def create_tables():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+
         # Create analytics_data table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS analytics_data (
@@ -105,18 +106,19 @@ def create_tables():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+
         # Commit changes
         conn.commit()
         logger.info("✅ All database tables created successfully")
-        
+
         cursor.close()
         conn.close()
         return True
-        
+
     except Exception as e:
         logger.error(f"❌ Error creating database tables: {e}")
         return False
+
 
 if __name__ == "__main__":
     success = create_tables()

@@ -427,6 +427,39 @@ def display_overview_tab(analytics_data_dict):
 
     st.divider()
 
+    # --- Review Accuracy Statistics (moved from Response Review) ---
+    try:
+        import app.dashboard_modules.dashboard_sqlite_utils as _db_utils
+        accuracy_stats = _db_utils.get_review_accuracy_stats()
+    except Exception:
+        accuracy_stats = None
+
+    if accuracy_stats:
+        col_header, col_reset = st.columns([3, 1])
+        with col_header:
+            st.subheader("📝 Review Accuracy Statistics")
+        with col_reset:
+            if st.button("🔄 Reset Stats", type="secondary", help="Clear all learning statistics and start fresh"):
+                with st.spinner("Resetting learning statistics..."):
+                    success, message = _db_utils.reset_learning_stats()
+                    if success:
+                        st.success(message)
+                        st.rerun()
+                    else:
+                        st.error(message)
+
+        cols = st.columns(4)
+        cols[0].metric("Total Processed", accuracy_stats.get(
+            "total_processed_including_discarded", 0))
+        cols[1].metric("Sent As-Is", f"{accuracy_stats.get('accuracy_percentage', 0.0)}%",
+                       delta=f"{accuracy_stats.get('sent_as_is', 0)} count")
+        cols[2].metric("Edited by User", f"{accuracy_stats.get('edited_percentage', 0.0)}%",
+                       delta=f"{accuracy_stats.get('edited_by_user', 0)} count")
+        cols[3].metric("Regenerated Response", f"{accuracy_stats.get('regenerated_percentage', 0.0)}%",
+                       delta=f"{accuracy_stats.get('regenerated_count', 0)} count")
+
+    st.divider()
+
     # --- Display Challenge & Conversion Stats ---
     st.subheader("🎯 Challenge & Conversion Metrics")
     col_challenge1, col_challenge2, col_challenge3 = st.columns(3)

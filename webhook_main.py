@@ -21,8 +21,10 @@ from typing import Dict, Any, Optional
 from app.analytics import update_analytics_data
 from action_router import ActionRouter
 from calendly_integration import run_booking_check
+from webhook_handlers import ensure_database_tables
 
 import uvicorn
+import os
 from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -114,31 +116,44 @@ async def lifespan(app: FastAPI):
     """Run startup and shutdown tasks."""
     logger.info("[Startup] Shanbot Webhook starting up...")
 
-    # Start Calendly booking check task
-    logger.info("[Startup] Starting Calendly booking check task...")
+    # Ensure DB tables (especially on Postgres) before handling traffic
     try:
-        # Create a proper async task for the booking check
-        async def run_calendly_check():
-            while True:
-                try:
-                    # Run the booking check (this is a sync function)
-                    count = run_booking_check()
-                    if count > 0:
-                        logger.info(
-                            f"✅ Found and processed {count} new booking(s)")
-                    else:
-                        logger.info("✅ No new bookings found")
-                except Exception as e:
-                    logger.error(f"❌ Error in Calendly booking check: {e}")
-
-                # Wait 30 minutes before next check
-                await asyncio.sleep(1800)  # 30 minutes
-
-        # Start the background task
-        asyncio.create_task(run_calendly_check())
-        logger.info("[Startup] ✓ Calendly booking check task started")
+        ensure_database_tables()
+        logger.info("[Startup] Ensured database tables")
     except Exception as e:
-        logger.error(f"[Startup] Failed to start Calendly booking check: {e}")
+        logger.error(f"[Startup] Failed ensuring database tables: {e}")
+
+    # Optionally start Calendly booking check task (disabled by default)
+    enable_calendly = os.getenv("ENABLE_CALENDLY", "false").lower() == "true"
+    if enable_calendly:
+        logger.info("[Startup] Starting Calendly booking check task...")
+        try:
+            # Create a proper async task for the booking check
+            async def run_calendly_check():
+                while True:
+                    try:
+                        # Run the booking check (this is a sync function)
+                        count = run_booking_check()
+                        if count > 0:
+                            logger.info(
+                                f"✅ Found and processed {count} new booking(s)")
+                        else:
+                            logger.info("✅ No new bookings found")
+                    except Exception as e:
+                        logger.error(f"❌ Error in Calendly booking check: {e}")
+
+                    # Wait 30 minutes before next check
+                    await asyncio.sleep(1800)  # 30 minutes
+
+            # Start the background task
+            asyncio.create_task(run_calendly_check())
+            logger.info("[Startup] ✓ Calendly booking check task started")
+        except Exception as e:
+            logger.error(
+                f"[Startup] Failed to start Calendly booking check: {e}")
+    else:
+        logger.info(
+            "[Startup] Calendly check disabled (set ENABLE_CALENDLY=true to enable)")
 
     yield
 
@@ -230,12 +245,7 @@ async def manychat_webhook(request: Request, background_tasks: BackgroundTasks):
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat(),
-        "version": "2.0.0",
-        "service": "shanbot-webhook"
-    }
+    return {"status": "ok"}
 
 
 @app.get("/debug")

@@ -1,23 +1,24 @@
+# app/config.py (cloud deployment configuration)
 import os
 import logging
 
-# API Keys and Tokens
-MANYCHAT_API_KEY = "996573:5b6dc180662de1be343655db562ee918"
-IG_GRAPH_ACCESS_TOKEN = "EAAJaUdyYIDgBO2TVUXn3nZChZBUEyJlkUi5oZCbVKm5TOMZA3l33bQaMZCRkiLNsZACYnxg8B1LarhVHeb0HmPQoAZBSEHfAw3B0ZAPHp1jx5Etp7TmarfSlfb5QJmMZCfIY7lDmRaqzhxtgxxGlniEukynpJoQHBKVK6ppbkRDjGTfUzVGwNvPEajwYScllwZACYZD"
-GEMINI_API_KEY = os.getenv(
-    "GEMINI_API_KEY", "AIzaSyCGawrpt6EFWeaGDQ3rgf2yMS8-DMcXw0Y")
+# API Keys and Tokens - Using environment variables for cloud deployment
+MANYCHAT_API_KEY = os.getenv(
+    "MANYCHAT_API_KEY", "996573:5b6dc180662de1be343655db562ee918")
+IG_GRAPH_ACCESS_TOKEN = os.getenv("INSTAGRAM_GRAPH_API_TOKEN", "")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Gemini Model Configuration - Updated to newer models
-GEMINI_MODEL_PRO = "gemini-2.5-pro"
-GEMINI_MODEL_FLASH = "gemini-2.5-flash"
-GEMINI_MODEL_FLASH_STANDARD = "gemini-2.5-flash-lite"
+# Gemini Model Configuration - Updated to stable models for cloud
+GEMINI_MODEL_PRO = "gemini-2.0-flash-exp"
+GEMINI_MODEL_FLASH = "gemini-1.5-flash"
+GEMINI_MODEL_FLASH_STANDARD = "gemini-1.5-flash-8b"
 RETRY_DELAY = 16
 MAX_RETRIES = 3
 
-# File Paths
-SHEETS_CREDENTIALS_PATH = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\sheets_credentials.json"
-ANALYTICS_FILE_PATH = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\app\\analytics_data_good.json"
-CHECKIN_REVIEWS_DIR = r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\output\\checkin_reviews"
+# Cloud-compatible file paths (no local file dependencies)
+SHEETS_CREDENTIALS_PATH = None  # Will use service account from env var
+ANALYTICS_FILE_PATH = None  # Will use cloud storage/database
+CHECKIN_REVIEWS_DIR = None  # Will use cloud storage
 
 # Google Sheets Configuration
 SPREADSHEET_ID = "1nDVn6jhkYBubVTQqbYU3PKo_WooeuTsQzsaNNcQdJlo"
@@ -26,9 +27,9 @@ RANGE_NAME = "Sheet1!A:E"
 ONBOARDING_RANGE_NAME = "Sheet1!A:AAF"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
-# FFmpeg Configuration
-FFMPEG_PATH = r"C:\ffmpeg\ffmpeg.exe"
-FFPROBE_PATH = r"C:\ffmpeg\ffprobe.exe"
+# FFmpeg Configuration - Not needed in cloud (will use cloud services)
+FFMPEG_PATH = None
+FFPROBE_PATH = None
 
 # Message Processing Configuration
 BUFFER_WINDOW = 15  # seconds to wait for grouping messages
@@ -39,9 +40,10 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 
-# Trainerize Credentials
-TRAINERIZE_USERNAME = "shannonbirch@cocospersonaltraining.com"
-TRAINERIZE_PASSWORD = "cyywp7nyk2"
+# Trainerize Credentials - Using environment variables
+TRAINERIZE_USERNAME = os.getenv(
+    "TRAINERIZE_USERNAME", "shannonbirch@cocospersonaltraining.com")
+TRAINERIZE_PASSWORD = os.getenv("TRAINERIZE_PASSWORD", "cyywp7nyk2")
 
 # Response Templates
 FORM_CHECK_REQUEST_RESPONSES = [
