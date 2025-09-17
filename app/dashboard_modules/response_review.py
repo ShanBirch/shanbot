@@ -2632,7 +2632,12 @@ def handle_discard(review_item, user_notes):
         review_id=review_item['review_id'],
         user_ig_username=review_item['user_ig_username'],
         user_subscriber_id=review_item['user_subscriber_id'],
-        original_prompt_text=review_item['generated_prompt_text'],
+        original_prompt_text=(
+            review_item.get('generated_prompt_text')
+            or review_item.get('generated_prompt')
+            or review_item.get('generated_prompt_text_v1')
+            or ''
+        ),
         original_gemini_response=review_item['proposed_response_text'],
         edited_response_text="[DISCARDED]",
         user_notes=f"[DISCARDED by user] {user_notes}".strip(),
@@ -2706,7 +2711,12 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix=""):
     review_id = review_item['review_id']
     user_ig = review_item['user_ig_username']
     incoming_msg = review_item['incoming_message_text']
-    original_prompt = review_item['generated_prompt_text']
+    original_prompt = (
+        review_item.get('generated_prompt_text')
+        or review_item.get('generated_prompt')
+        or review_item.get('generated_prompt_text_v1')
+        or ''
+    )
     subscriber_id = review_item.get('user_subscriber_id', '')
 
     logger.info(
@@ -3641,7 +3651,12 @@ def handle_save_vegan_example(review_item, edited_response, user_notes):
         review_id = review_item['review_id']
         user_ig = review_item['user_ig_username']
         subscriber_id = review_item['user_subscriber_id']
-        original_prompt = review_item['generated_prompt_text']
+        original_prompt = (
+            review_item.get('generated_prompt_text')
+            or review_item.get('generated_prompt')
+            or review_item.get('generated_prompt_text_v1')
+            or ''
+        )
         original_response = review_item['proposed_response_text']
 
         # Save as vegan example
