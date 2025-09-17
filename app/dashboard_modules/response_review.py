@@ -482,7 +482,8 @@ def get_cached_conversation_history(subscriber_id: str, limit: int = 20) -> List
 
             conn = psycopg2.connect(database_url)
             cur = conn.cursor(cursor_factory=RealDictCursor)
-            cur.execute("SELECT ig_username FROM users WHERE subscriber_id = %s LIMIT 1", (subscriber_id,))
+            cur.execute(
+                "SELECT ig_username FROM users WHERE subscriber_id = %s LIMIT 1", (subscriber_id,))
             row = cur.fetchone()
             ig_username = (row or {}).get("ig_username") if row else None
 
@@ -501,7 +502,8 @@ def get_cached_conversation_history(subscriber_id: str, limit: int = 20) -> List
             rows = cur.fetchall() or []
             conn.close()
             return [
-                {"timestamp": r.get("ts"), "type": r.get("kind"), "text": r.get("text")}
+                {"timestamp": r.get("ts"), "type": r.get(
+                    "kind"), "text": r.get("text")}
                 for r in rows if r.get("text")
             ]
 
@@ -2528,6 +2530,25 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
             pass
     else:
         st.error("❌ Failed to send any message parts to ManyChat")
+
+    # Persist the triggering USER message as a conversation row (idempotent)
+    try:
+        incoming_text = (review_item.get('incoming_message_text') or '').strip()
+        incoming_ts = review_item.get('incoming_message_timestamp')
+        if incoming_text:
+            if add_message_to_history_pg:
+                add_message_to_history_pg(
+                    ig_username=user_ig,
+                    message_type='user',
+                    message_text=incoming_text,
+                    message_timestamp=incoming_ts,
+                )
+            else:
+                db_utils.add_message_to_history(
+                    user_ig, 'user', incoming_text, incoming_ts
+                )
+    except Exception:
+        pass
 
     # Calculate AI response timestamp - IMPROVED to prevent collisions
     try:
