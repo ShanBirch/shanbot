@@ -41,6 +41,12 @@ def ensure_db_schema():
                     last_interaction_timestamp TEXT,
                     client_analysis_json TEXT,
                     offer_made BOOLEAN DEFAULT FALSE,
+                    metrics_json TEXT,
+                    calorie_tracking_json TEXT,
+                    is_in_calorie_flow INTEGER DEFAULT 0,
+                    bio TEXT,
+                    bio_context TEXT,
+                    client_interests TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
@@ -54,6 +60,7 @@ def ensure_db_schema():
                     ig_username TEXT,
                     subscriber_id TEXT,
                     message_type TEXT,
+                    type TEXT,
                     message_text TEXT,
                     timestamp TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -145,7 +152,7 @@ def update_analytics_data(
     and user information. Creates a new user if one doesn't exist.
     """
     logger.debug(f"Updating analytics for subscriber_id: {subscriber_id}")
-    
+
     # Only run SQLite schema checks if not on Postgres
     if not USE_POSTGRES:
         ensure_db_schema()

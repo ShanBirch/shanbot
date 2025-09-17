@@ -317,36 +317,14 @@ async def _handle_buffered_messages(subscriber_id: str, ig_username: str, payloa
     conversation_history, metrics_dict, _ = get_user_data(
         ig_username, subscriber_id)
 
-    # --- RECORD USER MESSAGE IN CONVERSATION HISTORY ---
-    # Add the user's message to conversation history before processing
+    # --- USER MESSAGE STORAGE DEFERRED ---
+    # IMPORTANT: User messages are now stored ONLY when responses are approved/sent
+    # This prevents discarded conversations from appearing in conversation history
+    # User message storage is handled in handle_approve_and_send() in response_review.py
     user_message_timestamp_iso = datetime.fromtimestamp(
         batch_start_time_s).isoformat()
-    try:
-        # Use PostgreSQL-aware function when available
-        try:
-            from app.dashboard_modules.response_review import add_message_to_history_pg
-            if add_message_to_history_pg(
-                ig_username=ig_username,
-                message_type='user', 
-                message_text=final_combined_message,
-                message_timestamp=user_message_timestamp_iso
-            ):
-                logger.info(f"📝 Added user message to PostgreSQL conversation history for {ig_username}")
-            else:
-                raise Exception("PostgreSQL storage failed, falling back to SQLite")
-        except Exception:
-            # Fallback to SQLite
-            from app.dashboard_modules.dashboard_sqlite_utils import add_message_to_history
-            add_message_to_history(
-                ig_username=ig_username,
-                message_type='user',
-                message_text=final_combined_message,
-                message_timestamp=user_message_timestamp_iso
-            )
-            logger.info(f"📝 Added user message to SQLite conversation history for {ig_username}")
-    except Exception as e:
-        logger.error(
-            f"❌ Failed to add user message to conversation history for {ig_username}: {e}")
+    logger.info(
+        f"📝 User message will be stored to conversation history only when response is approved for {ig_username}")
 
     # --- Action Detection ---
     # `detect_and_handle_action` will return True if it handled the message (e.g., form check, workout change).

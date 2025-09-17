@@ -53,7 +53,8 @@ class CoreActionHandler:
                         message_timestamp=user_message_timestamp_iso
                     )
                 except Exception as persist_e:
-                    logger.warning(f"[CoreAction] SQLite add_message_to_history failed for {ig_username}: {persist_e}")
+                    logger.warning(
+                        f"[CoreAction] SQLite add_message_to_history failed for {ig_username}: {persist_e}")
             else:
                 # Fallback: Direct Postgres INSERT when app.db_backend not available
                 try:
@@ -64,15 +65,19 @@ class CoreActionHandler:
                         cursor = conn.cursor()
                         cursor.execute(
                             "INSERT INTO messages (ig_username, subscriber_id, message_type, message_text, timestamp) VALUES (%s, %s, %s, %s, %s)",
-                            (ig_username, subscriber_id, 'user', message_text or '', user_message_timestamp_iso)
+                            (ig_username, subscriber_id, 'user',
+                             message_text or '', user_message_timestamp_iso)
                         )
                         conn.commit()
                         conn.close()
-                        logger.debug(f"[CoreAction] Postgres message persistence successful for {ig_username}")
+                        logger.debug(
+                            f"[CoreAction] Postgres message persistence successful for {ig_username}")
                     else:
-                        logger.debug(f"[CoreAction] No DATABASE_URL, skipping message persistence for {ig_username}")
+                        logger.debug(
+                            f"[CoreAction] No DATABASE_URL, skipping message persistence for {ig_username}")
                 except Exception as pg_e:
-                    logger.warning(f"[CoreAction] Postgres message persistence failed for {ig_username}: {pg_e}")
+                    logger.warning(
+                        f"[CoreAction] Postgres message persistence failed for {ig_username}: {pg_e}")
 
             # Get user data and current state
             _, metrics, _ = get_user_data(ig_username, subscriber_id)
@@ -225,7 +230,7 @@ class CoreActionHandler:
 
             # Fetch appropriate few-shot examples (vegan or general) - Skip on Postgres
             few_shot_examples = []
-            
+
             # Only use SQLite-specific functions if not on Postgres
             import os
             if not os.getenv('DATABASE_URL'):  # SQLite mode
@@ -233,11 +238,13 @@ class CoreActionHandler:
                     from app.dashboard_modules.dashboard_sqlite_utils import is_user_in_vegan_flow, get_vegan_few_shot_examples, get_good_few_shot_examples
 
                     if is_user_in_vegan_flow(ig_username):
-                        few_shot_examples = get_vegan_few_shot_examples(limit=50)
+                        few_shot_examples = get_vegan_few_shot_examples(
+                            limit=50)
                         logger.info(
                             f"[CoreGeneral] Using {len(few_shot_examples)} vegan few-shot examples for {ig_username}")
                     else:
-                        few_shot_examples = get_good_few_shot_examples(limit=50)
+                        few_shot_examples = get_good_few_shot_examples(
+                            limit=50)
                         logger.info(
                             f"[CoreGeneral] Using {len(few_shot_examples)} general few-shot examples for {ig_username}")
                 except Exception as e:
@@ -245,7 +252,8 @@ class CoreActionHandler:
                         f"[CoreGeneral] Could not fetch few-shot examples for {ig_username}: {e}")
             else:
                 # On Postgres: skip SQLite-only few-shot examples to avoid table errors
-                logger.info(f"[CoreGeneral] Using 0 few-shot examples for {ig_username} (Postgres mode)")
+                logger.info(
+                    f"[CoreGeneral] Using 0 few-shot examples for {ig_username} (Postgres mode)")
 
             # Use the dedicated prompt builder function
             prompt, prompt_type = build_member_chat_prompt(
@@ -287,7 +295,7 @@ class CoreActionHandler:
                         if database_url:
                             conn = psycopg2.connect(database_url)
                             cursor = conn.cursor()
-                            
+
                             # Insert into pending_reviews table
                             insert_query = """
                                 INSERT INTO pending_reviews (
@@ -298,19 +306,23 @@ class CoreActionHandler:
                             """
                             cursor.execute(insert_query, (
                                 ig_username, subscriber_id, processed_message_text,
-                                user_message_timestamp_iso, prompt, response, 
+                                user_message_timestamp_iso, prompt, response,
                                 prompt_type, datetime.now().isoformat()
                             ))
                             review_id = cursor.fetchone()[0]
                             conn.commit()
                             conn.close()
-                            logger.info(f"[CoreGeneral] Queued general response (ID: {review_id}) for {ig_username}")
+                            logger.info(
+                                f"[CoreGeneral] Queued general response (ID: {review_id}) for {ig_username}")
                         else:
-                            logger.warning(f"[CoreGeneral] No DATABASE_URL, skipping review queue for {ig_username}")
+                            logger.warning(
+                                f"[CoreGeneral] No DATABASE_URL, skipping review queue for {ig_username}")
                     except Exception as pg_e:
-                        logger.warning(f"[CoreGeneral] Postgres review queue failed for {ig_username}: {pg_e}")
+                        logger.warning(
+                            f"[CoreGeneral] Postgres review queue failed for {ig_username}: {pg_e}")
                 except Exception as e:
-                    logger.warning(f"[CoreGeneral] Could not queue response for review for {ig_username}: {e}")
+                    logger.warning(
+                        f"[CoreGeneral] Could not queue response for review for {ig_username}: {e}")
 
                 if review_id:
                     logger.info(

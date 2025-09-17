@@ -2206,6 +2206,30 @@ def delete_reviews_for_user(ig_username: str) -> tuple[bool, int]:
     """
     Deletes all pending review items for a specific user from the pending_reviews table.
     """
+    # Prefer PostgreSQL when configured (Render)
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            conn = psycopg2.connect(DATABASE_URL)
+            cur = conn.cursor()
+            cur.execute(
+                "DELETE FROM pending_reviews WHERE user_ig_username = %s", (ig_username,))
+            deleted_count = cur.rowcount
+            conn.commit()
+            logger.info(
+                f"Deleted {deleted_count} review items for user {ig_username}")
+            return True, deleted_count
+        except Exception as e:
+            logger.error(f"Error deleting reviews for user {ig_username} (PostgreSQL): {e}")
+            return False, 0
+        finally:
+            try:
+                if conn:
+                    conn.close()
+            except Exception:
+                pass
+
+    # SQLite fallback (local dev)
     conn = get_db_connection()
     deleted_count = 0
     try:
@@ -2218,7 +2242,7 @@ def delete_reviews_for_user(ig_username: str) -> tuple[bool, int]:
             f"Deleted {deleted_count} review items for user {ig_username}")
         return True, deleted_count
     except sqlite3.Error as e:
-        logger.error(f"Error deleting reviews for user {ig_username}: {e}")
+        logger.error(f"Error deleting reviews for user {ig_username} (SQLite): {e}")
         return False, 0
     finally:
         if conn:
