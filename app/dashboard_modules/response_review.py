@@ -276,18 +276,26 @@ def add_message_to_history_pg(ig_username: str, message_type: str, message_text:
         # Deduplication: skip insert if same sender+text exists recently
         # Use the provided message_timestamp when available to avoid false negatives
         recent_cutoff = (
-            datetime.fromisoformat(message_timestamp.split('+')[0]) if message_timestamp else datetime.now()
+            datetime.fromisoformat(message_timestamp.split(
+                '+')[0]) if message_timestamp else datetime.now()
         ) - timedelta(minutes=5)
         cursor.execute(
             """
-            SELECT COUNT(1) FROM messages
+            SELECT COUNT(1) AS cnt FROM messages
             WHERE ig_username = %s AND message_type = %s AND message_text = %s
               AND (created_at >= NOW() - INTERVAL '5 minutes' OR (timestamp IS NOT NULL AND timestamp >= %s))
             """,
             (ig_username, mt, message_text, recent_cutoff.isoformat()),
         )
 
-        exists_recent = (cursor.fetchone() or [0])[0] > 0
+        row = cursor.fetchone()
+        try:
+            if isinstance(row, dict):
+                exists_recent = int(row.get('cnt', 0)) > 0
+            else:
+                exists_recent = int((row or [0])[0]) > 0
+        except Exception:
+            exists_recent = False
 
         if exists_recent:
             logging.info(
@@ -2729,30 +2737,39 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
     # Add the AI message to conversation history with the calculated timestamp
     if edited_response and first_chunk_sent_successfully:
         # Only add to conversation history if the message was actually sent
+        write_ok = False
         try:
-            if add_message_to_history_pg:
-                add_message_to_history_pg(
-                    ig_username=user_ig,
-                    message_type="ai",
-                    message_text=edited_response,
-                    message_timestamp=ai_response_timestamp,
-                )
-            else:
+            # Prefer centralized backend which routes to Postgres/SQLite
+            from app.db_backend import add_message_to_history as backend_add_message
+            write_ok = bool(backend_add_message(
+                ig_username=user_ig,
+                message_type="ai",
+                message_text=edited_response,
+                message_timestamp=ai_response_timestamp,
+            ))
+        except Exception:
+            # Fallback directly to local SQLite helper
+            try:
                 db_utils.add_message_to_history(
                     ig_username=user_ig,
                     message_type="ai",
                     message_text=edited_response,
                     message_timestamp=ai_response_timestamp,
                 )
-        except Exception:
-            logger.warning("Failed to write AI message to history")
-        logger.info(
-            f"AI response for {user_ig} added to history with calculated timestamp: {ai_response_timestamp}")
+                write_ok = True
+            except Exception as e:
+                logger.warning(f"Failed to write AI message to history: {e}")
 
-        # NOTE: We no longer update the messages table here since responses should only be added
-        # to conversation history when actually sent, not when queued for review
-        logger.info(
-            f"[Dashboard] Successfully added AI response to conversation history for {user_ig}")
+        if write_ok:
+            logger.info(
+                f"AI response for {user_ig} added to history with calculated timestamp: {ai_response_timestamp}")
+            # NOTE: We no longer update the messages table here since responses should only be added
+            # to conversation history when actually sent, not when queued for review
+            logger.info(
+                f"[Dashboard] Successfully added AI response to conversation history for {user_ig}")
+        else:
+            logger.error(
+                f"❌ Failed to persist AI response to conversation history for {user_ig}")
     elif edited_response and not first_chunk_sent_successfully:
         logger.warning(
             f"Response for {user_ig} was not sent successfully, skipping conversation history update")
