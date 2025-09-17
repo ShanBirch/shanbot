@@ -2631,8 +2631,8 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
                     message_timestamp=get_melbourne_time_str(),
                 )
             else:
-            db_utils.add_message_to_history(
-                user_ig, 'ai', edited_response, get_melbourne_time_str())
+                db_utils.add_message_to_history(
+                    user_ig, 'ai', edited_response, get_melbourne_time_str())
         except Exception:
             pass
     else:
