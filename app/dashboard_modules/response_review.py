@@ -227,8 +227,9 @@ def add_message_to_history_pg(ig_username: str, message_type: str, message_text:
         cursor.execute("""
             SELECT COUNT(1) FROM messages
             WHERE ig_username = %s AND message_type = %s AND message_text = %s
-            AND created_at >= NOW() - INTERVAL '5 minutes'
-        """, (ig_username, mt, message_text))
+            AND (created_at >= NOW() - INTERVAL '5 minutes' 
+                 OR timestamp >= %s)
+        """, (ig_username, mt, message_text, (datetime.now() - timedelta(minutes=5)).isoformat()))
         
         exists_recent = (cursor.fetchone() or [0])[0] > 0
         
@@ -465,74 +466,74 @@ except ImportError:
                 return messages
             else:
                 # Use SQLite fallback
-                conn = db_utils.get_db_connection()
-                cursor = conn.cursor()
+            conn = db_utils.get_db_connection()
+            cursor = conn.cursor()
 
-                # Get messages from the unified messages table by ig_username
-                cursor.execute("""
-                    SELECT message_text, timestamp, message_type, type, sender, subscriber_id, message, text
-                    FROM messages 
-                    WHERE ig_username = ? 
-                    ORDER BY timestamp DESC 
-                    LIMIT ?
-                """, (ig_username, limit))
+            # Get messages from the unified messages table by ig_username
+            cursor.execute("""
+                SELECT message_text, timestamp, message_type, type, sender, subscriber_id, message, text
+                FROM messages 
+                WHERE ig_username = ? 
+                ORDER BY timestamp DESC 
+                LIMIT ?
+            """, (ig_username, limit))
 
-                messages = []
-                for row in cursor.fetchall():
-                    new_text, timestamp, new_type, old_type, sender, subscriber_id, old_message, old_text = row
+            messages = []
+            for row in cursor.fetchall():
+                new_text, timestamp, new_type, old_type, sender, subscriber_id, old_message, old_text = row
 
-                    # Use new standardized columns first, fall back to old columns
-                    final_text = new_text if new_text is not None else (
-                        old_text if old_text is not None else old_message)
-                    final_type = new_type if new_type is not None else (
-                        old_type if old_type is not None else sender)
+                # Use new standardized columns first, fall back to old columns
+                final_text = new_text if new_text is not None else (
+                    old_text if old_text is not None else old_message)
+                final_type = new_type if new_type is not None else (
+                    old_type if old_type is not None else sender)
 
-                    messages.append({
-                        'text': final_text or '',
-                        'timestamp': timestamp or '',
-                        'type': final_type or 'unknown',
-                        'sender': final_type or 'unknown',  # Keep for compatibility
-                        'subscriber_id': subscriber_id or ''
-                    })
+                messages.append({
+                    'text': final_text or '',
+                    'timestamp': timestamp or '',
+                    'type': final_type or 'unknown',
+                    'sender': final_type or 'unknown',  # Keep for compatibility
+                    'subscriber_id': subscriber_id or ''
+                })
 
-                # Augment with recent pending_reviews (fallback when messages table is sparse)
-                try:
-                    cursor.execute(
-                        """
-                        SELECT incoming_message_text, incoming_message_timestamp, proposed_response_text, final_response_text, created_timestamp
-                        FROM pending_reviews
-                        WHERE user_ig_username = ?
-                        ORDER BY created_timestamp DESC
-                        LIMIT 50
-                        """,
-                        (ig_username,),
-                    )
-                    for inc_text, inc_ts, proposed_ai, final_ai, created_ts in cursor.fetchall():
-                        if inc_text and inc_text.strip():
-                            messages.append({
-                                'text': inc_text.strip(),
-                                'timestamp': (inc_ts or created_ts) or '',
-                                'type': 'user',
-                                'sender': 'user',
-                                'subscriber_id': subscriber_id or ''
-                            })
-                        ai_text = (final_ai or proposed_ai or '').strip()
-                        if ai_text:
-                            messages.append({
-                                'text': ai_text,
-                                'timestamp': (created_ts or inc_ts) or '',
-                                'type': 'ai',
-                                'sender': 'ai',
-                                'subscriber_id': subscriber_id or ''
-                            })
-                except Exception:
-                    pass
+            # Augment with recent pending_reviews (fallback when messages table is sparse)
+            try:
+                cursor.execute(
+                    """
+                    SELECT incoming_message_text, incoming_message_timestamp, proposed_response_text, final_response_text, created_timestamp
+                    FROM pending_reviews
+                    WHERE user_ig_username = ?
+                    ORDER BY created_timestamp DESC
+                    LIMIT 50
+                    """,
+                    (ig_username,),
+                )
+                for inc_text, inc_ts, proposed_ai, final_ai, created_ts in cursor.fetchall():
+                    if inc_text and inc_text.strip():
+                        messages.append({
+                            'text': inc_text.strip(),
+                            'timestamp': (inc_ts or created_ts) or '',
+                            'type': 'user',
+                            'sender': 'user',
+                            'subscriber_id': subscriber_id or ''
+                        })
+                    ai_text = (final_ai or proposed_ai or '').strip()
+                    if ai_text:
+                        messages.append({
+                            'text': ai_text,
+                            'timestamp': (created_ts or inc_ts) or '',
+                            'type': 'ai',
+                            'sender': 'ai',
+                            'subscriber_id': subscriber_id or ''
+                        })
+            except Exception:
+                pass
 
-                conn.close()
-                logging.info(
-                    f"📚 Loaded {len(messages)} conversation history items for {ig_username}")
-                # Return newest-first list to match IG/debug view
-                return messages
+            conn.close()
+            logging.info(
+                f"📚 Loaded {len(messages)} conversation history items for {ig_username}")
+            # Return newest-first list to match IG/debug view
+            return messages
         except Exception as e:
             logging.error(
                 f"Error loading conversation history by username {ig_username}: {e}")
@@ -618,10 +619,10 @@ def get_cached_conversation_history(subscriber_id: str, limit: int = 20) -> List
         if not user_result:
             conn.close()
             return []
-        ig_username = user_result[0]
-        history = get_conversation_history_by_username(ig_username, limit)
-        conn.close()
-        return history[:limit] if history else []
+            ig_username = user_result[0]
+            history = get_conversation_history_by_username(ig_username, limit)
+            conn.close()
+            return history[:limit] if history else []
     except Exception as e:
         logging.error(
             f"Error in get_cached_conversation_history for {subscriber_id}: {e}")
@@ -2626,8 +2627,8 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
                     message_timestamp=get_melbourne_time_str(),
                 )
             else:
-                db_utils.add_message_to_history(
-                    user_ig, 'ai', edited_response, get_melbourne_time_str())
+            db_utils.add_message_to_history(
+                user_ig, 'ai', edited_response, get_melbourne_time_str())
         except Exception:
             pass
     else:
@@ -2678,12 +2679,12 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
                     message_timestamp=ai_response_timestamp,
                 )
             else:
-                db_utils.add_message_to_history(
-                    ig_username=user_ig,
-                    message_type="ai",
-                    message_text=edited_response,
+        db_utils.add_message_to_history(
+            ig_username=user_ig,
+            message_type="ai",
+            message_text=edited_response,
                     message_timestamp=ai_response_timestamp,
-                )
+        )
         except Exception:
             logger.warning("Failed to write AI message to history")
         logger.info(
