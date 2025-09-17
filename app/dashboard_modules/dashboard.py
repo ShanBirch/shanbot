@@ -1,3 +1,14 @@
+import streamlit as st
+try:
+    st.set_page_config(
+        page_title="Shannon Bot Analytics Dashboard",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
+except Exception:
+    # If already set or not first call, ignore to prevent hard failure
+    pass
+
 from shared_utils import get_user_topics
 from dashboard_sqlite_utils import (
     load_conversations_from_sqlite,
@@ -50,7 +61,6 @@ import requests
 import numpy as np
 import re
 import subprocess
-import streamlit as st
 import sys
 import os
 
@@ -66,12 +76,7 @@ if _PARENT_DIR not in sys.path:
 save_metrics_to_sqlite = update_analytics_data
 
 
-# Configure the page FIRST - before any other Streamlit commands or imports
-st.set_page_config(
-    page_title="Shannon Bot Analytics Dashboard",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+# (moved to top with a guard)
 
 
 # Now import other modules
