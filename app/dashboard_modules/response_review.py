@@ -1400,13 +1400,15 @@ def display_response_review_queue(delete_callback: callable):
                 from psycopg2.extras import RealDictCursor
                 conn = psycopg2.connect(os.getenv("DATABASE_URL"))
                 cur = conn.cursor(cursor_factory=RealDictCursor)
-                cur.execute("SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
+                cur.execute(
+                    "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
                 rows = cur.fetchall() or []
                 conn.close()
             else:
                 conn = db_utils.get_db_connection()
                 c = conn.cursor()
-                c.execute("SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
+                c.execute(
+                    "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
                 cols = [d[0] for d in c.description]
                 rows = [dict(zip(cols, r)) for r in c.fetchall() or []]
                 conn.close()
@@ -2401,7 +2403,13 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
     review_id = review_item['review_id']
     user_ig = review_item['user_ig_username']
     subscriber_id = review_item['user_subscriber_id']
-    original_prompt = review_item['generated_prompt_text']
+    # Some legacy rows may not have generated_prompt_text. Fall back gracefully.
+    original_prompt = (
+        review_item.get('generated_prompt_text')
+        or review_item.get('generated_prompt')
+        or review_item.get('generated_prompt_text_v1')
+        or ''
+    )
     proposed_resp = review_item['proposed_response_text']
 
     # NEW: Automatic learning detection
