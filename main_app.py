@@ -322,15 +322,28 @@ async def _handle_buffered_messages(subscriber_id: str, ig_username: str, payloa
     user_message_timestamp_iso = datetime.fromtimestamp(
         batch_start_time_s).isoformat()
     try:
-        from app.dashboard_modules.dashboard_sqlite_utils import add_message_to_history
-        add_message_to_history(
-            ig_username=ig_username,
-            message_type='user',
-            message_text=final_combined_message,
-            message_timestamp=user_message_timestamp_iso
-        )
-        logger.info(
-            f"📝 Added user message to conversation history for {ig_username}")
+        # Use PostgreSQL-aware function when available
+        try:
+            from app.dashboard_modules.response_review import add_message_to_history_pg
+            if add_message_to_history_pg(
+                ig_username=ig_username,
+                message_type='user', 
+                message_text=final_combined_message,
+                message_timestamp=user_message_timestamp_iso
+            ):
+                logger.info(f"📝 Added user message to PostgreSQL conversation history for {ig_username}")
+            else:
+                raise Exception("PostgreSQL storage failed, falling back to SQLite")
+        except Exception:
+            # Fallback to SQLite
+            from app.dashboard_modules.dashboard_sqlite_utils import add_message_to_history
+            add_message_to_history(
+                ig_username=ig_username,
+                message_type='user',
+                message_text=final_combined_message,
+                message_timestamp=user_message_timestamp_iso
+            )
+            logger.info(f"📝 Added user message to SQLite conversation history for {ig_username}")
     except Exception as e:
         logger.error(
             f"❌ Failed to add user message to conversation history for {ig_username}: {e}")
