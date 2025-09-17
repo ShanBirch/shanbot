@@ -10,6 +10,7 @@ services:
     type: web
     env: python
     plan: free
+    pythonVersion: 3.11.9
     autoDeploy: true
     buildCommand: pip install -r requirements-webhook.txt
     startCommand: uvicorn webhook_main:app --host 0.0.0.0 --port $PORT
@@ -40,6 +41,7 @@ services:
     type: web
     env: python
     plan: free
+    pythonVersion: 3.11.9
     autoDeploy: true
     buildCommand: |
       echo "Python version: $(python --version)" && \
