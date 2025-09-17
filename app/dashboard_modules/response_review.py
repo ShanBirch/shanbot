@@ -367,74 +367,111 @@ except ImportError:
     def get_conversation_history_by_username(ig_username, limit):
         # Implement the logic to fetch conversation history by ig_username from the messages table
         try:
-            conn = db_utils.get_db_connection()
-            cursor = conn.cursor()
+            database_url = os.getenv("DATABASE_URL")
+            if database_url:
+                # Use PostgreSQL
+                import psycopg2
+                from psycopg2.extras import RealDictCursor
+                
+                conn = psycopg2.connect(database_url)
+                cursor = conn.cursor(cursor_factory=RealDictCursor)
+                
+                cursor.execute("""
+                    SELECT 
+                        CASE 
+                            WHEN created_at IS NOT NULL THEN TO_CHAR(created_at, 'YYYY-MM-DD"T"HH24:MI:SSOF')
+                            ELSE timestamp
+                        END AS timestamp,
+                        COALESCE(message_type, sender) AS message_type,
+                        COALESCE(message_text, message) AS message_text,
+                        subscriber_id
+                    FROM messages 
+                    WHERE ig_username = %s 
+                    ORDER BY COALESCE(created_at, NOW()) DESC 
+                    LIMIT %s
+                """, (ig_username, limit))
+                
+                messages = []
+                for row in cursor.fetchall():
+                    messages.append({
+                        'text': row['message_text'] or '',
+                        'timestamp': row['timestamp'] or '',
+                        'type': row['message_type'] or 'unknown',
+                        'sender': row['message_type'] or 'unknown',
+                        'subscriber_id': row['subscriber_id'] or ''
+                    })
+                conn.close()
+                return messages
+            else:
+                # Use SQLite fallback
+                conn = db_utils.get_db_connection()
+                cursor = conn.cursor()
 
-            # Get messages from the unified messages table by ig_username
-            cursor.execute("""
-                SELECT message_text, timestamp, message_type, type, sender, subscriber_id, message, text
-                FROM messages 
-                WHERE ig_username = ? 
-                ORDER BY timestamp DESC 
-                LIMIT ?
-            """, (ig_username, limit))
+                # Get messages from the unified messages table by ig_username
+                cursor.execute("""
+                    SELECT message_text, timestamp, message_type, type, sender, subscriber_id, message, text
+                    FROM messages 
+                    WHERE ig_username = ? 
+                    ORDER BY timestamp DESC 
+                    LIMIT ?
+                """, (ig_username, limit))
 
-            messages = []
-            for row in cursor.fetchall():
-                new_text, timestamp, new_type, old_type, sender, subscriber_id, old_message, old_text = row
+                messages = []
+                for row in cursor.fetchall():
+                    new_text, timestamp, new_type, old_type, sender, subscriber_id, old_message, old_text = row
 
-                # Use new standardized columns first, fall back to old columns
-                final_text = new_text if new_text is not None else (
-                    old_text if old_text is not None else old_message)
-                final_type = new_type if new_type is not None else (
-                    old_type if old_type is not None else sender)
+                    # Use new standardized columns first, fall back to old columns
+                    final_text = new_text if new_text is not None else (
+                        old_text if old_text is not None else old_message)
+                    final_type = new_type if new_type is not None else (
+                        old_type if old_type is not None else sender)
 
-                messages.append({
-                    'text': final_text or '',
-                    'timestamp': timestamp or '',
-                    'type': final_type or 'unknown',
-                    'sender': final_type or 'unknown',  # Keep for compatibility
-                    'subscriber_id': subscriber_id or ''
-                })
+                    messages.append({
+                        'text': final_text or '',
+                        'timestamp': timestamp or '',
+                        'type': final_type or 'unknown',
+                        'sender': final_type or 'unknown',  # Keep for compatibility
+                        'subscriber_id': subscriber_id or ''
+                    })
 
-            # Augment with recent pending_reviews (fallback when messages table is sparse)
-            try:
-                cursor.execute(
-                    """
-                    SELECT incoming_message_text, incoming_message_timestamp, proposed_response_text, final_response_text, created_timestamp
-                    FROM pending_reviews
-                    WHERE user_ig_username = ?
-                    ORDER BY created_timestamp DESC
-                    LIMIT 50
-                    """,
-                    (ig_username,),
-                )
-                for inc_text, inc_ts, proposed_ai, final_ai, created_ts in cursor.fetchall():
-                    if inc_text and inc_text.strip():
-                        messages.append({
-                            'text': inc_text.strip(),
-                            'timestamp': (inc_ts or created_ts) or '',
-                            'type': 'user',
-                            'sender': 'user',
-                            'subscriber_id': subscriber_id or ''
-                        })
-                    ai_text = (final_ai or proposed_ai or '').strip()
-                    if ai_text:
-                        messages.append({
-                            'text': ai_text,
-                            'timestamp': (created_ts or inc_ts) or '',
-                            'type': 'ai',
-                            'sender': 'ai',
-                            'subscriber_id': subscriber_id or ''
-                        })
-            except Exception:
-                pass
+                # Augment with recent pending_reviews (fallback when messages table is sparse)
+                try:
+                    cursor.execute(
+                        """
+                        SELECT incoming_message_text, incoming_message_timestamp, proposed_response_text, final_response_text, created_timestamp
+                        FROM pending_reviews
+                        WHERE user_ig_username = ?
+                        ORDER BY created_timestamp DESC
+                        LIMIT 50
+                        """,
+                        (ig_username,),
+                    )
+                    for inc_text, inc_ts, proposed_ai, final_ai, created_ts in cursor.fetchall():
+                        if inc_text and inc_text.strip():
+                            messages.append({
+                                'text': inc_text.strip(),
+                                'timestamp': (inc_ts or created_ts) or '',
+                                'type': 'user',
+                                'sender': 'user',
+                                'subscriber_id': subscriber_id or ''
+                            })
+                        ai_text = (final_ai or proposed_ai or '').strip()
+                        if ai_text:
+                            messages.append({
+                                'text': ai_text,
+                                'timestamp': (created_ts or inc_ts) or '',
+                                'type': 'ai',
+                                'sender': 'ai',
+                                'subscriber_id': subscriber_id or ''
+                            })
+                except Exception:
+                    pass
 
-            conn.close()
-            logging.info(
-                f"📚 Loaded {len(messages)} conversation history items for {ig_username}")
-            # Return newest-first list to match IG/debug view
-            return messages
+                conn.close()
+                logging.info(
+                    f"📚 Loaded {len(messages)} conversation history items for {ig_username}")
+                # Return newest-first list to match IG/debug view
+                return messages
         except Exception as e:
             logging.error(
                 f"Error loading conversation history by username {ig_username}: {e}")
@@ -489,12 +526,16 @@ def get_cached_conversation_history(subscriber_id: str, limit: int = 20) -> List
 
             cur.execute(
                 """
-                SELECT COALESCE(created_at, timestamp)   AS ts,
+                SELECT 
+                       CASE 
+                           WHEN created_at IS NOT NULL THEN TO_CHAR(created_at, 'YYYY-MM-DD"T"HH24:MI:SSOF')
+                           ELSE timestamp
+                       END AS ts,
                        COALESCE(message_type, sender)   AS kind,
                        COALESCE(message_text, message)  AS text
                 FROM messages
                 WHERE subscriber_id = %s OR ig_username = %s
-                ORDER BY ts DESC NULLS LAST
+                ORDER BY COALESCE(created_at, NOW()) DESC, id DESC
                 LIMIT %s
                 """,
                 (subscriber_id, ig_username or subscriber_id, limit),
@@ -2533,7 +2574,8 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
 
     # Persist the triggering USER message as a conversation row (idempotent)
     try:
-        incoming_text = (review_item.get('incoming_message_text') or '').strip()
+        incoming_text = (review_item.get(
+            'incoming_message_text') or '').strip()
         incoming_ts = review_item.get('incoming_message_timestamp')
         if incoming_text:
             if add_message_to_history_pg:
