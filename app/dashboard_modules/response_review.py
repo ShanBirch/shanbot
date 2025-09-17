@@ -193,6 +193,53 @@ def mark_review_candidate_selected_safe(review_id: int, variant_index: int) -> b
         return False
 
 
+def add_message_to_history_pg(ig_username: str, message_type: str, message_text: str, message_timestamp: Optional[str] = None):
+    """Add a message to PostgreSQL messages table"""
+    try:
+        database_url = os.getenv("DATABASE_URL")
+        if not database_url:
+            return False
+            
+        import psycopg2
+        from psycopg2.extras import RealDictCursor
+        
+        if not message_timestamp:
+            message_timestamp = datetime.now().isoformat()
+        
+        conn = psycopg2.connect(database_url)
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        
+        # Get subscriber_id for this user if available
+        cursor.execute("SELECT subscriber_id FROM users WHERE ig_username = %s LIMIT 1", (ig_username,))
+        user_result = cursor.fetchone()
+        subscriber_id = user_result['subscriber_id'] if user_result else None
+        
+        # Normalize message_type to 'user'/'ai'
+        mt = (message_type or '').strip().lower()
+        if mt in ['incoming', 'client', 'lead', 'human']:
+            mt = 'user'
+        elif mt in ['outgoing', 'bot', 'shanbot', 'shannon', 'assistant', 'system']:
+            mt = 'ai'
+        elif mt not in ['user', 'ai']:
+            mt = 'unknown'
+        
+        # Insert into PostgreSQL messages table
+        cursor.execute("""
+            INSERT INTO messages (ig_username, subscriber_id, message_type, message_text, timestamp, created_at)
+            VALUES (%s, %s, %s, %s, %s, NOW())
+        """, (ig_username, subscriber_id, mt, message_text, message_timestamp))
+        
+        conn.commit()
+        conn.close()
+        
+        logging.info(f"✅ Added {mt} message to PostgreSQL conversation history for {ig_username}")
+        return True
+        
+    except Exception as e:
+        logging.error(f"❌ Failed to add message to PostgreSQL conversation history for {ig_username}: {e}")
+        return False
+
+
 try:
     from webhook_handlers import build_member_chat_prompt, get_user_data, format_conversation_history, get_melbourne_time_str, get_conversation_history_by_username, process_conversation_for_media
 except ImportError:
@@ -372,10 +419,10 @@ except ImportError:
                 # Use PostgreSQL
                 import psycopg2
                 from psycopg2.extras import RealDictCursor
-                
+
                 conn = psycopg2.connect(database_url)
                 cursor = conn.cursor(cursor_factory=RealDictCursor)
-                
+
                 cursor.execute("""
                     SELECT 
                         CASE 
@@ -390,7 +437,7 @@ except ImportError:
                     ORDER BY COALESCE(created_at, NOW()) DESC 
                     LIMIT %s
                 """, (ig_username, limit))
-                
+
                 messages = []
                 for row in cursor.fetchall():
                     messages.append({
