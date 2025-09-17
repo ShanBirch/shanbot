@@ -223,6 +223,20 @@ def add_message_to_history_pg(ig_username: str, message_type: str, message_text:
         elif mt not in ['user', 'ai']:
             mt = 'unknown'
         
+        # Deduplication: skip insert if same sender+text exists in last 5 minutes
+        cursor.execute("""
+            SELECT COUNT(1) FROM messages
+            WHERE ig_username = %s AND message_type = %s AND message_text = %s
+            AND created_at >= NOW() - INTERVAL '5 minutes'
+        """, (ig_username, mt, message_text))
+        
+        exists_recent = (cursor.fetchone() or [0])[0] > 0
+        
+        if exists_recent:
+            logging.info(f"[add_message_to_history_pg] Skipping duplicate recent message for {ig_username} ({mt}): '{message_text[:80]}'")
+            conn.close()
+            return True
+        
         # Insert into PostgreSQL messages table
         cursor.execute("""
             INSERT INTO messages (ig_username, subscriber_id, message_type, message_text, timestamp, created_at)
