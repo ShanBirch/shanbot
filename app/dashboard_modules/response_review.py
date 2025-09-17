@@ -2683,12 +2683,12 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
                     message_timestamp=ai_response_timestamp,
                 )
             else:
-        db_utils.add_message_to_history(
-            ig_username=user_ig,
-            message_type="ai",
-            message_text=edited_response,
-            message_timestamp=ai_response_timestamp,
-        )
+                db_utils.add_message_to_history(
+                    ig_username=user_ig,
+                    message_type="ai",
+                    message_text=edited_response,
+                    message_timestamp=ai_response_timestamp,
+                )
         except Exception:
             logger.warning("Failed to write AI message to history")
         logger.info(
