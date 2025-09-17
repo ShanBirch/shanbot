@@ -209,6 +209,55 @@ def add_message_to_history_pg(ig_username: str, message_type: str, message_text:
         conn = psycopg2.connect(database_url)
         cursor = conn.cursor(cursor_factory=RealDictCursor)
 
+        # Ensure required tables exist (dashboard may run without webhook initializers)
+        try:
+            cursor.execute(
+                """
+                CREATE TABLE IF NOT EXISTS users (
+                  id SERIAL PRIMARY KEY,
+                  ig_username TEXT UNIQUE,
+                  subscriber_id TEXT UNIQUE,
+                  first_name TEXT,
+                  last_name TEXT,
+                  client_status TEXT DEFAULT 'Not a Client',
+                  journey_stage TEXT DEFAULT 'Initial Inquiry',
+                  is_onboarding BOOLEAN DEFAULT FALSE,
+                  is_in_checkin_flow_mon BOOLEAN DEFAULT FALSE,
+                  is_in_checkin_flow_wed BOOLEAN DEFAULT FALSE,
+                  is_in_ad_flow BOOLEAN DEFAULT FALSE,
+                  ad_script_state TEXT,
+                  ad_scenario INTEGER,
+                  lead_source TEXT,
+                  last_interaction_timestamp TEXT,
+                  profile_bio_text TEXT,
+                  interests_json TEXT DEFAULT '[]',
+                  conversation_topics_json TEXT DEFAULT '[]',
+                  client_analysis_json TEXT DEFAULT '{}',
+                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            )
+            cursor.execute(
+                """
+                CREATE TABLE IF NOT EXISTS messages (
+                  id SERIAL PRIMARY KEY,
+                  ig_username TEXT,
+                  subscriber_id TEXT,
+                  message_type TEXT,
+                  message_text TEXT,
+                  sender TEXT,
+                  message TEXT,
+                  timestamp TEXT,
+                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            )
+            conn.commit()
+        except Exception:
+            # If ensures fail, continue; insert may still work if tables already exist
+            pass
+
         # Get subscriber_id for this user if available
         cursor.execute(
             "SELECT subscriber_id FROM users WHERE ig_username = %s LIMIT 1", (ig_username,))
@@ -224,13 +273,19 @@ def add_message_to_history_pg(ig_username: str, message_type: str, message_text:
         elif mt not in ['user', 'ai']:
             mt = 'unknown'
 
-        # Deduplication: skip insert if same sender+text exists in last 5 minutes
-        cursor.execute("""
+        # Deduplication: skip insert if same sender+text exists recently
+        # Use the provided message_timestamp when available to avoid false negatives
+        recent_cutoff = (
+            datetime.fromisoformat(message_timestamp.split('+')[0]) if message_timestamp else datetime.now()
+        ) - timedelta(minutes=5)
+        cursor.execute(
+            """
             SELECT COUNT(1) FROM messages
             WHERE ig_username = %s AND message_type = %s AND message_text = %s
-            AND (created_at >= NOW() - INTERVAL '5 minutes' 
-                 OR timestamp >= %s)
-        """, (ig_username, mt, message_text, (datetime.now() - timedelta(minutes=5)).isoformat()))
+              AND (created_at >= NOW() - INTERVAL '5 minutes' OR (timestamp IS NOT NULL AND timestamp >= %s))
+            """,
+            (ig_username, mt, message_text, recent_cutoff.isoformat()),
+        )
 
         exists_recent = (cursor.fetchone() or [0])[0] > 0
 
