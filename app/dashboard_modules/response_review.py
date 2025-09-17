@@ -1391,6 +1391,32 @@ def display_response_review_queue(delete_callback: callable):
     with st.spinner("Loading review queue..."):
         all_pending_reviews = get_cached_pending_reviews(limit=50)
 
+    # Debug: Show raw rows from Postgres/SQLite to diagnose schema mismatches
+    with st.expander("🔎 Debug: Show raw pending_reviews rows (first 10)"):
+        try:
+            import os
+            if os.getenv("DATABASE_URL"):
+                import psycopg2
+                from psycopg2.extras import RealDictCursor
+                conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+                cur = conn.cursor(cursor_factory=RealDictCursor)
+                cur.execute("SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
+                rows = cur.fetchall() or []
+                conn.close()
+            else:
+                conn = db_utils.get_db_connection()
+                c = conn.cursor()
+                c.execute("SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
+                cols = [d[0] for d in c.description]
+                rows = [dict(zip(cols, r)) for r in c.fetchall() or []]
+                conn.close()
+            if rows:
+                st.dataframe(rows, use_container_width=True)
+            else:
+                st.caption("No rows found in pending_reviews.")
+        except Exception as e:
+            st.error(f"Debug fetch failed: {e}")
+
     action_was_taken_on_last_run = st.session_state.last_action_review_id is not None
     st.session_state.last_action_review_id = None
 
