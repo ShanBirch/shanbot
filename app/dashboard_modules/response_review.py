@@ -472,25 +472,52 @@ def get_cached_user_data(subscriber_id: str) -> Dict:
 
 @st.cache_data(ttl=300)  # Cache for 5 minutes
 def get_cached_conversation_history(subscriber_id: str, limit: int = 20) -> List[Dict]:
-    """Cache conversation history to improve performance"""
+    """Load conversation history. Prefer Postgres when DATABASE_URL is set."""
     try:
-        # First try to get ig_username from subscriber_id
+        import os
+        database_url = os.getenv("DATABASE_URL")
+        if database_url:
+            import psycopg2
+            from psycopg2.extras import RealDictCursor
+
+            conn = psycopg2.connect(database_url)
+            cur = conn.cursor(cursor_factory=RealDictCursor)
+            cur.execute("SELECT ig_username FROM users WHERE subscriber_id = %s LIMIT 1", (subscriber_id,))
+            row = cur.fetchone()
+            ig_username = (row or {}).get("ig_username") if row else None
+
+            cur.execute(
+                """
+                SELECT COALESCE(created_at, timestamp)   AS ts,
+                       COALESCE(message_type, sender)   AS kind,
+                       COALESCE(message_text, message)  AS text
+                FROM messages
+                WHERE subscriber_id = %s OR ig_username = %s
+                ORDER BY ts DESC NULLS LAST
+                LIMIT %s
+                """,
+                (subscriber_id, ig_username or subscriber_id, limit),
+            )
+            rows = cur.fetchall() or []
+            conn.close()
+            return [
+                {"timestamp": r.get("ts"), "type": r.get("kind"), "text": r.get("text")}
+                for r in rows if r.get("text")
+            ]
+
+        # SQLite fallback
         conn = db_utils.get_db_connection()
         cursor = conn.cursor()
-
         cursor.execute(
             "SELECT ig_username FROM users WHERE subscriber_id = ?", (subscriber_id,))
         user_result = cursor.fetchone()
-
-        if user_result:
-            ig_username = user_result[0]
-            # Use the get_conversation_history_by_username function
-            history = get_conversation_history_by_username(ig_username, limit)
-            conn.close()
-            return history[:limit] if history else []
-        else:
+        if not user_result:
             conn.close()
             return []
+        ig_username = user_result[0]
+        history = get_conversation_history_by_username(ig_username, limit)
+        conn.close()
+        return history[:limit] if history else []
     except Exception as e:
         logging.error(
             f"Error in get_cached_conversation_history for {subscriber_id}: {e}")
@@ -2487,8 +2514,16 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
 
         # Persist only the sent AI message; user message should already be present
         try:
-            db_utils.add_message_to_history(
-                user_ig, 'ai', edited_response, get_melbourne_time_str())
+            if add_message_to_history_pg:
+                add_message_to_history_pg(
+                    ig_username=user_ig,
+                    message_type='ai',
+                    message_text=edited_response,
+                    message_timestamp=get_melbourne_time_str(),
+                )
+            else:
+                db_utils.add_message_to_history(
+                    user_ig, 'ai', edited_response, get_melbourne_time_str())
         except Exception:
             pass
     else:
@@ -2510,12 +2545,23 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
     # Add the AI message to conversation history with the calculated timestamp
     if edited_response and first_chunk_sent_successfully:
         # Only add to conversation history if the message was actually sent
-        db_utils.add_message_to_history(
-            ig_username=user_ig,
-            message_type="ai",
-            message_text=edited_response,
-            message_timestamp=ai_response_timestamp
-        )
+        try:
+            if add_message_to_history_pg:
+                add_message_to_history_pg(
+                    ig_username=user_ig,
+                    message_type="ai",
+                    message_text=edited_response,
+                    message_timestamp=ai_response_timestamp,
+                )
+            else:
+                db_utils.add_message_to_history(
+                    ig_username=user_ig,
+                    message_type="ai",
+                    message_text=edited_response,
+                    message_timestamp=ai_response_timestamp,
+                )
+        except Exception:
+            logger.warning("Failed to write AI message to history")
         logger.info(
             f"AI response for {user_ig} added to history with calculated timestamp: {ai_response_timestamp}")
 
