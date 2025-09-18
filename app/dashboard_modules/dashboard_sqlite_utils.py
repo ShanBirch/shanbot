@@ -1364,6 +1364,11 @@ def update_review_proposed_response(review_id, new_proposed_response):
             except Exception as inner_e:
                 # Reconcile schema differences and retry once
                 try:
+                    # Rollback failed statement before attempting DDL
+                    conn.rollback()
+                except Exception:
+                    pass
+                try:
                     cur.execute("ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS proposed_response_text TEXT")
                     cur.execute("ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS regeneration_count INTEGER DEFAULT 0")
                     cur.execute("ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS reviewed_timestamp TEXT")
