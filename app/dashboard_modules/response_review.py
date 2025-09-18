@@ -71,11 +71,11 @@ except Exception:
         except Exception:
             pass
 
-        GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
-        GEMINI_MODEL_FLASH = "gemini-2.0-flash-thinking-exp-01-21"
+    GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
+    GEMINI_MODEL_FLASH = "gemini-2.0-flash-thinking-exp-01-21"
 
-        def call_gemini_with_retry_sync(model_name: str, prompt: str, retry_count: int = 0) -> str:
-            try:
+      def call_gemini_with_retry_sync(model_name: str, prompt: str, retry_count: int = 0) -> str:
+           try:
                 _model = _genai.GenerativeModel(model_name)
                 _resp = _model.generate_content(prompt)
                 return (_resp.text or "").strip()
@@ -738,8 +738,10 @@ except Exception:
     except Exception:
         def save_prompt_guidance(*args, **kwargs):
             return False
+
         def get_prompt_guidance(*args, **kwargs):
             return []
+
         def mark_guidance_used(*args, **kwargs):
             return None
 
@@ -1626,33 +1628,34 @@ def display_response_review_queue(delete_callback: callable):
     with st.spinner("Loading review queue..."):
         all_pending_reviews = get_cached_pending_reviews(limit=50)
 
-    # Debug: Show raw rows from Postgres/SQLite to diagnose schema mismatches
-    with st.expander("🔎 Debug: Show raw pending_reviews rows (first 10)"):
-        try:
-            import os
-            if os.getenv("DATABASE_URL"):
-                import psycopg2
-                from psycopg2.extras import RealDictCursor
-                conn = psycopg2.connect(os.getenv("DATABASE_URL"))
-                cur = conn.cursor(cursor_factory=RealDictCursor)
-                cur.execute(
-                    "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
-                rows = cur.fetchall() or []
-                conn.close()
-            else:
-                conn = db_utils.get_db_connection()
-                c = conn.cursor()
-                c.execute(
-                    "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
-                cols = [d[0] for d in c.description]
-                rows = [dict(zip(cols, r)) for r in c.fetchall() or []]
-                conn.close()
-            if rows:
-                st.dataframe(rows, use_container_width=True)
-            else:
-                st.caption("No rows found in pending_reviews.")
-        except Exception as e:
-            st.error(f"Debug fetch failed: {e}")
+    # Hide debug raw rows expander in production unless DEBUG_DASHBOARD=1
+    if os.getenv("DEBUG_DASHBOARD") == "1":
+        with st.expander("🔎 Debug: Show raw pending_reviews rows (first 10)"):
+            try:
+                import os
+                if os.getenv("DATABASE_URL"):
+                    import psycopg2
+                    from psycopg2.extras import RealDictCursor
+                    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+                    cur = conn.cursor(cursor_factory=RealDictCursor)
+                    cur.execute(
+                        "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
+                    rows = cur.fetchall() or []
+                    conn.close()
+                else:
+                    conn = db_utils.get_db_connection()
+                    c = conn.cursor()
+                    c.execute(
+                        "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
+                    cols = [d[0] for d in c.description]
+                    rows = [dict(zip(cols, r)) for r in c.fetchall() or []]
+                    conn.close()
+                if rows:
+                    st.dataframe(rows, use_container_width=True)
+                else:
+                    st.caption("No rows found in pending_reviews.")
+            except Exception as e:
+                st.error(f"Debug fetch failed: {e}")
 
     action_was_taken_on_last_run = st.session_state.last_action_review_id is not None
     st.session_state.last_action_review_id = None
@@ -3516,10 +3519,12 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
         # Pull learned guidance and prepend it (highest priority), then any ad-hoc extra_guidance
         learned_guidance_list: list[str] = []
         try:
-            learned_guidance_list = get_prompt_guidance(user_ig_username, prompt_type, limit=5) or []
+            learned_guidance_list = get_prompt_guidance(
+                user_ig_username, prompt_type, limit=5) or []
         except Exception:
             learned_guidance_list = []
-        learned_block = ("\n".join([g for g in learned_guidance_list if g.strip()]) or "").strip()
+        learned_block = (
+            "\n".join([g for g in learned_guidance_list if g.strip()]) or "").strip()
 
         # Build prompt based on prompt type
         if prompt_type == 'facebook_ad_response':
@@ -3736,7 +3741,8 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
 
         try:
             if learned_guidance_list:
-                mark_guidance_used(user_ig_username, prompt_type, learned_guidance_list)
+                mark_guidance_used(
+                    user_ig_username, prompt_type, learned_guidance_list)
         except Exception:
             pass
 

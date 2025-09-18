@@ -13,14 +13,8 @@ import os
 # Configure logging
 logger = logging.getLogger(__name__)
 
-# Gemini configuration (never hardcode keys)
-GEMINI_API_KEY = None
-try:
-    GEMINI_API_KEY = st.secrets["general"].get("GEMINI_API_KEY")
-except Exception:
-    pass
-if not GEMINI_API_KEY:
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# Gemini configuration (env only to avoid Streamlit secrets banner)
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Gemini model configuration (primary set to flash-lite)
 GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
@@ -37,7 +31,8 @@ if GEMINI_API_KEY and GEMINI_API_KEY not in ("YOUR_GEMINI_API_KEY", "your_gemini
     except Exception as e:
         logger.error(f"Error configuring Gemini: {e}")
 else:
-    logger.warning("GEMINI_API_KEY not set. Gemini calls will fail until configured.")
+    logger.warning(
+        "GEMINI_API_KEY not set. Gemini calls will fail until configured.")
 
 
 def call_gemini_with_retry_sync(model_name: str, prompt: str, retry_count: int = 0) -> str:
