@@ -3018,6 +3018,13 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix=""):
     logger.info(
         f"📚 Loaded {len(conversation_history)} conversation history items for {user_ig}")
 
+    # Sanitize any test-style user messages that embed AI text (e.g., "Shannon:")
+    try:
+        conversation_history = _sanitize_embedded_ai_text_in_user_messages(
+            conversation_history, user_ig)
+    except Exception as e:
+        logger.warning(f"History sanitize failed for {user_ig}: {e}")
+
     # If user is in ad flow, force the Ads prompt to avoid wrong template usage
     try:
         conn = db_utils.get_db_connection()
@@ -3061,6 +3068,16 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix=""):
                 selected_prompt_type
             )
 
+            # Apply duplicate-question guard and call/link gating on regenerated text
+            try:
+                enhanced_response = postprocess_regenerated_response(
+                    enhanced_response,
+                    conversation_history,
+                    selected_prompt_type
+                )
+            except Exception as e:
+                logger.warning(f"Postprocess failed for {user_ig}: {e}")
+
             logger.info(
                 f"🎯 Generated response for {user_ig}: {enhanced_response[:100] if enhanced_response else 'None'}...")
 
@@ -3101,6 +3118,135 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix=""):
                 f"💥 Error in handle_regenerate for {user_ig}: {e}", exc_info=True)
             st.session_state[regenerate_key] = (False, f"Error: {str(e)}")
             st.error(f"❌ Error regenerating response: {str(e)}")
+
+
+def _sanitize_embedded_ai_text_in_user_messages(history: list, ig_username: str) -> list:
+    """Remove embedded AI text accidentally stored inside user messages (e.g., test data like 'Shannon: ...').
+    Keeps only the user's own content portion.
+    """
+    cleaned: list = []
+    for entry in history or []:
+        try:
+            e = dict(entry)
+            sender = (e.get('sender') or e.get('type') or '').strip().lower()
+            text = (e.get('text') or e.get('message') or '').strip()
+            # If user message contains an inline 'Shannon:' or common prefixes, strip everything from that marker onwards
+            if sender in ('user', 'incoming', 'client', 'lead', 'human') and text:
+                markers = ['\nShannon:', ' Shannon:', 'Shannon:',
+                           ' Shanbot:', ' AI:', ' Assistant:']
+                cut_idx = min([text.find(m)
+                              for m in markers if m in text] or [-1])
+                if cut_idx != -1:
+                    user_only = text[:cut_idx].strip()
+                    if user_only:
+                        e['text'] = user_only
+                    else:
+                        # If nothing remains, keep original but flag minimal
+                        e['text'] = text.split(
+                            'Lead :', 1)[-1].strip() if 'Lead :' in text else text
+            cleaned.append(e)
+        except Exception:
+            cleaned.append(entry)
+    return cleaned
+
+
+def postprocess_regenerated_response(text: str, conv_history: list, prompt_type: str) -> str:
+    """Apply duplicate-question guard and call/link gating to the regenerated text.
+    - Removes repeated questions based on recent AI questions
+    - Gates Calendly link until an affirmative user response is detected (for ad flow)
+    """
+    if not text:
+        return text
+    try:
+        processed = _apply_duplicate_question_guard(text, conv_history)
+        if prompt_type == 'facebook_ad_response':
+            processed = _apply_call_link_gating(processed, conv_history)
+        return processed
+    except Exception:
+        return text
+
+
+def _apply_duplicate_question_guard(response_text: str, conv_history: list) -> str:
+    """Rewrite response if it repeats recent AI questions (simple, local heuristic)."""
+    # Extract recent AI questions from history
+    recent_qs: list[str] = []
+    try:
+        for entry in reversed(conv_history or []):
+            if (entry.get('type') or entry.get('sender') or '').lower() == 'ai':
+                txt = (entry.get('text') or '').strip()
+                if '?' in txt:
+                    for part in txt.split('?'):
+                        part = part.strip()
+                        if part:
+                            recent_qs.append(part.lower())
+                if len(recent_qs) >= 5:
+                    break
+        recent_qs = recent_qs[:5]
+    except Exception:
+        recent_qs = []
+
+    if not recent_qs:
+        return response_text
+
+    # If response ends with a question that matches a recent one, drop it
+    segments: list[str] = []
+    buff = ''
+    for ch in response_text:
+        buff += ch
+        if ch in '.!?':
+            segments.append(buff)
+            buff = ''
+    if buff:
+        segments.append(buff)
+
+    cleaned: list[str] = []
+    dropped = False
+    for seg in segments:
+        stripped = seg.strip()
+        if stripped.endswith('?'):
+            core = stripped[:-1].strip().lower()
+            if core in recent_qs:
+                dropped = True
+                continue
+        cleaned.append(seg)
+
+    return (' '.join(s.strip() for s in cleaned).strip()) or response_text
+
+
+def _apply_call_link_gating(response_text: str, conv_history: list) -> str:
+    """Prevent sharing Calendly link unless last user message is affirmative.
+    Does not alter non-link responses.
+    """
+    text_lower = response_text.lower()
+    if 'calendly.com' not in text_lower:
+        return response_text
+
+    # Detect recent affirmative from user
+    affirmative_words = ['yes', 'yeah', 'yep', 'sure', 'ok', 'okay',
+                         'keen', 'ready', 'sounds good', "let's do it", "let's do this"]
+    user_last_affirmative = False
+    try:
+        for entry in reversed(conv_history or []):
+            sender = (entry.get('type') or entry.get('sender') or '').lower()
+            if sender == 'ai':
+                # stop at last AI turn; we only care about the latest user turn
+                break
+            if sender == 'user':
+                msg = (entry.get('text') or '').lower()
+                if any(w in msg for w in affirmative_words):
+                    user_last_affirmative = True
+                break
+    except Exception:
+        user_last_affirmative = False
+
+    if user_last_affirmative:
+        return response_text
+
+    # Replace with call proposal without link
+    fallback = (
+        "Thanks for sharing that. Given what you’ve told me, the best next step is a quick call so I can tailor this properly. Would you be open to that?"
+    )
+    return fallback
 
 
 def handle_generate_offer(review_item):
@@ -3325,8 +3471,10 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
                     if any(cue in latest_u for cue in booking_cues):
                         return 'step6'
                     # If AI proposed a call previously and user now confirms → step6
-                    ai_offered_call = any(('quick call' in t or 'have a call' in t or 'phone call' in t) for t in ai_texts)
-                    confirmation_cues = ['yes', 'yes please', 'yes plz', 'yeah', 'yep', 'sure', 'ok', 'okay', 'keen', 'ready', "let's do it", "let's do this", 'sounds good']
+                    ai_offered_call = any(
+                        ('quick call' in t or 'have a call' in t or 'phone call' in t) for t in ai_texts)
+                    confirmation_cues = ['yes', 'yes please', 'yes plz', 'yeah', 'yep', 'sure',
+                                         'ok', 'okay', 'keen', 'ready', "let's do it", "let's do this", 'sounds good']
                     if ai_offered_call and any(cue in latest_u for cue in confirmation_cues):
                         return 'step6'
                     # If AI proposed a call previously → step5 (offer calendar next)
