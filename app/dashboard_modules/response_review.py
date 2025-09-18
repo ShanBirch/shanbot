@@ -3324,8 +3324,13 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
                                     'when does it begin', 'time works', 'yep works', 'sounds good', 'yes that works']
                     if any(cue in latest_u for cue in booking_cues):
                         return 'step6'
+                    # If AI proposed a call previously and user now confirms → step6
+                    ai_offered_call = any(('quick call' in t or 'have a call' in t or 'phone call' in t) for t in ai_texts)
+                    confirmation_cues = ['yes', 'yes please', 'yes plz', 'yeah', 'yep', 'sure', 'ok', 'okay', 'keen', 'ready', "let's do it", "let's do this", 'sounds good']
+                    if ai_offered_call and any(cue in latest_u for cue in confirmation_cues):
+                        return 'step6'
                     # If AI proposed a call previously → step5 (offer calendar next)
-                    if any(('quick call' in t or 'have a call' in t or 'phone call' in t) for t in ai_texts):
+                    if ai_offered_call:
                         return 'step5'
                     # If two info-gathering questions already → step3 (propose call)
                     question_count = sum(1 for t in ai_texts if '?' in t)
