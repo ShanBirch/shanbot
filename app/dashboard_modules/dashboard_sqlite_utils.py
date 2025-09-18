@@ -216,7 +216,8 @@ def create_workout_tables_if_not_exist(conn):
             try:
                 cursor.execute(
                     "DROP INDEX IF EXISTS idx_unique_workout_session")
-                logger.info("Attempted to drop old unique index if it existed.")
+                logger.info(
+                    "Attempted to drop old unique index if it existed.")
             except sqlite3.OperationalError:
                 pass  # Index didn't exist, which is fine
 
@@ -256,7 +257,8 @@ def create_conversation_history_table_if_not_exists(conn):
                     """
                 )
                 pg_conn.commit()
-            logger.info("Ensured 'conversation_history' table exists (Postgres).")
+            logger.info(
+                "Ensured 'conversation_history' table exists (Postgres).")
         else:
             cursor = conn.cursor()
             cursor.execute('''
@@ -303,7 +305,8 @@ def create_scheduled_responses_table_if_not_exists(conn):
                     """
                 )
                 pg_conn.commit()
-            logger.info("Ensured 'scheduled_responses' table exists (Postgres).")
+            logger.info(
+                "Ensured 'scheduled_responses' table exists (Postgres).")
         else:
             cursor = conn.cursor()
             cursor.execute('''
@@ -398,6 +401,206 @@ def create_review_candidates_table_if_not_exists(conn: sqlite3.Connection):
     except Exception as e:
         logger.error(
             f"Error ensuring review_candidates table on Postgres: {e}")
+
+
+def create_prompt_guidance_preferences_table_if_not_exists(conn):
+    """Ensures the prompt_guidance_preferences table exists."""
+    try:
+        if USE_POSTGRES:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                cur = pg_conn.cursor()
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS prompt_guidance_preferences (
+                        id SERIAL PRIMARY KEY,
+                        user_ig TEXT,
+                        prompt_type TEXT NOT NULL,
+                        guidance_text TEXT NOT NULL,
+                        weight REAL DEFAULT 1.0,
+                        usage_count INTEGER DEFAULT 0,
+                        last_used_at TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                    """
+                )
+                pg_conn.commit()
+            logger.info(
+                "Ensured prompt_guidance_preferences table exists (Postgres).")
+        else:
+            cur = conn.cursor()
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS prompt_guidance_preferences (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_ig TEXT,
+                    prompt_type TEXT NOT NULL,
+                    guidance_text TEXT NOT NULL,
+                    weight REAL DEFAULT 1.0,
+                    usage_count INTEGER DEFAULT 0,
+                    last_used_at TEXT,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            )
+            conn.commit()
+            logger.info(
+                "Ensured prompt_guidance_preferences table exists (SQLite).")
+    except Exception as e:
+        logger.error(f"Error ensuring prompt_guidance_preferences table: {e}")
+
+
+def save_prompt_guidance(user_ig: str, prompt_type: str, guidance_text: str, weight: float = 1.0) -> bool:
+    """Persist Shannon's extra guidance for future regenerations."""
+    if not guidance_text or not guidance_text.strip():
+        return False
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor()
+        if USE_POSTGRES:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor() as pc:
+                    pc.execute(
+                        """
+                        INSERT INTO prompt_guidance_preferences (user_ig, prompt_type, guidance_text, weight)
+                        VALUES (%s, %s, %s, %s)
+                        """,
+                        (user_ig or '', prompt_type or 'general_chat',
+                         guidance_text.strip(), weight),
+                    )
+                    pg_conn.commit()
+                return True
+        else:
+            cur.execute(
+                """
+                INSERT INTO prompt_guidance_preferences (user_ig, prompt_type, guidance_text, weight)
+                VALUES (?, ?, ?, ?)
+                """,
+                (user_ig or '', prompt_type or 'general_chat',
+                 guidance_text.strip(), weight),
+            )
+            conn.commit()
+            return True
+    except Exception as e:
+        logger.error(f"Failed to save prompt guidance: {e}")
+        return False
+    finally:
+        if conn:
+            conn.close()
+
+
+def get_prompt_guidance(user_ig: str | None, prompt_type: str, limit: int = 5) -> list[str]:
+    """Fetch recent/high-weight guidance for user-specific first, then global for this prompt type."""
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor()
+        collected: list[str] = []
+        if USE_POSTGRES:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor() as pc:
+                    if user_ig:
+                        pc.execute(
+                            """
+                            SELECT guidance_text
+                            FROM prompt_guidance_preferences
+                            WHERE prompt_type = %s AND user_ig = %s
+                            ORDER BY last_used_at DESC NULLS LAST, usage_count DESC, created_at DESC
+                            LIMIT %s
+                            """,
+                            (prompt_type, user_ig, limit),
+                        )
+                        collected.extend([r[0] for r in pc.fetchall() or []])
+                    if len(collected) < limit:
+                        pc.execute(
+                            """
+                            SELECT guidance_text
+                            FROM prompt_guidance_preferences
+                            WHERE prompt_type = %s AND (user_ig IS NULL OR user_ig = '')
+                            ORDER BY last_used_at DESC NULLS LAST, usage_count DESC, created_at DESC
+                            LIMIT %s
+                            """,
+                            (prompt_type, limit - len(collected)),
+                        )
+                        collected.extend([r[0] for r in pc.fetchall() or []])
+                return collected[:limit]
+        # SQLite path
+        if user_ig:
+            cur.execute(
+                """
+                SELECT guidance_text
+                FROM prompt_guidance_preferences
+                WHERE prompt_type = ? AND user_ig = ?
+                ORDER BY last_used_at DESC, usage_count DESC, created_at DESC
+                LIMIT ?
+                """,
+                (prompt_type, user_ig, limit),
+            )
+            collected.extend([r[0] for r in cur.fetchall() or []])
+        if len(collected) < limit:
+            cur.execute(
+                """
+                SELECT guidance_text
+                FROM prompt_guidance_preferences
+                WHERE prompt_type = ? AND (user_ig IS NULL OR user_ig = '')
+                ORDER BY last_used_at DESC, usage_count DESC, created_at DESC
+                LIMIT ?
+                """,
+                (prompt_type, limit - len(collected)),
+            )
+            collected.extend([r[0] for r in cur.fetchall() or []])
+        return collected[:limit]
+    except Exception as e:
+        logger.error(f"Failed to fetch prompt guidance: {e}")
+        return []
+    finally:
+        if conn:
+            conn.close()
+
+
+def mark_guidance_used(user_ig: str | None, prompt_type: str, guidance_texts: list[str]) -> None:
+    """Increment usage_count and timestamp for guidance entries we used."""
+    if not guidance_texts:
+        return
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor()
+        now_ts = datetime.now().isoformat()
+        if USE_POSTGRES:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor() as pc:
+                    for g in guidance_texts:
+                        pc.execute(
+                            """
+                            UPDATE prompt_guidance_preferences
+                            SET usage_count = COALESCE(usage_count, 0) + 1,
+                                last_used_at = %s
+                            WHERE guidance_text = %s AND prompt_type = %s AND (user_ig = %s OR (%s IS NULL AND (user_ig IS NULL OR user_ig = '')))
+                            """,
+                            (now_ts, g, prompt_type, user_ig or '',
+                             None if user_ig else None),
+                        )
+                pg_conn.commit()
+                return
+        # SQLite path
+        for g in guidance_texts:
+            cur.execute(
+                """
+                UPDATE prompt_guidance_preferences
+                SET usage_count = COALESCE(usage_count, 0) + 1,
+                    last_used_at = ?
+                WHERE guidance_text = ? AND prompt_type = ? AND (user_ig = ? OR (? IS NULL AND (user_ig IS NULL OR user_ig = '')))
+                """,
+                (now_ts, g, prompt_type, user_ig or '', None if user_ig else None),
+            )
+        conn.commit()
+    except Exception:
+        pass
+    finally:
+        if conn:
+            conn.close()
 
 
 def save_review_rationale(review_id: int, rationale: str) -> bool:
@@ -758,6 +961,19 @@ def create_learning_feedback_log_table_if_not_exists(conn):
                 FOREIGN KEY(review_id) REFERENCES pending_reviews(id)
             )
         ''')
+        # Ensure conversation_type column exists (older deployments may lack it)
+        try:
+            cursor.execute("PRAGMA table_info(learning_feedback_log)")
+            cols = [row[1] for row in cursor.fetchall()]
+            if "conversation_type" not in cols:
+                cursor.execute(
+                    "ALTER TABLE learning_feedback_log ADD COLUMN conversation_type TEXT DEFAULT 'general'"
+                )
+                conn.commit()
+                logger.info("Added conversation_type column to learning_feedback_log (ensure phase)")
+        except sqlite3.Error:
+            # Ignore if cannot introspect; will be handled on insert path
+            pass
         conn.commit()
         logger.info("Ensured 'learning_feedback_log' table exists.")
     except sqlite3.Error as e:
@@ -2212,21 +2428,22 @@ def add_to_learning_log(review_id: int, user_ig_username: str, user_subscriber_i
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
-
-        # First ensure the conversation_type column exists
+        # Ensure conversation_type present (safety)
         try:
-            cursor.execute(
-                "ALTER TABLE learning_feedback_log ADD COLUMN conversation_type TEXT DEFAULT 'general'")
-            conn.commit()
-            logger.info(
-                "Added conversation_type column to learning_feedback_log")
-        except sqlite3.OperationalError:
-            # Column already exists, that's fine
+            cursor.execute("PRAGMA table_info(learning_feedback_log)")
+            cols = [row[1] for row in cursor.fetchall()]
+            if "conversation_type" not in cols:
+                cursor.execute(
+                    "ALTER TABLE learning_feedback_log ADD COLUMN conversation_type TEXT DEFAULT 'general'"
+                )
+                conn.commit()
+        except sqlite3.Error:
             pass
 
+        # Use canonical column names ig_username/subscriber_id
         cursor.execute("""
             INSERT INTO learning_feedback_log (
-                review_id, user_ig_username, user_subscriber_id,
+                review_id, ig_username, subscriber_id,
                 original_prompt_text, original_gemini_response,
                 edited_response_text, user_notes, is_good_example_for_few_shot,
                 conversation_type
