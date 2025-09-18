@@ -13,13 +13,14 @@ import os
 # Configure logging
 logger = logging.getLogger(__name__)
 
-# Gemini configuration
+# Gemini configuration (never hardcode keys)
+GEMINI_API_KEY = None
 try:
-    GEMINI_API_KEY = st.secrets["general"]["GEMINI_API_KEY"]
-except (KeyError, FileNotFoundError):
-    # Fallback to environment variable on Render; last resort hardcoded dev key
-    GEMINI_API_KEY = os.getenv(
-        "GEMINI_API_KEY", "AIzaSyAH6467EocGBwuMi-oDLawrNyCKjPHHmN8")
+    GEMINI_API_KEY = st.secrets["general"].get("GEMINI_API_KEY")
+except Exception:
+    pass
+if not GEMINI_API_KEY:
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Gemini model configuration (primary set to flash-lite)
 GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
@@ -29,12 +30,14 @@ GEMINI_MODEL_FLASH = "gemini-2.0-flash-thinking-exp-01-21"
 GEMINI_MODEL_FLASH_STANDARD = "gemini-2.0-flash"
 
 # Configure Gemini
-if GEMINI_API_KEY and GEMINI_API_KEY != "YOUR_GEMINI_API_KEY" and GEMINI_API_KEY != "your_gemini_api_key_here":
+if GEMINI_API_KEY and GEMINI_API_KEY not in ("YOUR_GEMINI_API_KEY", "your_gemini_api_key_here", ""):
     try:
         genai.configure(api_key=GEMINI_API_KEY)
         logger.info("Gemini configured successfully with 5-fallback system.")
     except Exception as e:
         logger.error(f"Error configuring Gemini: {e}")
+else:
+    logger.warning("GEMINI_API_KEY not set. Gemini calls will fail until configured.")
 
 
 def call_gemini_with_retry_sync(model_name: str, prompt: str, retry_count: int = 0) -> str:
