@@ -74,16 +74,16 @@ except Exception:
     GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
     GEMINI_MODEL_FLASH = "gemini-2.0-flash-thinking-exp-01-21"
 
-      def call_gemini_with_retry_sync(model_name: str, prompt: str, retry_count: int = 0) -> str:
-           try:
-                _model = _genai.GenerativeModel(model_name)
-                _resp = _model.generate_content(prompt)
-                return (_resp.text or "").strip()
-            except Exception:
-                # Simple fallback to a broadly available flash model
-                if model_name != "gemini-2.0-flash":
-                    return call_gemini_with_retry_sync("gemini-2.0-flash", prompt, retry_count + 1)
-                return ""
+    def call_gemini_with_retry_sync(model_name: str, prompt: str, retry_count: int = 0) -> str:
+        try:
+            _model = _genai.GenerativeModel(model_name)
+            _resp = _model.generate_content(prompt)
+            return (_resp.text or "").strip()
+        except Exception:
+            # Simple fallback to a broadly available flash model
+            if model_name != "gemini-2.0-flash":
+                return call_gemini_with_retry_sync("gemini-2.0-flash", prompt, retry_count + 1)
+            return ""
 # --- Safe DB helper wrappers (work even if module lacks new helpers) ---
 
 
