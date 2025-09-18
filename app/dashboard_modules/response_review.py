@@ -729,6 +729,20 @@ except ImportError:
             st.error("ManyChat integration not available")
             return False
 
+# Guidance persistence helpers
+try:
+    from app.dashboard_modules.dashboard_sqlite_utils import save_prompt_guidance, get_prompt_guidance, mark_guidance_used
+except Exception:
+    try:
+        from dashboard_sqlite_utils import save_prompt_guidance, get_prompt_guidance, mark_guidance_used
+    except Exception:
+        def save_prompt_guidance(*args, **kwargs):
+            return False
+        def get_prompt_guidance(*args, **kwargs):
+            return []
+        def mark_guidance_used(*args, **kwargs):
+            return None
+
 # Import split_response_into_messages function with robust path handling and fallback
 try:
     import sys
@@ -2550,6 +2564,18 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                 )
             if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate", use_container_width=True, help="Generate a new response using bio and conversation context"):
                 extra_guidance = st.session_state.get(regen_notes_key, "")
+                # Persist Shannon's extra guidance for future runs (global/user-scoped)
+                try:
+                    if extra_guidance and extra_guidance.strip():
+                        # Save as user-scoped guidance; if subscriber unknown, use ig
+                        save_prompt_guidance(
+                            review_item.get('user_ig_username', ''),
+                            selected_prompt_type,
+                            extra_guidance.strip(),
+                            1.0
+                        )
+                except Exception:
+                    pass
                 handle_regenerate(
                     review_item, selected_prompt_type, key_prefix, extra_guidance)
 
@@ -3487,6 +3513,14 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
         # Get few-shot examples based on prompt type
         few_shot_examples = get_few_shot_examples_for_prompt_type(prompt_type)
 
+        # Pull learned guidance and prepend it (highest priority), then any ad-hoc extra_guidance
+        learned_guidance_list: list[str] = []
+        try:
+            learned_guidance_list = get_prompt_guidance(user_ig_username, prompt_type, limit=5) or []
+        except Exception:
+            learned_guidance_list = []
+        learned_block = ("\n".join([g for g in learned_guidance_list if g.strip()]) or "").strip()
+
         # Build prompt based on prompt type
         if prompt_type == 'facebook_ad_response':
             # Use the vegan challenge ad response template
@@ -3585,9 +3619,14 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
                     pass
 
             # Prepend high-priority guidance if provided
+            if learned_block:
+                enhanced_prompt_str = (
+                    "LEARNED PREFERENCES (Highest Priority):\n"
+                    f"{learned_block}\n\n" + enhanced_prompt_str
+                )
             if extra_guidance and extra_guidance.strip():
                 enhanced_prompt_str = (
-                    "IMPORTANT OVERRIDES (Highest Priority):\n"
+                    "EXTRA OVERRIDES (Session):\n"
                     f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
                 )
 
@@ -3605,9 +3644,14 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             }
             enhanced_prompt_str = prompts.MEMBER_CONVERSATION_PROMPT_TEMPLATE.format_map(
                 prompt_data)
+            if learned_block:
+                enhanced_prompt_str = (
+                    "LEARNED PREFERENCES (Highest Priority):\n"
+                    f"{learned_block}\n\n" + enhanced_prompt_str
+                )
             if extra_guidance and extra_guidance.strip():
                 enhanced_prompt_str = (
-                    "IMPORTANT OVERRIDES (Highest Priority):\n"
+                    "EXTRA OVERRIDES (Session):\n"
                     f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
                 )
 
@@ -3622,9 +3666,14 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             }
             enhanced_prompt_str = prompts.MONDAY_MORNING_TEXT_PROMPT_TEMPLATE.format_map(
                 prompt_data)
+            if learned_block:
+                enhanced_prompt_str = (
+                    "LEARNED PREFERENCES (Highest Priority):\n"
+                    f"{learned_block}\n\n" + enhanced_prompt_str
+                )
             if extra_guidance and extra_guidance.strip():
                 enhanced_prompt_str = (
-                    "IMPORTANT OVERRIDES (Highest Priority):\n"
+                    "EXTRA OVERRIDES (Session):\n"
                     f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
                 )
 
@@ -3639,9 +3688,14 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             }
             enhanced_prompt_str = prompts.CHECKINS_PROMPT_TEMPLATE.format_map(
                 prompt_data)
+            if learned_block:
+                enhanced_prompt_str = (
+                    "LEARNED PREFERENCES (Highest Priority):\n"
+                    f"{learned_block}\n\n" + enhanced_prompt_str
+                )
             if extra_guidance and extra_guidance.strip():
                 enhanced_prompt_str = (
-                    "IMPORTANT OVERRIDES (Highest Priority):\n"
+                    "EXTRA OVERRIDES (Session):\n"
                     f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
                 )
 
@@ -3660,6 +3714,16 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             }
             enhanced_prompt_str = prompts.COMBINED_CHAT_AND_ONBOARDING_PROMPT_TEMPLATE.format_map(
                 prompt_data)
+            if learned_block:
+                enhanced_prompt_str = (
+                    "LEARNED PREFERENCES (Highest Priority):\n"
+                    f"{learned_block}\n\n" + enhanced_prompt_str
+                )
+            if extra_guidance and extra_guidance.strip():
+                enhanced_prompt_str = (
+                    "EXTRA OVERRIDES (Session):\n"
+                    f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
+                )
 
         # Call Gemini with the appropriate prompt
         generated_response = call_gemini_with_retry_sync(
@@ -3669,6 +3733,12 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             logger.warning(
                 f"Gemini returned an empty response for {user_ig_username} during regeneration. Prompt type: {prompt_type}")
             return "Sorry, I had a bit of a brain fade there. Can you tell me what you were looking for again?"
+
+        try:
+            if learned_guidance_list:
+                mark_guidance_used(user_ig_username, prompt_type, learned_guidance_list)
+        except Exception:
+            pass
 
         return generated_response
 

@@ -138,6 +138,7 @@ def create_all_tables_if_not_exists(conn):
     create_auto_mode_tracking_tables_if_not_exists(conn)
     create_paid_challenge_bookings_table_if_not_exists(conn)
     create_learning_feedback_log_table_if_not_exists(conn)  # Add this line
+    create_prompt_guidance_preferences_table_if_not_exists(conn)
     # Also ensure the main users and messages tables are covered
     ensure_db_schema()
     logger.info("All core tables verified.")
