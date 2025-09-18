@@ -106,26 +106,25 @@ def initialize_database():
 
 
 def get_db_connection():
-    """Get a tuned SQLite connection for faster dashboard reads."""
-    # The schema check should be done once at startup, not per-connection.
-    # ensure_db_schema()
+    """Get a database connection (Postgres on Render, SQLite locally)."""
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            conn = psycopg2.connect(DATABASE_URL)
+            return conn
+        except Exception as e:
+            logger.error(f"Postgres connection failed, falling back to SQLite: {e}")
+
     conn = sqlite3.connect(
         SQLITE_DB_PATH, check_same_thread=False, timeout=5.0)
-    conn.row_factory = sqlite3.Row
     try:
-        # Pragmas to improve read performance for dashboard workloads
-        # WAL enables concurrent reads while writes happen
+        conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA journal_mode=WAL;")
-        # Reasonable durability/perf tradeoff
         conn.execute("PRAGMA synchronous=NORMAL;")
-        # Keep temps in memory where possible
         conn.execute("PRAGMA temp_store=MEMORY;")
-        # Expand page cache (~64MB, negative means KB units)
         conn.execute("PRAGMA cache_size=-65536;")
-        # Busy timeout to avoid immediate lock errors
         conn.execute("PRAGMA busy_timeout=3000;")
     except Exception:
-        # Pragmas are best-effort; ignore if not supported
         pass
     return conn
 
@@ -680,6 +679,61 @@ def create_learning_feedback_log_table_if_not_exists(conn):
 
 def ensure_core_tables_exist(conn):
     """Helper to ensure all necessary tables exist."""
+    # Ensure critical 'users' and 'messages' tables exist in SQLite environments
+    if not USE_POSTGRES:
+        try:
+            cur = conn.cursor()
+            cur.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ig_username TEXT UNIQUE,
+                    subscriber_id TEXT,
+                    first_name TEXT,
+                    last_name TEXT,
+                    client_status TEXT DEFAULT 'Not a Client',
+                    journey_stage TEXT DEFAULT 'Initial Inquiry',
+                    is_onboarding INTEGER DEFAULT 0,
+                    is_in_checkin_flow_mon INTEGER DEFAULT 0,
+                    is_in_checkin_flow_wed INTEGER DEFAULT 0,
+                    is_in_ad_flow INTEGER DEFAULT 0,
+                    ad_script_state TEXT,
+                    ad_scenario INTEGER,
+                    lead_source TEXT,
+                    fb_ad INTEGER DEFAULT 0,
+                    last_interaction_timestamp TEXT,
+                    bio TEXT,
+                    profile_bio_text TEXT,
+                    interests_json TEXT DEFAULT '[]',
+                    conversation_topics_json TEXT DEFAULT '[]',
+                    client_analysis_json TEXT DEFAULT '{}',
+                    metrics_json TEXT,
+                    calorie_tracking_json TEXT,
+                    meal_plan_json TEXT,
+                    workout_program_json TEXT,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+                )
+                '''
+            )
+            cur.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS messages (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ig_username TEXT,
+                    subscriber_id TEXT,
+                    message_type TEXT,
+                    message_text TEXT,
+                    sender TEXT,
+                    message TEXT,
+                    timestamp TEXT,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+                )
+                '''
+            )
+            conn.commit()
+        except Exception as e:
+            logger.warning(f"Could not ensure core dashboard tables: {e}")
     create_workout_tables_if_not_exist(conn)
     create_conversation_history_table_if_not_exists(conn)
     create_scheduled_responses_table_if_not_exists(conn)
