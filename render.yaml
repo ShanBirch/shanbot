@@ -31,9 +31,7 @@ services:
       - key: INSTAGRAM_GRAPH_API_TOKEN
         sync: false
       - key: DATABASE_URL
-        fromDatabase:
-          name: shanbot-db
-          property: connectionString
+        sync: false
 
   - name: shanbot-dashboard
     type: web
@@ -55,9 +53,7 @@ services:
       - key: GOOGLE_APPLICATION_CREDENTIALS
         sync: false
       - key: DATABASE_URL
-        fromDatabase:
-          name: shanbot-db
-          property: connectionString
+        sync: false
     # No persistent disk required; dashboard reads/writes via Postgres
 
 

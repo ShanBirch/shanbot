@@ -1349,18 +1349,46 @@ def update_review_proposed_response(review_id, new_proposed_response):
             import psycopg2
             conn = psycopg2.connect(DATABASE_URL)
             cur = conn.cursor()
-            cur.execute(
-                """
-                UPDATE pending_reviews
-                SET proposed_response_text = %s,
-                    regeneration_count = COALESCE(regeneration_count, 0) + 1,
-                    reviewed_timestamp = COALESCE(reviewed_timestamp, NOW())
-                WHERE id = %s
-                """,
-                (new_proposed_response, review_id),
-            )
+            try:
+                # Attempt the update with safe timestamp cast
+                cur.execute(
+                    """
+                    UPDATE pending_reviews
+                    SET proposed_response_text = %s,
+                        regeneration_count = COALESCE(regeneration_count, 0) + 1,
+                        reviewed_timestamp = COALESCE(reviewed_timestamp, CURRENT_TIMESTAMP::text)
+                    WHERE id = %s
+                    """,
+                    (new_proposed_response, review_id),
+                )
+            except Exception as inner_e:
+                # Reconcile schema differences and retry once
+                try:
+                    cur.execute("ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS proposed_response_text TEXT")
+                    cur.execute("ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS regeneration_count INTEGER DEFAULT 0")
+                    cur.execute("ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS reviewed_timestamp TEXT")
+                    # Retry the update
+                    cur.execute(
+                        """
+                        UPDATE pending_reviews
+                        SET proposed_response_text = %s,
+                            regeneration_count = COALESCE(regeneration_count, 0) + 1,
+                            reviewed_timestamp = COALESCE(reviewed_timestamp, CURRENT_TIMESTAMP::text)
+                        WHERE id = %s
+                        """,
+                        (new_proposed_response, review_id),
+                    )
+                except Exception as retry_e:
+                    logger.error(
+                        f"[PG] Error updating proposed response for ID {review_id} after schema reconcile: {retry_e}")
+                    conn.rollback()
+                    cur.close()
+                    conn.close()
+                    return False
+
             conn.commit()
             rows = cur.rowcount
+            cur.close()
             conn.close()
             logger.info(
                 f"[PG] Updated proposed response for review ID {review_id}, rows affected: {rows}")

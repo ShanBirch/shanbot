@@ -46,22 +46,44 @@ except ImportError:
 # Set up logger
 logger = logging.getLogger(__name__)
 try:
-    from shared_utils import call_gemini_with_retry_sync, GEMINI_MODEL_PRO, GEMINI_MODEL_FLASH
-except ImportError:
-    # Fallback imports - define minimal versions locally
-    def call_gemini_with_retry_sync(prompt, model_name, temperature=0.7):
-        # Try to import and call the actual function from a different path
+    # Prefer absolute import to ensure availability in Streamlit/module contexts
+    from app.dashboard_modules.shared_utils import (
+        call_gemini_with_retry_sync,
+        GEMINI_MODEL_PRO,
+        GEMINI_MODEL_FLASH,
+    )
+except Exception:
+    try:
+        # Fallback to local-relative import when running inside app/dashboard_modules
+        from shared_utils import (
+            call_gemini_with_retry_sync,
+            GEMINI_MODEL_PRO,
+            GEMINI_MODEL_FLASH,
+        )
+    except Exception:
+        # Final fallback: minimal direct Gemini call with simple one-step fallback
+        import google.generativeai as _genai
         try:
-            import sys
-            import os
-            sys.path.append(os.path.dirname(
-                os.path.dirname(os.path.abspath(__file__))))
-            from shared_utils import call_gemini_with_retry_sync as real_function
-            return real_function(prompt, model_name, temperature)
-        except:
-            return "Auto mode tracking system is being set up..."
-    GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
-    GEMINI_MODEL_FLASH = "gemini-2.0-flash-thinking-exp-01-21"
+            # Configure if key present in env; ignore errors here
+            _api_key = os.getenv("GEMINI_API_KEY")
+            if _api_key:
+                _genai.configure(api_key=_api_key)
+        except Exception:
+            pass
+
+        GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
+        GEMINI_MODEL_FLASH = "gemini-2.0-flash-thinking-exp-01-21"
+
+        def call_gemini_with_retry_sync(model_name: str, prompt: str, retry_count: int = 0) -> str:
+            try:
+                _model = _genai.GenerativeModel(model_name)
+                _resp = _model.generate_content(prompt)
+                return (_resp.text or "").strip()
+            except Exception:
+                # Simple fallback to a broadly available flash model
+                if model_name != "gemini-2.0-flash":
+                    return call_gemini_with_retry_sync("gemini-2.0-flash", prompt, retry_count + 1)
+                return ""
 # --- Safe DB helper wrappers (work even if module lacks new helpers) ---
 
 
