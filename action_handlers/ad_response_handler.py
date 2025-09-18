@@ -421,10 +421,23 @@ class AdResponseHandler:
                 return 'step3'  # Stay in step3 if unclear response
 
             elif current_state == 'step4':
-                # After booking link sent, conversation complete or back to step2 for more info
-                if any(word in message_lower for word in ['booked', 'scheduled', 'thanks', 'thank you']):
+                # After booking link sent
+                # 1) If they confirm booking → completed
+                if any(word in message_lower for word in ['booked', 'scheduled', 'confirmed', 'i booked', 'i scheduled', 'locked in']):
                     return 'completed'
-                return 'step2'  # Continue gathering info if they have questions
+
+                # 2) If they ask about price at this stage → stay in step4 and nudge booking per prompt rules
+                price_keywords = ['price', 'cost', '$', 'how much', 'how much is', 'what does it cost', 'what is the price']
+                if any(keyword in message_lower for keyword in price_keywords):
+                    return 'step4'
+
+                # 3) If they decline or defer the call → move back to info gathering (step2)
+                decline_cues = ['no call', "don't want to call", 'cant call', "can't call", 'busy', 'maybe later', 'not ready', 'rather text']
+                if any(cue in message_lower for cue in decline_cues):
+                    return 'step2'
+
+                # 4) Default: remain at step4 to encourage grabbing a slot instead of restarting discovery
+                return 'step4'
 
             elif current_state == 'completed':
                 # Keep them in completed state

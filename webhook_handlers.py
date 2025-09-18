@@ -2072,6 +2072,18 @@ async def send_manychat_message(subscriber_id: str, message: str) -> bool:
             except Exception as e:
                 logger.warning(f"Failed to track calendar link send: {e}")
 
+        # If user asks about price after Calendly has been sent, do not restart discovery; nudge call
+        try:
+            last_user_message = None
+            try:
+                from app.db_backend import add_message_to_history
+                # In this context we don't have the latest user text; logic stays in state machine
+                pass
+            except Exception:
+                pass
+        except Exception:
+            pass
+
         return update_manychat_fields(subscriber_id, field_updates)
     except Exception as e:
         logger.error(f"Error sending message to ManyChat: {e}")
