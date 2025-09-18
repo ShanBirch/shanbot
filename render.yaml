@@ -1,9 +1,3 @@
-databases:
-  - name: shanbot-db
-    databaseName: shanbot
-    user: shanbot_user
-    plan: starter
-
 services:
   - name: shanbot-webhook
     type: web
