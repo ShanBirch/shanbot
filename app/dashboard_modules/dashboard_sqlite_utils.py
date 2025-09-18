@@ -106,25 +106,26 @@ def initialize_database():
 
 
 def get_db_connection():
-    """Get a database connection (Postgres on Render, SQLite locally)."""
-    if USE_POSTGRES:
-        try:
-            import psycopg2
-            conn = psycopg2.connect(DATABASE_URL)
-            return conn
-        except Exception as e:
-            logger.error(f"Postgres connection failed, falling back to SQLite: {e}")
-
+    """Get a tuned SQLite connection for faster dashboard reads."""
+    # The schema check should be done once at startup, not per-connection.
+    # ensure_db_schema()
     conn = sqlite3.connect(
         SQLITE_DB_PATH, check_same_thread=False, timeout=5.0)
+    conn.row_factory = sqlite3.Row
     try:
-        conn.row_factory = sqlite3.Row
+        # Pragmas to improve read performance for dashboard workloads
+        # WAL enables concurrent reads while writes happen
         conn.execute("PRAGMA journal_mode=WAL;")
+        # Reasonable durability/perf tradeoff
         conn.execute("PRAGMA synchronous=NORMAL;")
+        # Keep temps in memory where possible
         conn.execute("PRAGMA temp_store=MEMORY;")
+        # Expand page cache (~64MB, negative means KB units)
         conn.execute("PRAGMA cache_size=-65536;")
+        # Busy timeout to avoid immediate lock errors
         conn.execute("PRAGMA busy_timeout=3000;")
     except Exception:
+        # Pragmas are best-effort; ignore if not supported
         pass
     return conn
 
@@ -145,48 +146,89 @@ def create_all_tables_if_not_exists(conn):
 def create_workout_tables_if_not_exist(conn):
     """Ensures the client_workouts and client_workout_sessions tables exist."""
     try:
-        cursor = conn.cursor()
-        # client_workouts
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS client_workouts (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                client_id TEXT NOT NULL,
-                workout_name TEXT NOT NULL,
-                date_assigned TEXT,
-                is_completed INTEGER DEFAULT 0,
-                UNIQUE(client_id, workout_name)
-            )
-        ''')
+        if USE_POSTGRES:
+            # Postgres-safe DDL
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                cur = pg_conn.cursor()
+                # client_workouts
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS client_workouts (
+                        id SERIAL PRIMARY KEY,
+                        client_id TEXT NOT NULL,
+                        workout_name TEXT NOT NULL,
+                        date_assigned TEXT,
+                        is_completed BOOLEAN DEFAULT FALSE,
+                        UNIQUE(client_id, workout_name)
+                    )
+                    """
+                )
+                # client_workout_sessions
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS client_workout_sessions (
+                        id SERIAL PRIMARY KEY,
+                        workout_id INTEGER REFERENCES client_workouts(id),
+                        session_date TEXT,
+                        notes TEXT
+                    )
+                    """
+                )
+                # Drop the old unique index if it exists, then ensure the new one
+                cur.execute("DROP INDEX IF EXISTS idx_unique_workout_session")
+                cur.execute(
+                    """
+                    CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_workout_session_v2
+                    ON client_workout_sessions (workout_id, session_date)
+                    """
+                )
+                pg_conn.commit()
+            logger.info(
+                "Successfully ensured workout tables and indexes (Postgres).")
+        else:
+            cursor = conn.cursor()
+            # client_workouts (SQLite)
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS client_workouts (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    client_id TEXT NOT NULL,
+                    workout_name TEXT NOT NULL,
+                    date_assigned TEXT,
+                    is_completed INTEGER DEFAULT 0,
+                    UNIQUE(client_id, workout_name)
+                )
+            ''')
 
-        # client_workout_sessions
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS client_workout_sessions (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                workout_id INTEGER,
-                session_date TEXT,
-                notes TEXT,
-                FOREIGN KEY(workout_id) REFERENCES client_workouts(id)
-            )
-        ''')
+            # client_workout_sessions (SQLite)
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS client_workout_sessions (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    workout_id INTEGER,
+                    session_date TEXT,
+                    notes TEXT,
+                    FOREIGN KEY(workout_id) REFERENCES client_workouts(id)
+                )
+            ''')
 
-        # Drop the old unique index if it exists
-        try:
-            cursor.execute(
-                "DROP INDEX IF EXISTS idx_unique_workout_session")
-            logger.info("Attempted to drop old unique index if it existed.")
-        except sqlite3.OperationalError:
-            pass  # Index didn't exist, which is fine
+            # Drop the old unique index if it exists
+            try:
+                cursor.execute(
+                    "DROP INDEX IF EXISTS idx_unique_workout_session")
+                logger.info("Attempted to drop old unique index if it existed.")
+            except sqlite3.OperationalError:
+                pass  # Index didn't exist, which is fine
 
-        # Create the new, more specific unique index
-        cursor.execute('''
-            CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_workout_session_v2 ON client_workout_sessions (workout_id, session_date)
-        ''')
-        logger.info(
-            "Ensured new unique index idx_unique_workout_session_v2 exists.")
+            # Create the new, more specific unique index
+            cursor.execute('''
+                CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_workout_session_v2 ON client_workout_sessions (workout_id, session_date)
+            ''')
+            logger.info(
+                "Ensured new unique index idx_unique_workout_session_v2 exists.")
 
-        conn.commit()
-        logger.info(
-            "Successfully ensured 'client_workout_sessions' table structure and unique index are up-to-date.")
+            conn.commit()
+            logger.info(
+                "Successfully ensured 'client_workout_sessions' table structure and unique index are up-to-date.")
 
     except sqlite3.Error as e:
         logger.error(
@@ -196,19 +238,38 @@ def create_workout_tables_if_not_exist(conn):
 def create_conversation_history_table_if_not_exists(conn):
     """Ensures the 'conversation_history' table exists for logging messages."""
     try:
-        cursor = conn.cursor()
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS conversation_history (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                ig_username TEXT NOT NULL,
-                subscriber_id TEXT,
-                timestamp TEXT,
-                message_type TEXT,
-                message_text TEXT
-            )
-        ''')
-        conn.commit()
-        logger.info("Ensured 'conversation_history' table exists.")
+        if USE_POSTGRES:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                cur = pg_conn.cursor()
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS conversation_history (
+                        id SERIAL PRIMARY KEY,
+                        ig_username TEXT NOT NULL,
+                        subscriber_id TEXT,
+                        timestamp TEXT,
+                        message_type TEXT,
+                        message_text TEXT
+                    )
+                    """
+                )
+                pg_conn.commit()
+            logger.info("Ensured 'conversation_history' table exists (Postgres).")
+        else:
+            cursor = conn.cursor()
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS conversation_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ig_username TEXT NOT NULL,
+                    subscriber_id TEXT,
+                    timestamp TEXT,
+                    message_type TEXT,
+                    message_text TEXT
+                )
+            ''')
+            conn.commit()
+            logger.info("Ensured 'conversation_history' table exists.")
     except sqlite3.Error as e:
         logger.error(
             f"An error occurred while creating the conversation_history table: {e}")
@@ -217,27 +278,53 @@ def create_conversation_history_table_if_not_exists(conn):
 def create_scheduled_responses_table_if_not_exists(conn):
     """Ensures the 'scheduled_responses' table exists for follow-ups."""
     try:
-        cursor = conn.cursor()
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS scheduled_responses (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                review_id INTEGER,
-                user_ig_username TEXT,
-                user_subscriber_id TEXT,
-                response_text TEXT,
-                incoming_message_text TEXT,
-                incoming_message_timestamp TEXT,
-                user_response_time TEXT,
-                calculated_delay_minutes INTEGER,
-                scheduled_send_time TEXT,
-                status TEXT DEFAULT 'scheduled',
-                user_notes TEXT,
-                manual_context TEXT,
-                FOREIGN KEY(review_id) REFERENCES pending_reviews(id)
-            )
-        ''')
-        conn.commit()
-        logger.info("Ensured 'scheduled_responses' table exists.")
+        if USE_POSTGRES:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                cur = pg_conn.cursor()
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS scheduled_responses (
+                        id SERIAL PRIMARY KEY,
+                        review_id INTEGER,
+                        user_ig_username TEXT,
+                        user_subscriber_id TEXT,
+                        response_text TEXT,
+                        incoming_message_text TEXT,
+                        incoming_message_timestamp TEXT,
+                        user_response_time TEXT,
+                        calculated_delay_minutes INTEGER,
+                        scheduled_send_time TEXT,
+                        status TEXT DEFAULT 'scheduled',
+                        user_notes TEXT,
+                        manual_context TEXT
+                    )
+                    """
+                )
+                pg_conn.commit()
+            logger.info("Ensured 'scheduled_responses' table exists (Postgres).")
+        else:
+            cursor = conn.cursor()
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS scheduled_responses (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    review_id INTEGER,
+                    user_ig_username TEXT,
+                    user_subscriber_id TEXT,
+                    response_text TEXT,
+                    incoming_message_text TEXT,
+                    incoming_message_timestamp TEXT,
+                    user_response_time TEXT,
+                    calculated_delay_minutes INTEGER,
+                    scheduled_send_time TEXT,
+                    status TEXT DEFAULT 'scheduled',
+                    user_notes TEXT,
+                    manual_context TEXT,
+                    FOREIGN KEY(review_id) REFERENCES pending_reviews(id)
+                )
+            ''')
+            conn.commit()
+            logger.info("Ensured 'scheduled_responses' table exists.")
     except sqlite3.Error as e:
         logger.error(
             f"An error occurred while creating the scheduled_responses table: {e}")
@@ -679,61 +766,6 @@ def create_learning_feedback_log_table_if_not_exists(conn):
 
 def ensure_core_tables_exist(conn):
     """Helper to ensure all necessary tables exist."""
-    # Ensure critical 'users' and 'messages' tables exist in SQLite environments
-    if not USE_POSTGRES:
-        try:
-            cur = conn.cursor()
-            cur.execute(
-                '''
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    ig_username TEXT UNIQUE,
-                    subscriber_id TEXT,
-                    first_name TEXT,
-                    last_name TEXT,
-                    client_status TEXT DEFAULT 'Not a Client',
-                    journey_stage TEXT DEFAULT 'Initial Inquiry',
-                    is_onboarding INTEGER DEFAULT 0,
-                    is_in_checkin_flow_mon INTEGER DEFAULT 0,
-                    is_in_checkin_flow_wed INTEGER DEFAULT 0,
-                    is_in_ad_flow INTEGER DEFAULT 0,
-                    ad_script_state TEXT,
-                    ad_scenario INTEGER,
-                    lead_source TEXT,
-                    fb_ad INTEGER DEFAULT 0,
-                    last_interaction_timestamp TEXT,
-                    bio TEXT,
-                    profile_bio_text TEXT,
-                    interests_json TEXT DEFAULT '[]',
-                    conversation_topics_json TEXT DEFAULT '[]',
-                    client_analysis_json TEXT DEFAULT '{}',
-                    metrics_json TEXT,
-                    calorie_tracking_json TEXT,
-                    meal_plan_json TEXT,
-                    workout_program_json TEXT,
-                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
-                )
-                '''
-            )
-            cur.execute(
-                '''
-                CREATE TABLE IF NOT EXISTS messages (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    ig_username TEXT,
-                    subscriber_id TEXT,
-                    message_type TEXT,
-                    message_text TEXT,
-                    sender TEXT,
-                    message TEXT,
-                    timestamp TEXT,
-                    created_at TEXT DEFAULT CURRENT_TIMESTAMP
-                )
-                '''
-            )
-            conn.commit()
-        except Exception as e:
-            logger.warning(f"Could not ensure core dashboard tables: {e}")
     create_workout_tables_if_not_exist(conn)
     create_conversation_history_table_if_not_exists(conn)
     create_scheduled_responses_table_if_not_exists(conn)
