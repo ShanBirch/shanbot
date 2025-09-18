@@ -2470,7 +2470,11 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
         with col_actions3:
             # Optional extra guidance for regeneration (stored per-review)
             regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
-            with st.expander("➕ Add extra guidance (optional)", expanded=False):
+            show_guidance_key = f"{key_prefix}show_guidance_{review_item['review_id']}"
+            show_guidance = st.checkbox(
+                "➕ Add extra guidance (optional)", key=show_guidance_key, value=False
+            )
+            if show_guidance:
                 st.text_area(
                     "Important guidance to prioritize in the next response:",
                     key=regen_notes_key,
@@ -2511,7 +2515,11 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
 
         with col_actions5:
             regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
-            with st.expander("➕ Add extra guidance (optional)", expanded=False):
+            show_guidance_key = f"{key_prefix}show_guidance_{review_item['review_id']}"
+            show_guidance = st.checkbox(
+                "➕ Add extra guidance (optional)", key=show_guidance_key, value=False
+            )
+            if show_guidance:
                 st.text_area(
                     "Important guidance to prioritize in the next response:",
                     key=regen_notes_key,
