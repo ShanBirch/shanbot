@@ -2468,9 +2468,19 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                 handle_analyze_bio(review_item['user_ig_username'])
 
         with col_actions3:
+            # Optional extra guidance for regeneration (stored per-review)
+            regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
+            with st.expander("➕ Add extra guidance (optional)", expanded=False):
+                st.text_area(
+                    "Important guidance to prioritize in the next response:",
+                    key=regen_notes_key,
+                    height=90,
+                    placeholder="E.g., steer to price; keep under 20 words; ask about routine, no emojis",
+                )
             if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_auto", use_container_width=True, help="Generate a new response using bio and conversation context"):
+                extra_guidance = st.session_state.get(regen_notes_key, "")
                 handle_regenerate(
-                    review_item, selected_prompt_type, key_prefix)
+                    review_item, selected_prompt_type, key_prefix, extra_guidance)
 
         with col_actions4:
             if st.button("🎯 Smart Offer", key=f"{key_prefix}generate_offer_auto", use_container_width=True, help="Analyze conversation context and generate a call proposal or supportive response"):
@@ -2500,9 +2510,18 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                 handle_analyze_bio(review_item['user_ig_username'])
 
         with col_actions5:
+            regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
+            with st.expander("➕ Add extra guidance (optional)", expanded=False):
+                st.text_area(
+                    "Important guidance to prioritize in the next response:",
+                    key=regen_notes_key,
+                    height=90,
+                    placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
+                )
             if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate", use_container_width=True, help="Generate a new response using bio and conversation context"):
+                extra_guidance = st.session_state.get(regen_notes_key, "")
                 handle_regenerate(
-                    review_item, selected_prompt_type, key_prefix)
+                    review_item, selected_prompt_type, key_prefix, extra_guidance)
 
         with col_actions6:
             if st.button("🎯 Smart Offer", key=f"{key_prefix}generate_offer", use_container_width=True, help="Analyze conversation context and generate a call proposal or supportive response"):
@@ -2940,7 +2959,7 @@ def handle_analyze_bio(user_ig):
                 st.error(f"Failed to start direct analysis: {str(e)}")
 
 
-def handle_regenerate(review_item, selected_prompt_type, key_prefix=""):
+def handle_regenerate(review_item, selected_prompt_type, key_prefix="", extra_guidance: str = ""):
     """Handle the regenerate action"""
     review_id = review_item['review_id']
     user_ig = review_item['user_ig_username']
@@ -3065,7 +3084,8 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix=""):
                 incoming_msg,
                 conversation_history,
                 original_prompt,
-                selected_prompt_type
+                selected_prompt_type,
+                extra_guidance=extra_guidance
             )
 
             # Apply duplicate-question guard and call/link gating on regenerated text
@@ -3333,7 +3353,7 @@ def handle_generate_offer(review_item):
             st.error(f"❌ Error generating offer: {str(e)}")
 
 
-def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: str, conversation_history: list, original_prompt: str, prompt_type: str = 'general_chat') -> str:
+def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: str, conversation_history: list, original_prompt: str, prompt_type: str = 'general_chat', extra_guidance: str = "") -> str:
     """Regenerate response using enhanced context and specific prompt templates."""
     try:
         logger.info(
@@ -3509,6 +3529,13 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             enhanced_prompt_str = prompts.COMBINED_AD_RESPONSE_PROMPT_TEMPLATE.format_map(
                 prompt_data)
 
+            # Prepend high-priority guidance if provided
+            if extra_guidance and extra_guidance.strip():
+                enhanced_prompt_str = (
+                    "IMPORTANT OVERRIDES (Highest Priority):\n"
+                    f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
+                )
+
         elif prompt_type == 'member_chat':
             # Use member conversation template
             prompt_data = {
@@ -3523,6 +3550,11 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             }
             enhanced_prompt_str = prompts.MEMBER_CONVERSATION_PROMPT_TEMPLATE.format_map(
                 prompt_data)
+            if extra_guidance and extra_guidance.strip():
+                enhanced_prompt_str = (
+                    "IMPORTANT OVERRIDES (Highest Priority):\n"
+                    f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
+                )
 
         elif prompt_type == 'monday_morning_text':
             # Use Monday morning check-in template
@@ -3535,6 +3567,11 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             }
             enhanced_prompt_str = prompts.MONDAY_MORNING_TEXT_PROMPT_TEMPLATE.format_map(
                 prompt_data)
+            if extra_guidance and extra_guidance.strip():
+                enhanced_prompt_str = (
+                    "IMPORTANT OVERRIDES (Highest Priority):\n"
+                    f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
+                )
 
         elif prompt_type == 'checkins':
             # Use general check-ins template
@@ -3547,6 +3584,11 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             }
             enhanced_prompt_str = prompts.CHECKINS_PROMPT_TEMPLATE.format_map(
                 prompt_data)
+            if extra_guidance and extra_guidance.strip():
+                enhanced_prompt_str = (
+                    "IMPORTANT OVERRIDES (Highest Priority):\n"
+                    f"{extra_guidance.strip()}\n\n" + enhanced_prompt_str
+                )
 
         else:  # general_chat (default)
             # Use the general chat and onboarding template
