@@ -2,7 +2,7 @@ databases:
   - name: shanbot-db
     databaseName: shanbot
     user: shanbot_user
-    plan: basic-256mb
+    plan: starter
 
 services:
   - name: shanbot-webhook
