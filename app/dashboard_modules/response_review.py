@@ -1776,8 +1776,10 @@ def display_response_review_queue(delete_callback: callable):
                 st.error(
                     f"Failed to delete reviews for {user_to_display_ig}.")
 
-    st.info(
-        f"Displaying reviews for {st.session_state.current_review_user_ig}")
+    # Hide noisy banner; keep minimal UI
+    if os.getenv("DEBUG_DASHBOARD") == "1":
+        st.info(
+            f"Displaying reviews for {st.session_state.current_review_user_ig}")
 
     if not current_user_reviews_to_display:
         st.warning(f"No pending reviews found for {user_to_display_ig}")
@@ -2488,15 +2490,14 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                 st.caption("⏰ Already scheduled - will be sent automatically")
 
         with col_manual:
-            if st.button("📤 Send Now", key=f"{key_prefix}send_now", use_container_width=True,
-                         help="Send immediately (override auto mode)"):
+            if st.button("Approve & Send", key=f"{key_prefix}send_now", use_container_width=True,
+                         help="Send immediately"):
                 handle_approve_and_send(
                     review_item, edited_response, user_notes, manual_context, key_prefix)
 
-        # Second row for other actions (no expander to avoid nesting issues)
-        st.write("**Other Actions:**")
-        col_actions1, col_actions2, col_actions3, col_actions4 = st.columns([
-                                                                            1, 1, 1, 1])
+        # Clean action row
+        st.write("**Actions:**")
+        col_actions1, col_actions2, col_actions3 = st.columns([1, 1, 1])
 
         with col_actions1:
             if st.button("Discard", key=f"{key_prefix}discard_auto", use_container_width=True):
@@ -2506,33 +2507,23 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
             if st.button("🔍 Analyze Bio", key=f"{key_prefix}analyze_bio_auto", use_container_width=True, help="Run Instagram analysis to get bio info"):
                 handle_analyze_bio(review_item['user_ig_username'])
 
-        with col_actions3:
-            # Optional extra guidance for regeneration (stored per-review)
-            regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
-            show_guidance_key = f"{key_prefix}show_guidance_{review_item['review_id']}"
-            show_guidance = st.checkbox(
-                "➕ Add extra guidance (optional)", key=show_guidance_key, value=False
-            )
-            if show_guidance:
-                st.text_area(
-                    "Important guidance to prioritize in the next response:",
-                    key=regen_notes_key,
-                    height=90,
-                    placeholder="E.g., steer to price; keep under 20 words; ask about routine, no emojis",
-                )
-            if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_auto", use_container_width=True, help="Generate a new response using bio and conversation context"):
-                extra_guidance = st.session_state.get(regen_notes_key, "")
-                handle_regenerate(
-                    review_item, selected_prompt_type, key_prefix, extra_guidance)
-
-        with col_actions4:
-            if st.button("🎯 Smart Offer", key=f"{key_prefix}generate_offer_auto", use_container_width=True, help="Analyze conversation context and generate a call proposal or supportive response"):
-                handle_generate_offer(review_item)
+        # Regenerate section
+        st.markdown("**Regenerate**")
+        regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
+        st.text_area(
+            "How should the response be adjusted? (optional)",
+            key=regen_notes_key,
+            height=90,
+            placeholder="E.g., confirm price; keep to 1 sentence; propose call link",
+        )
+        if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_auto", use_container_width=False):
+            extra_guidance = st.session_state.get(regen_notes_key, "")
+            handle_regenerate(
+                review_item, selected_prompt_type, key_prefix, extra_guidance)
 
     else:
-        # MANUAL MODE: Original layout with all buttons visible
-        col_actions1, col_actions2, col_actions3, col_actions4, col_actions5, col_actions6 = st.columns([
-            1, 1, 1, 1, 1, 1])
+        # MANUAL MODE: simplified layout
+        col_actions1, col_actions2, col_actions3 = st.columns([1, 1, 1])
 
         with col_actions1:
             if st.button("Approve & Send", key=f"{key_prefix}send", type="primary", use_container_width=True):
@@ -2540,139 +2531,37 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                     review_item, edited_response, user_notes, manual_context, key_prefix)
 
         with col_actions2:
-            if st.button("🤖 Smart Auto", key=f"{key_prefix}smart_auto", use_container_width=True, help="Auto-respond with timing that matches user's response time"):
-                handle_simple_auto_response(
-                    review_item, edited_response, user_notes, manual_context)
-
-        with col_actions3:
             if st.button("Discard", key=f"{key_prefix}discard", use_container_width=True):
                 handle_discard(review_item, user_notes)
 
-        with col_actions4:
+        with col_actions3:
             if st.button("🔍 Analyze Bio", key=f"{key_prefix}analyze_bio", use_container_width=True, help="Run Instagram analysis to get bio info"):
                 handle_analyze_bio(review_item['user_ig_username'])
 
-        with col_actions5:
-            regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
-            show_guidance_key = f"{key_prefix}show_guidance_{review_item['review_id']}"
-            show_guidance = st.checkbox(
-                "➕ Add extra guidance (optional)", key=show_guidance_key, value=False
-            )
-            if show_guidance:
-                st.text_area(
-                    "Important guidance to prioritize in the next response:",
-                    key=regen_notes_key,
-                    height=90,
-                    placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
-                )
-            if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate", use_container_width=True, help="Generate a new response using bio and conversation context"):
-                extra_guidance = st.session_state.get(regen_notes_key, "")
-                # Persist Shannon's extra guidance for future runs (global/user-scoped)
-                try:
-                    if extra_guidance and extra_guidance.strip():
-                        # Save as user-scoped guidance; if subscriber unknown, use ig
-                        save_prompt_guidance(
-                            review_item.get('user_ig_username', ''),
-                            selected_prompt_type,
-                            extra_guidance.strip(),
-                            1.0
-                        )
-                except Exception:
-                    pass
-                handle_regenerate(
-                    review_item, selected_prompt_type, key_prefix, extra_guidance)
-
-        with col_actions6:
-            if st.button("🎯 Smart Offer", key=f"{key_prefix}generate_offer", use_container_width=True, help="Analyze conversation context and generate a call proposal or supportive response"):
-                handle_generate_offer(review_item)
-
-        # Second row for additional actions
-        col_extra1, col_extra2, col_extra3, col_extra4, col_extra5, col_extra6 = st.columns([
-                                                                                            1, 1, 1, 1, 1, 1])
-
-        with col_extra1:
-            # Check if user is in vegan flow to show the vegan example button
-            if is_user_in_vegan_flow(review_item['user_ig_username']):
-                if st.button("🌱 Save as Vegan Example", key=f"{key_prefix}save_vegan", use_container_width=True, help="Save this response as a vegan few-shot example"):
-                    handle_save_vegan_example(
-                        review_item, edited_response, user_notes)
-            else:
-                # Show general save example button for other prompt types
-                if st.button("💾 Save as Example", key=f"{key_prefix}save_example", use_container_width=True, help=f"Save this response as a {selected_prompt_type} few-shot example"):
-                    handle_save_example(
-                        review_item, edited_response, selected_prompt_type)
-
-        with col_extra2:
-            if st.button("👁️ View Examples", key=f"{key_prefix}view_examples", use_container_width=True, help=f"View current few-shot examples for {selected_prompt_type}"):
-                examples = get_few_shot_examples_for_prompt_type(
-                    selected_prompt_type)
-                st.text_area("Current Examples:", examples,
-                             height=200, key=f"{key_prefix}examples_display")
-
-        with col_extra3:
-            if st.button("📊 Rate Example", key=f"{key_prefix}rate_example", use_container_width=True, help="Rate the quality of this example"):
-                quality_score = st.slider(
-                    "Quality Score", 1, 10, 5, key=f"{key_prefix}quality_score")
-                # Update quality score in database
-                try:
-                    conn = db_utils.get_db_connection()
-                    cursor = conn.cursor()
-                    cursor.execute("""
-                        UPDATE few_shot_examples 
-                        SET quality_score = ?
-                        WHERE prompt_type = ? AND user_ig = ? AND shannon_response = ?
-                        ORDER BY created_timestamp DESC
-                        LIMIT 1
-                    """, (quality_score, selected_prompt_type, review_item['user_ig_username'], edited_response))
-                    conn.commit()
-                    conn.close()
-                    st.success(f"✅ Rated example as {quality_score}/10")
-                except Exception as e:
-                    st.error(f"❌ Error rating example: {str(e)}")
-
-        with col_extra4:
-            if st.button("🔄 Switch Prompt", key=f"{key_prefix}switch_prompt", use_container_width=True, help="Quickly switch to a different prompt type"):
-                st.info(
-                    f"Use the dropdown above to change prompt type from {selected_prompt_type}")
-
-        with col_extra5:
-            if st.button("📈 Prompt Stats", key=f"{key_prefix}prompt_stats", use_container_width=True, help="View statistics for this prompt type"):
-                try:
-                    conn = db_utils.get_db_connection()
-                    cursor = conn.cursor()
-                    cursor.execute("""
-                        SELECT COUNT(*) as total_examples, 
-                               AVG(quality_score) as avg_quality,
-                               MAX(created_timestamp) as last_added
-                        FROM few_shot_examples 
-                        WHERE prompt_type = ?
-                    """, (selected_prompt_type,))
-                    stats = cursor.fetchone()
-                    conn.close()
-
-                    if stats and stats[0] > 0:
-                        st.success(
-                            f"📊 {selected_prompt_type}: {stats[0]} examples, avg quality: {stats[1]:.1f}/10")
-                    else:
-                        st.info(
-                            f"📊 No examples yet for {selected_prompt_type}")
-                except Exception as e:
-                    st.error(f"❌ Error loading stats: {str(e)}")
-
-        with col_extra6:
-            if st.button("🗑️ Clear Examples", key=f"{key_prefix}clear_examples", use_container_width=True, help="Clear all examples for this prompt type"):
-                if st.checkbox("Confirm deletion", key=f"{key_prefix}confirm_clear"):
-                    try:
-                        conn = db_utils.get_db_connection()
-                        cursor = conn.cursor()
-                        cursor.execute(
-                            "DELETE FROM few_shot_examples WHERE prompt_type = ?", (selected_prompt_type,))
-                        conn.commit()
-                        conn.close()
-                        st.success(
-                            f"✅ Cleared all examples for {selected_prompt_type}")
-                    except Exception as e:
-                        st.error(f"❌ Error clearing examples: {str(e)}")
+        # Regenerate section
+        st.markdown("**Regenerate**")
+        regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
+        st.text_area(
+            "How should the response be adjusted? (optional)",
+            key=regen_notes_key,
+            height=90,
+            placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
+        )
+        if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate", use_container_width=False, help="Generate a new response using bio and conversation context"):
+            extra_guidance = st.session_state.get(regen_notes_key, "")
+            # Persist Shannon's extra guidance for future runs (global/user-scoped)
+            try:
+                if extra_guidance and extra_guidance.strip():
+                    save_prompt_guidance(
+                        review_item.get('user_ig_username', ''),
+                        selected_prompt_type,
+                        extra_guidance.strip(),
+                        1.0
+                    )
+            except Exception:
+                pass
+            handle_regenerate(
+                review_item, selected_prompt_type, key_prefix, extra_guidance)
 
 
 def handle_approve_and_send(review_item, edited_response, user_notes, manual_context, key_prefix):
