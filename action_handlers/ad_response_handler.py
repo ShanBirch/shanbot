@@ -240,7 +240,7 @@ class AdResponseHandler:
                     subscriber_id=subscriber_id,
                     scenario=scenario,
                     next_state=next_state,
-                    lead_source='paid_plant_based_challenge',
+                    lead_source='vegan_ad',
                 )
                 if ok:
                     logger.info(

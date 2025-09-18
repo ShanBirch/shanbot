@@ -1841,22 +1841,6 @@ def build_member_chat_prompt(
     is_wed_checkin = client_data.get('is_in_checkin_flow_wed', False)
     is_in_ad_flow = client_data.get('is_in_ad_flow', False)
 
-    # Strengthen ad-flow detection so we don't accidentally default to general chat
-    lead_source_lower = str(client_data.get('lead_source', '')).lower()
-    fb_ad_flag = bool(client_data.get('fb_ad', False))
-    ad_scenario_val = client_data.get('ad_scenario')
-    safe_current_msg = (current_message or "").lower()
-    ad_keywords_present = any(kw in safe_current_msg for kw in [
-        'vegan challenge', 'vegan transformation', 'ready to join', 'sign me up', 'i\'m in', 'interested'
-    ])
-    ad_flow_detected = (
-        is_in_ad_flow
-        or fb_ad_flag
-        or ('challenge' in lead_source_lower)
-        or (ad_scenario_val in (1, 2, 3))
-        or ad_keywords_present
-    )
-
     if is_mon_checkin:
         base_prompt_template = prompts.MONDAY_MORNING_TEXT_PROMPT_TEMPLATE
         prompt_type = "monday_morning_text"
@@ -1866,7 +1850,7 @@ def build_member_chat_prompt(
         base_prompt_template = prompts.CHECKINS_PROMPT_TEMPLATE
         prompt_type = "checkins"
         logger.info(f"Using CHECKINS_PROMPT_TEMPLATE for {full_name}")
-    elif ad_flow_detected:
+    elif is_in_ad_flow:
         base_prompt_template = prompts.COMBINED_AD_RESPONSE_PROMPT_TEMPLATE
         prompt_type = "facebook_ad_response"
         logger.info(

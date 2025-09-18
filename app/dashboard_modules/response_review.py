@@ -3537,6 +3537,31 @@ def regenerate_with_enhanced_context(user_ig_username: str, incoming_message: st
             enhanced_prompt_str = prompts.COMBINED_AD_RESPONSE_PROMPT_TEMPLATE.format_map(
                 prompt_data)
 
+            # Inject high-quality few-shot examples from approved edits (learning log) to guide regeneration
+            try:
+                vegan_examples = db_utils.get_vegan_few_shot_examples(limit=5)
+            except Exception:
+                vegan_examples = []
+
+            if vegan_examples:
+                try:
+                    # Build a plain-text examples block (no markdown) to respect formatting rules
+                    lines: list[str] = [
+                        "EXAMPLE CONVERSATIONS (Learning from approved edits):"
+                    ]
+                    for ex in vegan_examples:
+                        user_line = (ex.get("input") or "").strip()
+                        shan_line = (ex.get("output") or "").strip()
+                        if user_line and shan_line:
+                            lines.append(f"User: {user_line}")
+                            lines.append(f"Shannon: {shan_line}")
+                            lines.append("")
+                    examples_block = "\n".join(lines).strip()
+                    if examples_block:
+                        enhanced_prompt_str = examples_block + "\n\n" + enhanced_prompt_str
+                except Exception:
+                    pass
+
             # Prepend high-priority guidance if provided
             if extra_guidance and extra_guidance.strip():
                 enhanced_prompt_str = (

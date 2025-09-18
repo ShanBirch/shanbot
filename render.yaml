@@ -1,3 +1,9 @@
+databases:
+  - name: shanbot-db
+    databaseName: shanbot
+    user: shanbot_user
+    plan: basic-256mb
+
 services:
   - name: shanbot-webhook
     type: web
@@ -25,7 +31,9 @@ services:
       - key: INSTAGRAM_GRAPH_API_TOKEN
         sync: false
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: shanbot-db
+          property: connectionString
 
   - name: shanbot-dashboard
     type: web
@@ -47,7 +55,9 @@ services:
       - key: GOOGLE_APPLICATION_CREDENTIALS
         sync: false
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: shanbot-db
+          property: connectionString
       - key: DB_PATH
         value: "/data/analytics_data_good.sqlite"
     disks:
