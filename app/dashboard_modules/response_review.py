@@ -2684,20 +2684,7 @@ def handle_approve_and_send(review_item, edited_response, user_notes, manual_con
             st.success(
                 f"✅ Message sent successfully to {user_ig} (trigger issue)")
 
-        # Persist only the sent AI message; user message should already be present
-        try:
-            if add_message_to_history_pg:
-                add_message_to_history_pg(
-                    ig_username=user_ig,
-                    message_type='ai',
-                    message_text=edited_response,
-                    message_timestamp=get_melbourne_time_str(),
-                )
-            else:
-                db_utils.add_message_to_history(
-                    user_ig, 'ai', edited_response, get_melbourne_time_str())
-        except Exception:
-            pass
+        # Note: AI message persistence handled once below (centralized backend)
     else:
         st.error("❌ Failed to send any message parts to ManyChat")
 
