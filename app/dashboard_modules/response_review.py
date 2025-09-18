@@ -1632,7 +1632,6 @@ def display_response_review_queue(delete_callback: callable):
     if os.getenv("DEBUG_DASHBOARD") == "1":
         with st.expander("🔎 Debug: Show raw pending_reviews rows (first 10)"):
             try:
-                import os
                 if os.getenv("DATABASE_URL"):
                     import psycopg2
                     from psycopg2.extras import RealDictCursor
