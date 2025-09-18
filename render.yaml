@@ -58,5 +58,11 @@ services:
         fromDatabase:
           name: shanbot-db
           property: connectionString
+      - key: DB_PATH
+        value: "/data/analytics_data_good.sqlite"
+    disks:
+      - name: shanbot-dashboard-disk
+        mountPath: /data
+        sizeGB: 1
 
 

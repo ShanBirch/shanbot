@@ -8,6 +8,7 @@ import json
 import logging
 from datetime import datetime
 import google.generativeai as genai
+import os
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -16,7 +17,9 @@ logger = logging.getLogger(__name__)
 try:
     GEMINI_API_KEY = st.secrets["general"]["GEMINI_API_KEY"]
 except (KeyError, FileNotFoundError):
-    GEMINI_API_KEY = "AIzaSyAH6467EocGBwuMi-oDLawrNyCKjPHHmN8"
+    # Fallback to environment variable on Render; last resort hardcoded dev key
+    GEMINI_API_KEY = os.getenv(
+        "GEMINI_API_KEY", "AIzaSyAH6467EocGBwuMi-oDLawrNyCKjPHHmN8")
 
 # Gemini model configuration (primary set to flash-lite)
 GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
