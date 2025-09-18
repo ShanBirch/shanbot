@@ -2026,7 +2026,8 @@ def build_member_chat_prompt(
         "expected_onboarding_input": client_data.get("expected_onboarding_input", "general information"),
 
         # Ad-specific parameters for COMBINED_AD_RESPONSE_PROMPT_TEMPLATE
-        "ad_script_state": client_data.get('ad_script_state', 'step1'),
+        # Use the exact placeholder names used by the template
+        "script_state": client_data.get('ad_script_state', 'step1'),
         "ad_scenario": client_data.get('ad_scenario', 1)
     }
 

@@ -731,7 +731,7 @@ async def handle_ad_response(ig_username: str, message_text: str, subscriber_id:
             prompt = prompts.COMBINED_AD_RESPONSE_PROMPT_TEMPLATE.format(
                 current_melbourne_time_str=current_time,
                 ig_username=ig_username,
-                ad_script_state=current_state,
+                script_state=current_state,
                 ad_scenario=scenario,
                 bio=bio_context,
                 full_conversation=full_conversation

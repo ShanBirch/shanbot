@@ -95,9 +95,21 @@ class CoreActionHandler:
                 logger.info(
                     f"[CoreAction] Detected ad response from {ig_username} (confidence: {confidence}%)")
 
-                # Update user state for ad flow
-                update_analytics_data(ig_username, "", "", subscriber_id, first_name, last_name,
-                                      is_in_ad_flow=True, ad_scenario=scenario, lead_source='plant_based_challenge')
+                # Update user state for ad flow (persist correct flags/state)
+                update_analytics_data(
+                    subscriber_id=subscriber_id,
+                    ig_username=ig_username,
+                    message_text=message_text,
+                    message_direction='user',
+                    timestamp=user_message_timestamp_iso,
+                    first_name=first_name,
+                    last_name=last_name,
+                    is_in_ad_flow=True,
+                    ad_script_state='step1',
+                    ad_scenario=scenario,
+                    lead_source='plant_based_challenge',
+                    fb_ad=fb_ad,
+                )
 
                 # Handle ad response
                 success = await AdResponseHandler.handle_ad_response(
