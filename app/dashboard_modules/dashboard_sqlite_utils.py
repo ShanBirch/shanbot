@@ -264,31 +264,76 @@ def ensure_pending_reviews_rationale_column(conn: sqlite3.Connection):
 
 def create_review_candidates_table_if_not_exists(conn: sqlite3.Connection):
     """Create table to store multiple candidate responses for a review."""
-    try:
-        cursor = conn.cursor()
-        cursor.execute(
-            '''
-            CREATE TABLE IF NOT EXISTS review_candidates (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                review_id INTEGER NOT NULL,
-                variant_index INTEGER NOT NULL,
-                response_text TEXT NOT NULL,
-                is_selected INTEGER DEFAULT 0,
-                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                UNIQUE(review_id, variant_index),
-                FOREIGN KEY(review_id) REFERENCES pending_reviews(id)
+    if not USE_POSTGRES:
+        try:
+            cursor = conn.cursor()
+            cursor.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS review_candidates (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    review_id INTEGER NOT NULL,
+                    variant_index INTEGER NOT NULL,
+                    response_text TEXT NOT NULL,
+                    is_selected INTEGER DEFAULT 0,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    UNIQUE(review_id, variant_index),
+                    FOREIGN KEY(review_id) REFERENCES pending_reviews(id)
+                )
+                '''
             )
-            '''
-        )
-        conn.commit()
-        logger.info("Ensured review_candidates table exists.")
-    except sqlite3.Error as e:
+            conn.commit()
+            logger.info("Ensured review_candidates table exists (SQLite).")
+        except sqlite3.Error as e:
+            logger.error(
+                f"An error occurred while creating the review_candidates table: {e}")
+        return
+
+    try:
+        import psycopg2
+        with psycopg2.connect(DATABASE_URL) as pg_conn:
+            with pg_conn.cursor() as cur:
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS review_candidates (
+                        id SERIAL PRIMARY KEY,
+                        review_id INTEGER NOT NULL,
+                        variant_index INTEGER NOT NULL,
+                        response_text TEXT NOT NULL,
+                        is_selected BOOLEAN DEFAULT FALSE,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        UNIQUE(review_id, variant_index)
+                    )
+                    """
+                )
+                pg_conn.commit()
+                logger.info(
+                    "Ensured review_candidates table exists (Postgres).")
+    except Exception as e:
         logger.error(
-            f"An error occurred while creating the review_candidates table: {e}")
+            f"Error ensuring review_candidates table on Postgres: {e}")
 
 
 def save_review_rationale(review_id: int, rationale: str) -> bool:
     """Persist model rationale for a pending review."""
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor() as cur:
+                    cur.execute(
+                        "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS model_rationale TEXT"
+                    )
+                    cur.execute(
+                        "UPDATE pending_reviews SET model_rationale = %s WHERE id = %s",
+                        (rationale, review_id),
+                    )
+                    pg_conn.commit()
+                    return True
+        except Exception as e:
+            logger.error(
+                f"Error saving rationale (Postgres) for review {review_id}: {e}")
+            return False
+
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
@@ -308,6 +353,34 @@ def save_review_rationale(review_id: int, rationale: str) -> bool:
 
 def get_review_rationale(review_id: int) -> Optional[str]:
     """Fetch stored rationale text for a review (if any)."""
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            from psycopg2.extras import RealDictCursor
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor(cursor_factory=RealDictCursor) as cur:
+                    try:
+                        cur.execute(
+                            "ALTER TABLE pending_reviews ADD COLUMN IF NOT EXISTS model_rationale TEXT"
+                        )
+                        pg_conn.commit()
+                    except Exception:
+                        pass
+                    cur.execute(
+                        "SELECT model_rationale FROM pending_reviews WHERE id = %s",
+                        (review_id,),
+                    )
+                    row = cur.fetchone()
+                    if not row:
+                        return None
+                    rationale = row.get("model_rationale") if isinstance(
+                        row, dict) else row[0]
+                    return rationale if rationale else None
+        except Exception as e:
+            logger.error(
+                f"Error fetching rationale (Postgres) for review {review_id}: {e}")
+            return None
+
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
@@ -327,14 +400,44 @@ def get_review_rationale(review_id: int) -> Optional[str]:
 
 def save_review_candidates(review_id: int, responses: list[str]) -> bool:
     """Replace candidate responses for a review with new variants."""
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        CREATE TABLE IF NOT EXISTS review_candidates (
+                            id SERIAL PRIMARY KEY,
+                            review_id INTEGER NOT NULL,
+                            variant_index INTEGER NOT NULL,
+                            response_text TEXT NOT NULL,
+                            is_selected BOOLEAN DEFAULT FALSE,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            UNIQUE(review_id, variant_index)
+                        )
+                        """
+                    )
+                    cur.execute(
+                        "DELETE FROM review_candidates WHERE review_id = %s", (review_id,))
+                    for idx, text in enumerate(responses, start=1):
+                        cur.execute(
+                            "INSERT INTO review_candidates (review_id, variant_index, response_text) VALUES (%s, %s, %s)",
+                            (review_id, idx, text),
+                        )
+                    pg_conn.commit()
+                    return True
+        except Exception as e:
+            logger.error(
+                f"Error saving review candidates (Postgres) for {review_id}: {e}")
+            return False
+
     conn = get_db_connection()
     try:
         create_review_candidates_table_if_not_exists(conn)
         cursor = conn.cursor()
-        # Clear existing
         cursor.execute("DELETE FROM review_candidates WHERE review_id = ?",
                        (review_id,))
-        # Insert new
         for idx, text in enumerate(responses, start=1):
             cursor.execute(
                 "INSERT INTO review_candidates (review_id, variant_index, response_text) VALUES (?, ?, ?)",
@@ -352,6 +455,35 @@ def save_review_candidates(review_id: int, responses: list[str]) -> bool:
 
 def get_review_candidates(review_id: int) -> list[dict]:
     """Return candidate responses for a review, ordered by variant_index."""
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            from psycopg2.extras import RealDictCursor
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor(cursor_factory=RealDictCursor) as cur:
+                    cur.execute(
+                        """
+                        SELECT variant_index, response_text, COALESCE(is_selected, FALSE) AS is_selected
+                        FROM review_candidates
+                        WHERE review_id = %s
+                        ORDER BY variant_index ASC
+                        """,
+                        (review_id,),
+                    )
+                    rows = cur.fetchall() or []
+                    return [
+                        {
+                            "variant_index": r.get("variant_index"),
+                            "response_text": r.get("response_text"),
+                            "is_selected": bool(r.get("is_selected")),
+                        }
+                        for r in rows
+                    ]
+        except Exception as e:
+            logger.error(
+                f"Error fetching review candidates (Postgres) for {review_id}: {e}")
+            return []
+
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
@@ -379,6 +511,26 @@ def get_review_candidates(review_id: int) -> list[dict]:
 
 def mark_review_candidate_selected(review_id: int, variant_index: int) -> bool:
     """Mark one candidate as selected and unselect others for the review."""
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor() as cur:
+                    cur.execute(
+                        "UPDATE review_candidates SET is_selected = FALSE WHERE review_id = %s",
+                        (review_id,),
+                    )
+                    cur.execute(
+                        "UPDATE review_candidates SET is_selected = TRUE WHERE review_id = %s AND variant_index = %s",
+                        (review_id, variant_index),
+                    )
+                    pg_conn.commit()
+                    return True
+        except Exception as e:
+            logger.error(
+                f"Error marking selected candidate (Postgres) for review {review_id}, variant {variant_index}: {e}")
+            return False
+
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
@@ -1150,12 +1302,14 @@ def update_review_status(review_id, new_status, final_response_text=None):
                 SET status = %s, final_response_text = %s, reviewed_timestamp = %s
                 WHERE id = %s
                 """,
-                (new_status, final_response_text, datetime.now().isoformat(), review_id),
+                (new_status, final_response_text,
+                 datetime.now().isoformat(), review_id),
             )
             conn.commit()
             return True
         except Exception as e:
-            logger.error(f"Error updating review status in Postgres for id {review_id}: {e}")
+            logger.error(
+                f"Error updating review status in Postgres for id {review_id}: {e}")
             return False
         finally:
             try:
@@ -1175,7 +1329,8 @@ def update_review_status(review_id, new_status, final_response_text=None):
         conn.commit()
         return True
     except sqlite3.Error as e:
-        logger.error(f"Error updating review status for ID {review_id} (SQLite): {e}")
+        logger.error(
+            f"Error updating review status for ID {review_id} (SQLite): {e}")
         return False
     finally:
         if conn:
@@ -1183,15 +1338,65 @@ def update_review_status(review_id, new_status, final_response_text=None):
 
 
 def update_review_proposed_response(review_id, new_proposed_response):
-    """Updates the proposed response text for a review item."""
+    """Updates the proposed response text for a review item (Postgres or SQLite).
+
+    Important: In Postgres the primary key column is `id`. Some legacy
+    SQLite code used `review_id`. We handle both for compatibility.
+    """
+    # Prefer Postgres when configured
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            conn = psycopg2.connect(DATABASE_URL)
+            cur = conn.cursor()
+            cur.execute(
+                """
+                UPDATE pending_reviews
+                SET proposed_response_text = %s,
+                    regeneration_count = COALESCE(regeneration_count, 0) + 1,
+                    reviewed_timestamp = COALESCE(reviewed_timestamp, NOW())
+                WHERE id = %s
+                """,
+                (new_proposed_response, review_id),
+            )
+            conn.commit()
+            rows = cur.rowcount
+            conn.close()
+            logger.info(
+                f"[PG] Updated proposed response for review ID {review_id}, rows affected: {rows}")
+            return rows > 0
+        except Exception as e:
+            logger.error(
+                f"[PG] Error updating proposed response for ID {review_id}: {e}")
+            return False
+
+    # SQLite fallback
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
-        cursor.execute("""
-            UPDATE pending_reviews 
-            SET proposed_response_text = ?, regeneration_count = COALESCE(regeneration_count, 0) + 1
-            WHERE review_id = ?
-        """, (new_proposed_response, review_id))
+        # Try by primary key `id`
+        cursor.execute(
+            """
+            UPDATE pending_reviews
+            SET proposed_response_text = ?,
+                regeneration_count = COALESCE(regeneration_count, 0) + 1,
+                reviewed_timestamp = COALESCE(reviewed_timestamp, ?)
+            WHERE id = ?
+            """,
+            (new_proposed_response, datetime.now().isoformat(), review_id),
+        )
+        if cursor.rowcount == 0:
+            # Fallback: some older rows may use `review_id`
+            cursor.execute(
+                """
+                UPDATE pending_reviews
+                SET proposed_response_text = ?,
+                    regeneration_count = COALESCE(regeneration_count, 0) + 1,
+                    reviewed_timestamp = COALESCE(reviewed_timestamp, ?)
+                WHERE review_id = ?
+                """,
+                (new_proposed_response, datetime.now().isoformat(), review_id),
+            )
         conn.commit()
         rows_affected = cursor.rowcount
         logger.info(
@@ -2220,7 +2425,8 @@ def delete_reviews_for_user(ig_username: str) -> tuple[bool, int]:
                 f"Deleted {deleted_count} review items for user {ig_username}")
             return True, deleted_count
         except Exception as e:
-            logger.error(f"Error deleting reviews for user {ig_username} (PostgreSQL): {e}")
+            logger.error(
+                f"Error deleting reviews for user {ig_username} (PostgreSQL): {e}")
             return False, 0
         finally:
             try:
@@ -2242,7 +2448,8 @@ def delete_reviews_for_user(ig_username: str) -> tuple[bool, int]:
             f"Deleted {deleted_count} review items for user {ig_username}")
         return True, deleted_count
     except sqlite3.Error as e:
-        logger.error(f"Error deleting reviews for user {ig_username} (SQLite): {e}")
+        logger.error(
+            f"Error deleting reviews for user {ig_username} (SQLite): {e}")
         return False, 0
     finally:
         if conn:
