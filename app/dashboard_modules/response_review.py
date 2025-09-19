@@ -2326,14 +2326,9 @@ Recent context (last up to 6 messages):
         if show_bio_topics:
             display_user_bio_topics(user_ig)
 
-        # Message display and editing (now using the safe variable)
-        st.markdown("**User Message:**")
-
-        # 🆕 ENSURE WE SHOW THE COMBINED MESSAGE
-        # Always use incoming_message_text (the combined message) instead of any legacy fields
+        # Message display (moved primary view to top). Keep only optional debug here.
+        # If there's a mismatch between legacy and combined fields, surface it for debugging.
         display_message = user_message_text_for_display
-
-        # If there's a mismatch, show both for debugging
         legacy_message = review_item.get('user_message_text', '')
         if legacy_message and legacy_message != display_message:
             st.warning(
@@ -2341,9 +2336,6 @@ Recent context (last up to 6 messages):
             if st.toggle("🔧 Show Debug Info", key=f"{key_prefix}show_message_debug"):
                 st.caption(f"**Combined message:** {display_message}")
                 st.caption(f"**Legacy message:** {legacy_message}")
-
-        st.text_area("User Message", value=display_message,
-                     height=100, disabled=True, key=f"user_msg_{review_id}")
 
         st.markdown("**Current Proposed AI Response:**")
         # Use the session state value if it exists, otherwise use proposed response
