@@ -1936,10 +1936,7 @@ def display_review_item(review_item):
 
     key_prefix = f"review_{review_id}_"
 
-    # Header strip: make the identity visible at the very top
-    st.subheader(f"Reviewing message for: {user_ig}")
-    st.caption(
-        "Use the editor below to approve or regenerate. Details follow underneath.")
+    # Header is shown at the queue level to avoid duplication per item
 
     # Place the core workflow (edit/send + regenerate) at the top
     # 1) User message preview (compact), 2) Edit/Send block, 3) Regenerate block
