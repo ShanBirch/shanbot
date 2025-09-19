@@ -2337,42 +2337,7 @@ Recent context (last up to 6 messages):
                 st.caption(f"**Combined message:** {display_message}")
                 st.caption(f"**Legacy message:** {legacy_message}")
 
-        st.markdown("**Current Proposed AI Response:**")
-        # Use the session state value if it exists, otherwise use proposed response
-        edit_key = f'{key_prefix}edit'
-        if edit_key not in st.session_state:
-            st.session_state[edit_key] = proposed_resp
-
-        edited_response = st.text_area(
-            "Edit Shanbot's Response:", value=st.session_state[edit_key], height=150, key=edit_key)
-
-        user_notes = st.text_input(
-            "Why did you edit this response? (helps AI learn):", key=f"{key_prefix}notes",
-            help="Optional: Explain why you made changes to help the AI understand your preferences")
-
-        # Learning system info
-        show_learning_info = st.toggle(
-            "🧠 Show Automatic Learning Info", key=f"{key_prefix}learning_info")
-        if show_learning_info:
-            st.info("""
-            **📚 AI Learning is Now Fully Automatic!**
-
-            ✅ **Auto-tracked actions:**
-            - When you edit a response → Automatically added to learning examples
-            - When you use a regenerated response → Automatically marked as good example
-            - When you send original response → Logged as "sent as-is"
-
-            💡 **Benefits:**
-            - Your editing patterns automatically teach the AI what you prefer
-            - Regenerated responses you keep are treated as improvements
-            - No manual checkboxes needed - the system learns from your actions
-
-            📝 **Notes field:** Use the notes field to explain WHY you made changes - this helps the AI understand your reasoning.
-            """)
-
-        # Action buttons
-        display_action_buttons(review_item, edited_response, user_notes,
-                               manual_context, selected_prompt_type, key_prefix)
+        # (Editing UI and actions are rendered at the top of the review; no duplicates here.)
 
 
 @st.cache_data(ttl=600)  # Cache for 10 minutes - bio analysis is expensive
@@ -2399,7 +2364,7 @@ def display_user_bio_topics(user_ig):
         metrics_for_bio = user_container_for_bio['metrics']
         client_analysis_for_bio = metrics_for_bio.get('client_analysis', {})
 
-        bio_topics_container = st.container(border=True)
+        bio_topics_container = st.container()
         with bio_topics_container:
             st.markdown("**Instagram Analysis (from User Metrics):**")
 
