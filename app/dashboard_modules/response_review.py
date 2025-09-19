@@ -756,46 +756,71 @@ try:
         sys.path.insert(0, PROJECT_ROOT)
     from webhook_handlers import split_response_into_messages  # shared splitter
 except Exception:
-    # Robust fallback: 1–3 parts based on sentences/length
+    # Robust fallback: split only at paragraph/sentence/whitespace boundaries
     import re
 
-    def split_response_into_messages(text: str) -> list:
+    def split_response_into_messages(text: str, max_parts: int = 3, target_len: int = 320, hard_max: int = 520) -> list:
         text = (text or '').strip()
         if not text:
             return []
-        # Short messages stay single
-        if len(text) <= 150:
+
+        # If already short, return as one
+        if len(text) <= hard_max:
             return [text]
-        # Split by sentences
-        sentences = re.split(r'(?<=[.!?])\s+', text)
-        if len(sentences) <= 2:
-            # Force split roughly into two/three parts by length
-            max_len = max(1, len(text) // 3)
-            parts = []
-            while text:
-                parts.append(text[:max_len].rstrip())
-                text = text[max_len:].lstrip()
-                if len(parts) == 2:
-                    parts.append(text)
-                    break
-            return [p for p in parts if p]
-        # Combine sentences into up to 3 messages
-        result, current = [], ''
-        target = max(150, int(len(text)/3))
-        for s in sentences:
-            if len(current) + len(s) + 1 <= target or not current:
-                current = (current + ' ' + s).strip()
+
+        def find_best_break(window: str, prefer: int) -> int | None:
+            """Return a safe break index within window.
+            Preference order: paragraph (\n\n), sentence end, whitespace.
+            Choose the last boundary <= prefer; if none, the first > prefer up to len(window).
+            Index returned is the position AFTER the boundary so slicing [:idx] is safe.
+            """
+            boundaries: list[int] = []
+            # Paragraph boundaries
+            for m in re.finditer(r"\n\s*\n+", window):
+                boundaries.append(m.end())
+            # Sentence boundaries
+            for m in re.finditer(r"(?<=[.!?])\s+", window):
+                boundaries.append(m.end())
+            # Any whitespace (word boundary)
+            for m in re.finditer(r"\s+", window):
+                boundaries.append(m.end())
+
+            if not boundaries:
+                return None
+            boundaries.sort()
+            # Last <= prefer
+            le = [b for b in boundaries if b <= prefer]
+            if le:
+                return le[-1]
+            # First > prefer
+            gt = [b for b in boundaries if b > prefer]
+            return gt[0] if gt else None
+
+        parts: list[str] = []
+        remaining = text
+        while remaining and len(parts) < max_parts - 1:
+            if len(remaining) <= hard_max:
+                break
+            window = remaining[:hard_max]
+            idx = find_best_break(window, target_len)
+            if not idx:
+                # Fallback: avoid mid-word split by scanning left for non-alnum boundary
+                scan = target_len
+                while scan > 0 and scan < len(window) and window[scan].isalnum():
+                    scan -= 1
+                idx = scan if scan > 0 else target_len
+            chunk = remaining[:idx].rstrip()
+            remaining = remaining[idx:].lstrip()
+            if chunk:
+                parts.append(chunk)
             else:
-                result.append(current)
-                current = s
-            if len(result) == 2:
-                # put the rest into the last chunk
-                remaining = ' '.join(sentences[sentences.index(s):])
-                result.append((current + ' ' + remaining).strip())
-                return [p for p in result if p]
-        if current:
-            result.append(current)
-        return result[:3]
+                break
+
+        # Add the tail as the last part
+        if remaining:
+            parts.append(remaining)
+        # Cap to max_parts
+        return parts[:max_parts]
 
 # Import auto mode tracking functions (with fallback if not available)
 
