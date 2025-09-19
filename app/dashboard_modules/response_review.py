@@ -1638,16 +1638,17 @@ def display_response_review_queue(delete_callback: callable):
     if 'last_action_review_id' not in st.session_state:
         st.session_state.last_action_review_id = None
 
-    # Quick refresh control
-    top_col1, top_col2 = st.columns([0.8, 0.2])
-    with top_col2:
-        if st.button("🔄 Refresh", key="refresh_reviews_top", use_container_width=True):
-            try:
-                if hasattr(st, 'cache_data'):
-                    st.cache_data.clear()
-            except Exception:
-                pass
-            st.rerun()
+    # Quick refresh control (hidden in production)
+    if os.getenv("DEBUG_DASHBOARD") == "1":
+        top_col1, top_col2 = st.columns([0.8, 0.2])
+        with top_col2:
+            if st.button("🔄 Refresh", key="refresh_reviews_top", use_container_width=True):
+                try:
+                    if hasattr(st, 'cache_data'):
+                        st.cache_data.clear()
+                except Exception:
+                    pass
+                st.rerun()
 
     # Use cached version with short TTL for better UX
     with st.spinner("Loading review queue..."):
@@ -1935,8 +1936,12 @@ def display_review_item(review_item):
 
     key_prefix = f"review_{review_id}_"
 
-    # The expander title is now safe from None values
-    with st.expander(f"Review ID {review_id}: Incoming from {user_ig} - \"{user_message_text_for_display[:50]}...\"", expanded=True):
+    # Header strip: make the identity visible at the very top
+    st.subheader(f"Reviewing message for: {user_ig}")
+    st.caption("Use the editor below to approve or regenerate. Details follow underneath.")
+
+    # The expander now holds additional details (collapsed by default)
+    with st.expander(f"Details • Review ID {review_id} • Prompt and context", expanded=False):
         # Display prompt type and regeneration status
         prompt_type = review_item.get('prompt_type', 'unknown')
         prompt_type_display = {
