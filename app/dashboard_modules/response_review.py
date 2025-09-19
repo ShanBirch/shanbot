@@ -1945,9 +1945,10 @@ def display_review_item(review_item):
     # 1) User message preview (compact), 2) Edit/Send block, 3) Regenerate block
 
     # Compact user message preview (kept short to reduce vertical space)
-    with st.container(border=True):
+    with st.container():
         st.markdown("**User Message:**")
-        st.text_area("User Message", value=user_message_text_for_display, height=80, disabled=True, key=f"user_msg_{review_id}")
+        st.text_area("User Message", value=user_message_text_for_display,
+                     height=80, disabled=True, key=f"user_msg_{review_id}")
 
     # Edit + actions (Approve & Send / Discard / Analyze Bio)
     st.markdown("**Current Proposed AI Response:**")
