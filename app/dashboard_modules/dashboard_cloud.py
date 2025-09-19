@@ -23,15 +23,10 @@ st.set_page_config(
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Configure Gemini - Use Streamlit secrets for cloud deployment
-try:
-    # Try to get from Streamlit secrets first (for cloud deployment)
-    GEMINI_API_KEY = st.secrets["general"]["GEMINI_API_KEY"]
-except:
-    # Fallback to hardcoded value for local development
-    GEMINI_API_KEY = "AIzaSyCrYZwENVEhfo0IF6puWyQaYlFW1VRWY-k"
+# Configure Gemini - env only to avoid Streamlit secrets banner
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-if GEMINI_API_KEY and GEMINI_API_KEY != "YOUR_GEMINI_API_KEY" and GEMINI_API_KEY != "your_gemini_api_key_here":
+if GEMINI_API_KEY and GEMINI_API_KEY not in ("YOUR_GEMINI_API_KEY", "your_gemini_api_key_here", ""):
     try:
         genai.configure(api_key=GEMINI_API_KEY)
         gemini_model = genai.GenerativeModel('gemini-2.0-flash')
@@ -42,9 +37,9 @@ if GEMINI_API_KEY and GEMINI_API_KEY != "YOUR_GEMINI_API_KEY" and GEMINI_API_KEY
         st.error("Failed to configure Gemini AI. Some features might not work.")
 else:
     logger.warning(
-        "Gemini API Key not found or is a placeholder. AI features will be disabled.")
+        "GEMINI_API_KEY not set. AI features will be disabled.")
     gemini_model = None
-    st.info("Gemini API Key not configured. AI features disabled.")
+    st.info("GEMINI_API_KEY not configured. AI features disabled.")
 
 # Google Sheets configuration
 ONBOARDING_SPREADSHEET_ID = "1038Ep0lYGEtpipNAIzH7RB67-KOAfXA-TcUTKBKqIfo"

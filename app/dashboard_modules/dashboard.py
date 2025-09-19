@@ -334,13 +334,9 @@ def load_analytics_data():
     return data, analytics_file_path_for_actions  # Return path for JSON for now
 
 
-# Configure Gemini with 3-fallback system like webhook0605.py
-try:
-    # Try to get from Streamlit secrets first (for cloud deployment)
-    GEMINI_API_KEY = st.secrets["general"]["GEMINI_API_KEY"]
-except:
-    # Fallback to the same API key used in webhook_handlers.py
-    GEMINI_API_KEY = "AIzaSyAH6467EocGBwuMi-oDLawrNyCKjPHHmN8"
+# Configure Gemini with 3-fallback system like webhook0605.py (env-only to avoid Streamlit secrets banner)
+import os as _os
+GEMINI_API_KEY = _os.getenv("GEMINI_API_KEY")
 
 # Gemini model constants (updated primary to flash-lite)
 GEMINI_MODEL_PRO = "gemini-2.5-flash-lite"
@@ -351,7 +347,7 @@ GEMINI_MODEL_FLASH_STANDARD = "gemini-2.0-flash"
 RETRY_DELAY = 16  # Seconds to wait before retry
 MAX_RETRIES = 3  # Maximum number of retry attempts
 
-if GEMINI_API_KEY and GEMINI_API_KEY != "YOUR_GEMINI_API_KEY" and GEMINI_API_KEY != "your_gemini_api_key_here":
+if GEMINI_API_KEY and GEMINI_API_KEY not in ("YOUR_GEMINI_API_KEY", "your_gemini_api_key_here", ""):
     try:
         genai.configure(api_key=GEMINI_API_KEY)
         # We'll create models dynamically in the retry function
@@ -361,8 +357,7 @@ if GEMINI_API_KEY and GEMINI_API_KEY != "YOUR_GEMINI_API_KEY" and GEMINI_API_KEY
         st.error("Failed to configure Gemini AI. Some features might not work.")
 else:
     logger.warning(
-        "Gemini API Key not found or is a placeholder. AI features will be disabled.")
-    st.info("Gemini API Key not configured. AI features disabled.")
+        "GEMINI_API_KEY not set. AI features will be disabled until configured.")
 
 
 # --- Instagram Analysis Functions ---
