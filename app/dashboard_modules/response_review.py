@@ -1938,9 +1938,67 @@ def display_review_item(review_item):
 
     # Header strip: make the identity visible at the very top
     st.subheader(f"Reviewing message for: {user_ig}")
-    st.caption("Use the editor below to approve or regenerate. Details follow underneath.")
+    st.caption(
+        "Use the editor below to approve or regenerate. Details follow underneath.")
 
-    # The expander now holds additional details (collapsed by default)
+    # Place the core workflow (edit/send + regenerate) at the top
+    # 1) User message preview (compact), 2) Edit/Send block, 3) Regenerate block
+
+    # Compact user message preview (kept short to reduce vertical space)
+    with st.container(border=True):
+        st.markdown("**User Message:**")
+        st.text_area("User Message", value=user_message_text_for_display, height=80, disabled=True, key=f"user_msg_{review_id}")
+
+    # Edit + actions (Approve & Send / Discard / Analyze Bio)
+    st.markdown("**Current Proposed AI Response:**")
+    edit_key = f'{key_prefix}edit'
+    if edit_key not in st.session_state:
+        st.session_state[edit_key] = proposed_resp
+    edited_response = st.text_area(
+        "Edit Shanbot's Response:", value=st.session_state[edit_key], height=150, key=edit_key)
+
+    user_notes = st.text_input(
+        "Why did you edit this response? (helps AI learn):", key=f"{key_prefix}notes",
+        help="Optional: Explain why you made changes to help the AI understand your preferences")
+
+    # Primary action row
+    col_actions1, col_actions2, col_actions3 = st.columns([1, 1, 1])
+    with col_actions1:
+        if st.button("Approve & Send", key=f"{key_prefix}send", type="primary", use_container_width=True):
+            handle_approve_and_send(
+                review_item, edited_response, user_notes, "", key_prefix)
+    with col_actions2:
+        if st.button("Discard", key=f"{key_prefix}discard", use_container_width=True):
+            handle_discard(review_item, user_notes)
+    with col_actions3:
+        if st.button("🔍 Analyze Bio", key=f"{key_prefix}analyze_bio", use_container_width=True, help="Run Instagram analysis to get bio info"):
+            handle_analyze_bio(review_item['user_ig_username'])
+
+    # Regenerate section immediately below with large guidance box
+    st.markdown("**Regenerate**")
+    regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
+    st.text_area(
+        "How should the response be adjusted? (optional)",
+        key=regen_notes_key,
+        height=120,
+        placeholder="E.g., end with friendly close; keep to 1 sentence; confirm price politely",
+    )
+    if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate", use_container_width=False, help="Generate a new response using bio and conversation context"):
+        extra_guidance = st.session_state.get(regen_notes_key, "")
+        try:
+            if extra_guidance and extra_guidance.strip():
+                save_prompt_guidance(
+                    review_item.get('user_ig_username', ''),
+                    review_item.get('prompt_type', 'general_chat'),
+                    extra_guidance.strip(),
+                    1.0
+                )
+        except Exception:
+            pass
+        handle_regenerate(
+            review_item, review_item.get('prompt_type', 'general_chat'), key_prefix, extra_guidance)
+
+    # The rest of the information is moved into a collapsible expander (cleaner top view)
     with st.expander(f"Details • Review ID {review_id} • Prompt and context", expanded=False):
         # Display prompt type and regeneration status
         prompt_type = review_item.get('prompt_type', 'unknown')
