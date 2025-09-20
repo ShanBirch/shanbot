@@ -367,9 +367,9 @@ except ImportError:
 
             # Try to find user by ig_username first
             cursor.execute("""
-                SELECT subscriber_id, first_name, last_name, client_status, journey_stage, 
+                SELECT subscriber_id, first_name, last_name, client_status, journey_stage,
                        metrics_json, last_message_timestamp
-                FROM users 
+                FROM users
                 WHERE ig_username = ?
             """, (ig_username,))
 
@@ -378,9 +378,9 @@ except ImportError:
             if not user_row and subscriber_id:
                 # Try by subscriber_id if ig_username not found
                 cursor.execute("""
-                    SELECT subscriber_id, first_name, last_name, client_status, journey_stage, 
+                    SELECT subscriber_id, first_name, last_name, client_status, journey_stage,
                            metrics_json, last_message_timestamp
-                    FROM users 
+                    FROM users
                     WHERE subscriber_id = ?
                 """, (subscriber_id,))
                 user_row = cursor.fetchone()
@@ -403,8 +403,8 @@ except ImportError:
             if user_row[0]:  # subscriber_id
                 cursor.execute("""
                     SELECT message, timestamp, type, sender
-                    FROM messages 
-                    WHERE subscriber_id = ? 
+                    FROM messages
+                    WHERE subscriber_id = ?
                     ORDER BY timestamp ASC
                 """, (user_row[0],))
 
@@ -528,17 +528,17 @@ except ImportError:
                 cursor = conn.cursor(cursor_factory=RealDictCursor)
 
                 cursor.execute("""
-                    SELECT 
-                        CASE 
+                    SELECT
+                        CASE
                             WHEN created_at IS NOT NULL THEN TO_CHAR(created_at, 'YYYY-MM-DD"T"HH24:MI:SSOF')
                             ELSE timestamp
                         END AS timestamp,
                         COALESCE(message_type, sender) AS message_type,
                         COALESCE(message_text, message) AS message_text,
                         subscriber_id
-                    FROM messages 
-                    WHERE ig_username = %s 
-                    ORDER BY COALESCE(created_at, NOW()) DESC 
+                    FROM messages
+                    WHERE ig_username = %s
+                    ORDER BY COALESCE(created_at, NOW()) DESC
                     LIMIT %s
                 """, (ig_username, limit))
 
@@ -561,9 +561,9 @@ except ImportError:
                 # Get messages from the unified messages table by ig_username
                 cursor.execute("""
                     SELECT message_text, timestamp, message_type, type, sender, subscriber_id, message, text
-                    FROM messages 
-                    WHERE ig_username = ? 
-                    ORDER BY timestamp DESC 
+                    FROM messages
+                    WHERE ig_username = ?
+                    ORDER BY timestamp DESC
                     LIMIT ?
                 """, (ig_username, limit))
 
@@ -677,8 +677,8 @@ def get_cached_conversation_history(subscriber_id: str, limit: int = 20) -> List
 
             cur.execute(
                 """
-                SELECT 
-                       CASE 
+                SELECT
+                       CASE
                            WHEN created_at IS NOT NULL THEN TO_CHAR(created_at, 'YYYY-MM-DD"T"HH24:MI:SSOF')
                            ELSE timestamp
                        END AS ts,
@@ -800,7 +800,7 @@ except Exception:
         remaining = text
         while remaining and len(parts) < max_parts - 1:
             if len(remaining) <= hard_max:
-                break
+                    break
             window = remaining[:hard_max]
             idx = find_best_break(window, target_len)
             if not idx:
@@ -1640,15 +1640,15 @@ def display_response_review_queue(delete_callback: callable):
 
     # Quick refresh control (hidden in production)
     if os.getenv("DEBUG_DASHBOARD") == "1":
-        top_col1, top_col2 = st.columns([0.8, 0.2])
-        with top_col2:
-            if st.button("🔄 Refresh", key="refresh_reviews_top", use_container_width=True):
-                try:
-                    if hasattr(st, 'cache_data'):
-                        st.cache_data.clear()
-                except Exception:
-                    pass
-                st.rerun()
+    top_col1, top_col2 = st.columns([0.8, 0.2])
+    with top_col2:
+        if st.button("🔄 Refresh", key="refresh_reviews_top", use_container_width=True):
+            try:
+                if hasattr(st, 'cache_data'):
+                    st.cache_data.clear()
+            except Exception:
+                pass
+            st.rerun()
 
     # Use cached version with short TTL for better UX
     with st.spinner("Loading review queue..."):
@@ -1656,31 +1656,31 @@ def display_response_review_queue(delete_callback: callable):
 
     # Hide debug raw rows expander in production unless DEBUG_DASHBOARD=1
     if os.getenv("DEBUG_DASHBOARD") == "1":
-        with st.expander("🔎 Debug: Show raw pending_reviews rows (first 10)"):
-            try:
-                if os.getenv("DATABASE_URL"):
-                    import psycopg2
-                    from psycopg2.extras import RealDictCursor
-                    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
-                    cur = conn.cursor(cursor_factory=RealDictCursor)
-                    cur.execute(
-                        "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
-                    rows = cur.fetchall() or []
-                    conn.close()
-                else:
-                    conn = db_utils.get_db_connection()
-                    c = conn.cursor()
-                    c.execute(
-                        "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
-                    cols = [d[0] for d in c.description]
-                    rows = [dict(zip(cols, r)) for r in c.fetchall() or []]
-                    conn.close()
-                if rows:
-                    st.dataframe(rows, use_container_width=True)
-                else:
-                    st.caption("No rows found in pending_reviews.")
-            except Exception as e:
-                st.error(f"Debug fetch failed: {e}")
+    with st.expander("🔎 Debug: Show raw pending_reviews rows (first 10)"):
+        try:
+            if os.getenv("DATABASE_URL"):
+                import psycopg2
+                from psycopg2.extras import RealDictCursor
+                conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+                cur = conn.cursor(cursor_factory=RealDictCursor)
+                cur.execute(
+                    "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
+                rows = cur.fetchall() or []
+                conn.close()
+            else:
+                conn = db_utils.get_db_connection()
+                c = conn.cursor()
+                c.execute(
+                    "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
+                cols = [d[0] for d in c.description]
+                rows = [dict(zip(cols, r)) for r in c.fetchall() or []]
+                conn.close()
+            if rows:
+                st.dataframe(rows, use_container_width=True)
+            else:
+                st.caption("No rows found in pending_reviews.")
+        except Exception as e:
+            st.error(f"Debug fetch failed: {e}")
 
     action_was_taken_on_last_run = st.session_state.last_action_review_id is not None
     st.session_state.last_action_review_id = None
@@ -1803,8 +1803,8 @@ def display_response_review_queue(delete_callback: callable):
 
     # Hide noisy banner; keep minimal UI
     if os.getenv("DEBUG_DASHBOARD") == "1":
-        st.info(
-            f"Displaying reviews for {st.session_state.current_review_user_ig}")
+    st.info(
+        f"Displaying reviews for {st.session_state.current_review_user_ig}")
 
     if not current_user_reviews_to_display:
         st.warning(f"No pending reviews found for {user_to_display_ig}")
@@ -1940,6 +1940,55 @@ def display_review_item(review_item):
     st.subheader(f"Reviewing message for: {user_ig}")
     st.caption(
         "Use the editor below to approve or regenerate. Details follow underneath.")
+
+    # --- Top section: User message, editor/actions, and regenerate guidance ---
+    # Respect previously selected prompt type if set in session
+    default_prompt_for_top = (review_item.get('prompt_type')
+                              or 'general_chat')
+    selected_prompt_type_top = st.session_state.get(
+        f"{key_prefix}prompt_selector", default_prompt_for_top)
+
+    # Show the incoming message for quick reference
+    st.markdown("**User Message:**")
+    display_message_top = user_message_text_for_display
+    st.text_area("User Message", value=display_message_top,
+                 height=100, disabled=True, key=f"user_msg_{review_id}")
+
+    # Editor
+    st.markdown("**Current Proposed AI Response:**")
+    edit_key_top = f'{key_prefix}edit'
+    if edit_key_top not in st.session_state:
+        st.session_state[edit_key_top] = proposed_resp
+    edited_response_top = st.text_area(
+        "Edit Shanbot's Response:", value=st.session_state[edit_key_top], height=150, key=edit_key_top)
+
+    user_notes_top = st.text_input(
+        "Why did you edit this response? (helps AI learn):", key=f"{key_prefix}notes",
+        help="Optional: Explain why you made changes to help the AI understand your preferences")
+
+    # Core actions (approve/send, discard, analyze bio)
+    display_action_buttons(
+        review_item, edited_response_top, user_notes_top,
+        manual_context="", selected_prompt_type=selected_prompt_type_top,
+        key_prefix=key_prefix,
+    )
+
+    # Regenerate at top with open guidance box
+    st.markdown("**Regenerate**")
+    regen_notes_key_top = f"{key_prefix}regen_notes_{review_id}"
+    st.text_area(
+        "How should the response be adjusted? (optional)",
+        key=regen_notes_key_top,
+        height=90,
+        placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
+    )
+    if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_top", use_container_width=False,
+                 help="Generate a new response using bio and conversation context"):
+        extra_guidance_top = st.session_state.get(regen_notes_key_top, "")
+        handle_regenerate(
+            review_item, selected_prompt_type_top, key_prefix, extra_guidance_top)
+
+    st.divider()
 
     # The expander now holds additional details (collapsed by default)
     with st.expander(f"Details • Review ID {review_id} • Prompt and context", expanded=False):
@@ -2287,20 +2336,20 @@ Recent context (last up to 6 messages):
                 st.caption(f"**Combined message:** {display_message}")
                 st.caption(f"**Legacy message:** {legacy_message}")
 
-        st.text_area("User Message", value=display_message,
-                     height=100, disabled=True, key=f"user_msg_{review_id}")
+        st.text_area("User Message (details)", value=display_message,
+                     height=100, disabled=True, key=f"user_msg_details_{review_id}")
 
         st.markdown("**Current Proposed AI Response:**")
         # Use the session state value if it exists, otherwise use proposed response
-        edit_key = f'{key_prefix}edit'
-        if edit_key not in st.session_state:
-            st.session_state[edit_key] = proposed_resp
+        edit_key_details = f'{key_prefix}edit_details'
+        if edit_key_details not in st.session_state:
+            st.session_state[edit_key_details] = proposed_resp
 
         edited_response = st.text_area(
-            "Edit Shanbot's Response:", value=st.session_state[edit_key], height=150, key=edit_key)
+            "Edit Shanbot's Response:", value=st.session_state[edit_key_details], height=150, key=edit_key_details)
 
         user_notes = st.text_input(
-            "Why did you edit this response? (helps AI learn):", key=f"{key_prefix}notes",
+            "Why did you edit this response? (helps AI learn):", key=f"{key_prefix}notes_details",
             help="Optional: Explain why you made changes to help the AI understand your preferences")
 
         # Learning system info
@@ -2325,7 +2374,7 @@ Recent context (last up to 6 messages):
 
         # Action buttons
         display_action_buttons(review_item, edited_response, user_notes,
-                               manual_context, selected_prompt_type, key_prefix)
+                               manual_context, selected_prompt_type, key_prefix + 'details_')
 
 
 @st.cache_data(ttl=600)  # Cache for 10 minutes - bio analysis is expensive
@@ -2538,18 +2587,18 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                 handle_analyze_bio(review_item['user_ig_username'])
 
         # Regenerate section
-        st.markdown("**Regenerate**")
-        regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
-        st.text_area(
+        st.markdown("**Regenerate (details)**")
+            regen_notes_key = f"{key_prefix}regen_notes_details_{review_item['review_id']}"
+                st.text_area(
             "How should the response be adjusted? (optional)",
-            key=regen_notes_key,
-            height=90,
+                    key=regen_notes_key,
+                    height=90,
             placeholder="E.g., confirm price; keep to 1 sentence; propose call link",
-        )
-        if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_auto", use_container_width=False):
-            extra_guidance = st.session_state.get(regen_notes_key, "")
-            handle_regenerate(
-                review_item, selected_prompt_type, key_prefix, extra_guidance)
+                )
+        if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_auto_details", use_container_width=False):
+                extra_guidance = st.session_state.get(regen_notes_key, "")
+                handle_regenerate(
+                    review_item, selected_prompt_type, key_prefix, extra_guidance)
 
     else:
         # MANUAL MODE: simplified layout
@@ -2569,16 +2618,16 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                 handle_analyze_bio(review_item['user_ig_username'])
 
         # Regenerate section
-        st.markdown("**Regenerate**")
-        regen_notes_key = f"{key_prefix}regen_notes_{review_item['review_id']}"
-        st.text_area(
+        st.markdown("**Regenerate (details)**")
+            regen_notes_key = f"{key_prefix}regen_notes_details_{review_item['review_id']}"
+                st.text_area(
             "How should the response be adjusted? (optional)",
-            key=regen_notes_key,
-            height=90,
-            placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
-        )
-        if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate", use_container_width=False, help="Generate a new response using bio and conversation context"):
-            extra_guidance = st.session_state.get(regen_notes_key, "")
+                    key=regen_notes_key,
+                    height=90,
+                    placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
+                )
+        if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_details", use_container_width=False, help="Generate a new response using bio and conversation context"):
+                extra_guidance = st.session_state.get(regen_notes_key, "")
             # Persist Shannon's extra guidance for future runs (global/user-scoped)
             try:
                 if extra_guidance and extra_guidance.strip():
@@ -2590,8 +2639,8 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                     )
             except Exception:
                 pass
-            handle_regenerate(
-                review_item, selected_prompt_type, key_prefix, extra_guidance)
+                handle_regenerate(
+                    review_item, selected_prompt_type, key_prefix, extra_guidance)
 
 
 def handle_approve_and_send(review_item, edited_response, user_notes, manual_context, key_prefix):
