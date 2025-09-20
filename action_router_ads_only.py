@@ -6,7 +6,7 @@ This is for when you just want to run ads and get people to the sign-up link.
 """
 
 from action_handlers.ad_response_handler import AdResponseHandler
-from webhook_handlers import get_user_data
+from webhook_handlers import get_user_data, build_member_chat_prompt, get_ai_response
 from app.db_backend import (
     add_message_to_history as db_add_message_to_history,
     add_response_to_review_queue as db_add_response_to_review_queue,
@@ -104,7 +104,69 @@ class AdOnlyRouter:
                 message_timestamp=user_message_timestamp_iso
             )
 
-            # Simple generic response - keep it SHORT (Shannon's voice!)
+            # Try member routing first (paying/trial clients and check-in tags)
+            try:
+                conversation_history, metrics, _ = get_user_data(ig_username, subscriber_id)
+
+                # Minimal Postgres check for check-in tags
+                is_mon = False
+                is_wed = False
+                try:
+                    import os
+                    db_url = os.getenv("DATABASE_URL")
+                    if db_url:
+                        import psycopg2
+                        from psycopg2.extras import RealDictCursor
+                        with psycopg2.connect(db_url) as conn:
+                            cur = conn.cursor(cursor_factory=RealDictCursor)
+                            cur.execute(
+                                "SELECT is_in_checkin_flow_mon, is_in_checkin_flow_wed FROM users WHERE ig_username = %s LIMIT 1",
+                                (ig_username,)
+                            )
+                            row = cur.fetchone() or {}
+                            is_mon = bool(row.get("is_in_checkin_flow_mon"))
+                            is_wed = bool(row.get("is_in_checkin_flow_wed"))
+                except Exception:
+                    # ignore and continue with defaults
+                    pass
+
+                client_data = dict(metrics or {})
+                client_data['ig_username'] = ig_username
+                client_data['first_name'] = first_name
+                client_data['last_name'] = last_name
+                client_data['conversation_history'] = conversation_history or []
+                client_data['is_in_checkin_flow_mon'] = is_mon
+                client_data['is_in_checkin_flow_wed'] = is_wed
+
+                prompt_str, prompt_type = build_member_chat_prompt(
+                    client_data=client_data,
+                    current_message=message_text or "",
+                    full_conversation_string="",
+                    few_shot_examples=None
+                )
+
+                ai_text = await get_ai_response(prompt_str)
+                ai_text = (ai_text or '').strip()
+                if not ai_text:
+                    raise RuntimeError("Empty AI text for member flow")
+
+                review_id = db_add_response_to_review_queue(
+                    user_ig_username=ig_username,
+                    user_subscriber_id=subscriber_id,
+                    incoming_message_text=message_text,
+                    incoming_message_timestamp=user_message_timestamp_iso,
+                    generated_prompt_text=prompt_str[:5000],
+                    proposed_response_text=ai_text,
+                    prompt_type=prompt_type,
+                    status='pending_review'
+                )
+                if review_id:
+                    logger.info(f"[AdOnly] Queued {prompt_type} for {ig_username} (Review ID: {review_id})")
+                    return True
+            except Exception as e_member:
+                logger.info(f"[AdOnly] Member routing fell back to generic for {ig_username}: {e_member}")
+
+            # Fallback: Simple generic response - keep it SHORT (Shannon's voice!)
             generic_responses = [
                 "Heya! Thanks for reaching out 😊",
                 "Hey there! What's up?",
@@ -116,7 +178,6 @@ class AdOnlyRouter:
             import random
             response = random.choice(generic_responses)
 
-            # Add to review queue for manual approval
             review_id = db_add_response_to_review_queue(
                 user_ig_username=ig_username,
                 user_subscriber_id=subscriber_id,
@@ -125,17 +186,12 @@ class AdOnlyRouter:
                 generated_prompt_text="Generic non-ad response",
                 proposed_response_text=response,
                 prompt_type="generic_response",
-                status='pending_review'  # Always manual for non-ad messages
+                status='pending_review'
             )
-
             if review_id:
-                logger.info(
-                    f"[AdOnly] Queued generic response for {ig_username} (Review ID: {review_id})")
+                logger.info(f"[AdOnly] Queued generic response for {ig_username} (Review ID: {review_id})")
                 return True
-            else:
-                logger.error(
-                    f"[AdOnly] Failed to queue generic response for {ig_username}")
-                return False
+            return False
 
         except Exception as e:
             logger.error(

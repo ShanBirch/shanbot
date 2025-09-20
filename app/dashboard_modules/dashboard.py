@@ -1,3 +1,4 @@
+import os as _os
 import streamlit as st
 try:
     st.set_page_config(
@@ -335,7 +336,6 @@ def load_analytics_data():
 
 
 # Configure Gemini with 3-fallback system like webhook0605.py (env-only to avoid Streamlit secrets banner)
-import os as _os
 GEMINI_API_KEY = _os.getenv("GEMINI_API_KEY")
 
 # Gemini model constants (updated primary to flash-lite)

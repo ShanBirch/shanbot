@@ -970,7 +970,8 @@ def create_learning_feedback_log_table_if_not_exists(conn):
                     "ALTER TABLE learning_feedback_log ADD COLUMN conversation_type TEXT DEFAULT 'general'"
                 )
                 conn.commit()
-                logger.info("Added conversation_type column to learning_feedback_log (ensure phase)")
+                logger.info(
+                    "Added conversation_type column to learning_feedback_log (ensure phase)")
         except sqlite3.Error:
             # Ignore if cannot introspect; will be handled on insert path
             pass
