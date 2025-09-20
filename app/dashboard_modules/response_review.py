@@ -3106,6 +3106,8 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix="", extra_gu
 
             logger.info(
                 f"🤖 Calling regenerate_with_enhanced_context for {user_ig}")
+            prev_proposed = review_item.get('proposed_response_text', '')
+
             enhanced_response = regenerate_with_enhanced_context(
                 user_ig,
                 incoming_msg,
@@ -3125,15 +3127,63 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix="", extra_gu
             except Exception as e:
                 logger.warning(f"Postprocess failed for {user_ig}: {e}")
 
+            # Guard: if model output is meta commentary (suggestion about what to say), re-prompt once with strict rules
+            try:
+                if _is_meta_commentary(enhanced_response):
+                    strict_block = (
+                        "OUTPUT RULES (Strict):\n"
+                        "- Return ONLY the final message to send to the user.\n"
+                        "- Do NOT explain, justify, or comment on what to say.\n"
+                        "- No quotes, no headings, no meta text. Instagram DM tone.\n"
+                    )
+                    enhanced_response_retry = regenerate_with_enhanced_context(
+                        user_ig,
+                        incoming_msg,
+                        conversation_history,
+                        original_prompt,
+                        selected_prompt_type,
+                        extra_guidance=((extra_guidance or "") + "\n\n" + strict_block).strip()
+                    )
+                    enhanced_response_retry = postprocess_regenerated_response(
+                        enhanced_response_retry, conversation_history, selected_prompt_type
+                    )
+                    if enhanced_response_retry and not _is_meta_commentary(enhanced_response_retry):
+                        enhanced_response = enhanced_response_retry
+            except Exception:
+                pass
+
             logger.info(
                 f"🎯 Generated response for {user_ig}: {enhanced_response[:100] if enhanced_response else 'None'}...")
 
-            if enhanced_response and enhanced_response.strip():
+            if enhanced_response and enhanced_response.strip() and not _is_meta_commentary(enhanced_response):
                 logger.info(f"💾 Updating database for review_id {review_id}")
                 update_success = db_utils.update_review_proposed_response(
                     review_id, enhanced_response)
 
                 if update_success:
+                    # Persist Shannon's guidance for future runs
+                    try:
+                        if extra_guidance and extra_guidance.strip():
+                            save_prompt_guidance(user_ig, selected_prompt_type,
+                                                 extra_guidance.strip(), 1.0)
+                    except Exception:
+                        pass
+
+                    # Log into learning table as a regeneration triple
+                    try:
+                        db_utils.add_to_learning_log(
+                            review_id=review_id,
+                            user_ig_username=user_ig,
+                            user_subscriber_id=review_item.get('user_subscriber_id', ''),
+                            original_prompt_text=f"Incoming:\n{incoming_msg}\n\nGuidance:\n{(extra_guidance or '').strip()}",
+                            original_gemini_response=prev_proposed or '',
+                            edited_response_text=enhanced_response,
+                            user_notes="regenerated",
+                            conversation_type=selected_prompt_type,
+                        )
+                    except Exception as _e:
+                        logger.warning(f"Learning log (regen) failed: {_e}")
+
                     # CLEAR THE SESSION STATE so it reloads fresh from database on page refresh
                     if f'review_{review_id}_edit' in st.session_state:
                         del st.session_state[f'review_{review_id}_edit']
@@ -3294,6 +3344,29 @@ def _apply_call_link_gating(response_text: str, conv_history: list) -> str:
         "Thanks for sharing that. Given what you’ve told me, the best next step is a quick call so I can tailor this properly. Would you be open to that?"
     )
     return fallback
+
+
+def _is_meta_commentary(text: str) -> bool:
+    """Detect if model output is commentary about what to say rather than the message itself."""
+    if not text:
+        return True
+    t = text.strip().lower()
+    # Heuristics: phrases indicating planning/commentary
+    bad_markers = [
+        "we've already given", "we have already given", "let's just say",
+        "we should say", "i will reply", "the conversation is finished",
+        "we already sent", "i would say", "suggestion:", "response suggestion",
+        "here's what to say", "you could say",
+    ]
+    if any(m in t for m in bad_markers):
+        return True
+    # If contains headings/bullets without real sentence cadence
+    if t.startswith("suggestion") or t.startswith("note:"):
+        return True
+    # Very short meta like "repeat the same" or "say the same"
+    if len(t) <= 40 and ("say the same" in t or "same reply" in t):
+        return True
+    return False
 
 
 def handle_generate_offer(review_item):
