@@ -2588,17 +2588,17 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
 
         # Regenerate section
         st.markdown("**Regenerate (details)**")
-            regen_notes_key = f"{key_prefix}regen_notes_details_{review_item['review_id']}"
-                st.text_area(
+        regen_notes_key = f"{key_prefix}regen_notes_details_{review_item['review_id']}"
+        st.text_area(
             "How should the response be adjusted? (optional)",
-                    key=regen_notes_key,
-                    height=90,
+            key=regen_notes_key,
+            height=90,
             placeholder="E.g., confirm price; keep to 1 sentence; propose call link",
-                )
+        )
         if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_auto_details", use_container_width=False):
-                extra_guidance = st.session_state.get(regen_notes_key, "")
-                handle_regenerate(
-                    review_item, selected_prompt_type, key_prefix, extra_guidance)
+            extra_guidance = st.session_state.get(regen_notes_key, "")
+            handle_regenerate(
+                review_item, selected_prompt_type, key_prefix, extra_guidance)
 
     else:
         # MANUAL MODE: simplified layout
@@ -2619,15 +2619,15 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
 
         # Regenerate section
         st.markdown("**Regenerate (details)**")
-            regen_notes_key = f"{key_prefix}regen_notes_details_{review_item['review_id']}"
-                st.text_area(
+        regen_notes_key = f"{key_prefix}regen_notes_details_{review_item['review_id']}"
+        st.text_area(
             "How should the response be adjusted? (optional)",
-                    key=regen_notes_key,
-                    height=90,
-                    placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
-                )
+            key=regen_notes_key,
+            height=90,
+            placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
+        )
         if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_details", use_container_width=False, help="Generate a new response using bio and conversation context"):
-                extra_guidance = st.session_state.get(regen_notes_key, "")
+            extra_guidance = st.session_state.get(regen_notes_key, "")
             # Persist Shannon's extra guidance for future runs (global/user-scoped)
             try:
                 if extra_guidance and extra_guidance.strip():
@@ -2639,8 +2639,8 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
                     )
             except Exception:
                 pass
-                handle_regenerate(
-                    review_item, selected_prompt_type, key_prefix, extra_guidance)
+            handle_regenerate(
+                review_item, selected_prompt_type, key_prefix, extra_guidance)
 
 
 def handle_approve_and_send(review_item, edited_response, user_notes, manual_context, key_prefix):
