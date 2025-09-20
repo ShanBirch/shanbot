@@ -1640,15 +1640,15 @@ def display_response_review_queue(delete_callback: callable):
 
     # Quick refresh control (hidden in production)
     if os.getenv("DEBUG_DASHBOARD") == "1":
-    top_col1, top_col2 = st.columns([0.8, 0.2])
-    with top_col2:
-        if st.button("🔄 Refresh", key="refresh_reviews_top", use_container_width=True):
-            try:
-                if hasattr(st, 'cache_data'):
-                    st.cache_data.clear()
-            except Exception:
-                pass
-            st.rerun()
+        top_col1, top_col2 = st.columns([0.8, 0.2])
+        with top_col2:
+            if st.button("🔄 Refresh", key="refresh_reviews_top", use_container_width=True):
+                try:
+                    if hasattr(st, 'cache_data'):
+                        st.cache_data.clear()
+                except Exception:
+                    pass
+                st.rerun()
 
     # Use cached version with short TTL for better UX
     with st.spinner("Loading review queue..."):
@@ -1656,31 +1656,31 @@ def display_response_review_queue(delete_callback: callable):
 
     # Hide debug raw rows expander in production unless DEBUG_DASHBOARD=1
     if os.getenv("DEBUG_DASHBOARD") == "1":
-    with st.expander("🔎 Debug: Show raw pending_reviews rows (first 10)"):
-        try:
-            if os.getenv("DATABASE_URL"):
-                import psycopg2
-                from psycopg2.extras import RealDictCursor
-                conn = psycopg2.connect(os.getenv("DATABASE_URL"))
-                cur = conn.cursor(cursor_factory=RealDictCursor)
-                cur.execute(
-                    "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
-                rows = cur.fetchall() or []
-                conn.close()
-            else:
-                conn = db_utils.get_db_connection()
-                c = conn.cursor()
-                c.execute(
-                    "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
-                cols = [d[0] for d in c.description]
-                rows = [dict(zip(cols, r)) for r in c.fetchall() or []]
-                conn.close()
-            if rows:
-                st.dataframe(rows, use_container_width=True)
-            else:
-                st.caption("No rows found in pending_reviews.")
-        except Exception as e:
-            st.error(f"Debug fetch failed: {e}")
+        with st.expander("🔎 Debug: Show raw pending_reviews rows (first 10)"):
+            try:
+                if os.getenv("DATABASE_URL"):
+                    import psycopg2
+                    from psycopg2.extras import RealDictCursor
+                    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+                    cur = conn.cursor(cursor_factory=RealDictCursor)
+                    cur.execute(
+                        "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC NULLS LAST, id DESC LIMIT 10")
+                    rows = cur.fetchall() or []
+                    conn.close()
+                else:
+                    conn = db_utils.get_db_connection()
+                    c = conn.cursor()
+                    c.execute(
+                        "SELECT * FROM pending_reviews ORDER BY created_timestamp DESC LIMIT 10")
+                    cols = [d[0] for d in c.description]
+                    rows = [dict(zip(cols, r)) for r in c.fetchall() or []]
+                    conn.close()
+                if rows:
+                    st.dataframe(rows, use_container_width=True)
+                else:
+                    st.caption("No rows found in pending_reviews.")
+            except Exception as e:
+                st.error(f"Debug fetch failed: {e}")
 
     action_was_taken_on_last_run = st.session_state.last_action_review_id is not None
     st.session_state.last_action_review_id = None
