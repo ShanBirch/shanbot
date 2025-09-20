@@ -1803,8 +1803,8 @@ def display_response_review_queue(delete_callback: callable):
 
     # Hide noisy banner; keep minimal UI
     if os.getenv("DEBUG_DASHBOARD") == "1":
-    st.info(
-        f"Displaying reviews for {st.session_state.current_review_user_ig}")
+        st.info(
+            f"Displaying reviews for {st.session_state.current_review_user_ig}")
 
     if not current_user_reviews_to_display:
         st.warning(f"No pending reviews found for {user_to_display_ig}")
