@@ -800,7 +800,7 @@ except Exception:
         remaining = text
         while remaining and len(parts) < max_parts - 1:
             if len(remaining) <= hard_max:
-                    break
+                break
             window = remaining[:hard_max]
             idx = find_best_break(window, target_len)
             if not idx:
@@ -2339,42 +2339,8 @@ Recent context (last up to 6 messages):
         st.text_area("User Message (details)", value=display_message,
                      height=100, disabled=True, key=f"user_msg_details_{review_id}")
 
-        st.markdown("**Current Proposed AI Response:**")
-        # Use the session state value if it exists, otherwise use proposed response
-        edit_key_details = f'{key_prefix}edit_details'
-        if edit_key_details not in st.session_state:
-            st.session_state[edit_key_details] = proposed_resp
-
-        edited_response = st.text_area(
-            "Edit Shanbot's Response:", value=st.session_state[edit_key_details], height=150, key=edit_key_details)
-
-        user_notes = st.text_input(
-            "Why did you edit this response? (helps AI learn):", key=f"{key_prefix}notes_details",
-            help="Optional: Explain why you made changes to help the AI understand your preferences")
-
-        # Learning system info
-        show_learning_info = st.toggle(
-            "🧠 Show Automatic Learning Info", key=f"{key_prefix}learning_info")
-        if show_learning_info:
-            st.info("""
-            **📚 AI Learning is Now Fully Automatic!**
-
-            ✅ **Auto-tracked actions:**
-            - When you edit a response → Automatically added to learning examples
-            - When you use a regenerated response → Automatically marked as good example
-            - When you send original response → Logged as "sent as-is"
-
-            💡 **Benefits:**
-            - Your editing patterns automatically teach the AI what you prefer
-            - Regenerated responses you keep are treated as improvements
-            - No manual checkboxes needed - the system learns from your actions
-
-            📝 **Notes field:** Use the notes field to explain WHY you made changes - this helps the AI understand your reasoning.
-            """)
-
-        # Action buttons
-        display_action_buttons(review_item, edited_response, user_notes,
-                               manual_context, selected_prompt_type, key_prefix + 'details_')
+        # Details expander avoids duplicate editors/actions; actions live at the top.
+        st.caption("Actions and regeneration are at the top. This section is for context only.")
 
 
 @st.cache_data(ttl=600)  # Cache for 10 minutes - bio analysis is expensive
@@ -2586,19 +2552,7 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
             if st.button("🔍 Analyze Bio", key=f"{key_prefix}analyze_bio_auto", use_container_width=True, help="Run Instagram analysis to get bio info"):
                 handle_analyze_bio(review_item['user_ig_username'])
 
-        # Regenerate section
-        st.markdown("**Regenerate (details)**")
-        regen_notes_key = f"{key_prefix}regen_notes_details_{review_item['review_id']}"
-        st.text_area(
-            "How should the response be adjusted? (optional)",
-            key=regen_notes_key,
-            height=90,
-            placeholder="E.g., confirm price; keep to 1 sentence; propose call link",
-        )
-        if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_auto_details", use_container_width=False):
-            extra_guidance = st.session_state.get(regen_notes_key, "")
-            handle_regenerate(
-                review_item, selected_prompt_type, key_prefix, extra_guidance)
+        # Remove duplicate regenerate controls in details
 
     else:
         # MANUAL MODE: simplified layout
@@ -2617,30 +2571,7 @@ def display_action_buttons(review_item, edited_response, user_notes, manual_cont
             if st.button("🔍 Analyze Bio", key=f"{key_prefix}analyze_bio", use_container_width=True, help="Run Instagram analysis to get bio info"):
                 handle_analyze_bio(review_item['user_ig_username'])
 
-        # Regenerate section
-        st.markdown("**Regenerate (details)**")
-        regen_notes_key = f"{key_prefix}regen_notes_details_{review_item['review_id']}"
-        st.text_area(
-            "How should the response be adjusted? (optional)",
-            key=regen_notes_key,
-            height=90,
-            placeholder="E.g., confirm price question; keep to 1 sentence; propose call link",
-        )
-        if st.button("🔄 Regenerate", key=f"{key_prefix}regenerate_details", use_container_width=False, help="Generate a new response using bio and conversation context"):
-            extra_guidance = st.session_state.get(regen_notes_key, "")
-            # Persist Shannon's extra guidance for future runs (global/user-scoped)
-            try:
-                if extra_guidance and extra_guidance.strip():
-                    save_prompt_guidance(
-                        review_item.get('user_ig_username', ''),
-                        selected_prompt_type,
-                        extra_guidance.strip(),
-                        1.0
-                    )
-            except Exception:
-                pass
-            handle_regenerate(
-                review_item, selected_prompt_type, key_prefix, extra_guidance)
+        # Remove duplicate regenerate controls in details
 
 
 def handle_approve_and_send(review_item, edited_response, user_notes, manual_context, key_prefix):
@@ -3142,7 +3073,8 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix="", extra_gu
                         conversation_history,
                         original_prompt,
                         selected_prompt_type,
-                        extra_guidance=((extra_guidance or "") + "\n\n" + strict_block).strip()
+                        extra_guidance=((extra_guidance or "") +
+                                        "\n\n" + strict_block).strip()
                     )
                     enhanced_response_retry = postprocess_regenerated_response(
                         enhanced_response_retry, conversation_history, selected_prompt_type
@@ -3174,7 +3106,8 @@ def handle_regenerate(review_item, selected_prompt_type, key_prefix="", extra_gu
                         db_utils.add_to_learning_log(
                             review_id=review_id,
                             user_ig_username=user_ig,
-                            user_subscriber_id=review_item.get('user_subscriber_id', ''),
+                            user_subscriber_id=review_item.get(
+                                'user_subscriber_id', ''),
                             original_prompt_text=f"Incoming:\n{incoming_msg}\n\nGuidance:\n{(extra_guidance or '').strip()}",
                             original_gemini_response=prev_proposed or '',
                             edited_response_text=enhanced_response,
