@@ -256,12 +256,17 @@ def display_checkins_manager(analytics_data_dict):
 
     # Data migration utilities (SQLite → Postgres)
     try:
+        # Ensure we can import from project root
+        import sys
+        if sys.path[0] != os.getcwd():
+            sys.path.insert(0, os.getcwd())
         from scripts.migrate_sqlite_to_postgres import ensure_pg_tables, migrate_users, migrate_messages
-    except Exception:
+    except Exception as _e:
         ensure_pg_tables = migrate_users = migrate_messages = None
 
-    with st.expander("🛠 Data Migration (SQLite → Postgres)", expanded=False):
-        st.caption("Copy existing records from local SQLite into Postgres and verify counts.")
+    with st.expander("🛠 Data Migration (SQLite → Postgres)", expanded=True if os.getenv("DEBUG_DASHBOARD") else False):
+        st.caption(
+            "Copy existing records from local SQLite into Postgres and verify counts.")
 
         sqlite_path = "app/analytics_data_good.sqlite"
         db_url = os.getenv("DATABASE_URL")
@@ -294,14 +299,16 @@ def display_checkins_manager(analytics_data_dict):
                 with psycopg2.connect(db_url) as _pg:
                     with _pg.cursor() as _pc:
                         try:
-                            _pc.execute("SELECT to_regclass('public.users') IS NOT NULL")
+                            _pc.execute(
+                                "SELECT to_regclass('public.users') IS NOT NULL")
                             if (_pc.fetchone() or [False])[0]:
                                 _pc.execute("SELECT COUNT(*) FROM users")
                                 pg_users = (_pc.fetchone() or [0])[0]
                         except Exception:
                             pg_users = 0
                         try:
-                            _pc.execute("SELECT to_regclass('public.messages') IS NOT NULL")
+                            _pc.execute(
+                                "SELECT to_regclass('public.messages') IS NOT NULL")
                             if (_pc.fetchone() or [False])[0]:
                                 _pc.execute("SELECT COUNT(*) FROM messages")
                                 pg_messages = (_pc.fetchone() or [0])[0]
@@ -312,9 +319,11 @@ def display_checkins_manager(analytics_data_dict):
 
         col_a, col_b = st.columns(2)
         with col_a:
-            st.info(f"SQLite → users: {sqlite_users if sqlite_users is not None else 'n/a'}, messages: {sqlite_messages if sqlite_messages is not None else 'n/a'}")
+            st.info(
+                f"SQLite → users: {sqlite_users if sqlite_users is not None else 'n/a'}, messages: {sqlite_messages if sqlite_messages is not None else 'n/a'}")
         with col_b:
-            st.success(f"Postgres → users: {pg_users if pg_users is not None else 'n/a'}, messages: {pg_messages if pg_messages is not None else 'n/a'}")
+            st.success(
+                f"Postgres → users: {pg_users if pg_users is not None else 'n/a'}, messages: {pg_messages if pg_messages is not None else 'n/a'}")
 
         if st.button("Run migration from SQLite → Postgres", type="primary"):
             if not db_url:
@@ -330,7 +339,8 @@ def display_checkins_manager(analytics_data_dict):
                         ensure_pg_tables(_pg)
                         migrated_users = migrate_users(sqlite_path, _pg)
                         migrated_messages = migrate_messages(sqlite_path, _pg)
-                    st.success(f"✅ Migrated users: {migrated_users}, messages: {migrated_messages}")
+                    st.success(
+                        f"✅ Migrated users: {migrated_users}, messages: {migrated_messages}")
                     st.rerun()
                 except Exception as e:
                     st.error(f"Migration failed: {e}")
