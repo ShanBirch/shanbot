@@ -1336,29 +1336,57 @@ def _load_conversations_impl_pg() -> Dict[str, Dict]:
 
         with psycopg2.connect(DATABASE_URL) as pg_conn:
             with pg_conn.cursor(cursor_factory=RealDictCursor) as cur:
-                # Load recent users
+                # Discover available user columns to avoid errors on missing fields
                 try:
                     cur.execute(
                         """
-                        SELECT
-                          ig_username,
-                          COALESCE(subscriber_id, '') AS subscriber_id,
-                          first_name,
-                          last_name,
-                          COALESCE(is_in_checkin_flow_mon, FALSE) AS is_in_checkin_flow_mon,
-                          COALESCE(is_in_checkin_flow_wed, FALSE) AS is_in_checkin_flow_wed,
-                          last_interaction_timestamp,
-                          metrics_json,
-                          journey_stage
+                        SELECT column_name
+                        FROM information_schema.columns
+                        WHERE table_name = 'users'
+                        """
+                    )
+                    available_cols = {r["column_name"] for r in cur.fetchall() or []}
+                except Exception:
+                    available_cols = set()
+
+                mandatory_cols = ["ig_username"]
+                optional_cols = [
+                    "subscriber_id",
+                    "first_name",
+                    "last_name",
+                    "is_in_checkin_flow_mon",
+                    "is_in_checkin_flow_wed",
+                    "last_interaction_timestamp",
+                    "metrics_json",
+                    "journey_stage",
+                ]
+
+                select_cols: List[str] = []
+                for c in mandatory_cols + optional_cols:
+                    if c in available_cols:
+                        select_cols.append(c)
+
+                # Always include ig_username; bail if not present
+                if "ig_username" not in select_cols:
+                    logger.error("Postgres users table missing ig_username; cannot load conversations")
+                    return {}
+
+                order_clause = "last_interaction_timestamp" if "last_interaction_timestamp" in select_cols else "ig_username"
+
+                # Build and execute query dynamically
+                try:
+                    cur.execute(
+                        f"""
+                        SELECT {', '.join(select_cols)}
                         FROM users
                         WHERE ig_username IS NOT NULL AND ig_username <> ''
-                        ORDER BY last_interaction_timestamp DESC NULLS LAST
+                        ORDER BY {order_clause} DESC NULLS LAST
                         LIMIT 1000
                         """
                     )
                     users = cur.fetchall() or []
                 except Exception as e:
-                    logger.error(f"Postgres users query failed: {e}")
+                    logger.error(f"Postgres users dynamic query failed: {e}")
                     return {}
 
                 for u in users:
@@ -1441,8 +1469,8 @@ def _load_conversations_impl_pg() -> Dict[str, Dict]:
                             return text_val
                         return {}
 
-                    metrics_json = _safe_parse_json(u.get("metrics_json"))
-                    journey_stage = _safe_parse_json(u.get("journey_stage"))
+                    metrics_json = _safe_parse_json(u.get("metrics_json")) if "metrics_json" in u else {}
+                    journey_stage = _safe_parse_json(u.get("journey_stage")) if "journey_stage" in u else {}
 
                     conversations[ig_username] = {
                         "metrics": {
