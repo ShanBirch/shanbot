@@ -3040,11 +3040,128 @@ def update_analytics_data(
     lead_source: Optional[str] = None,
 ):
     """
-    Updates the analytics data in the SQLite database with the latest interaction
-    and user information. Creates a new user if one doesn't exist.
+    Updates analytics with the latest interaction and user info.
+    Prefers Postgres when configured; falls back to SQLite locally.
     """
     logger.debug(f"Updating analytics for subscriber_id: {subscriber_id}")
+    
+    # Postgres path
+    if USE_POSTGRES:
+        try:
+            import psycopg2
+            with psycopg2.connect(DATABASE_URL) as pg_conn:
+                with pg_conn.cursor() as cur:
+                    # Ensure minimal tables exist
+                    try:
+                        cur.execute(
+                            """
+                            CREATE TABLE IF NOT EXISTS users (
+                                ig_username TEXT PRIMARY KEY,
+                                subscriber_id TEXT,
+                                first_name TEXT,
+                                last_name TEXT,
+                                client_status TEXT,
+                                journey_stage TEXT,
+                                is_onboarding BOOLEAN,
+                                is_in_checkin_flow_mon BOOLEAN,
+                                is_in_checkin_flow_wed BOOLEAN,
+                                last_interaction_timestamp TEXT,
+                                client_analysis_json TEXT,
+                                offer_made BOOLEAN,
+                                is_in_ad_flow BOOLEAN,
+                                ad_script_state TEXT,
+                                ad_scenario INTEGER,
+                                lead_source TEXT,
+                                metrics_json TEXT
+                            );
+                            """
+                        )
+                        cur.execute(
+                            """
+                            CREATE TABLE IF NOT EXISTS messages (
+                                id SERIAL PRIMARY KEY,
+                                ig_username TEXT NOT NULL,
+                                subscriber_id TEXT,
+                                timestamp TEXT,
+                                message_type TEXT,
+                                message_text TEXT
+                            );
+                            """
+                        )
+                    except Exception:
+                        pass
 
+                    # Normalize direction
+                    def _normalize_direction(direction: str) -> str:
+                        if not direction:
+                            return 'unknown'
+                        d = direction.strip().lower()
+                        if d in ['incoming', 'user', 'client', 'lead', 'human']:
+                            return 'user'
+                        if d in ['outgoing', 'ai', 'bot', 'shanbot', 'shannon', 'assistant', 'system']:
+                            return 'ai'
+                        return d
+
+                    normalized_type = _normalize_direction(message_direction)
+
+                    # Upsert user by ig_username
+                    subscriber_id_to_use = subscriber_id if subscriber_id else ig_username
+                    cur.execute(
+                        """
+                        INSERT INTO users (
+                            ig_username, subscriber_id, first_name, last_name, client_status,
+                            journey_stage, is_onboarding, is_in_checkin_flow_mon, is_in_checkin_flow_wed,
+                            last_interaction_timestamp, client_analysis_json, offer_made, is_in_ad_flow,
+                            ad_script_state, ad_scenario, lead_source
+                        ) VALUES (
+                            %s, %s, %s, %s, %s,
+                            %s, %s, %s, %s,
+                            %s, %s, %s, %s,
+                            %s, %s, %s
+                        )
+                        ON CONFLICT (ig_username) DO UPDATE SET
+                            subscriber_id = EXCLUDED.subscriber_id,
+                            first_name = EXCLUDED.first_name,
+                            last_name = EXCLUDED.last_name,
+                            client_status = EXCLUDED.client_status,
+                            journey_stage = EXCLUDED.journey_stage,
+                            is_onboarding = EXCLUDED.is_onboarding,
+                            is_in_checkin_flow_mon = EXCLUDED.is_in_checkin_flow_mon,
+                            is_in_checkin_flow_wed = EXCLUDED.is_in_checkin_flow_wed,
+                            last_interaction_timestamp = EXCLUDED.last_interaction_timestamp,
+                            client_analysis_json = EXCLUDED.client_analysis_json,
+                            offer_made = EXCLUDED.offer_made,
+                            is_in_ad_flow = EXCLUDED.is_in_ad_flow,
+                            ad_script_state = EXCLUDED.ad_script_state,
+                            ad_scenario = EXCLUDED.ad_scenario,
+                            lead_source = EXCLUDED.lead_source
+                        ;
+                        """,
+                        (
+                            ig_username, subscriber_id_to_use, first_name, last_name, client_status,
+                            journey_stage, is_onboarding, is_in_checkin_flow_mon, is_in_checkin_flow_wed,
+                            timestamp, client_analysis_json, offer_made, is_in_ad_flow,
+                            ad_script_state, ad_scenario, lead_source,
+                        ),
+                    )
+
+                    # Insert message
+                    cur.execute(
+                        """
+                        INSERT INTO messages (ig_username, subscriber_id, timestamp, message_type, message_text)
+                        VALUES (%s, %s, %s, %s, %s)
+                        """,
+                        (ig_username, subscriber_id_to_use, timestamp, normalized_type, message_text),
+                    )
+
+                    pg_conn.commit()
+                    logger.info(f"Successfully updated analytics in Postgres for {ig_username}")
+                    return True
+        except Exception as e:
+            logger.error(f"Database error in update_analytics_data (Postgres) for {subscriber_id}: {e}")
+            return False
+
+    # SQLite fallback
     conn = None
     try:
         conn = sqlite3.connect(SQLITE_DB_PATH)
