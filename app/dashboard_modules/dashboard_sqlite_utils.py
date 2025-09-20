@@ -1063,9 +1063,21 @@ def ensure_performance_indexes(conn: sqlite3.Connection):
 
 
 def load_conversations_from_sqlite() -> Dict[str, Dict]:
-    """Load all user conversations and metrics from SQLite with performance optimizations."""
+    """Load conversations/metrics, preferring Postgres when configured.
+
+    We intentionally keep the same public function name to avoid touching
+    dashboard import sites. Under the hood we branch to a PG loader when
+    `USE_POSTGRES` is True, otherwise we fall back to the SQLite path.
+    """
     # Add caching to prevent repeated database calls
     import streamlit as st
+
+    if USE_POSTGRES:
+        @st.cache_data(ttl=300)
+        def _load_conversations_pg_cached():
+            return _load_conversations_impl_pg()
+
+        return _load_conversations_pg_cached()
 
     @st.cache_data(ttl=300)  # Cache for 5 minutes
     def _load_conversations_cached():
@@ -1306,6 +1318,188 @@ def _load_conversations_impl() -> Dict[str, Dict]:
     finally:
         if conn:
             conn.close()
+
+
+def _load_conversations_impl_pg() -> Dict[str, Dict]:
+    """Internal Postgres implementation of conversation loading.
+
+    Builds the same shape as the SQLite loader so downstream UI code works
+    unchanged. Selects a conservative set of columns that are expected to
+    exist across deployments; if optional columns are missing we default
+    to sensible placeholders.
+    """
+    try:
+        import psycopg2
+        from psycopg2.extras import RealDictCursor
+
+        conversations: Dict[str, Dict] = {}
+
+        with psycopg2.connect(DATABASE_URL) as pg_conn:
+            with pg_conn.cursor(cursor_factory=RealDictCursor) as cur:
+                # Load recent users
+                try:
+                    cur.execute(
+                        """
+                        SELECT
+                          ig_username,
+                          COALESCE(subscriber_id, '') AS subscriber_id,
+                          first_name,
+                          last_name,
+                          COALESCE(is_in_checkin_flow_mon, FALSE) AS is_in_checkin_flow_mon,
+                          COALESCE(is_in_checkin_flow_wed, FALSE) AS is_in_checkin_flow_wed,
+                          last_interaction_timestamp,
+                          metrics_json,
+                          journey_stage
+                        FROM users
+                        WHERE ig_username IS NOT NULL AND ig_username <> ''
+                        ORDER BY last_interaction_timestamp DESC NULLS LAST
+                        LIMIT 1000
+                        """
+                    )
+                    users = cur.fetchall() or []
+                except Exception as e:
+                    logger.error(f"Postgres users query failed: {e}")
+                    return {}
+
+                for u in users:
+                    ig_username = (u.get("ig_username") or "").strip()
+                    if not ig_username:
+                        continue
+
+                    # Load recent messages for this user (try new schema, then legacy)
+                    history: List[Dict[str, Any]] = []
+                    try:
+                        cur.execute(
+                            """
+                            SELECT timestamp, message_type, message_text
+                            FROM messages
+                            WHERE ig_username = %s
+                            ORDER BY timestamp DESC
+                            LIMIT 30
+                            """,
+                            (ig_username,),
+                        )
+                        rows = cur.fetchall() or []
+                        for r in rows:
+                            ts = r.get("timestamp")
+                            mtype = r.get("message_type") or "unknown"
+                            text = r.get("message_text") or ""
+                            if isinstance(text, str) and text.strip():
+                                history.append({
+                                    "timestamp": ts,
+                                    "type": mtype,
+                                    "text": text,
+                                })
+                    except Exception:
+                        try:
+                            cur.execute(
+                                """
+                                SELECT timestamp, sender, message
+                                FROM messages
+                                WHERE ig_username = %s
+                                ORDER BY timestamp DESC
+                                LIMIT 30
+                                """,
+                                (ig_username,),
+                            )
+                            rows = cur.fetchall() or []
+                            for r in rows:
+                                ts = r.get("timestamp")
+                                mtype = r.get("sender") or "unknown"
+                                text = r.get("message") or ""
+                                if isinstance(text, str) and text.strip():
+                                    history.append({
+                                        "timestamp": ts,
+                                        "type": mtype,
+                                        "text": text,
+                                    })
+                        except Exception:
+                            history = []
+
+                    # Deduplicate and normalize order
+                    seen = set()
+                    unique_history: List[Dict[str, Any]] = []
+                    for msg in history:
+                        key = (msg.get("timestamp"), (msg.get("text") or "")[:50])
+                        if key not in seen:
+                            seen.add(key)
+                            unique_history.append(msg)
+                    try:
+                        unique_history.sort(key=lambda x: x.get("timestamp") or "", reverse=True)
+                        unique_history = unique_history[:30]
+                        unique_history.reverse()
+                    except Exception:
+                        pass
+
+                    def _safe_parse_json(text_val):
+                        if isinstance(text_val, str) and text_val.strip():
+                            try:
+                                return json.loads(text_val)
+                            except Exception:
+                                return {}
+                        if isinstance(text_val, dict):
+                            return text_val
+                        return {}
+
+                    metrics_json = _safe_parse_json(u.get("metrics_json"))
+                    journey_stage = _safe_parse_json(u.get("journey_stage"))
+
+                    conversations[ig_username] = {
+                        "metrics": {
+                            "ig_username": ig_username,
+                            "subscriber_id": u.get("subscriber_id"),
+                            "metrics_json": metrics_json,
+                            "calorie_tracking": {},
+                            "workout_program": {},
+                            "meal_plan": {},
+                            "client_analysis_json": None,
+                            "client_analysis": {},
+                            "is_onboarding": False,
+                            "is_in_checkin_flow_mon": bool(u.get("is_in_checkin_flow_mon") or False),
+                            "is_in_checkin_flow_wed": bool(u.get("is_in_checkin_flow_wed") or False),
+                            "client_status": None,
+                            "bio": None,
+                            "first_name": u.get("first_name"),
+                            "last_name": u.get("last_name"),
+                            "bio_analysis_status": None,
+                            "last_updated": None,
+                            "is_in_ad_flow": False,
+                            "ad_script_state": None,
+                            "ad_scenario": None,
+                            "lead_source": None,
+                            "offer_made": False,
+                            "challenge_email": None,
+                            "challenge_type": None,
+                            "challenge_signup_date": None,
+                            "paid_challenge_booking_status": None,
+                            "paid_challenge_booking_date": None,
+                            "last_interaction_timestamp": u.get("last_interaction_timestamp"),
+                            "bio_context": None,
+                            "client_stage": None,
+                            "client_next_step": None,
+                            "client_style": None,
+                            "client_goals": None,
+                            "client_barriers": None,
+                            "client_interests": None,
+                            "client_motivation": None,
+                            "client_personality": None,
+                            "email": None,
+                            "phone_number": None,
+                            "journey_stage": journey_stage,
+                            "last_follow_up_timestamp": None,
+                            "follow_up_count": 0,
+                            "tags": None,
+                            "total_messages": len(unique_history),
+                            "conversation_history": unique_history,
+                        },
+                        "history": unique_history,
+                    }
+
+        logger.info(f"Successfully loaded {len(conversations)} users from Postgres (optimized)")
+        return conversations
+    except Exception as e:
+        logger.error(f"Error loading conversations from Postgres: {e}", exc_info=True)
+        return {}
 
 
 def ensure_table_exists(conn: sqlite3.Connection, table_name: str, columns: Dict[str, str]):
