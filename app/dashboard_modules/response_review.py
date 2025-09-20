@@ -2340,7 +2340,8 @@ Recent context (last up to 6 messages):
                      height=100, disabled=True, key=f"user_msg_details_{review_id}")
 
         # Details expander avoids duplicate editors/actions; actions live at the top.
-        st.caption("Actions and regeneration are at the top. This section is for context only.")
+        st.caption(
+            "Actions and regeneration are at the top. This section is for context only.")
 
 
 @st.cache_data(ttl=600)  # Cache for 10 minutes - bio analysis is expensive
@@ -3807,10 +3808,37 @@ def trigger_instagram_analysis_for_user(ig_username: str) -> tuple[bool, str]:
         logger.info(
             f"Created analysis file for {clean_username}: {temp_file_path}")
 
-        # Step 4: Verify the analyzer script exists
-        analyzer_script_path = r"C:\Users\Shannon\OneDrive\Desktop\shanbot\anaylize_followers.py"
-        if not os.path.exists(analyzer_script_path):
-            return False, f"❌ Analyzer script not found at {analyzer_script_path}"
+        # Step 4: Resolve analyzer script path with fallbacks
+        # Prefer repo-relative path; fall back to historical absolute if present
+        repo_root = os.getcwd()
+        analyzer_candidates = [
+            os.path.join(repo_root, "anaylize_followers.py"),
+            os.path.join(repo_root, "analyze_followers.py"),
+            r"C:\\Users\\Shannon\\OneDrive\\Desktop\\shanbot\\anaylize_followers.py",
+        ]
+        analyzer_script_path = next(
+            (p for p in analyzer_candidates if os.path.exists(p)), None)
+
+        # If running on Render or the script isn't available, queue a lightweight DB update instead
+        if analyzer_script_path is None or os.name != 'nt':
+            try:
+                # Mark analysis as queued in users table so a local job can pick it up later
+                conn = db_utils.get_db_connection()
+                cur = conn.cursor()
+                try:
+                    cur.execute(
+                        "ALTER TABLE users ADD COLUMN IF NOT EXISTS bio_analysis_status TEXT")
+                    conn.commit()
+                except Exception:
+                    pass
+                cur.execute("UPDATE users SET bio_analysis_status = ? WHERE ig_username = ?",
+                            ("queued", clean_username))
+                conn.commit()
+                conn.close()
+                return True, "✅ Bio analysis queued. Run the local analyzer to process the queue."
+            except Exception as e:
+                logger.error(f"Queue fallback failed: {e}")
+                return False, "❌ Analyzer script not available in this environment. Please run locally."
 
         # Step 5: Prepare command with explicit arguments for single user analysis
         cmd = [
